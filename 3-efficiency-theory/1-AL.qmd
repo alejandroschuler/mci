@@ -1,0 +1,105 @@
+# Asymptotic Linearity
+
+## What do we want from estimators?
+
+Let's forget about what we know about estimators for a second and start from scratch. What is it that we *want* from an estimator in the first place? Can we set some "dealbreaker" conditions and some "nice-to-haves"? Ultimately any estimator $\hat\Psi: \mathbb P_n \to \mathbb R$ is characterized entirely by its sampling distribution at a given $n$, for a given $P$ i.e. the distribution of the random variable $\Psi(\mathbb P_n)$. What would we want these sampling distributions to look like relative to some truth $\Psi(\mathbb P)$? I invite you to stop reading at this point and brainstorm some ideas.
+
+To start with, let's shoot the moon: why not demand that the estimate is always *exactly* equal to the estimand, i.e. $\hat\Psi(\mathbb P_n) = \Psi(\mathbb P)$ for all distributions $\mathbb P$ in the model $\mathcal P$? That might seem completely absurd to you but it's worth taking a second to ask why that is really such a crazy thing to demand. It is less extreme to ask that our estimate is correct *on average*, but even this is usually not possible to do. So let's start with asking that our estimator is *asymptotically* unbiased: the estimate is more or less right on average given a large-enough sample size. 
+
+If I have two estimators that are both unbiased, which is better? Since the total estimation error $\mathbb E[(\hat\psi - \psi)^2]$ can be decomposed to $\mathbb E[\hat\psi-\psi]^2 + \mathbb V[\hat\psi]$, the unbiased estimator with the smallest overall error will be the one with the smallest variance. Therefore we should desire estimators that have small (asympytotic) sampling variance, subject to being (asymptotically) unbiased.
+
+Let's throw in a practical consideration. When we estimate a quantity we usually report confidence intervals or p-values alongside the point estimate. Those inferential statistics depend on having some estimate of the sampling variance of our estimator, which we usually construct based on a theoretical understanding of what that sampling distribution should be. Many commonly used estimators are known to be asymptotically normal, which greatly facillitates inference. Therefore another desired criterion might be that our estimator should have a theoreticlly understood sampling distribution.
+
+Let's summarize our list of what we want out of our estimator so we can easily refer back:
+
+1. asymptotically unbiased
+2. small asymptotic sampling variance
+3. well-understood sampling distribution
+
+## Asymptotic Linearity
+
+Given these criteria, let's simplify our problem of finding an optimal estimator to finding an optimal estimator among those that are *asymptotically linear*. I'll lay out what that means, argue for why it's a reasonable restriction given our criteria above, and then explain why this restriction is helpful in characterizing optimality.
+
+::: Definition
+## Asymptotic Linearity
+As before, assume that $Z_i$ are drawn IID from some distribution $\mathbb P$. An _asymptotically linear_ estimator $\hat\psi$ is one that can be written like
+$$
+\hat\psi = \psi + \frac{1}{n} \sum_i \phi(Z_i) + o_{\mathbb P}(n^{-1/2})
+$$
+
+for some mean-zero function $\phi$ with finite variance, i.e. $\mathbb V[\phi(Z)] < \infty$.
+:::
+
+::: {.callout-tip}
+If you don't really understand what $o_{\mathbb P}(n^{-1/2})$ means in the definition above or why it implies the sample mean term "dominates" asymptotically, see the explainer on the convergence of random variables in @sec-app-rv-convergence. 
+:::
+
+The function $\phi$ is called the *influence function* of the estimator $\hat\psi$. A better name for it could be the "averaging transformation" of the data for a given estimator because once the data have been transformed by $\phi$, the estimator can be closely approximated by the truth plus a sample average of those transformed variables (which have mean zero). In large samples, sample averages of mean-zero variables behave like Gaussian random noise. It's somewhat remarkable that a huge number of very complicated estimators actually behave this way, as we will see shortly.
+
+::: Example
+## Sample Mean
+The sample mean estimator is one example of an asymptotically linear estimator. To see that, write $\hat\psi = \frac{1}{n} \sum Z_i$ as $\hat\psi - \psi = \frac{1}{n} \sum \underbrace{(Z_i - \psi)}_{\phi(Z_i)}$. For this estimator, the remainder term is exactly 0, which clearly satisfies the requirement of being $o_{\mathbb P}(n^{-1/2})$.
+:::
+
+By definition, every asymptotically linear estimator has an influence function: having one is what makes the estimator asymptotically linear. Also by definition, the influence function has to be an $\mathcal L_2$ function and it has to have mean zero under $\mathbb P$. 
+
+::: {.callout-tip}
+$\phi \in \mathcal L_2(\mathbb P)$ is another way of saying $\mathbb V_{\mathbb P}[\phi(Z)] < \infty$. For the moment it's not vital to understand what $\mathcal L_2(\mathbb P)$ is but it will become very hepful shortly. @sec-app-L2 contains an explainer that you can look at now if you like but it's also ok to hold off.
+:::
+
+The influence function for an estimator also depends on the distribution of the data. For example, in the case of the sample mean we saw that $\phi(z) = z - \psi$ which we should really write as $\phi_{\mathbb P}(z) = z - \Psi(\mathbb P)$ to emphasize that this particular influence function depends on the mean of $Z$ *under the distribution $\mathbb P$*. Often we write something like $\phi_{\mathbb P}(z)$ or even $\phi(\mathbb P)(z)$ to mean the influence function of a given estimator *at a particular distribution $\mathbb P$*. But more often than not we leave the $\mathbb P$ part implicit to minimize notational clutter.
+
+In fact, it's more appropriate to say that an estimator is asymptotically linear *for some set of distributions*, i.e. within some model. But usually the restiction on the set of distributions is not particularly meaningful so we just say the estimator is "asymptotically linear (under regularity conditions)" and leave it at that. 
+
+::: Exercise
+Let's presume that $Z$ are drawn from a distribution $\mathbb P$ such that $\sqrt n \frac{1}{n} Z_i$ diverges as a random variable (see @sec-app-bigO for a defintion of divergence of random variables). Why does this tell you that the sample mean cannot be asymptotically linear at $\mathbb P$? 
+
+A "textbook example" of such a distribution is $\text{Pareto}(1,1.5)$, but this happens for many "fat-tailed" distributions. You can ask your favorite large language model if you want to see a proof that $\sqrt n \frac{1}{n} Z_i$ diverges. The point of this example isn't to convince you that the sample mean isn't asymptotically linear (it is for essentially all distributions we care about), it's just to cement the idea that asymptotic linearity of an estimator technically depends on what distributions you're talking about and to better understand the definition by considering a counterexample.
+:::
+
+It's totally possible for two different estimators to have the same influence function (at each distribution). This is because two different algorithms can turn out to behave very similarly as the sample size increases. For example, we could construct a very silly alternative estimator for the mean by adding $1/n$ to our sample mean estimate. This extra term is certainly converging to zero at better than a $\sqrt{n}$ rate so it is negligible and the influence function for our alternative estimator is the same as for the sample mean. We'll also see the idea of two different estimators sharing an influence function come up later when we discuss different strategies for building optimal estimators: the estimators we get from using each strategy may be different, but they all have the same influence function and therefore all behave similarly in large-enough samples.
+
+At this point you may be worried about how you can take your favorite estimator and derive its influence function. It's often possible to prove an estimator is aymptotically linear, but in this book we actually won't need to do that. We're going to go the other direction: starting from the estimand, we're going to come up with a way to determine the "best" possible influence function and then *construct* an estimator around it.
+
+## Benefits of AL Estimators
+Given our desiderata, asymptotically linear (AL) estimators are a very sensible class of estimators to restrict ourselves to. For one, AL estimators are guaranteed to be consistent: that is, they converge to the estimand in probability and are thus asymptotically unbiased. This is guaranteed by the fact that any influence function $\phi$ is mean-zero so the associated sample mean converges to 0 by the law of large numbers. 
+
+::: Exercise
+Consider the silly estimator $\hat\psi = 0$ when attempting to estimate the population mean $\mathbb E[Z]$ in a model containing all possible finite-mean distributions of $Z$. Is this estimator asymptotically linear across the entire model? Why or why not?
+:::
+
+Another related benefit of asymptotically linear estimators is that they satisfy our practical requirement of understanding the sampling distribution. By the central limit theorem, $\psi + \mathbb P_n \phi$ looks more and more like $\psi + \mathcal N(0, \mathbb V[\phi(Z)]/n)$ as the sample size increases. The remaining term $o_{\mathbb P}(n^{-1/2})$ is negligible in comparison (by definition). More often you will see this written formally as $\sqrt{n} (\hat\psi - \psi) \rightsquigarrow \mathcal N(0, \sigma^2)$ where $\sigma^2 = \mathbb V[\phi(Z)] = \mathbb P \phi^2$ (since $\phi$ has mean zero). We call $\sigma^2$ the _asymptotic variance_ of our estimator. At any finite sample, the sampling variance of the estimate is roughly given by $\sigma^2/n$. Since the asymptotic variance is given by the variance of the influence function, understanding the influence function is all we need to understand the sampling distribution. 
+
+Constructing asymptotically valid confidence intervals and p-values for any asymptotically linear estimator is therefore as simple as consistently estimating $\sigma^2 = \mathbb P \phi^2$. For example, to construct a 95% CI we would simply take $[\hat\psi - 2\hat\sigma/\sqrt{n}, \hat\psi + 2\hat\sigma/\sqrt{n}]$ (this is a "Wald-type" confidence interval). 
+
+::: Example
+## Variance of the sample mean
+In the case of the sample mean estimator $\hat\psi = \frac{1}{n} \sum Z_i$ we previously saw the influence function was $\phi(z) = z - \psi$. A plug-in estiamate of $\mathbb P\phi^2$ is therefore given by $\frac{1}{n} \sum \hat\phi(Z_i)^2 = \frac{1}{n} \sum (Z_i - \hat\phi)^2$
+:::
+
+::: Example
+## Variance of ordinary least squares coefficients
+Let's say we're trying to estimate the regression coefficients in a linear model. Let $(Y,X) \sim \mathbb P$ with $X \in \mathbb R^d$. Let $\beta_0 = \text{argmin}_\beta \mathbb E\left[(Y - X\beta)^2\right]$ be the coefficients that minimize the population mean squared error. This will be our estimand. We haven't assumed the $Y$ vs. $X$ relationship is truly linear, we're just estimating the best linear approximation. As an estimator we will use the ordinary least squares (OLS) estimate $\hat\beta = \text{argmin}_\beta \frac{1}{n} \sum \left[(Y_i - X_i\beta)^2\right]$. 
+
+It is a well-known result that the OLS estimator is asymptotically linear under mild regularity conditions. For one proof of this see chapter 5 of Asymptotic Statistics (but it's not important at the moment). The influence function is
+$$
+\phi(x,y) = \mathbb E[XX^\top]^{-1} x(y - x^\top \beta)
+$$
+
+You may recognize this because it's where the "sandwich" estimator (also known as "Huber-White" or "robust" estimator) of the standard error comes from. The (asymptotic) sandwich standard error is a plug-in estimate for the quantity $\mathbb E[XX^\top]^{-1} \mathbb E[X(Y - X^\top \beta)^2 X^T] \mathbb E[XX^\top]^{-1}$, which is nothing other than $\mathbb P \phi\phi^\top$, i.e. the equivalent of $\mathbb P \phi^2$ when $\phi$ is a vector-valued function (as is the case when the estimand is a vector).
+
+In this example the dependence on $\mathbb P$ is through the expectation $\mathbb E[XX^\top] = \mathbb E_{\mathbb P}[XX^\top]$ and the true best regression coefficients $\beta = \beta_{\mathbb P}$. As usual, I've left off the explicit dependence on $\mathbb P$ in the notation.
+
+The interesting thing about this example is that computing the estimate involves a fairly complex algorithm: either gradient descent or a series of matrix multiplications and inversions. It's not a "simple" estimator like the sample mean. Nonetheless, in large enough samples, the estimator behaves as if if were just a sample mean of a transformation of the data. 
+
+OLS is a special case of a huge class of estimators called M-estimators. Others include sample quantiles, robust regressions, and many others. All of these are asymptotically linear under mild regularity conditions.
+:::
+
+In our list of desired characteristics we also wrote that we wanted estimators to have as small a variance as possible. Asymptotic linearity by itself doesn't guarantee small vaiance, but it does give us a very easy way to compare two estimators. If we have estimators $\hat\psi_1$ and $\hat\psi_2$ which are both asymptotically linear, then all we need to know to decide which one is better (in large-enough samples) is to compare their asymptotic variances which are given by $\mathbb P \phi_1^2$ and $\mathbb P \phi_2^2$. Given our definition of the $\mathcal L_2(\mathbb P)$ norm, this is the same as comparing $\|\phi_1\|$ to $\|\phi_2\|$. In other words, the better estimator is whichever has the "smaller" influence function! In the following sections this is the key insight we will use to construct optimal estimators.
+
+
+::: {.callout-tip}
+At this point you should look at @sec-app-L2 if you don't understand what I mean by the "$\mathcal L_2(\mathbb P)$ norm".
+:::
+
+You may be concerned that the theory of optimality we are building is only valid for asymptotically linear estimators. If there are many practically useful estimators that are *not* AL, this could be a problem because we're not able to usefully compare them. We'll discuss this more in a later section but the short answer is that AL estimators are an extremely broad class and we're not leaving much of anything on the table.

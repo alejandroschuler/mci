@@ -1,0 +1,86 @@
+filters:
+  - diagram
+  - custom-numbered-blocks
+
+diagram:
+  cache: false
+  engine:
+    tikz:
+      header-includes:
+        - '\usepackage{adjustbox, tikz-3dplot, amsmath}'
+        - '\usetikzlibrary{arrows, angles, quotes, arrows.meta, shapes, calc}'
+
+project:
+  type: book
+
+book:
+  title: "Introduction to Modern Causal Inference"
+  author: "Alejandro Schuler, Mark van der Laan"
+  chapters:
+    - index.qmd
+    - part: 3-efficiency-theory/0-intro.qmd
+      chapters:
+      - 3-efficiency-theory/1-AL.qmd
+      - 3-efficiency-theory/2-regularity.qmd
+  appendices:
+    - 5-appendix/1-rv-convergence.qmd
+    - 5-appendix/2-L2.qmd
+
+execute:
+  freeze: auto  # re-render only when source changes
+
+custom-numbered-blocks:
+  classes:
+    Theorem:
+      label: "Theorem"
+      colors: [f2f2f2, 4a4a4a]    # light grey bg + dark grey accent
+      collapse: false
+      boxstyle: foldbox.simple
+    Proof:
+      label: "Proof"
+      numbered: false
+      colors: [ffffff, f2f2f2]    # white bg + light grey accent
+    Definition:
+      label: "Definition"
+      colors: [f2f2f2, 4a4a4a]    # light grey bg + dark grey accent
+      collapse: false
+      boxstyle: foldbox.simple
+    Exercise:
+      label: "Exercise"
+      colors: [ffebee, b71c1c] # light red background + dark red accent
+      collapse: false
+      boxstyle: foldbox.simple
+    Example:
+      label: "Example"
+      colors: [fff3cd, 856404] # light yellow background + dark yellow/brown accent
+      collapse: false
+      boxstyle: foldbox.simple
+
+bibliography: references.bib
+
+# must generate html and pdf SEPARATELY for tikz to work!!
+format:
+  html:
+    # filters:
+    #   - tikz
+    theme:
+      - cosmo
+      - brand
+    grid:
+      body-width: 1200px
+  pdf: {}
+  #   cleaning: false
+    # header-includes:
+      # - \usepackage{graphicx}
+      # - \usepackage{amsmath}
+      # - \usepackage{xcolor}
+      # - \usepackage{amsfonts}
+      # - \usepackage{tikz}
+      # - \newcommand{\Pr}{\mathbb P}
+      # - \newcommand{\ltwo}[1]{\mathcal L_2({#1})}
+
+params:
+  title: Introduction to Modern Causal Inference
+  author: Alejandro Schuler, Mark van der Laan
+
+
