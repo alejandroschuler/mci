@@ -1,0 +1,26 @@
+# Quarto build artifacts
+_book/
+_site/
+_quarto/
+.quarto-cache/
+.cache/
+
+# intermediate/output files
+*.utf8.md
+*.html
+*.pdf
+*.docx
+*.tex
+*.log
+*.out
+*.aux
+
+# R (if you have any R code chunks)
+.Rhistory
+.RData
+.Rproj.user/
+
+# editor and OS cruft
+.DS_Store
+.vscode/
+node_modules/
