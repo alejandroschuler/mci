@@ -97,21 +97,39 @@ There are some functions which have infinite or undefined $\mathcal L_2$ norm. F
 Consider the functions $f = 1_{[0,1]}$ and $g = 1_{[2,3]}$. According to our inner product, these two functions are orthogonal (compute the integral and see). If this is not obvious to you at first, consider the finite-dimensional vectors $[0,1]$ and $[1,0]$: hopefully these are "obviously" orthogonal to you: you can visualize them as unit vectors along the two axes of $\mathbb R^2$. Our two functions are no different: $f$ is nonzero along the "axes" corresponding to the indices in $[0,1]$ while $g$ is nonzero only along "axes" $[2,3]$. If you imagine them as long dense "vectors" you'll see that $f$ and $g$ have ones in different places, the same way that $[0,1]$ and $[1,0]$ do.
 :::
 
-The last wrinkle is that until now I've used the standard Riemman integral (with the differential $\text{d}x$) to define $\mathcal L_2$ but that is not quite right. In reality it's slightly more complicated. We formally define $\mathcal L_2(\mathbb P)$ to be the space of *$\mathbb P$-measureable, square-Lebesgue-integrable* functions. The measurability is a technical condition that rules out some extremely esoteric corner cases that you don't need to worry about: read up on measure theory if you want to learn more. Although the $\mathcal L$ in $\mathcal L_2$ stands for "Lebesgue", the "Lebesgue" part is also not terribly important. The Lebesgue integral is a formalization of the integral that can integrate strictly more functions than the Riemann integral, but any function that is Riemann integrable Lebesgue-integrates to the same value so it doesn't make much difference in terms of intution. 
+A further wrinkle is that until now I've used the standard Riemman integral (with the differential $\text{d}x$) to define $\mathcal L_2$ but that is not quite right. In reality it's slightly more complicated. We formally define $\mathcal L_2(\mathbb P)$ to be the space of *$\mathbb P$-measureable, square-Lebesgue-integrable* functions. The measurability is a technical condition that rules out some extremely esoteric corner cases that you don't need to worry about: read up on measure theory if you want to learn more. Although the $\mathcal L$ in $\mathcal L_2$ stands for "Lebesgue", the "Lebesgue" part is also not terribly important. The Lebesgue integral is a formalization of the integral that can integrate strictly more functions than the Riemann integral, but any function that is Riemann integrable Lebesgue-integrates to the same value so it doesn't make much difference in terms of intution. 
 
-The important part is the $\mathbb P$: one of the strengths of the Lebesgue integral is that it can be defined with respect to any "measure" (probability distributions are formally mathematical objects called measures). When you integrate "with respect to a distribution $\mathbb P$" you write $\int f \ \text{d} \mathbb P$ or $\int f(z) \ \text{d} \mathbb P(z)$ to indicate more explicitly that $\mathbb P$ is a distribution over $Z$ and that this is also the argument of $f$. If you're not familiar with measure theory (I don't expect you to be), when you see an integral with respect to a distribution $\mathbb P$ you should read it as 
+The important part is the $\mathbb P$: one of the strengths of the Lebesgue integral is that it can be defined with respect to any "measure" (probability distributions are formally mathematical objects called measures). When you integrate "with respect to a distribution $\mathbb P$" you write $\int f \ \text{d} \mathbb P$ or $\int f(z) \ \text{d} \mathbb P(z)$ to indicate more explicitly that $\mathbb P$ is a distribution over $Z$ and that $f$ takes arguments in the range of $Z$. If you're not familiar with measure theory (I don't expect you to be), when you see an integral with respect to a continuous distribution $\mathbb P(Z)$ with density function $p(z)$ you should read it as 
 $$
-\mathbb P f = \int f(z) \ \text{d} \mathbb P(z) = \int f(z) \ p(z) \text{d}z = \mathbb E_{\mathbb{P}}[f(Z)]
+\int f(z) \ \text{d} \mathbb P(z) = \int f(z) \ p(z) \text{d}z = \mathbb E_{\mathbb{P}}[f(Z)]
 $$
 
-where $p(z)$ is the density of the distribution $\mathbb P(Z)$. In other words, you can think of the differential $\text{d}\mathbb P$ as weighting different parts of the domain of $z$ in the integral by the probability of $z$ falling into them. Integrating a function with respect to a distribution over $Z$ is the same as taking its expectation over the distribution of $Z$. 
+In other words, you can think of the differential $\text{d}\mathbb P$ as weighting different parts of the domain of $z$ in the integral by the probability of $z$ falling into them. Integrating a function with respect to a distribution over $Z$ is the same as taking its expectation over the distribution of $Z$. 
+
+However, $\mathcal L_2(\mathbb P)$ spaces can also be defined when $\mathbb P(Z)$ is a discrete distribution (with probability mass function $p(z)$). In that case, $\int f(z) \ \text{d} \mathbb P(z) = \sum f(z) \ p(z) = \mathbb E_{\mathbb{P}}[f(Z)]$. The integral is also defined for distributions that are neither strictly continuous or discrete (e.g. $Z$ is 0 half the time and a standard normal the other half; think of a normal density with an infinite "spike" of mass 1/2 at 0). You don't have to worry about this to get all the intuition you need for this book.
+
+You'll notice that some functions will be square-integrable under some distributions but not under others. There isn't really one single $\mathcal L_2$ space when we're working with probability distributions. In the wild, if you see "$\mathcal L_2$", that's short for the $\mathcal L_2$ space based on the Lebesgue measure: roughly speaking, the integrals used to define the norm and inner product don't use any weights on the real number line. But we'll always be working with $\mathcal L_2(\mathbb P)$ for some particular $\mathbb P$. Nonetheless I may sometimes refer to "$\mathcal L_2$" generically. If I do that, it's just as a shorthand for $\mathcal L_2(\mathbb P)$ for a specific distribution that is clear from context or for any generic distribution. Similarly, if we write a norm or inner product we should technically always specify the relevant space, i.e. $\| f  \|_{\mathcal L_2(\mathbb P)}$ or $\langle f,g \rangle_{\mathcal L_2(\mathbb P)}$. However, to minimize notational burder we often leave off the details of the space and/or base measure when they are clear from context.
+
+::: Example 
+$f(z) = z^{-1/2}$ is square-integrable if $Z \sim \text{Unif}[2,3]$ but not if $Z \sim \text{Unif}[0,1]$. 
+:::
+
+The very last detail we need to attend to is that two different (pointwise) functions need to be considered "equivalent" in $\mathcal L_2$. This is a very minor detail that you can quickly forget about for most purposes but I'll go over it here for completeness. 
+
+In finite-dimensional vector spaces, if you have two vectors $v$ and $u$ and $\|v-u\|=0$, then $v=u$. We'd like this to work in $\mathcal L_2$ but it doesn't without a little extra massaging.
+
+::: Exercise
+Take $f(z) = 1(z=0)$ and $g(z) = 0$. Argue that under any distribution $\mathbb P$ which has a density we get $\|f-g\|=0$ for the $\mathcal L_2(\mathbb P)$ norm.
+:::
+
+The problem in this exercise is that the $\mathcal L_2$ distance "ignores" pointwise differences (in fact any countable number of them). Therefore in order to get our vector space to work the same way as $\mathbb R^d$ we need to say that $f$ and $g$ are effectively the same function as far as $\mathcal L_2(\mathbb P)$ is concerned. Formally, we say that the elements (vectors) of $\mathcal L_2(\mathbb P)$ are not functions themselves, but groups of functions that are equivalent to each other for purposes of computing norms or inner products. We call these groups *equivalence classes*. Again, this is not really that critical to understand and doesn't have many implications as far as this book is concerned. Practically speaking, everyone considers *functions* to be the vector elements of $\mathcal L_2$ spaces and 
 
 Now we can finally state our "offical" definition of $\mathcal L_2(\mathbb P)$:
 
 ::: Definition
 # $\mathcal L_2(\mathbb P)$
 
-Given a distribution $\mathbb P$, The vector space $\mathcal L_2(\mathbb P)$ is the set of all functions $f$ for which the norm $\| f\|^2 = \mathbb P f^2$ is defined and finite. We equip this set with the inner product $\langle f,g \rangle = \mathbb P fg$ which induces the norm.
+Given a distribution $\mathbb P$, The vector space $\mathcal L_2(\mathbb P)$ is the set of equivalence classes of functions $f$ for which the norm $\| f\|^2 = \mathbb P f^2$ is defined and finite. We equip this set with the inner product $\langle f,g \rangle = \mathbb P fg$ which induces the norm.
 :::
 
 ::: Exercise
@@ -127,12 +145,6 @@ For functions that have zero mean ($\mathbb E[f(Z)]=0$), this is the variance $\
 
 ::: Exercise
 Let a random variable $Z$ and functions $f,g$ be such that $\mathbb E[f(Z)] = \mathbb E[g(Z)]=0$. Use the definitions of epxectation and covarinance to show that $E[f(Z)^2] = \|f\|^2$ and $\mathbb C[f(Z),g(Z)] = \langle f, g \rangle$ where the norm and inner product are with respect to $\mathcal L_2(\mathbb P)$.
-:::
-
-You'll notice that some functions will be square-integrable under some distributions but not under others. So naturally if we talk about $\mathcal L_2$ we need to specify what base measure we are using. Similarly, if we write a norm or inner product we should again specify the relevant space, i.e. $\| f  \|_{\mathcal L_2(\mathbb P)}$ or $\langle f,g \rangle_{\mathcal L_2(\mathbb P)}$. However, to minimize notational burder we often leave off the details of the space and/or base measure when they are clear from context.
-
-::: Example 
-$f(z) = z^{-1/2}$ is square-integrable if $Z \sim \text{Unif}[2,3]$ but not if $Z \sim \text{Unif}[0,1]$. 
 :::
 
 $\mathcal L_2$ is the canonical example of a *Hilbert space*, which is just an inner product space that contains its limits. So if you see that term anywhere and aren't familiar with it, just think of $\mathcal L_2$ or $\mathbb R^d$. We won't look at Hilbert spaces besides these in this book but nonetheless I'll use the term "Hilbert space" just so I don't have to write out "$\mathcal L_2$ or $\mathbb R^d$" every time.
@@ -189,6 +201,17 @@ Let $\mathbb P(Z)$ be such that $Z ~ \text{Unif}(0,10)$. Let $f(z) = 1(0< z<1)$ 
 The Pythagorean theorem often comes up in the context of projection. Recall that in finite-dimensional vector spaces a *subspace* is a smaller vector space that is contained in the original vector space. For example, in 3-dimensional space, the $x$-$y$ plane is a 2-dimensional subspace because any linear combination of vectors in that plane remain in the plane: thus it is a vector space in its own right. Subspaces are often constructed as a span (linear combination) of some set of vectors, e.g. the span of $\{[-2,0,0], [0,5,0]\}$ gives the $x$-$y$ plane in 3D space. In infinite dimensions subspaces are defined in exactly the same way.
 
 Although they sound similar, you should not confuse a sub*space* with a sub*set*. Any set of vectors can be a subset of the original vector space. A subspace, however, has to still itself be a vector space in its own right. 
+
+::: Example
+Consider the subset of $\mathcal L_2(P)$ comprised of all functions that have zero mean under $\mathbb P$, i.e. functions $f$ where $\mathbb E[f(Z)] = 0$. This subset $\mathcal V$ is actually a sub*space* because it is a vector space. To verify that we just need to check that $\mathcal V$ is a vector space: if we add and scale elements with it, the results are still in $\mathcal V$.
+
+To that end, let $f$ and $g$ be any functions in $\mathcal V$ and let $c$ be a scalar constant. Since
+$$
+\mathbb E[cf(Z) + g(Z)] = c\mathbb E[f(Z)] + \mathbb E[g(Z)] = 0,
+$$
+
+$cf + g$ satisfies the condition required for membership in $\mathcal V$, proving it is a vector space.
+:::
 
 ::: Exercise
 Let $\mathbb P$ be the standard uniform distribution. Convince yourself that in $\mathcal L_2(\mathbb P)$, the set of linear functions $\{f: f(z) = mz + b\}$ is a subspace and is spanned by $\{f(z)=1, f(z) = z\}$ (thus making it a two-dimensional subspace!). Can you think of a subspace of this subspace? Can you think of a subset of linear functions that is *not* a subspace?
@@ -521,15 +544,15 @@ $$
 
 which is the correlation between the random variables $f(Z)$ and $g(Z)$. This must also be between -1 and 1. This also gives a geometric interpretation to the correlation coefficient: it's a measure of the "angle" between two random variables viewed as vectors in $\mathcal L_2(\mathbb P)$.
 
-::: Example
+::: {.Example #example-bounding-integral}
 # Bounding an Integral
 Suppose I know $f \in \mathcal L_2(\mathbb P)$. In many problems we might end up with an expression like $\mathbb E[f(Z)]$ which we might not know how to compute without knowing exactly what $f$ is. However, Cauchy-Schwarz gives us one useful way to approximate such a term in the sense that we can at least say it's no bigger than a certain number. To wit,
 
 $$
-\mathbb E[f(Z)] = \int f(Z) \cdot 1 \ \text{d}\mathbb P = \langle f, 1 \rangle \le \|f\|.
+|\mathbb E[f(Z)]| = \left|\int f(Z) \cdot 1 \ \text{d}\mathbb P\right| = |\langle f, 1 \rangle| \le \|f\|.
 $$
 
-We even know that the bound is *sharp* (we can't do any better without knowing more). That's because if $f = c$ (a constant), then $\mathbb E[1] = \|1\|$.
+We even know that the bound is *sharp* (we can't do any better without knowing more). That's because if $f = c$ (a constant), then $\mathbb E[c] = \|c\|$.
 :::
 
 ### Triangle Inequality
@@ -636,9 +659,9 @@ For example, when you see a norm of a sequence, you should immediately want to a
 
 ### Warm-Up in $\mathbb R^d$
 
-You may recall from linear algebra or vector calculus that many useful functions map vectors to other vectors or vectors to numbers. In $\mathbb R^d$, given a $p \times d$ matrix $A$, the matrix-vector "multiplication" $Av$ can actually be seen as a function that maps $v \in \mathbb R^d$ to $Av \in \mathbb R^p$. Similarly, the vector dot product $a\cdot v$ for some vectors $a,v \in mathbb R^d$ maps $v \in \mathbb R^d$ to $a\cdot v \in \mathbb R$. Both of these example functions on vectors are *linear* in the sense that $f(cv + u) = cf(v) + f(u)$ for a scalar $c$ and vectors $v,u$. 
+You may recall from linear algebra or vector calculus that many useful functions map vectors to other vectors or vectors to numbers. In $\mathbb R^d$, given a $p \times d$ matrix $A$, the matrix-vector "multiplication" $Av$ can actually be seen as a function that maps $v \in \mathbb R^d$ to $Av \in \mathbb R^p$. Similarly, the vector dot product $v \mapsto a\cdot v$ for some vectors $a,v \in \mathbb R^d$ maps $v \in \mathbb R^d$ to $a\cdot v \in \mathbb R$. Both of these example functions on vectors are *linear* in the sense that $f(cv + u) = cf(v) + f(u)$ for a scalar $c$ and vectors $v,u$. 
 
-It's clear that the dot product between an argument and some fixed vector is linear in that argument, but actually the relationship goes both ways: *all* linear functions can be written as an inner (dot) product between the argument and some other fixed vector in the vector space. Formally, for any function $f$ which is linear and maps $\mathbb R^d$ to $\mathbb R$, there is some fixed $t_f \in \mathbb R^d$ that "represents" the function in the sense that for all $f(v) = \langle t_f, v \rangle$ for all $v \in \mathbb R^d$. We call the vector $t_f$ the "Riesz representer" of the function $f$.
+It's clear that the dot product between an argument $v$ and some fixed vector $a$ is linear in the argument $v$, but actually the relationship goes both ways: *all* linear functions can be written as an inner (dot) product between the argument and some other fixed vector in the vector space. Formally, for any function $f$ which is linear and maps $\mathbb R^d$ to $\mathbb R$, there is some fixed $t_f \in \mathbb R^d$ that "represents" the function in the sense that for all $f(v) = \langle t_f, v \rangle$ for all $v \in \mathbb R^d$. We call the vector $t_f$ the "Riesz representer" of the function $f$.
 
 Mechanically this is pretty easy to show. To start, we can always write $v$ as a sum of its components along the orthonormal basis vectors $e_j$ that span our vector space: $v = \sum_j v_j e_j$. Now we apply the function $f$ to both sides and use the linearity:
 $$
@@ -647,7 +670,7 @@ $$
 
 where we've defined the vector $t_f = [f(e_1), f(e_2), \dots f(e_d)]$. Since $f$ maps vectors to numbers, each element $f(e_j)$ is indeed a scalar value. It's important to recognize that $t_f$ is a fixed vector associated with the fixed function $f$: it doesn't depend on the argument $v$.
 
-While the proof is simple, it doesn't give much intuition for what the result *means* or give any sense of *why* it's true. To do that it's helpful to look at some pictures. In the figure below I've drawn the graph of some linear function of vectors in $R^2$: it looks like a plane that passes through the origin. For each vector $v = [v_1, v_2]$ on the $\mathcal R^2$ plane, you can find the scalar value of $f(v)$ by drawing a vertical up to the graph that represents $f$. 
+While the proof is simple, it doesn't give much intuition for what the result *means* or give any sense of *why* it's true. To do that it's helpful to look at some pictures. In the figure below I've drawn the graph of some linear function of vectors in $\mathbb R^2$: it looks like a plane that passes through the origin. For each vector $v = [v_1, v_2]$ on the $\mathbb R^2$ plane, you can find the scalar value of $f(v)$ by drawing a vertical up to the graph that represents $f$. 
 
 ``` tikz
 %%| fig-cap: A linear function.
@@ -799,7 +822,7 @@ Let's look at this graph from the top down. I've drawn this in the figure and yo
 
 Looking at the two examples, you may realize that the uphill direction and the steepness in that direction are *everything* you need to know in order to characterize any linear funtion $f$. The uphill direction can be represented by a unit vector and the steepness is a factor that it is scaled by. We call that scaled unit vector $t_f$, our vector reprenter of $f$. This vector contains all the information there is to know about $f$, and vice versa. Technically they are not the same object, but we can always reconstruct one from the other.
 
-It remains to be shown that this vector is the same representer $t_f$ that we derived above. To find the "most uphill" direction, we see how much we climb if we take one step in any direction. It doesn't matter from where we start so for convenience we'll start from zero. Formally, this direction is 
+It remains to be shown that this vector is the same representer $t_f$ that we derived above. To find the "most uphill" direction, we see how much we climb if we take a step $v$ of unit length $\|v\| = 1$ in any direction away from some starting point. It doesn't matter from where we start so for convenience we'll start from zero. Formally, the "most uphill" direction is therefore
 
 $$
 \begin{aligned}
@@ -830,10 +853,61 @@ where the last equality obtains because the increase in $f$ under one unit step 
 
 The overall lesson is that linear functions completely ignore motion in any direction that isn't the direction of steepest increase. Because of this, the only part of the input that matters is the part in the direction of steepest increase, which is given by projecting the input onto that direction. Since the projection is related to the inner product, we can replace function evaluation with taking that inner product as long as we choose a representative in the subspace of maximum increase that has a norm equivalent to the increase in $f$ when moving one unit in that direction.
 
-To be clear, none of this reasoning proves the fact that every linear function on $\mathbb R^d$ has a Riesz representer any better than the 2-line argument I gave at the beginning of this section. But I hope that walking through this has helped you feel it in your bones rather than knowing it as an abstract fact. 
+To be clear, none of this reasoning proves the fact that every linear function on $\mathbb R^d$ has a Riesz representer any better than the 2-line argument I gave at the beginning of this section. But I hope that walking through this has helped you "feel it" in your bones rather than "know it" as an abstract fact. 
 
 ### Infinite-Dimensional Riesz Representation
 
+Now we'll talk about the more general case when the Hilbert space of interest could be infinite-dimensional. For the most part we'll be interested in $\mathcal L_2$ or subspaces thereof. If we talk about functions defined *on* $\mathcal L_2$, we're talking about functions *of functions*. In functional analysis, people sometimes call these *operators*, but there's really nothing special about them: they are still functions. When an operator has real-valued output (i.e. maps functions to numbers), it's often called a *functional*.
 
+::: Example
+# Expectation Functional
+The function $f \mapsto \mathbb E_{\mathbb P}[f(Z)]$ is a functional (a linear functional, in fact). The expectation functional is defined on all of $\mathcal L_2(\mathbb P)$ since every square-integrable function is integrable (see Example \ref{example-bounding-integral}).
+:::
 
+In general Hilbert spaces the story or Riesz representation is essentially the same except there is one little wrinkle: not all linear functions actually have a direction of steepest ascent. The problem is that there are too many "directions" to go in within infinite-dimensional space. No matter what direction you "look" (e.g. imagine standing at the origin), there may be some other direction you could look in where the slop (the unit rise in the function over a unit change in the input) is steeper! In contrast, in 3D (or $d$-dimensional) space, the fact that there are only 3 ($d$) dimensions means that there is *always* some direction of steepest ascent: you quickly run out of directions to look for steeper slopes. 
 
+::: Example
+# Evaluation at a Point
+Let $Z \sim \text{Unif}(-1,1)$ and let $T: f \mapsto f(0)$ be the functional that takes $f \in \mathcal L_2(\mathbb P)$, evaluates it at the point $z=0$, and returns the result. Clearly $T$ is linear under the definition of function addition and scaling in $\mathcal L_2$ because 
+$$
+T(cf+g) = (cf + g)(0) = cf(0) + g(0) = cTf + Tg.
+$$
+Interestingly, however, $T$ does not have a "direction of steepest ascent". To understand this, let's first define the slope of $T$ as the rise in $T$ over a unit change in the input $f$. Equivalently, we may consider the rise in $T$ over an arbitrary run: 
+$$
+\frac{T(f) - T(f+h)}{\|h\|}. 
+$$
+Since $T$ is linear, the slope in a given direction is the same at all points so we can take $f=0$.
+
+Now let's pick some directions $h$ (these are functions; recall functions are the vectors in $\mathcal L_2$) and see what the magnitude of the slope $\frac{|Th|}{\|h\|}$ is. Consider the functions (directions, vectors)
+
+$$
+h_n(z) = 2\sqrt{n} 1\left(-\frac{1}{n} \le z \le \frac{1}{n}\right).
+$$
+
+These functions have norms 
+$$
+\|h_n\|^2 = \frac{1}{2}\int_{-n^{-1}}^{n^{-1}} 2^2\sqrt{n}^2 \ \text{d}z = 1.
+$$ 
+On the other hand, 
+$$
+Th_n = h_n(0) = 2\sqrt{n} \to \infty.
+$$
+
+By increasing $n \to \infty$ I can find a direction $h=h_n$ where the slope $Th/\|h\| = 2\sqrt{n}$ is bigger than any given number. It is therefore not possible to find a direction of steepest ascent: there is always a steeper slope in another direction!
+:::
+
+In the field of functional analysis, functionals that don't have a direction of steepest increase are called *unbounded*. 
+
+::: Definition
+# Bounded Linear Functional
+A linear functional $T: \mathcal V \to \mathbb R$ is called bounded if
+$$
+\underset{v \in \mathcal V}{\sup}\frac{|Tv|}{\|v\|} < \infty.
+$$
+:::
+
+"Boundedness" in this sense is not the same as usual sense of the word, which would be $ \sup_v Tv < \infty$. No linear function can be bounded in the traditional sense because no matter what $Tv$ is for some vector $v$, I can scale $v$ by a large constant $c$ and make $T(cv) = cTv$ as large as I want. But that's not what boundedness means in the sense of functional analysis. In a functional analysis context, boundedness means that there is a maximum value to the *slope* of $T$, not that the output of $T$ has a maximum value.
+
+::: callout-note
+If you are paying very, very close attention, you may have noticed that the pointwise evaluation functional is actually *not* well defined on $\mathcal L_2(\mathbb P)$. The reason is that, as you may recall, the elements of $\mathcal L_2(\mathbb P)$ are not really functions, but *equivalence classes* of functions. For an operator that actually works on individual functions to be well-defined on $\mathcal L_2(\mathbb P)$, it must have the same output for each function in any given equivalence class.
+:::
