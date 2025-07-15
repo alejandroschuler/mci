@@ -2,11 +2,11 @@
 
 Throughout chapters 3 and 4 we talk a lot about the convergence of random variables so it helps to understand what we mean by these things. In the definition of asymptotic linearity the term $o_{\mathbb P}(n^{-1/2})$ already invokes a specific type of convergence (more on that below).
 
-## Sequences and Functions
+## Sequences and Functions {#sec-app-conv-seq}
 
 We'll start with the convergence of a sequence of real numbers. A sequence of real numbers is what is sounds like: an infinite ordered list of numbers. We  write a sequence like $[x_1, x_2, x_3, \dots x_n \dots]$. Technically we should use something like $\{x_n\}$ to refer to the entire sequence because $x_n$ refers to the $n$th element, but usually we'll be lazy and just say $x_n$ where it's otherwise clear. 
 
-::: {.Definition #def-conv-seq}
+::: {.Definition #definition-conv-seq}
 # Convergence of Sequences
 A sequence *converges* to the *limit* $x$ if for every $\epsilon > 0$, there is an integer $N$ such that for all $n > N$, we have $|x_n - x| < \epsilon$. 
 :::

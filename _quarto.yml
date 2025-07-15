@@ -3,11 +3,11 @@ filters:
   - custom-numbered-blocks
 
 diagram:
-  cache: false
+  cache: true
   engine:
     tikz:
       header-includes:
-        - '\usepackage{adjustbox, tikz-3dplot, amsmath}'
+        - '\usepackage{adjustbox, tikz-3dplot, amsmath, amsfonts}'
         - '\usetikzlibrary{arrows, angles, quotes, arrows.meta, shapes, calc}'
 
 project:
@@ -55,6 +55,9 @@ custom-numbered-blocks:
       colors: [fff3cd, 856404] # light yellow background + dark yellow/brown accent
       collapse: false
       boxstyle: foldbox.simple
+
+callout-appearance: simple
+callout-icon: false
 
 bibliography: references.bib
 
