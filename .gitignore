@@ -4,7 +4,10 @@
 .quarto-cache/
 .cache/
 _freeze/
-./*_files/
+# Ignore all *_files/ folders recursively
+*_files/
+# BUT allow this specific one (must come after the ignore rule)
+!docs/important_files/
 
 # old books
 old_book/ 
