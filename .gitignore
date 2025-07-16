@@ -4,7 +4,7 @@
 .quarto-cache/
 .cache/
 _freeze/
-./*_files
+./*_files/
 
 # old books
 old_book/ 
