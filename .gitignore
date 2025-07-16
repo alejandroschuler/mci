@@ -1,9 +1,12 @@
 # Quarto build artifacts
-_book/
-_site/
-_quarto/
+
+.quarto/
 .quarto-cache/
 .cache/
+_freeze/
+
+# old books
+docs/ 
 
 # intermediate/output files
 *.utf8.md
@@ -25,3 +28,5 @@ _quarto/
 .vscode/
 node_modules/
 /.quarto/
+
+.luarc.json
