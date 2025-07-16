@@ -35,8 +35,6 @@ for some mean-zero function $\phi$ with mean zero $\mathbb E[\phi(Z)]=0$ and fin
 :::
 :::
 
-@def-AL
-
 ::: {.callout-warning}
 If you don't really understand what $o_{\mathbb P}(n^{-1/2})$ means in the definition above or why it implies the sample mean term "dominates" asymptotically, you should work through all of @sec-app-rv-convergence before returning here.
 :::
