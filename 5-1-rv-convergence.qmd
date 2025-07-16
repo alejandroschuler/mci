@@ -229,7 +229,7 @@ Similar concepts pop up in different places across mathematics. in general, when
 
 Finally we get to random variables. When rigorously defined, random variables are actually functions and can converge in many different ways, but most of them will not be important for the rest of this book. For our purposes, we will be able to think about random variables pretty much exclusively as distributions. The type of convergence we will mostly be concerned with is *convergence in distribution*. You can think of a sequence of random variables $Z_n$ as a sequence of distributions. Since all distributions have cumulative distribution functions (CDFs) you can also think of a sequence of CDFs $F_n(z) = F_{Z_n}(z)$. You may lastly also imagine a sequence of densities or mass functions if you like. Not all distributions actually have densities in the way you may be used to thinking about them, but that shouldn't stop you from using densities to build your intuition. I usually picture something like this Joy Division album cover when I think of a sequence of random varaibles:
 
-![Joy Division's famous Unknown Pleasures album cover](joy-div.jpg)
+![Joy Division's famous Unknown Pleasures album cover](assets/joy-div.jpg)
 
 ::: callout-note
 # Convergence in Distribution

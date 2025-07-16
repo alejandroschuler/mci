@@ -37,9 +37,11 @@ bibliography: references.bib
 # must generate html and pdf SEPARATELY for tikz to work!!
 format:
   html:
+    output-dir: docs
     theme:
       - cosmo
       - brand
     grid:
       body-width: 1200px
-  pdf: {}
+  pdf: 
+    output-dir: pdf-book

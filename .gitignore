@@ -4,10 +4,10 @@
 .quarto-cache/
 .cache/
 _freeze/
-*_files
+./*_files
 
 # old books
-docs/ 
+old_book/ 
 
 # intermediate/output files
 *.utf8.md

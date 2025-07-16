@@ -73,7 +73,7 @@ This looks the same as a $d$-dimensional vector $x = [x_1, \dots x_d]$ except th
 
 To complete the picture it's also helpful to notice that finite-dimensional vectors can also be written as functions. Instead of writing e.g. $x = [x_1, x_2, x_3]$ I could say that $x$ is a function on the domain $\{1,2,3\}$ such that $x(1) = x_1$, $x(2) = x_2$, and $x(3) = x_3$. Indices and arguments are essentially two different ways to view or construct the same thing. The difference between a function (e.g. on the reals) and a finite-dimensional vector is just their domains if you want to see them both as functions (or their index sets if you want to see them both as "vectors").
 
-![Functions as vectors and vice-versa](vectors.jpg)
+![Functions as vectors and vice-versa](assets/vectors.jpg)
 
 Hopefully at this point the visual intuition doesn't seem so crazy to you, even when you're working with infinite dimensional spaces. But if you're having trouble, follow the advice of computer scientist Geoffrey Hinton: "to deal with a 14-dimensional space, visualize a 3-D space and say ‘fourteen’ to yourself very loudly. Everyone does it."
 
