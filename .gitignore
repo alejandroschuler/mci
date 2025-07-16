@@ -11,8 +11,6 @@ docs/
 
 # intermediate/output files
 *.utf8.md
-*.html
-*.pdf
 *.docx
 *.tex
 *.log
@@ -29,5 +27,4 @@ docs/
 .vscode/
 node_modules/
 /.quarto/
-
 .luarc.json
