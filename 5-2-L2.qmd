@@ -1,3 +1,7 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
 # $\mathcal L_2$ Space {#sec-app-L2}
 
 It will help you a lot to learn efficiency theory if you have a solid understanding of $\mathcal L_2$ and a few basic ideas from functional analysis. Many students of statistics are missing this background so I'll try and give you the necessary intuition here.

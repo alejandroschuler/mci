@@ -11,6 +11,7 @@ diagram:
 
 project:
   type: book
+  output-dir: docs
 
 from: markdown+emoji
 
@@ -37,11 +38,9 @@ bibliography: references.bib
 # must generate html and pdf SEPARATELY for tikz to work!!
 format:
   html:
-    output-dir: docs
     theme:
       - cosmo
       - brand
     grid:
       body-width: 1200px
-  pdf: 
-    output-dir: pdf-book
+  pdf: {}

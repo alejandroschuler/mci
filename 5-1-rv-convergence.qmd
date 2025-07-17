@@ -240,10 +240,10 @@ The sequence $Z_n$ converges in distribution (or "converges in law" or "weakly c
 
 The reason convergence in distribution is so often used is because this is the kind of convergence implied by the central limit theorem (CLT). The (simplest version) of the CLT says that if $Z_i$ are IID random variables with finite variance $\sigma^2$, then 
 $$
-\sqrt{n}\left(\frac{1}{n}\sum Z_i - \mathbb E[Z] \right) \rightsquigarrow \mathcal N(0, \sigma^2).
+\sqrt{n}\left(\frac{1}{n}\sum Z_i - \mathbb E[Z] \right) \rightsquigarrow \norm(0, \sigma^2).
 $$
 
-This might look a little complicated but if you rename $X_n = \sqrt{n}\left(\frac{1}{n}\sum Z_i - \mathbb E[Z] \right)$ you see that this is just a particular sequence of random variables (because the $Z_i$ are random variables) and we can read the CLT as saying $X_n \rightsquigarrow \mathcal N(0,\sigma^2)$.
+This might look a little complicated but if you rename $X_n = \sqrt{n}\left(\frac{1}{n}\sum Z_i - \mathbb E[Z] \right)$ you see that this is just a particular sequence of random variables (because the $Z_i$ are random variables) and we can read the CLT as saying $X_n \rightsquigarrow \norm(0,\sigma^2)$.
 
 As with convergence of real number sequences, you should keep in mind what this definition does \textit{not} imply. It does not imply that the sequence converges "nicely" in the sense that all subsequent elements are always "closer" to the limit than previous elements. It does not tell us anything about \textit{when} the sequence gets "close enough" to its limit: we could get "close" by $n=10$ or it might take up until $n=10^{100}$! Convergence says nothing about the behavior at the beginning of the sequence, and the "beginning" could be very, very long.
 
@@ -295,7 +295,7 @@ The intuition for "rates" is that often we're interested in random variables tha
 
 ::: {#exm-littleo-densities}
 
-Let's say that $Z_n \sim \mathcal N(0, \sigma_n^2)$ where $\sigma_n = n^{-1/2}$. This is what we'd expect the large-sample sampling distribution of $\hat\psi -\psi$ to look like for any asymptotically linear estimator (see @def-AL). 
+Let's say that $Z_n \sim \norm(0, \sigma_n^2)$ where $\sigma_n = n^{-1/2}$. This is what we'd expect the large-sample sampling distribution of $\hat\psi -\psi$ to look like for any asymptotically linear estimator (see @def-AL). 
 
 Below, you can see some density plots for this sequence and how they change if they are blown up by different sequences. In the top two rows, the scaling factor is 1 (not increasing) or $n^{1/4}$ (increasing very slowly) and you can see that the densities are still narrowing as $n$ increases, albiet a little more slowly when blown up by $n^{1/4}$. However, in the third row the sequence is blown up by the moderately increasing factor $n^{1/2}$. You can see this is enough to perfectly "stabilize" the distribution: it neither narrows nor widens as $n$ increases. Lastly, in final row we've blown up $Z_n$ by the massive factor $n$ and you can see the distribution widens very quickly as $n$ increases.
 
@@ -382,8 +382,8 @@ Let $U_n \sim \text{Unif}(0,1/n)$. Is $U_n = o_{\mathbb P}(1)$? Is $U_n = o_{\ma
 
 Writing $U_n = o_{\mathbb P}(1/r_n)$ tells us something about the sequence $U_n$ without entirely specifying what that sequence is. The use of the equals sign is a big abuse of notation because obviously two sequences can be "equal" to the same $o_{\mathbb P}(1/r_n)$ without being equal to each other. Moreover anything that is $o_P(n^{-1/2})$ is also $o_P(1)$ (something that converges to zero when blown up still converges to zero if it is not), but not the other way around. The utility of the $o_{\mathbb P}$ notation is that it lets us show some important property of a sequence of random variables within the context of an equation. It just saves a line or two of exposition. In that sense it's not that different from other conventions like consistently using capital letters for random variables: even without extra exposition you already know an important property of the objects you're looking at. 
 
-The most common use of this notation is to tell the reader that some term is "negligible" (in large samples) relative to some other term of greater analytic importance. For example, let's say that $X_n \sim \mathcal N(0, \sigma^2/n)$ and I know that $Y_n = X_n + U_n$. By the definition of $X_n$, we know that 
-$$\sqrt nX_n \sim \mathcal N(0,\sigma^2).$$
+The most common use of this notation is to tell the reader that some term is "negligible" (in large samples) relative to some other term of greater analytic importance. For example, let's say that $X_n \sim \norm(0, \sigma^2/n)$ and I know that $Y_n = X_n + U_n$. By the definition of $X_n$, we know that 
+$$\sqrt nX_n \sim \norm(0,\sigma^2).$$
 
 This does *not* converge to zero: it stays stable at this normal distribution with "spread" $\sigma$ even as $n$ increases. If we can show that $\sqrt{n}U_n \overset{\mathbb P}{\to} 0$ (also written $U_n = o_{\mathbb P}(n^{-1/2})$), then we would know that $U_n$ is "negligible" compared to $X_n$ in large samples: $U_n$ converges to 0 even when blown up by $\sqrt{n}$ whereas $X_n$ doesn't. Therefore, asymptotically, $Y_n \approx X_n$. To make this a little more precise we would write $Y_n = X_n + o_{\mathbb P}(n^{-1/2})$ to indicate "how quickly" this approximation kicks in. 
 
@@ -456,7 +456,7 @@ ggplot(dens_df, aes(x = x, y = factor(n), height = density, group = n)) +
     axis.text.y     = element_text(size = 6)
   )
 ```
-The sequence of random variables $\mathcal N(\sin(n), \sin(n) + 2)$ does not converge in distribution yet is still stochastically bounded.
+The sequence of random variables $\norm(\sin(n), \sin(n) + 2)$ does not converge in distribution yet is still stochastically bounded.
 :::
 
 Saying a sequence is stochastically bounded is only *slightly* weaker than saying it converges to zero. If we multiply a stochastically bounded sequence by any sequence that converges to zero, however slowly, the resulting sequence will converge to zero. On the other hand, if we multiply it by any sequence that diverges, however slowly, then the resulting sequence also diverges. A stochastically bounded sequence that does not converge to zero is therefore on the knife's edge between convergence (to zero) and divergence. Another way to think of it is that $U_n = O_{\mathbb P}(1/r_n)$ means that $U_n \le C/r_n$ with high probability (for a constant $C$ and large enough $n$). Notice that for big $O$ it's less than *or equal to* whereas for little $o$ it's a strict inequality.
@@ -466,7 +466,7 @@ Any sequence of random variables that converges in distribution is stochasticall
 ::: {#exm-stochastic-bounding-clt}
 The CLT says that under a variety of conditions 
 $$
-\sqrt{n}\underbrace{\left(\frac{1}{n}\sum Z_i - \mathbb E[Z] \right)}_{X_n} \rightsquigarrow \mathcal N(0, \sigma^2)
+\sqrt{n}\underbrace{\left(\frac{1}{n}\sum Z_i - \mathbb E[Z] \right)}_{X_n} \rightsquigarrow \norm(0, \sigma^2)
 $$
 
 Since the demeaned sample average $X_n$ converges to a stable distribution when scaled by $\sqrt{n}$, it does not diverge. Therefore we can say $X_n = O_{\mathbb P}(n^{-1/2})$. However, notice that this limit is not zero. Therefore $X_n \ne o_{\mathbb P}(n^{-1/2})$. 
@@ -475,7 +475,7 @@ Since the demeaned sample average $X_n$ converges to a stable distribution when 
 Often the big $O$ is used to indicate that $r_n$ is *exactly* the rate that "stabilizes" the asymptotic distribution of $U_n$ so that is neither converging to zero nor diverging. Any rate that is slightly slower (like $n^{1/2 - \epsilon}$) and $r_n U_n$ would go to zero. Anything slightly faster (like $n^{1/2 + \epsilon}$) and it would blow up.
 
 ::: {#exm-Op-vs-op}
-Recall the example above where $Z_n = \mathcal N(0, \sigma_n^2)$ where $\sigma_n = n^{-1/2}$. In this case we saw that $n^{1/2}Z_n$ does *not* converge to zero in probability. However, $n^{1/2}Z_n$ *is* stochastically bounded because it converges to a stable limit distirbution (in this case $N(0,1)$). Therefore while we cannot write $Z_n = o_{\mathbb P}(n^{-1/2})$, we *can* write $Z_n = O_{\mathbb P}(n^{-1/2})$ with the big $O$.
+Recall the example above where $Z_n = \norm(0, \sigma_n^2)$ where $\sigma_n = n^{-1/2}$. In this case we saw that $n^{1/2}Z_n$ does *not* converge to zero in probability. However, $n^{1/2}Z_n$ *is* stochastically bounded because it converges to a stable limit distirbution (in this case $N(0,1)$). Therefore while we cannot write $Z_n = o_{\mathbb P}(n^{-1/2})$, we *can* write $Z_n = O_{\mathbb P}(n^{-1/2})$ with the big $O$.
 :::
 
 Technically something that is $O_{\mathbb P}(1/r_n)$ might also be $o_{\mathbb P}(1/r_n)$ (big $O$ means less than or equal to, which *could* be strictly less). But usually for given rates $1/a_n < 1/b_n$ (e.g. $n^{-1/2} < n^{-1/3}$) you should roughly understand that $o_{\mathbb P}(1/a_n) < O_{\mathbb P}(1/a_n) < o_{\mathbb P}(1/b_n)$.

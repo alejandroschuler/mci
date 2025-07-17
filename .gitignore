@@ -21,6 +21,8 @@ old_book/
 *.out
 *.aux
 
+!before-title.tex
+
 # R (if you have any R code chunks)
 .Rhistory
 .RData
@@ -32,3 +34,7 @@ old_book/
 node_modules/
 /.quarto/
 .luarc.json
+
+# git rm -r --cached .                       
+# git add .
+# git commit -m "Clean tracked files now ignored"

@@ -1,0 +1,9 @@
+\newcommand{\eltwop}[1][\mathbb{P}]{\mathcal{L}_2\left((#1)\right)}
+\newcommand{\eltwo}{\mathcal{L}_2}
+\newcommand{\p}{\mathbb{P}}
+
+\newcommand{\reals}{\mathbb{R}}
+
+\newcommand{\norm}{\mathsf{N}}
+\newcommand{\unif}{\mathsf{Unif}}
+\newcommand{\bern}{\mathsf{Bern}}

@@ -77,8 +77,8 @@ Consider the silly estimator $\hat\psi = 0$ when attempting to estimate the popu
 :::
 :::
 
-Another related benefit of asymptotically linear estimators is that they satisfy our practical requirement of understanding the sampling distribution. By the central limit theorem, $\psi + \mathbb P_n \phi$ looks more and more like $\psi + \mathcal N(0, \mathbb V[\phi(Z)]/n)$ as the sample size increases. The remaining term $o_{\mathbb P}(n^{-1/2})$ is negligible in comparison (by definition). More often you will see this written formally as 
-$$\sqrt{n} (\hat\psi - \psi) \rightsquigarrow \mathcal N(0, \sigma_*^2)
+Another related benefit of asymptotically linear estimators is that they satisfy our practical requirement of understanding the sampling distribution. By the central limit theorem, $\psi + \mathbb P_n \phi$ looks more and more like $\psi + \norm(0, \mathbb V[\phi(Z)]/n)$ as the sample size increases. The remaining term $o_{\mathbb P}(n^{-1/2})$ is negligible in comparison (by definition). More often you will see this written formally as 
+$$\sqrt{n} (\hat\psi - \psi) \rightsquigarrow \norm(0, \sigma_*^2)
 $$
 where $\sigma_*^2 = \mathbb V[\phi(Z)] = \mathbb P \phi^2$ (since $\phi$ has mean zero). 
 
@@ -92,7 +92,7 @@ Constructing asymptotically valid confidence intervals and p-values for any asym
 ::: {#exr-wald-interval}
 # Wald Interval
 
-a. Assuming that $\sqrt{n} (\hat\psi - \psi) \sim \mathcal N(0, \sigma^2)$, prove that $\hat{\mathbf C} = [\hat\psi \pm 2\sigma/\sqrt{n}]$ is a 95% confidence interval, i.e. $\mathbb P \{\psi \in \hat{\mathbf C}\} > 0.95$. 
+a. Assuming that $\sqrt{n} (\hat\psi - \psi) \sim \norm(0, \sigma^2)$, prove that $\hat{\mathbf C} = [\hat\psi \pm 2\sigma/\sqrt{n}]$ is a 95% confidence interval, i.e. $\mathbb P \{\psi \in \hat{\mathbf C}\} > 0.95$. 
 b. Assuming asymptotic linearity, how does our actual knowledge of the sampling distribution of $\hat\psi$ compare to what we assumed in part (a)? 
 c. In the real world our confidence interval is $[\hat\psi \pm 2\hat\sigma/\sqrt{n}]$. How does this compare to what we used in part (a)?
 d. Given (b) and (c), do you think the real-world confidence interval will generally have better-than 95% coverage for all sample sizes? 

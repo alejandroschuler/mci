@@ -272,11 +272,23 @@ window.Quarto = {
 \end{cases}
 \end{aligned}
 \]</span></p>
-<p>The first estimator is just the usual sample mean. The second is what is called <em>Hodges’ estimator</em>. It is an alternative that usually behaves similarly to the sample mean in large samples, but prefers to estimate 0 in small samples.</p>
-<p>[pic: hodges as a fn of sample mean for different n]</p>
-<p>Since <span class="math inline">\(Z\)</span> are normal random variables with unit variance and mean <span class="math inline">\(\psi\)</span>, we know that the sample mean has the exact distribution <span class="math inline">\(\mathcal N(\psi, 1 / n)\)</span>. Thus it follows that <span class="math display">\[
+<p>The first estimator is just the usual sample mean. The second is what is called <em>Hodges’ estimator</em>. When the sample is large, Hodges’ estimator almost always returns the sample mean. But when the sample is small, Hodges’ estimator often ignores the sample mean and returns zero.</p>
+<p>Let’s compare the asymptotic sampling distributions of the two. Since <span class="math inline">\(Z\)</span> are normal random variables with unit variance and mean <span class="math inline">\(\psi\)</span>, we know that the sample mean has the exact distribution <span class="math inline">\(\mathcal N(\psi, 1 / n)\)</span>. Thus it follows that <span class="math display">\[
 \sqrt{n}(\hat\psi - \psi) \rightsquigarrow \mathcal N(0, 1)
 \]</span></p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you are not familiar with convergence in distribution you should work through <a href="5-1-rv-convergence.html" class="quarto-xref"><span>Appendix A</span></a> now.</p>
+</div>
+</div>
 <p>Hodges’ estimator, however, has the following asymptotic distribution:</p>
 <p><span class="math display">\[
 \sqrt{n}(\hat\psi - \psi) \rightsquigarrow
@@ -286,7 +298,7 @@ window.Quarto = {
 \end{cases}
 \]</span></p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -295,7 +307,7 @@ Derivation of the asymptotic distribution of Hodges’ estimator
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Let’s prove that <span class="math inline">\(\sqrt{n}(\hat\psi - \psi) \rightsquigarrow \mathcal N(0, 0)\)</span> when the mean of <span class="math inline">\(Z\)</span> is zero. This will require some understanding of what is meant formally by convergence in probability and a common probability tool called Chebyshev’s inequality. It’s not at all important to understand this proof, I just provide it for completeness and as a refresher for those who are familiar with this kind of argument.</p>
 <p>That statement is the same as saying that <span class="math inline">\(\sqrt{n}(\hat\psi - \psi) \overset{\mathbb P}{\to} 0\)</span>, which we will prove. For any <span class="math inline">\(\epsilon &gt; 0\)</span>,</p>
@@ -455,7 +467,7 @@ Warning
 </section>
 <section id="regularity" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="regularity"><span class="header-section-number">2.2</span> Regularity</h2>
-<p>We’ve identified a problem with just looking at AL estimators: there are always AL estimators that look good in terms of their pointwise asymptotics but are actually bad because they just move the problem around in a way that makes it invisible to the asymptotics.</p>
+<p>We’ve identified a problem with looking only at AL estimators: there are always AL estimators that look good in terms of their pointwise asymptotics but are actually bad because they just move the problem around in a way that makes it invisible to the asymptotics.</p>
 <p>To rule this out, we’ll impose an addition condition called <em>regularity</em>. In a rough sense, regularity usually does two things: it means that limit distributions vary smoothly (so, for example, power calculations are reliable) and that the estimator approaches its limit distribution in a (locally) uniform way across the model (so that asymptotics can’t hide bad performance that moves around the model).</p>
 <p>We will start with a toy definition of regularity that we will build up to the formal definition in the next few sections. That will require us to introduce and explain a few abstractions but these will also come in handy later so it’s worth doing. For now, though, here’s a first draft:</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
@@ -469,11 +481,16 @@ Regularity (version 1)
 </div>
 <div class="callout-body-container callout-body">
 <div id="def-regularity-1" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.1</strong></span> &nbsp;</p>
-<!-- An estimator $\hat\Psi$ is *regular* in the model $\mathcal P = \{\mathcal N(\psi, 1):\psi \in \mathbb R\}$ if the sampling distribution of $\sqrt{n}(\hat\Psi(\mathbb P_n^#) - \Psi(\mathbb P_n)) \rightsquigarrow \mathcal N(\psi, 1)$ -->
+<p><span class="theorem-title"><strong>Definition 2.1</strong></span> An estimator <span class="math inline">\(\hat\Psi\)</span> is <em>regular</em> in the model <span class="math inline">\(\mathcal P = \{\mathcal N(\psi, 1):\psi \in \mathbb R\}\)</span> if the sampling distribution of <span class="math display">\[
+\sqrt{n}\left(\hat\Psi(\mathsf P_{\mathsf n, n}) - \Psi\left(\mathrm P_n\right)\right) \rightsquigarrow \mathsf N(0, 1)
+\]</span> for the sequence of distributions <span class="math inline">\(\mathbb P_n = \mathcal N(\psi + n^{-1/2}, 1)\)</span>.</p>
 </div>
 </div>
 </div>
+<p>To understand this definition, let’s first understand the following standard asymptotic statment which says that <span class="math inline">\(\hat\psi_n = \hat\Psi(\mathbb P_{\dot n})\)</span> is a <span class="math inline">\(\sqrt{n}\)</span>-asymptotically normal estimate of <span class="math inline">\(\psi = \Psi(\mathbb P)\)</span>: <span class="math display">\[
+\sqrt{n}\left(\hat\Psi(\mathbb P_{\dot n}) - \Psi\left(\mathbb P\right)\right) \rightsquigarrow \mathcal N(0, 1)
+\]</span></p>
+<p>For each sample size <span class="math inline">\(n\)</span>, the left-hand side here is a random variable corresponding to the scaled and centered sampling distribution of the estimator, drawing the <span class="math inline">\(n\)</span> data points from the distribution <span class="math inline">\(\mathbb P\)</span>. You can think of standing still at the distribution <span class="math inline">\(\mathbb P\)</span>, first drawing samples of size <span class="math inline">\(n=1\)</span> and generating the sampling distribution of <span class="math inline">\(\hat\psi_n\)</span></p>
 
 
 </section>

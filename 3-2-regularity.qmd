@@ -4,7 +4,7 @@ While restricting ourselves to asymptotically linear estimators is a good start,
 
 ## Hodges' Estimator
 
-Let's presume we're interested in estimating the mean $\psi = \Psi(\mathbb P) = \mathbb E_{\mathbb P}[Z]$ from $n$ IID draws of a scalar random variable $Z$ that we know is normally distributed with standard deviation $\sigma=1$. Our statistical model is therefore $\mathcal P = \{\mathcal N(\psi, 1): \psi \in \mathbb R\}$, a one-dimensional parametric model. Obviously this is a contrived example where we know a lot about $Z$, but the point is to show that even in this extremely favorable setting we can be led astray by mathematical arguments that put our attention in the wrong place.
+Let's presume we're interested in estimating the mean $\psi = \Psi(\mathbb P) = \mathbb E_{\mathbb P}[Z]$ from $n$ IID draws of a scalar random variable $Z$ that we know is normally distributed with standard deviation $\sigma=1$. Our statistical model is therefore $\mathcal P = \{\norm(\psi, 1): \psi \in \mathbb R\}$, a one-dimensional parametric model. Obviously this is a contrived example where we know a lot about $Z$, but the point is to show that even in this extremely favorable setting we can be led astray by mathematical arguments that put our attention in the wrong place.
 
 We'll consider two estimators:
 $$
@@ -18,28 +18,30 @@ $$
 \end{aligned}
 $$
 
-The first estimator is just the usual sample mean. The second is what is called *Hodges' estimator*. It is an alternative that usually behaves similarly to the sample mean in large samples, but prefers to estimate 0 in small samples.
+The first estimator is just the usual sample mean. The second is what is called *Hodges' estimator*. When the sample is large, Hodges' estimator almost always returns the sample mean. But when the sample is small, Hodges' estimator often ignores the sample mean and returns zero.
 
-[pic: hodges as a fn of sample mean for different n]
+Let's compare the asymptotic sampling distributions of the two. Since $Z$ are normal random variables with unit variance and mean $\psi$, we know that the sample mean has the exact distribution $\norm(\psi, 1 / n)$. Thus it follows that 
+$$
+\sqrt{n}(\hat\psi - \psi) \rightsquigarrow \norm(0, 1)
+$$
 
-Since $Z$ are normal random variables with unit variance and mean $\psi$, we know that the sample mean has the exact distribution $\mathcal N(\psi, 1 / n)$. Thus it follows that 
-$$
-\sqrt{n}(\hat\psi - \psi) \rightsquigarrow \mathcal N(0, 1)
-$$
+::: callout-warning
+If you are not familiar with convergence in distribution you should work through @sec-app-rv-convergence now.
+:::
 
 Hodges' estimator, however, has the following asymptotic distribution:
 
 $$
 \sqrt{n}(\hat\psi - \psi) \rightsquigarrow 
 \begin{cases}
-\mathcal N(0, 1) & \psi \ne 0 \\
-\mathcal N(0, 0) & \psi = 0
+\norm(0, 1) & \psi \ne 0 \\
+\norm(0, 0) & \psi = 0
 \end{cases}
 $$
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 # Derivation of the asymptotic distribution of Hodges' estimator
-Let's prove that $\sqrt{n}(\hat\psi - \psi) \rightsquigarrow \mathcal N(0, 0)$ when the mean of $Z$ is zero. This will require some understanding of what is meant formally by convergence in probability and a common probability tool called Chebyshev's inequality. It's not at all important to understand this proof, I just provide it for completeness and as a refresher for those who are familiar with this kind of argument.
+Let's prove that $\sqrt{n}(\hat\psi - \psi) \rightsquigarrow \norm(0, 0)$ when the mean of $Z$ is zero. This will require some understanding of what is meant formally by convergence in probability and a common probability tool called Chebyshev's inequality. It's not at all important to understand this proof, I just provide it for completeness and as a refresher for those who are familiar with this kind of argument.
 
 That statement is the same as saying that $\sqrt{n}(\hat\psi - \psi) \overset{\mathbb P}{\to} 0$, which we will prove. For any $\epsilon > 0$,
 
@@ -170,7 +172,7 @@ Estimators like Hodges' estimator are called _superefficient_ for reasons that w
 
 ## Regularity
 
-We've identified a problem with just looking at AL estimators: there are always AL estimators that look good in terms of their pointwise asymptotics but are actually bad because they just move the problem around in a way that makes it invisible to the asymptotics. 
+We've identified a problem with looking only at AL estimators: there are always AL estimators that look good in terms of their pointwise asymptotics but are actually bad because they just move the problem around in a way that makes it invisible to the asymptotics. 
 
 To rule this out, we'll impose an addition condition called _regularity_. In a rough sense, regularity usually does two things: it means that limit distributions vary smoothly (so, for example, power calculations are reliable) and that the estimator approaches its limit distribution in a (locally) uniform way across the model (so that asymptotics can't hide bad performance that moves around the model). 
 
@@ -179,8 +181,17 @@ We will start with a toy definition of regularity that we will build up to the f
 ::: callout-note
 # Regularity (version 1)
 ::: {#def-regularity-1}
-<!-- An estimator $\hat\Psi$ is *regular* in the model $\mathcal P = \{\mathcal N(\psi, 1):\psi \in \mathbb R\}$ if the sampling distribution of $\sqrt{n}(\hat\Psi(\mathbb P_n^#) - \Psi(\mathbb P_n)) \rightsquigarrow \mathcal N(\psi, 1)$ -->
+An estimator $\hat\Psi$ is *regular* in the model $\mathcal P = \{\norm(\psi, 1):\psi \in \mathbb R\}$ if the sampling distribution of 
+$$
+\sqrt{n}\left(\hat\Psi(\p^{(n)}_n - \Psi\left(\mathrm P_n\right)\right) \rightsquigarrow \mathsf N(0, 1)
+$$ 
+for the sequence of distributions $\mathbb P_n = \norm(\psi + n^{-1/2}, 1)$.
 :::
 :::
 
+To understand this definition, let's first understand the following standard asymptotic statment which says that $\hat\psi_n = \hat\Psi(\mathbb P_{\dot n})$ is a $\sqrt{n}$-asymptotically normal estimate of $\psi = \Psi(\mathbb P)$:
+$$
+\sqrt{n}\left(\hat\Psi(\mathbb P_{\dot n}) - \Psi\left(\mathbb P\right)\right) \rightsquigarrow \norm(0, 1)
+$$ 
 
+For each sample size $n$, the left-hand side here is a random variable corresponding to the scaled and centered sampling distribution of the estimator, drawing the $n$ data points from the distribution $\mathbb P$. You can think of standing still at the distribution $\mathbb P$, first drawing samples of size $n=1$ and generating the sampling distribution of $\hat\psi_n$
