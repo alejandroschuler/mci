@@ -1,3 +1,7 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
 # Regularity 
 
 While restricting ourselves to asymptotically linear estimators is a good start, unfortunately it is not quite enough to develop a sensible theory of optimality. In this section we'll first argue for why a further restriction is not only sensible but useful. Then we will come up with and refine a definition that suits our needs. 
@@ -164,34 +168,426 @@ Asymptotic linearity is only concerned with pointwise convergence, but to preven
 See @sec-app-uniform-convergence for the definition of uniform convergence of functions. This is a common type of convergence that we often want to generalize for other kinds of objects. In what follows we will present a notion of "uniform" convergence in distribution for random variables.
 :::
 
-There's actually another problem with this estimator that we didn't capture with our original list of desiderata. We often want to know in advance how big a sample size we might need to get a particular level of confidence in our result (i.e. do a power calculation). If we understand the asymptotic distribution of our estimator under data were generated from a given distribution $\mathbb P$, we have everything we need to do this. The problem is that we don't know what the real distribution of the data are. So what is done in practice is we generate a rough guess $\hat{\mathbb P}$ based on domain knowledge or previous data and use that for the power calculation. If $\hat{\mathbb P}$ is close to $\mathbb P$ we'd expect the required sample sizes to be the same. For this to work, however, we need the limiting asymptotic distribution of our estimates to be "continuous" over distributions: two data distributions that are close should give sampling distributions for a estimator that are close. 
-
-For Hodges' estimator, this is not the case. The limiting distribution is the standard normal no matter how close you get to $\psi=0$, but suddenly it is the degenerate distribution at that point. The discontinuity in the limiting distribution poses problems for a power calculation: if in reality $\psi = 10^{-9}$ but we did our power calculation assuming $\psi=0$ (a tiny, tiny error!), we would end up massively underpowering our study.
-
 Estimators like Hodges' estimator are called _superefficient_ for reasons that will be explained in a few sections' time. In general, superefficient estimators perform better than other estimators on some very small set of distributions at the cost of abitrarily bad performance that moves around over the other distributions as $n$ increases. We want to rule out that sort of behavior so that we can compare estimators asymptotically without getting burned by their finite-sample behavior.
 
 ## Regularity
 
 We've identified a problem with looking only at AL estimators: there are always AL estimators that look good in terms of their pointwise asymptotics but are actually bad because they just move the problem around in a way that makes it invisible to the asymptotics. 
 
-To rule this out, we'll impose an addition condition called _regularity_. In a rough sense, regularity usually does two things: it means that limit distributions vary smoothly (so, for example, power calculations are reliable) and that the estimator approaches its limit distribution in a (locally) uniform way across the model (so that asymptotics can't hide bad performance that moves around the model). 
+To rule this out, we'll impose an addition condition called _regularity_. Informally, regularity means that the estimator approaches its limit distribution in a (locally) uniform way across the model so that asymptotics can't hide bad performance that moves around the model. 
 
 We will start with a toy definition of regularity that we will build up to the formal definition in the next few sections. That will require us to introduce and explain a few abstractions but these will also come in handy later so it's worth doing. For now, though, here's a first draft:
 
 ::: callout-note
 # Regularity (version 1)
 ::: {#def-regularity-1}
-An estimator $\hat\Psi$ is *regular* in the model $\mathcal P = \{\norm(\psi, 1):\psi \in \mathbb R\}$ if the sampling distribution of 
+An estimator $\hat\Psi$ is *regular* in the model $\model = \{\norm(\psi, 1):\psi \in \reals\}$ if there is a single, fixed distribution $\mathbb D$ such that 
 $$
-\sqrt{n}\left(\hat\Psi(\p^{(n)}_n - \Psi\left(\mathrm P_n\right)\right) \rightsquigarrow \mathsf N(0, 1)
+\sqrt{n}\left( \hat\Psi(\p^{(n)}_n) - \Psi(\p^{(n)}) \right) \rightsquigarrow \mathbb D
 $$ 
-for the sequence of distributions $\mathbb P_n = \norm(\psi + n^{-1/2}, 1)$.
+for *any* sequence of distributions $\p^{(n)} = \norm(\psi^{(n)}, 1)$ such that $\sqrt n (\psi^{(n)} - \psi) \to 0$.
 :::
 :::
 
-To understand this definition, let's first understand the following standard asymptotic statment which says that $\hat\psi_n = \hat\Psi(\mathbb P_{\dot n})$ is a $\sqrt{n}$-asymptotically normal estimate of $\psi = \Psi(\mathbb P)$:
+To understand this definition, let's first understand the following standard asymptotic statment which says that $\hat\psi_n = \hat\Psi(\p^{(n)})$ is a $\sqrt{n}$-asymptotically normal estimate of $\psi = \Psi(\p)$:
 $$
-\sqrt{n}\left(\hat\Psi(\mathbb P_{\dot n}) - \Psi\left(\mathbb P\right)\right) \rightsquigarrow \norm(0, 1)
+\sqrt{n}\left( \hat\Psi(\p_n) - \Psi(\p) \right) \rightsquigarrow \norm(0, 1)
 $$ 
 
-For each sample size $n$, the left-hand side here is a random variable corresponding to the scaled and centered sampling distribution of the estimator, drawing the $n$ data points from the distribution $\mathbb P$. You can think of standing still at the distribution $\mathbb P$, first drawing samples of size $n=1$ and generating the sampling distribution of $\hat\psi_n$
+For each sample size $n$, the left-hand side here is a random variable corresponding to the scaled and centered sampling distribution of the estimator, drawing the $n$ data points from the distribution $\mathbb P$. You can imagine standing still at the distribution $\p \in \model$: first drawing many datasets of size $n=1$ and passing them each through $\hat\Psi$ to generate the sampling distribution of $\hat\psi_1 - \psi$, then drawing many datasets of size $n=2$ to generate the distribution of $\hat\psi_2 -\psi$, etc. We're just (repeatedly) drawing larger and larger datasets from the same distribution to feed through the estimator and comparing the results to the estimand. The right-hand side says that those (centered and scaled) sampling distributions look more and more like the standard normal the larger $n$ gets.
+
+Now compare that to our definition of regularity. The only difference is that instead of $\hat\Psi(\p_n)$ we have $\hat\Psi(\p^{(n)}_n)$ and instead of $\Psi(\p)$ we have $\Psi(\p^{(n)})$. What that means is that we are no longer necessarily "standing still" at a single distribution $\p \in \model$ while drawing larger datasets. Instead, we are typically *moving closer* to $\p$ as we increase the size of our draws. 
+
+Concretely, we start at $\p^{(1)} = \norm(\psi^{(1)},1)$. We draw many datasets of size $n=1$ from $\p^{(1)} = \norm(\psi^{(1)},1)$ and pass them each through $\hat\Psi$, comparing the results $\hat\psi^{(1)}_1$ to the current ground truth $\psi^{(1)}$. Now we move to $\p^{(2)} = \norm(^{(2)}, 1)$. We draw many datasets of size $n=2$ from $\p^{(2)}$ and pass them each through $\hat\Psi$, comparing the results to the new ground truth $\psi^{(2)}$. We continue like this: at each $n$, we arrive at $\p^{(n)} = \norm(\psi^{(n)}, 1)$, draw many datasets of size $n$ from this distribution, and generate the sampling distribution of $\hat\psi^{(n)}_n - \psi^{(n)}$ comparing the current estimates to the current ground truth. 
+
+::: {#fig-regularity-1}
+![The asymptotics in the definition of regularity.](assets/regularity-1.jpg)
+:::
+
+::: {.callout-important appearance="minimal"}
+::: {#exr-regularity-1}
+Draw a figure based on @fig-regularity-1 the depicts the standard asymptotic statement
+$$
+\sqrt{n}\left( \hat\Psi(\p_n) - \Psi(\p) \right) \rightsquigarrow \norm(0, 1).
+$$
+What parts of @fig-regularity-1 do you have to modify to accomplish this?
+:::
+:::
+
+To summarize: the process in the definition of regularity is the same process as in the standard $\sqrt{n}$ asymptotic convergence statement. The only difference is that we're now allowed to shift the data generating distribution under the estimator and estimand rather than leaving it fixed. In the definition of regularity, however, the right-hand side must always be the same fixed distribution $\mathbb D$. In other words, no matter how we move the data-generating distribution around towards $\p$ while we increase the sample size, the estimator behaves more and more like it would if we stood still at $\p$. The fact that the limit is the same regardless of whether we're moving the ground truth distribution around (as long as it "converges" to the true distribution) is the key to regularity. Satisfying that property is what forces our estimator to have (locally) uniformly good convergence across distributions and prevents the bad behavior of Hodges' estimator. 
+
+::: {.callout-important appearance="minimal"}
+::: {#exr-regularity-sample-mean}
+Prove that the sample mean is a regular estimator according to this definition by computing the exact sampling distribution of $\sqrt{n}\left( \hat\Psi(\p_n^{(n)}) - \Psi(\p^{(n)}) \right)$ at any given $n$, assuming $\p^{(n)} = \norm(\psi^{(n)}, 1)$ for some sequence $\sqrt n (\psi^{(n)} - \psi) \to 0$. As an example you can try $\psi^{(n)} = \psi + \frac{1}{n}$.
+:::
+:::
+
+::: {.callout-important appearance="minimal"}
+::: {#exr-regularity-sample-mean}
+Prove that Hodges' estimator is *not* a regular estimator according to this definition by showing that $\sqrt{n}\left( \hat\Psi(\p_n^{(n)}) - \Psi(\p^{(n)}) \right)$ converges to $\norm(0,1)$ if we move toward the true distribution like $\psi^{(n)} = \psi + \frac{1}{n}$ but converges to $0 = \norm(0,0)$ if we stand still at $\psi^{(n)} = \psi$.
+:::
+:::
+
+The definition we're working with at the moment is specific to the normal model $\model = \{\norm(\psi, 1):\psi \in \reals\}$. We built a very specific sequence of distributions $\p^{(n)} = \norm(\psi^{(n)}, 1)$ that get closer and closer to the true distribution. Moreover we required the "distance" to the true distribution to close at faster than the $n^{-1/2}$ rate. Our challenge in the proceeding sections will be figuring out a sensible way to generalize our definition to nonparametric models. But to do that we'll first have to establish some notions of "geometry" in that setting.
+
+## Paths and Scores
+
+For the remainder of this book we'll work within models where every distribution $\p$ has a density function $p$. Formally, we will assume that all our distributions are absolutely continuous with respect to Lebesgue measure (don't worry if you don't know what that means). The results we will discuss actually do not depend on that assumption: the theory works exactly the same way for general models. However, the intuition is harder to get across in the general case, especially for readers who are new to measure-theoretic probability. I'll abuse notation where convenient and use $\model$ to refer to the set of densities $p$ as well as the set of distributions (measures) $\p$. If you know some measure theory, you can for now imagine that all distribuitons in the model have a density with respect to an arbitrary dominating measure $\bar{\p}$ and replace references to $\eltwo$ below with $\eltwop{\bar{\p}}$. Throughout the rest of the book I will also write integrals like $\int f(z)\ p(z) \dd z$ with the standard differential $\dd z$ so that they are comprehensible without measure theory. If you know measure theory, you can replace these with Lebesgue integrals with respect to the relevant dominating measure.
+
+Recall that our goal at our moment is to generalize our definition of regularity by establishing some "geometry" in our model so we can talk about a sequence of distributions converging in some required sense. If all the elements of the model have densities, we can think of the model as a collection of densities. Since densities are functions, we might be tempted to say they are elements of $\eltwo$. If we can work in $\eltwo$ everything is great: we have lengths, we have angles, we have all sorts of useful identities and relationships. But unfortunately that's not immediately possible. From @def-L2 we see that $\eltwo$ only includes functions that are square-integrable (have finite norm). However, there are some density functions for which $\int p(z) \dd z$ may blow up.
+
+::: {#exm-non-L2-density}
+The function $p(z) = \frac{1(0 < z <1)}{2\sqrt z}$ is a valid density because it is positive and integrates to one: 
+$$
+\frac{1}{2}\int_0^1 \frac{\dd z}{\sqrt z} = 1.
+$$ 
+But it is not square-integrable: the integral of its square is 
+$$
+\frac{1}{4} \int_0^1 \frac{\dd z}{z} = \infty.
+$$
+
+:::
+
+::: callout-warning
+We will be drawing on properties of $\eltwo$ substantially from here on out so this is a good time to work through @sec-app-L2-L2 if you haven't already.
+:::
+
+Thankfully, this is an easy problem to fix! Instead of working with the density functions directly, we can work with the *root densities*. Since $\int p \dd z = 1$, it's clear that $\int (\sqrt p)^2 \dd z = 1$. In other words, the square root of any density function is square-integrable and thus a function in $\eltwo$. Moreover, all of these root densities have unit norm in $\eltwo$! I'll use the symbol $\sqrt{\model} = \{\sqrt p : p \in \model\}$ to denote the collection of square roots of densities in the model. Because $\sqrt{\model}$ contains only positively valued functions with unit norm, we can visualize it as some subset of the unit ball in the "positive orthant" of $\eltwo$.
+
+::: {#fig-sqrt-model}
+``` tikz
+\resizebox{12cm}{!}{
+\begin{tikzpicture}
+
+\pgfplotsset{compat=1.18}
+
+  \begin{axis}[
+    axis lines=middle,
+    xlabel=$ $, 
+    ylabel=$ $, 
+    zlabel=$ $,
+    xtick=\empty, ytick=\empty, ztick=\empty,
+    view={50}{30},                % camera angle
+    colormap/blackwhite,     % grayscale shading
+  ]
+ \node at (axis cs:0.05,0.05,0.15) {$\mathcal L_2$};
+
+    \addplot3[
+      surf,
+      shader=flat,      % draws both smooth shading + facet edges
+      fill opacity=0.8,           % only the surface is semi‐transparent
+      draw=gray,                 % mesh‐lines in black
+      very thin,                  % edge‐line thickness
+      samples=15,                 % φ‐resolution
+      samples y=15,               % θ‐resolution
+      domain=0:90,                % φ from 0° to 90°
+      y domain=0:90,              % θ from 0° to 90°
+    ]
+    (
+      {sin(x)*cos(y)},            % x = sin φ cos θ
+      {sin(x)*sin(y)},            % y = sin φ sin θ
+      {cos(x)}                    % z = cos φ
+    );
+    \node[anchor=north east, color=gray] at (rel axis cs:0.125,0.125,0.8) {$\sqrt{\mathcal P}$};
+
+
+    % great-circle arc (θ=45°) passing through P
+    \addplot3[
+      parametric,             % ← treat as a 1D parametric plot
+      variable=\phi,          % ← name of the parameter
+      domain=15:85,           % φ from 15° to 85°
+      samples=25,             % number of points along the arc
+      samples y=1,     % ← no second direction → no loop
+      thick,
+      orange,
+      mark=none
+    ]
+    (
+      {sin(\phi)*cos(45)},   % x(φ)
+      {sin(\phi)*sin(45)},   % y(φ)
+      {cos(\phi)}            % z(φ)
+    );
+    \node[anchor=north east, color=orange] at (rel axis cs:0.7,0.93) {$\sqrt{\mathcal P_\epsilon}$};
+
+  \end{axis}
+\end{tikzpicture}
+}
+\end{document}
+```
+The model $\sqrt{\model}$ embedded in $\eltwo$. In the drawing $\eltwo$ is represented as 3D space but this is not meant to be literal- this is a 3D cartoon representing infinite-dimensional space. The model is represented as the visible quarter section of the unit sphere.
+:::
+
+In addition to the model, in @fig-sqrt-model you can also see what we're going to call a *differentiable path* through the model. A path (also called a one-dimensional submodel) is intuitively what it sounds like: if you were standing at a point $p$ in the model and you started walking in some direction, you'd be tracing out an example of a path. Formally, a path is a one-dimensional set of distributions in the model, parametrized by some $\epsilon \in \reals$. By "parametrized" I mean that every distribution in this set can be assigned a unique number $\eps$. If you consider $p_0$ to be the "start" of the path, you can think of the parameter $\eps$ as encoding "how far" you are along the path (and perhaps in which direction). The density indexed by the particular number $\eps$ is often written $p_\eps$. Paths are going to be very useful tools for us to define what we mean by distributions getting close to each other in a sense that is required for a general definition of regularity. Paths will also come up in many other places so it is worth taking some time to understand them here.
+
+::: callout-note
+# Path (1D Submodel)
+::: {#def-path}
+A *path* is any set of distributions $\model_\epsilon \subseteq \model$ that can be put into 1-to-1 correspondence with any subset of the reals.
+:::
+:::
+
+::: {#exm-path-convex}
+Presume the model is the set of all continuous distributions. Pick any two points $p, p' \in \model$. Then the set of densities $\{p: p = \epsilon p + (1-\epsilon) p'\}$ is a path parametrized by $\eps \in [0,1]$. This is the canonical exmple of a path, which we will call a *convex path*.
+:::
+
+::: {#exm-norm-path}
+Presume the model includes all normal distributions. Then the set of distributions corresponding to $\norm(\epsilon, 1)$ is a path parametrized by $\eps \in \reals$.
+:::
+
+::: {.callout-important appearance="minimal"}
+::: {#exr-not-path}
+Presume the model is the set of all mean-zero random variables. Why is $\{\norm(\epsilon, 1) : \eps \in \reals\}$ not a path here?
+:::
+:::
+
+::: {#exm-non-diff-path}
+Presume the model is the set of all densities. For $\eps \le 0$ let $p_\eps$ be the density of $\norm(\eps, 1)$ and for $0 < \eps$ let $p_\eps$ be the density $\unif(0,1+\eps)$.
+:::
+
+Our definition of path is very general. Too general, in fact, to correspond nicely to the mental model we have from @fig-sqrt-model. As @exm-non-diff-path shows, we can easily constuct paths that don't feel "continuous". To make a definition that reflects our picture of a continuous, smooth path through the model we need to impose more conditions. 
+<!-- 
+In order to help us do that, let's first define a useful notion of distance between two distributions.
+
+::: callout-note
+# Hellinger Distance
+::: {#def-hellinger-dist}
+The *Hellinger distance* between two distributions $\p$ and $\mathbb Q$ is the $\eltwo$ distance between the root densities $\sqrt p$ and $\sqrt q$:
+$$
+d_H(\p, \mathbb Q) = \sqrt{\int (\sqrt p(z) - \sqrt q(z))^2} \dd z
+$$
+:::
+:::
+
+The ability to visualize the Hellinger distance as the straight-line distance between two points on the unit ball in $\eltwo$ is one useful consequence of understanding the (root) model as a subset of $\eltwo$. If you know some measure theory, you can verify that the Hellinger distance does not actually depend on the dominating measure that the densities are taken with respect to (if you don't, you can ignore this without missing any intuition).
+
+::: {.callout-important appearance="minimal"}
+::: {#exr-hellinger-dist}
+Calculate the Hellinger distance between the standard normal and standard uniform distributions.
+:::
+::: 
+-->
+
+<!-- Now that we have distance, we can impose more restrictions on our paths.  -->
+For example, we might impose that paths be continuous in the sense that we would want the $\eltwo$ distance between two (root) distributions $\sqrt{p_{\eps_0}}$ and $\sqrt{p_{\eps}}$ along the path to go to zero if $\eps \to \eps_0$. That would rule out the path in @exm-non-diff-path. But it turns out that what we need in order to generate a useful theory of efficiency is not just continuity, but also differentiability. That is, we are interested in continuous paths, but specifically those that do not have any "kinks".
+
+::: callout-note
+# Differentiable in Quadratic Mean (DQM), Score Function
+::: {#def-score}
+A path $\model_\eps$ is *differentiable in quadratic mean* (or just *differentiable* for short) at $\eps = 0$ if there is a function $s$ such that 
+$$
+\int \left[ \frac{\sqrt{p_\eps(z)} - \sqrt{p_0(z)}}{\eps}  - \frac{1}{2} s(z) \sqrt{p_0(z)} \right]^2 \dd z  \overset{\eps \to 0}{\to} 0.
+$$
+We say that $s$ is the *score function* of the path $\model_\eps$ at the point $\eps=0$. Often the score can be written as the derivative of the log-likelihood evaluated at zero: 
+$$
+s(z) = \frac{\dd}{\dd \eps} \log p_\eps(z) \bigg|_{\eps=0}.
+$$
+The score function is always in $\eltwo$ and mean-zero at $p_0$ in the sense that $\p_0 s = \int s(z)\ p_0(z) \dd z = 0$.
+:::
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+# Proof that $\p_0 s=0$
+For this proof to make sense you'll need to have worked through @sec-app-l2-triangles.
+
+The definition of DQM is also another way of writing that that $\eps^{-1}(\sqrt{p_\eps} - \sqrt{p_0}) \overset{\eltwo}\to \frac{1}{2} s\sqrt{p_0}$ as $\eps \to 0$. In the discussion below we outline how DQM is just $(\reals \to \eltwo)$-differentiability of the function $\eps \mapsto \sqrt{p_\eps}$. If that function is differentiable at 0, it is certainly continuous there, so $\sqrt p_\eps \to \sqrt p_0$ as long as $\eps \to 0$. Therefore $\sqrt{p_\eps} + \sqrt{p_0} \to 2\sqrt{p_0}$. Now we write 
+$$
+\p_0 s = \int s(z)\ p_0(z) \dd z 
+= \int \left( \frac{1}{2}s(z) \sqrt{p_0(z)} \right) \left( 2\sqrt{p_0(z)} \right) \dd z,
+$$
+i.e. the $\eltwo$ inner product between $\frac{1}{2}s \sqrt{p_0}$ and $2\sqrt{p_0}$. Notice that these two arguments are the limits of $\eps^{-1}(\sqrt{p_\eps} - \sqrt{p_0})$ and $\sqrt{p_\eps} + \sqrt{p_0}$ respectively because of what we showed above. Since the inner product is continuous (see @exm-cont-inner-prod), the inner product at the limits is the same as the limit of the inner products at the sequences, i.e. 
+$$
+\begin{aligned}
+\left\langle \frac{1}{2}s \sqrt{p_0}, 2\sqrt{p_0} \right\rangle 
+&= \underset{\eps\to 0}\lim \eps^{-1} \left\langle \sqrt{p_\eps} - \sqrt{p_0}, \sqrt{p_\eps} + \sqrt{p_0} \right\rangle \\
+&= \underset{\eps\to 0}\lim \eps^{-1} \left( \| \sqrt{p_\eps} \| - \| \sqrt{p_0} \| \right) 
+\end{aligned}
+$$
+For any density $p$, we already showed that $\|\sqrt p\| = 1$, i.e. the root-densities are on the unit ball. Thus the difference of norms on the right-hand side cancels and we get 0 as desired.
+:::
+
+::: {.callout-note appearance="minimal"}
+For those of you who know measure theory, you can check that this definition does not actually require a global dominating measure for the entire path which is used to define the densities. For each sequence $\epsilon_n \to 0$ needed to check the DQM criterion you may construct a bespoke dominating measure using the convex combination of the countable number of distributions $\p_{\eps_n}$.
+:::
+
+To me, this definition is intimidating and not intuitive at first glance. To break it down we can spend a little time reviewing what a standard derivative is and then build up from there. Given a function $f: \reals \to \reals$, recall that its derivative at the point $x=0$ (if it exists) is defined as 
+$\dot f_0 = \underset{x\to 0}{\lim} \frac{f(0) - f(x)}{x}$
+.
+Another way to write this is that there exists a number $\dot f_0$ such that
+$$
+\left| \frac{f(0) - f(x)}{x} - \dot f_0 \right| \overset{\eps \to 0}{\to} 0
+.
+$$
+
+The derivative is usually thought of the "slope" of the function $f$ at the point in question. You can think of it also as the "direction" that $f$ is going at that point: in the simplest interpretation, a positive derivative means that $f$ is increasing (going up), a negative derivative means that it's decreasing (going down). The magnitude of the derivative gives the rate of increase or decrease.
+
+Let's generalize this a bit. You should recognize that the value of the derivative $\dot f_0$ is a number specifically because the function $f$ outputs real numbers. If $f$ returned finite-dimensional vectors, for example, then the numerator in the "slope" fraction $\frac{f(0) - f(x)}{x}$ would also be a vector and the derivative $\dot f_0$ would also have to be a vector in order for the statment above to make sense. Now that we're working with the difference of two vectors instead of the difference of two numbers, the appropriate measure of distance is a norm on the vector space rather than the absolute value (which is the usual norm on $\reals$). To formalize this, let $\mathcal V$ be a vector space with a norm $\|\cdot \|_{\mathcal V}$. We'll say that $f: \reals \to \mathcal V$ is differentiable at zero if there is some element $\dot f_0 \in \mathcal V$ such that
+
+$$
+\left\| \frac{f(0) - f(x)}{x} - \dot f_0 \right\|_\mathcal{V}  \overset{\eps \to 0}\to 0
+$$
+
+If in particular we take $\mathcal V = \eltwo$ and we take $f(\eps) = \sqrt{p_\eps}$, i.e. a function that takes a value of the path parameter $\eps$ and returns the root density at that value, then we exactly recover @def-score if we define $s = 2\frac{\dot f_0}{\sqrt{p_0}}$. Note that since $f$ maps numbers $\epsilon$ to $\eltwo$ functions, the derivative of $f$ at a point $\eps$ is itself an $\eltwo$ function.
+
+Instead of assuming that $\eps \mapsto \sqrt{p_\eps}$ is differentiable in this sense at $\eps=0$, we might instead have assumed the existence of the derivative $\frac{\dd}{\dd \eps}\sqrt{p_\eps(z)}$ at every single point $z$. When both the $z$-pointwise derivative $\frac{\dd}{\dd \eps}\sqrt{p_\eps(z)}$ and the mean-square derivative $\dot{\sqrt{p_\eps}}$ exist they certainly agree with each other, but sometimes one exists and not the other. There are paths that are not $z$-pointwise differentiable but are still DQM: since the square-mean derivative integrates over the squared difference of the finite-$\eps$ "slope" term and the limit term in $z$, it does not care if that slope term blows up for some points $z$: they simply fall out of the integral. Similarly there are $z$-pointwise differentiable paths that are not DQM: refer to the results and examples in Section 7.2 of @vdv if you are curious to learn more. The reason we care about DQM is because it will turn out later that this is precisely the condition required to establish something called local asymptotic normality which we will use to prove a very important result.
+
+Nonetheless it's still very informative to consider the pointwise derivative because the pointwise derivative explains why we introduce the score function $s$ to write the derivative as $\dot{\sqrt{p_\eps}} = \frac{1}{2} s \sqrt{p_0}$. Starting with the pointwise derivative and using the chain rule,
+
+$$
+\frac{\dd}{\dd \eps}\sqrt{p_\eps(z)} 
+= \frac{1}{2}(p_\eps(z))^{-1/2} \frac{\dd}{\dd \eps}  p_\eps(z) 
+= \frac{1}{2} \sqrt{p_\eps(z)} \frac{\dd}{\dd \eps}  \log p_\eps(z) 
+$$
+
+where in the last line we used $\frac{\dd}{\dd \eps}  \log p_\eps(z) = \frac{1}{p_\eps(z)} \frac{\dd}{\dd \eps} p_\eps$. Therefore, when the pointwise derivative exists, the score function $s$ is equal to the rate of change of the log-likelihood at $\eps=0$. For almost all practical purposes you can take this to be the definition of the score for a path at $p_0$, i.e. $s(z) = \frac{\dd}{\dd \eps} \log p_\eps(z) |_{\eps=0}$. 
+
+I find it very helpful to think of the score function at a point $p_0$ in the path as the "direction" that the path is moving when it passes through that point. You can see this is the case geometrically in @fig-score-path. In the figure I've drawn $s \sqrt{p_0}$ is the *tangent vector* to the path at the point $\sqrt{p_0}$. This is justified by the fact that $s \sqrt{p_0}$ is the derivative of $\eps \mapsto \sqrt{p_\eps}$ and therefore encodes the "direction" that function is going. Another way of seeing it is that $s \sqrt{p_0}$ is the "slope" of the best linear approximation to $\eps \mapsto \sqrt{p_\eps}$ at the point $\sqrt{p_0}$. So, roughly speaking,
+$$
+\sqrt p_\eps \approx \sqrt{p_0} + \eps (s \sqrt{p_0}).
+$$
+This is exactly what I've drawn in @fig-score-path: the actual path of densities $\sqrt p_\eps$ (the left-hand side of the above display) and what would happen if you followed the current direction $s \sqrt{p}$ starting at $\sqrt p$ (the right-hand side).
+
+::: {#fig-score-path}
+``` tikz
+\resizebox{12cm}{!}{
+\begin{tikzpicture}
+
+\pgfplotsset{compat=1.18}
+
+  \begin{axis}[
+    axis lines=middle,
+    xlabel=$ $, 
+    ylabel=$ $, 
+    zlabel=$ $,
+    xtick=\empty, ytick=\empty, ztick=\empty,
+    view={50}{30},                % camera angle
+    colormap/blackwhite,     % grayscale shading
+  ]
+
+    \node at (axis cs:0.05,0.05,0.15) {$\mathcal L_2$};
+
+    \addplot3[
+      surf,
+      shader=flat,      % draws both smooth shading + facet edges
+      fill opacity=0.8,           % only the surface is semi‐transparent
+      draw=gray,                 % mesh‐lines in black
+      very thin,                  % edge‐line thickness
+      samples=15,                 % φ‐resolution
+      samples y=15,               % θ‐resolution
+      domain=0:90,                % φ from 0° to 90°
+      y domain=0:90,              % θ from 0° to 90°
+    ]
+    (
+      {sin(x)*cos(y)},            % x = sin φ cos θ
+      {sin(x)*sin(y)},            % y = sin φ sin θ
+      {cos(x)}                    % z = cos φ
+    );
+    \node[anchor=north east, color=gray] at (rel axis cs:0.125,0.125,0.9) {$\sqrt{\mathcal P}$};
+
+    %%%%%%%%%%%%%%%%%%%
+    %%% POINT %%%%%%
+    %%%%%%%%%%%%%%%%%%%
+    \addplot3[
+      only marks,
+      mark=*,
+      mark options={fill=black},
+    ]
+    coordinates {(0.5,0.5,0.7071)};
+    \node at (axis cs:0.55,0.55,0.7071) [anchor=south] {$\sqrt p$};
+
+    %%%%%%%%%%%%%%%%%%%
+    %%%%% PATH 1 %%%%% 
+    %%%%%%%%%%%%%%%%%%%
+    \addplot3[
+      parametric,             % ← treat as a 1D parametric plot
+      variable=\phi,          % ← name of the parameter
+      domain=15:85,           % φ from 15° to 85°
+      samples=25,             % number of points along the arc
+      samples y=1,     % ← no second direction → no loop
+      thick,
+      orange,
+      mark=none
+    ]
+    (
+      {sin(\phi)*cos(45)},   % x(φ)
+      {sin(\phi)*sin(45)},   % y(φ)
+      {cos(\phi)}            % z(φ)
+    );
+    \node[anchor=north east, color=orange] at (rel axis cs:0.7,0.93) {$\sqrt{\mathcal P_{\epsilon}}$};
+
+    %%%%%%%%%%%%%%%%%%%
+    %%%% SCORE 1 %%%%%
+    %%%%%%%%%%%%%%%%%%%
+    \addplot3[
+      ->,                % arrow head
+      orange,              % arrow color
+      thick,             % line width
+      mark=none,
+    ]
+    coordinates {
+      % from P …
+      (0.5,0.5,0.7071)
+      % … to P + 0.4·(0.5,0.5,−0.7071)
+      (0.7,0.7,0.4243)
+    };
+    \node at (axis cs:0.7,0.7,0.4243) [anchor=west, color=orange] {$s \sqrt{p}$};
+
+    %%%%%%%%%%%%%%%%%%%
+    %%%% PATH 2 %%%%%
+    %%%%%%%%%%%%%%%%%%%
+\addplot3[
+      parametric,
+      variable=\t,
+      domain=-30:30,
+      samples=20,
+      samples y=1,
+      thick,
+      teal,
+      mark=none,
+    ]
+    (
+      {0.5*cos(\t)  - 0.7071*sin(\t)},  % x = OP_x*cos t + D2_x*sin t
+      {0.5*cos(\t)  + 0.7071*sin(\t)},  % y = OP_y*cos t + D2_y*sin t
+      {0.7071*cos(\t)}                  % z = OP_z*cos t
+    );
+    \node[anchor=south west, color=teal]
+      at (rel axis cs:0.75,0.2,1.1) {$\sqrt{\mathcal P_{\epsilon}}$};
+
+    %%%%%%%%%%%%%%%%%%%
+    %%%% SCORE 2 %%%%%
+    %%%%%%%%%%%%%%%%%%%
+    \addplot3[
+      ->,
+      teal,
+      thick,
+      mark=none,
+    ]
+    coordinates {
+      (0.5,     0.5,     0.7071)
+      ((0.5+0.2828), (0.5-0.2828), 0.7071) % ≈ (0.2172,0.7828,0.7071)
+    };
+    \node[anchor=north, color=teal]
+      at (axis cs:0.5+0.2828, 0.5-0.2828, 0.7071) 
+      {$s \sqrt{p}$};
+    
+  \end{axis}
+\end{tikzpicture}
+}
+\end{document}
+```
+The score $s$ (times $\sqrt p$) is tangent to the path $\sqrt{\model_\eps}$ at $\sqrt p_0$. In the figure I've shown two different paths passing through the same point $\sqrt p$ (in two different colors) and their respective scores.
+:::
+
+To make an analogy, let's say you were following a path from New York to San Francisco. A "path" would be equivalent to a line on the map indicating the route you take. Your "score" at some point along the route would be the direction that the route tells you to go in at that point (e.g. in New York your "score" might be "West").
+
+Technically it's not the scores themselves that are tangent to paths in the model, but the scores times the current root-density that are tangent to the root-path. Nonetheless we often speak informally and talk about the scores themselves being tangent, etc, ignoring the fact that we had to take roots of the densities in our model to get everything embedded into $\eltwo$.
+
+Many of the properties of scores and paths are easiest to show and intuit if you consider a convex path between two points in the model.
+
+::: {#exm-convex-path-score}
+Fix an initial point $p$ and final point $p'$ in the model and consider the convex path $\{p: \p = \epsilon p + (1-\epsilon) p'\}$ discussed in @exm-path-convex. The score for this path at $\epsilon = 0$ is 
+
+$$
+s(z) &= \frac{\dd}{\dd \eps} \log \big( \epsilon p + (1-\epsilon) p' \big) |_{\eps=0}
+$$
+
+:::

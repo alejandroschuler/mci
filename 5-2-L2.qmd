@@ -87,12 +87,12 @@ It's funny, but this kind of thinking is a staple of mathematics. We all use stu
 
 Now that we've built that intuition we can start to formalize some of our geometric ideas. First up: what is the "length" of a function? If the usual length of a finite vector is determined by the (square root of the) sum of the squares of its elements, then we could extend that definition to a function. The only problem is that $\sum_{x \in \mathbb R} f(x)^2$ is not well-defined: the finite sum is not appropriate to deal with an index set that is continuously infinite. But we do already have a "continuously infinite sum": the integral. Thus we might define 
 $$
-\|f\|^2 = \int_{-\infty}^\infty f(x)^2 \ \text{d} x
+\|f\|^2 = \int_{-\infty}^\infty f(x)^2 \dd  x
 $$
 
 to be our norm. We call this the _$\mathcal L_2$ norm_ (there are other choices; the "2" is for the square inside the integral). Although there are other possible norms, the $\mathcal L_2$ norm is nice because it is compatible with an inner product, namely 
 $$
-\langle f, g \rangle = \int_{-\infty}^{\infty} f(x) g(x) \ \text{d} x
+\langle f, g \rangle = \int_{-\infty}^{\infty} f(x) g(x) \dd  x
 .
 $$
 You should again think of this as the continuously-summed version of the finite-dimensional dot product. Hopefully the intuition from thinking of functions as long, dense "vectors" is helpful to you here. If you replace the integral with a sum and the function call notation with an index you will see how this norm and inner product are analogous to the finite-dimensional versions you're more familiar with.
@@ -105,16 +105,16 @@ Consider the functions $f = 1_{[0,1]}$ and $g = 1_{[2,3]}$. According to our inn
 
 A further wrinkle is that until now I've used the standard Riemman integral (with the differential $\text{d}x$) to define $\mathcal L_2$ but that is not quite right. In reality it's slightly more complicated. We formally define $\mathcal L_2(\mathbb P)$ to be the space of *$\mathbb P$-measureable, square-Lebesgue-integrable* functions. The measurability is a technical condition that rules out some extremely esoteric corner cases that you don't need to worry about: read up on measure theory if you want to learn more. Although the $\mathcal L$ in $\mathcal L_2$ stands for "Lebesgue", the "Lebesgue" part is also not terribly important. The Lebesgue integral is a formalization of the integral that can integrate strictly more functions than the Riemann integral, but any function that is Riemann integrable Lebesgue-integrates to the same value so it doesn't make much difference in terms of intution. 
 
-The important part is the $\mathbb P$: one of the strengths of the Lebesgue integral is that it can be defined with respect to any "measure" (probability distributions are formally mathematical objects called measures). When you integrate "with respect to a distribution $\mathbb P$" you write $\int f \ \text{d} \mathbb P$ or $\int f(z) \ \text{d} \mathbb P(z)$ to indicate more explicitly that $\mathbb P$ is a distribution over $Z$ and that $f$ takes arguments in the range of $Z$. If you're not familiar with measure theory (I don't expect you to be), when you see an integral with respect to a continuous distribution $\mathbb P(Z)$ with density function $p(z)$ you should read it as 
+The important part is the $\mathbb P$: one of the strengths of the Lebesgue integral is that it can be defined with respect to any "measure" (probability distributions are formally mathematical objects called measures). When you integrate "with respect to a distribution $\mathbb P$" you write $\int f \dd  \mathbb P$ or $\int f(z) \dd  \mathbb P(z)$ to indicate more explicitly that $\mathbb P$ is a distribution over $Z$ and that $f$ takes arguments in the range of $Z$. If you're not familiar with measure theory (I don't expect you to be), when you see an integral with respect to a continuous distribution $\mathbb P(Z)$ with density function $p(z)$ you should read it as 
 $$
-\int f(z) \ \text{d} \mathbb P(z) = \int f(z) \ p(z) \text{d}z = \mathbb E_{\mathbb{P}}[f(Z)]
+\int f(z) \dd  \mathbb P(z) = \int f(z) \ p(z) \text{d}z = \mathbb E_{\mathbb{P}}[f(Z)]
 $$
 
 In other words, you can think of the differential $\text{d}\mathbb P$ as weighting different parts of the domain of $z$ in the integral by the probability of $z$ falling into them. Integrating a function with respect to a distribution over $Z$ is the same as taking its expectation over the distribution of $Z$. 
 
-However, $\mathcal L_2(\mathbb P)$ spaces can also be defined when $\mathbb P(Z)$ is a discrete distribution (with probability mass function $p(z)$). In that case, $\int f(z) \ \text{d} \mathbb P(z) = \sum f(z) \ p(z) = \mathbb E_{\mathbb{P}}[f(Z)]$. The integral is also defined for distributions that are neither strictly continuous or discrete (e.g. $Z$ is 0 half the time and a standard normal the other half; think of a normal density with an infinite "spike" of mass 1/2 at 0). You don't have to worry about this to get all the intuition you need for this book.
+However, $\mathcal L_2(\mathbb P)$ spaces can also be defined when $\mathbb P(Z)$ is a discrete distribution (with probability mass function $p(z)$). In that case, $\int f(z) \dd \mathbb P(z) = \sum f(z) \ p(z) = \mathbb E_{\mathbb{P}}[f(Z)]$. The integral is also defined for distributions that are neither strictly continuous or discrete (e.g. $Z$ is 0 half the time and a standard normal the other half; think of a normal density with an infinite "spike" of mass 1/2 at 0). You don't have to worry about this to get all the intuition you need for this book.
 
-You'll notice that some functions will be square-integrable under some distributions but not under others. There isn't really one single $\mathcal L_2$ space when we're working with probability distributions. In the wild, if you see "$\mathcal L_2$", that's short for the $\mathcal L_2$ space based on the Lebesgue measure: roughly speaking, the integrals used to define the norm and inner product don't use any weights on the real number line. But we'll always be working with $\mathcal L_2(\mathbb P)$ for some particular $\mathbb P$. Nonetheless I may sometimes refer to "$\mathcal L_2$" generically. If I do that, it's just as a shorthand for $\mathcal L_2(\mathbb P)$ for a specific distribution that is clear from context or for any generic distribution. Similarly, if we write a norm or inner product we should technically always specify the relevant space, i.e. $\| f  \|_{\mathcal L_2(\mathbb P)}$ or $\langle f,g \rangle_{\mathcal L_2(\mathbb P)}$. However, to minimize notational burder we often leave off the details of the space and/or base measure when they are clear from context.
+You'll notice that some functions will be square-integrable under some distributions but not under others. There isn't really one single $\mathcal L_2$ space when we're working with probability distributions. In the wild, if you see "$\mathcal L_2$", that's short for the $\mathcal L_2$ space based on the Lebesgue measure: roughly speaking, the integrals used to define the norm and inner product don't use any weights on the real number line. Nonetheless I may sometimes refer to "$\mathcal L_2$" as a shorthand for $\mathcal L_2(\mathbb P)$ for a specific distribution that is clear from context or for any generic distribution. Similarly, if we write a norm or inner product we should technically always specify the relevant space, i.e. $\| f  \|_{\mathcal L_2(\mathbb P)}$ or $\langle f,g \rangle_{\mathcal L_2(\mathbb P)}$. However, to minimize notational burder we often leave off the details of the space and/or base measure when they are clear from context.
 
 ::: {#exm-sq-integrability} 
 $f(z) = z^{-1/2}$ is square-integrable if $Z \sim \text{Unif}[2,3]$ but not if $Z \sim \text{Unif}[0,1]$. 
@@ -138,6 +138,8 @@ Now we can finally state our "offical" definition of $\mathcal L_2(\mathbb P)$:
 # $\mathcal L_2(\mathbb P)$
 ::: {#def-L2}
 Given a distribution $\mathbb P$, The vector space $\mathcal L_2(\mathbb P)$ is the set of equivalence classes of functions $[f] = \{g: \mathbb P(g-f)^2 = 0\}$ for which the norm $\| f\|^2 = \mathbb P f^2$ is defined and finite. We equip this set with the inner product $\langle f,g \rangle = \mathbb P fg$ which induces the norm.
+
+We define $\mathcal L_2$ to be the *unweighted* equivalent where the inner product is given by $\int fg \dd z$
 :::
 :::
 
@@ -510,7 +512,7 @@ Pick $f(z) = 1$. The span of $f$ is clearly $\mathcal T = \{z \mapsto c: c \in \
 $$
 \begin{aligned}
 (mz-b) - \mathcal T (mz-b) 
-&= (mz-b) - \int_0^1 mz+b \ \text{d}z \\
+&= (mz-b) - \int_0^1 mz+b \dd z \\
 &= m(z - 1/2)
 \end{aligned}
 $$
@@ -598,10 +600,19 @@ which is the correlation between the random variables $f(Z)$ and $g(Z)$. This mu
 Suppose I know $f \in \mathcal L_2(\mathbb P)$. In many problems we might end up with an expression like $\mathbb E[f(Z)]$ which we might not know how to compute without knowing exactly what $f$ is. However, Cauchy-Schwarz gives us one useful way to approximate such a term in the sense that we can at least say it's no bigger than a certain number. To wit,
 
 $$
-|\mathbb E[f(Z)]| = \left|\int f(Z) \cdot 1 \ \text{d}\mathbb P\right| = |\langle f, 1 \rangle| \le \|f\|.
+|\mathbb E[f(Z)]| = \left|\int f(Z) \cdot 1 \dd \mathbb P\right| = |\langle f, 1 \rangle| \le \|f\|.
 $$
 
 We even know that the bound is *sharp* (we can't do any better without knowing more). That's because if $f = c$ (a constant), then $\mathbb E[c] = \|c\|$.
+:::
+
+::: {#exm-cont-inner-prod}
+# Continuity of Inner Product
+Recall @def-continuity. Our plan is to show that the inner product is continuous in either argument. To do so, the definition of continuity says that we need to show that $\langle v_n, u \rangle \to \langle v, u \rangle$ for any sequence $v_n \overset{\mathcal V} v$ where we use the $\mathcal V$-norm to define the required distance metric $d_{\mathcal V}(v,u) = \|v-u\|_{\mathcal V}$. The inner products converge if $|\langle v_n, u \rangle - \langle v, u \rangle| = |\langle v_n - v, u \rangle| \to 0$ for all sequences such that $\|v_n - v\| \to 0$. By Cauchy-Schwarz,
+$$
+|\langle v_n - v, u \rangle| \le \|v_n - v\| \|u\|.
+$$
+Since the right-hand side converges to zero for any convergent sequence $v_n$, the left hand side does too and thus the inner product is continuous in the first argument. Symmetry of the inner product means this is also true of the second argument.
 :::
 
 ### Triangle Inequality
@@ -942,7 +953,7 @@ $$
 
 These functions have norms 
 $$
-\|h_n\|^2 = \frac{1}{2}\int_{-n^{-1}}^{n^{-1}} 2^2\sqrt{n}^2 \ \text{d}z = 1.
+\|h_n\|^2 = \frac{1}{2}\int_{-n^{-1}}^{n^{-1}} 2^2\sqrt{n}^2 \dd z = 1.
 $$ 
 On the other hand, 
 $$

@@ -1,4 +1,8 @@
-# Convergence of Random Variables {#sec-app-rv-convergence}
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# Convergence {#sec-app-rv-convergence}
 
 Throughout chapters 3 and 4 we talk a lot about the convergence of random variables so it helps to understand what we mean by these things. In the definition of asymptotic linearity the term $o_{\mathbb P}(n^{-1/2})$ already invokes a specific type of convergence (more on that below).
 
@@ -82,7 +86,7 @@ The sequence of functions $f_n$ *converges pointwise* to a limit $f$ if $f_n(x) 
 :::
 :::
 
-Pointwise convergence is one way to say that the functions $f_n$ are getting closer to $f$ as $n$ increases, but there are actually other ways too! For example, we say that $f_n$ converges to $f$ in mean-squared error if $\int (f_n(x) - f(x))^2 \ \text{d}x \to 0$ as a sequence. For reasons we'll see later this is sometimes denoted as $f_n \overset{\mathcal L_2}{\to} f$. 
+Pointwise convergence is one way to say that the functions $f_n$ are getting closer to $f$ as $n$ increases, but there are actually other ways too! For example, we say that $f_n$ converges to $f$ in mean-squared error if $\int (f_n(x) - f(x))^2 \dd x \to 0$ as a sequence. For reasons we'll see later this is sometimes denoted as $f_n \overset{\mathcal L_2}{\to} f$. 
 
 The reason I bring this up is to point out the fact that there are many different senses of "convergence" when you start talking about objects that are more complicated than real numbers. A function can converge to a limit in a mean-squared sense but not in a pointwise sense, and vice versa! Sometimes one type of convergence implies another and sometimes not (without additional assumptions).
 
@@ -192,10 +196,46 @@ ggplot(df_pt, aes(x = n, y = y, color = factor(x0, levels=x0_vals), alpha=n)) +
   theme(legend.position = "bottom")
 ```
 
-As you can see visually, at any point $x_0 \in (0,\infty)$ the sequence of points $a_n = f_n(x_0)$ converges to zero. Therefore we say $f_n \to 0$ on the domain $(0,\infty)$. However, if you calculate the mean-squared error $\int_0^\infty (f_n - 0)^2 \ \text{d}x$ for this sequence of functions (your favorite LLM can do this for you), you'll see that it stays at a constant, nonzero value of $\sqrt{\pi/8}$. Therefore, while this sequence converges pointwise, it does not converge in a mean-squared sense.
+As you can see visually, at any point $x_0 \in (0,\infty)$ the sequence of points $a_n = f_n(x_0)$ converges to zero. Therefore we say $f_n \to 0$ on the domain $(0,\infty)$. However, if you calculate the mean-squared error $\int_0^\infty (f_n - 0)^2 \dd x$ for this sequence of functions (your favorite LLM can do this for you), you'll see that it stays at a constant, nonzero value of $\sqrt{\pi/8}$. Therefore, while this sequence converges pointwise, it does not converge in a mean-squared sense.
 :::
 
-Convergence of sequences and functions is a central topic in real analysis. You can consult an analysis book or lecture series to learn more.
+There is also a more general notion of convergence of which the convergence of real number sequences and mean-squared convergence of functions are special cases.
+
+::: callout-note
+# Metric Space Convergence
+::: {#def-metric-conv}
+Let $\mathcal X$ be some set and let $d: \mathcal X \times \mathcal X \to \reals$ be a *metric* (also called a *distance function*) satifying the following natural properties of "distance between two points":
+
+a. $d(x,x) = 0$ for all $x \in \mathcal X$
+b. $d(x,y) > 0$ as long as $x \ne y$
+c. $d(x,y) = d(y,x)$
+d. $d(x,y) \le d(x,z) + d(z,y)$, i.e. taking a detour to $z$ on the way from $x$ to $y$ increases the total distance traveled
+
+The set $\mathcal X$ and metric $d$ are together called a *metric space* $(\mathcal X ,d)$.
+
+In a metric space, we say that a sequence of objects $x_n \in \mathcal X$ $(\mathcal X, d)$-converges to a limit $x$ if for every $\epsilon > 0$, there is an integer $N$ such that for all $n > N$, we have $d(x_n, x) < \epsilon$. Alternatively, we can say that $x_n \overset{(\mathcal X, d)}\to x$ if and only if $d(x_n, x) \to 0$ in the conventional sense as a sequence of real numbers.
+:::
+:::
+
+This definition generalizes the definition used for sequences real numbers by generalizing the usual "distance" $d(x,y) = |x-y|$ on the reals to other possible choices that make sense on other sets of objects. Usually we just say $x_n$ "converges" to $x$ insead of saying that the sequence $(\mathcal X, d)$-converges, leaving the set and metric implicit when clear from context. It's also common to see something like $x_n \overset{\mathcal X}\to x$, slightly abusing notation and letting $\mathcal X$ represent both the set $\mathcal X$ and the metric space $(\mathcal X, d)$. In this convention, the metric comes "bundled" with the set. In practice certain sets almost always use the same metric (e.g. absolute value of differences for $\reals$, Euclidian norm for $\reals^d$: see @exm-convergence-Rd) but really there is no single priviliged metric that goes with each set. When multiple spaces or metrics are in play you may see the more explicit $(\mathcal X, d)$ notation because sequences may converge under one metric but not another. 
+
+::: {#exm-convergence-Rd}
+For finite-dimensional vectors $v \in \reals^d$, the Euclidian norm is defined as $\|v\| = \sqrt{\sum v_j^2}$. From this, the Euclidean distance is defined as $d(u,v) = \|u-v\|$. It is easy to verify that this distance satisfies the properties of a metric. Then we can say that $v_n \to v$ if $\|v_n - v\| \to 0$.
+:::
+
+::: {.callout-important appearance="minimal"}
+::: {#exr-discrete-metric}
+Let $d(x,y) = 1(x=y)$. 
+
+a. Show that this satisfies the properties of a metric on $\reals$ (an alternative to the usual $d(x,y) = |x-y|$).
+b. Show that a sequence $x_n$ converges to a limit $x$ under this metric only if there is an $N$ after which the elements of the sequence are all $x$, i.e. $x_n = x$ for $n > N$.
+
+:::
+:::
+
+There is actually an even more general notion of convergence (convergence in topological space) that also generalizes metric convergence as well as pointwise convergence of functions (which can't be seen as convergence in any metric space) but we don't need to bother with it in this book since we'll always work in metric spaces. 
+
+Convergence of sequences and functions is a central topic in real analysis. You can consult an analysis book or lecture series to learn more. I recommend starting with @analysis and then proceeding to the first three chapters of @functional-analysis.
 
 ### Uniform Convergence {#sec-app-uniform-convergence}
 
@@ -211,6 +251,8 @@ $$
 
 Notice that as as $n$ changes, the point $x$ at which the difference $|f_n(x) - f(x)|$ is maximized might change! 
 
+Uniform convergence is another example of convergence in a metric space (@def-metric-conv): you can check that $d(f,g) = \sup_x |g(x) - f(x)|$ is a valid metric on the set of all functions.
+
 ::: {#exm-unif-conv-fns}
 let $f=0$ and consider a sequence $f_n(x) = 1(n < x \le n+1)$. You can think of the sequence $f_n$ as a bump that moves further and further down the x-axis as $n$ increases. If you stand still at any value $x$, the bump comes and passes over you and then departs. Therefore, for $n$ large enough (specifically $n>x+1$), $f_n(x) =0$ exactly forevermore and thus $f_n \to f$ pointwise. 
 
@@ -224,6 +266,24 @@ In @exm-fn-convergence we considered the pointwise convergence of $f_n(x) = \sqr
 :::
 
 Similar concepts pop up in different places across mathematics. in general, when we're looking at some property of the worst-case behavior of a mapping across a variety of inputs simultaneously we usually use the word "uniform" to describe it.
+
+### Continuity
+
+Convergence is the foundation for many other useful concepts. One of these is *continuity*. 
+
+::: callout-note
+# Continuity
+::: {#def-continuity}
+A function $f: \mathcal X \to \mathcal Y$ is *continuous* at a point in its domain $x \in \mathcal X$ if $f(x_n) \overset{\mathcal Y}\to f(x)$ for all sequences $x_n \overset{\mathcal X}\to x$. 
+
+A second way to write this is that $d_{\mathcal X}(x,x_n) \to 0$ implies $d_{\mathcal Y}(f(x),(x_n)) \to 0$. A third way is that $\underset{n\to \infty}\lim f(x_n) = f(\underset{n\to \infty}\lim x_n)$ for sequences $x_n \to x$
+:::
+:::
+
+Informally, a function is continuous if small perturbations in its input can only create small perterbuations in the output. In this definition I've abused notation a bit to let $\mathcal X$ and $\mathcal Y$ represent metric spaces so that I don't have to explicitly write the metrics. 
+
+
+
 
 ## Random Variables
 

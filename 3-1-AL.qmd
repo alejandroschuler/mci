@@ -1,3 +1,7 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
 # Asymptotic Linearity {#sec-3-AL}
 
 ## What do we want from estimators?

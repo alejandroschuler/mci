@@ -163,6 +163,12 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./6-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
@@ -175,7 +181,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./5-1-rv-convergence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Convergence of Random Variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Convergence</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -238,9 +244,6 @@ window.Quarto = {
 </header>
 
 
-<p><span class="math inline">\(\mathcal{L}_2(\mathbb{P})\)</span></p>
-<p><span class="math inline">\(\mathcal{L}_2{p}\)</span></p>
-<p><span class="math inline">\(\mathbb{P}\)</span></p>
 <p>It will help you a lot to learn efficiency theory if you have a solid understanding of <span class="math inline">\(\mathcal L_2\)</span> and a few basic ideas from functional analysis. Many students of statistics are missing this background so I’ll try and give you the necessary intuition here.</p>
 <section id="sec-app-L2-vectors" class="level2" data-number="B.1">
 <h2 data-number="B.1" class="anchored" data-anchor-id="sec-app-L2-vectors"><span class="header-section-number">B.1</span> Vector Spaces</h2>
@@ -324,10 +327,10 @@ f = [\dots f_{-1}, \dots f_{0}, \dots f_{1.1}, \dots f_\pi, \dots ].
 <section id="sec-app-L2-L2" class="level2" data-number="B.2">
 <h2 data-number="B.2" class="anchored" data-anchor-id="sec-app-L2-L2"><span class="header-section-number">B.2</span> <span class="math inline">\(\mathcal L_2\)</span> Space</h2>
 <p>Now that we’ve built that intuition we can start to formalize some of our geometric ideas. First up: what is the “length” of a function? If the usual length of a finite vector is determined by the (square root of the) sum of the squares of its elements, then we could extend that definition to a function. The only problem is that <span class="math inline">\(\sum_{x \in \mathbb R} f(x)^2\)</span> is not well-defined: the finite sum is not appropriate to deal with an index set that is continuously infinite. But we do already have a “continuously infinite sum”: the integral. Thus we might define <span class="math display">\[
-\|f\|^2 = \int_{-\infty}^\infty f(x)^2 \ \text{d} x
+\|f\|^2 = \int_{-\infty}^\infty f(x)^2 \mathop{}\!\mathrm{d}x
 \]</span></p>
 <p>to be our norm. We call this the <em><span class="math inline">\(\mathcal L_2\)</span> norm</em> (there are other choices; the “2” is for the square inside the integral). Although there are other possible norms, the <span class="math inline">\(\mathcal L_2\)</span> norm is nice because it is compatible with an inner product, namely <span class="math display">\[
-\langle f, g \rangle = \int_{-\infty}^{\infty} f(x) g(x) \ \text{d} x
+\langle f, g \rangle = \int_{-\infty}^{\infty} f(x) g(x) \mathop{}\!\mathrm{d}x
 .
 \]</span> You should again think of this as the continuously-summed version of the finite-dimensional dot product. Hopefully the intuition from thinking of functions as long, dense “vectors” is helpful to you here. If you replace the integral with a sum and the function call notation with an index you will see how this norm and inner product are analogous to the finite-dimensional versions you’re more familiar with.</p>
 <p>There are some functions which have infinite or undefined <span class="math inline">\(\mathcal L_2\)</span> norm. For example, <span class="math inline">\(f(x) = x^2\)</span> would have infinite norm since (for now) we’re integrating over the entire number line and the area under the curve of <span class="math inline">\((x^2)^2\)</span> goes off to infinity. To preserve the geometric intuition of our vector space, we cannot include these functions (the same way there is no finite-dimensional vector that has infinite norm). The vector space <span class="math inline">\(\mathcal L_2\)</span> (read: “el-two”) is therefore defined as the set of all functions with finite <span class="math inline">\(\mathcal L_2\)</span> norm (not quite but see below). Sometimes this is also called the space of “square-integrable” functions. You can check that this is indeed a vector space, i.e.&nbsp;that two functions with finite square integrals sum to a function with a finite square integral and that a function with a finite square integral scales to another function with finite square integral.</p>
@@ -335,12 +338,12 @@ f = [\dots f_{-1}, \dots f_{0}, \dots f_{1.1}, \dots f_\pi, \dots ].
 <p><span class="theorem-title"><strong>Example B.1</strong></span> Consider the functions <span class="math inline">\(f = 1_{[0,1]}\)</span> and <span class="math inline">\(g = 1_{[2,3]}\)</span>. According to our inner product, these two functions are orthogonal (compute the integral and see). If this is not obvious to you at first, consider the finite-dimensional vectors <span class="math inline">\([0,1]\)</span> and <span class="math inline">\([1,0]\)</span>: hopefully these are “obviously” orthogonal to you: you can visualize them as unit vectors along the two axes of <span class="math inline">\(\mathbb R^2\)</span>. Our two functions are no different: <span class="math inline">\(f\)</span> is nonzero along the “axes” corresponding to the indices in <span class="math inline">\([0,1]\)</span> while <span class="math inline">\(g\)</span> is nonzero only along “axes” <span class="math inline">\([2,3]\)</span>. If you imagine them as long dense “vectors” you’ll see that <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> have ones in different places, the same way that <span class="math inline">\([0,1]\)</span> and <span class="math inline">\([1,0]\)</span> do.</p>
 </div>
 <p>A further wrinkle is that until now I’ve used the standard Riemman integral (with the differential <span class="math inline">\(\text{d}x\)</span>) to define <span class="math inline">\(\mathcal L_2\)</span> but that is not quite right. In reality it’s slightly more complicated. We formally define <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span> to be the space of <em><span class="math inline">\(\mathbb P\)</span>-measureable, square-Lebesgue-integrable</em> functions. The measurability is a technical condition that rules out some extremely esoteric corner cases that you don’t need to worry about: read up on measure theory if you want to learn more. Although the <span class="math inline">\(\mathcal L\)</span> in <span class="math inline">\(\mathcal L_2\)</span> stands for “Lebesgue”, the “Lebesgue” part is also not terribly important. The Lebesgue integral is a formalization of the integral that can integrate strictly more functions than the Riemann integral, but any function that is Riemann integrable Lebesgue-integrates to the same value so it doesn’t make much difference in terms of intution.</p>
-<p>The important part is the <span class="math inline">\(\mathbb P\)</span>: one of the strengths of the Lebesgue integral is that it can be defined with respect to any “measure” (probability distributions are formally mathematical objects called measures). When you integrate “with respect to a distribution <span class="math inline">\(\mathbb P\)</span>” you write <span class="math inline">\(\int f \ \text{d} \mathbb P\)</span> or <span class="math inline">\(\int f(z) \ \text{d} \mathbb P(z)\)</span> to indicate more explicitly that <span class="math inline">\(\mathbb P\)</span> is a distribution over <span class="math inline">\(Z\)</span> and that <span class="math inline">\(f\)</span> takes arguments in the range of <span class="math inline">\(Z\)</span>. If you’re not familiar with measure theory (I don’t expect you to be), when you see an integral with respect to a continuous distribution <span class="math inline">\(\mathbb P(Z)\)</span> with density function <span class="math inline">\(p(z)\)</span> you should read it as <span class="math display">\[
-\int f(z) \ \text{d} \mathbb P(z) = \int f(z) \ p(z) \text{d}z = \mathbb E_{\mathbb{P}}[f(Z)]
+<p>The important part is the <span class="math inline">\(\mathbb P\)</span>: one of the strengths of the Lebesgue integral is that it can be defined with respect to any “measure” (probability distributions are formally mathematical objects called measures). When you integrate “with respect to a distribution <span class="math inline">\(\mathbb P\)</span>” you write <span class="math inline">\(\int f \mathop{}\!\mathrm{d}\mathbb P\)</span> or <span class="math inline">\(\int f(z) \mathop{}\!\mathrm{d}\mathbb P(z)\)</span> to indicate more explicitly that <span class="math inline">\(\mathbb P\)</span> is a distribution over <span class="math inline">\(Z\)</span> and that <span class="math inline">\(f\)</span> takes arguments in the range of <span class="math inline">\(Z\)</span>. If you’re not familiar with measure theory (I don’t expect you to be), when you see an integral with respect to a continuous distribution <span class="math inline">\(\mathbb P(Z)\)</span> with density function <span class="math inline">\(p(z)\)</span> you should read it as <span class="math display">\[
+\int f(z) \mathop{}\!\mathrm{d}\mathbb P(z) = \int f(z) \ p(z) \text{d}z = \mathbb E_{\mathbb{P}}[f(Z)]
 \]</span></p>
 <p>In other words, you can think of the differential <span class="math inline">\(\text{d}\mathbb P\)</span> as weighting different parts of the domain of <span class="math inline">\(z\)</span> in the integral by the probability of <span class="math inline">\(z\)</span> falling into them. Integrating a function with respect to a distribution over <span class="math inline">\(Z\)</span> is the same as taking its expectation over the distribution of <span class="math inline">\(Z\)</span>.</p>
-<p>However, <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span> spaces can also be defined when <span class="math inline">\(\mathbb P(Z)\)</span> is a discrete distribution (with probability mass function <span class="math inline">\(p(z)\)</span>). In that case, <span class="math inline">\(\int f(z) \ \text{d} \mathbb P(z) = \sum f(z) \ p(z) = \mathbb E_{\mathbb{P}}[f(Z)]\)</span>. The integral is also defined for distributions that are neither strictly continuous or discrete (e.g.&nbsp;<span class="math inline">\(Z\)</span> is 0 half the time and a standard normal the other half; think of a normal density with an infinite “spike” of mass 1/2 at 0). You don’t have to worry about this to get all the intuition you need for this book.</p>
-<p>You’ll notice that some functions will be square-integrable under some distributions but not under others. There isn’t really one single <span class="math inline">\(\mathcal L_2\)</span> space when we’re working with probability distributions. In the wild, if you see “<span class="math inline">\(\mathcal L_2\)</span>”, that’s short for the <span class="math inline">\(\mathcal L_2\)</span> space based on the Lebesgue measure: roughly speaking, the integrals used to define the norm and inner product don’t use any weights on the real number line. But we’ll always be working with <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span> for some particular <span class="math inline">\(\mathbb P\)</span>. Nonetheless I may sometimes refer to “<span class="math inline">\(\mathcal L_2\)</span>” generically. If I do that, it’s just as a shorthand for <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span> for a specific distribution that is clear from context or for any generic distribution. Similarly, if we write a norm or inner product we should technically always specify the relevant space, i.e.&nbsp;<span class="math inline">\(\| f  \|_{\mathcal L_2(\mathbb P)}\)</span> or <span class="math inline">\(\langle f,g \rangle_{\mathcal L_2(\mathbb P)}\)</span>. However, to minimize notational burder we often leave off the details of the space and/or base measure when they are clear from context.</p>
+<p>However, <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span> spaces can also be defined when <span class="math inline">\(\mathbb P(Z)\)</span> is a discrete distribution (with probability mass function <span class="math inline">\(p(z)\)</span>). In that case, <span class="math inline">\(\int f(z) \mathop{}\!\mathrm{d}\mathbb P(z) = \sum f(z) \ p(z) = \mathbb E_{\mathbb{P}}[f(Z)]\)</span>. The integral is also defined for distributions that are neither strictly continuous or discrete (e.g.&nbsp;<span class="math inline">\(Z\)</span> is 0 half the time and a standard normal the other half; think of a normal density with an infinite “spike” of mass 1/2 at 0). You don’t have to worry about this to get all the intuition you need for this book.</p>
+<p>You’ll notice that some functions will be square-integrable under some distributions but not under others. There isn’t really one single <span class="math inline">\(\mathcal L_2\)</span> space when we’re working with probability distributions. In the wild, if you see “<span class="math inline">\(\mathcal L_2\)</span>”, that’s short for the <span class="math inline">\(\mathcal L_2\)</span> space based on the Lebesgue measure: roughly speaking, the integrals used to define the norm and inner product don’t use any weights on the real number line. Nonetheless I may sometimes refer to “<span class="math inline">\(\mathcal L_2\)</span>” as a shorthand for <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span> for a specific distribution that is clear from context or for any generic distribution. Similarly, if we write a norm or inner product we should technically always specify the relevant space, i.e.&nbsp;<span class="math inline">\(\| f  \|_{\mathcal L_2(\mathbb P)}\)</span> or <span class="math inline">\(\langle f,g \rangle_{\mathcal L_2(\mathbb P)}\)</span>. However, to minimize notational burder we often leave off the details of the space and/or base measure when they are clear from context.</p>
 <div id="exm-sq-integrability" class="theorem example">
 <p><span class="theorem-title"><strong>Example B.2</strong></span> <span class="math inline">\(f(z) = z^{-1/2}\)</span> is square-integrable if <span class="math inline">\(Z \sim \text{Unif}[2,3]\)</span> but not if <span class="math inline">\(Z \sim \text{Unif}[0,1]\)</span>.</p>
 </div>
@@ -372,6 +375,7 @@ f = [\dots f_{-1}, \dots f_{0}, \dots f_{1.1}, \dots f_\pi, \dots ].
 <div class="callout-body-container callout-body">
 <div id="def-L2" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition B.2</strong></span> Given a distribution <span class="math inline">\(\mathbb P\)</span>, The vector space <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span> is the set of equivalence classes of functions <span class="math inline">\([f] = \{g: \mathbb P(g-f)^2 = 0\}\)</span> for which the norm <span class="math inline">\(\| f\|^2 = \mathbb P f^2\)</span> is defined and finite. We equip this set with the inner product <span class="math inline">\(\langle f,g \rangle = \mathbb P fg\)</span> which induces the norm.</p>
+<p>We define <span class="math inline">\(\mathcal L_2\)</span> to be the <em>unweighted</em> equivalent where the inner product is given by <span class="math inline">\(\int fg \mathop{}\!\mathrm{d}z\)</span></p>
 </div>
 </div>
 </div>
@@ -616,15 +620,6 @@ Figure&nbsp;B.2: Visual representation of the inner product giving the length of
 <p><span class="theorem-title"><strong>Example B.4</strong></span> Let’s presume that <span class="math inline">\(\mathbb P(Z)\)</span> is the uniform distribution over <span class="math inline">\([0,1]\)</span> and let <span class="math inline">\(\mathcal T\)</span> be the subspace of <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span> comprising of of all linear functions with no intercept, i.e.&nbsp;functions that can be written as <span class="math inline">\(f(z) = cz\)</span> for some slope <span class="math inline">\(c\)</span>. You can verify that this is a subspace.</p>
 <p>Let’s let <span class="math inline">\(v(z) = z^2\)</span> and figure out what the projection of this function is onto <span class="math inline">\(\mathcal T\)</span>. In other words, what is the linear function that best approximates <span class="math inline">\(z^2\)</span> in a mean-squared sense over the domain <span class="math inline">\([0,1]\)</span>? To do this we’ll use our formula: <span class="math inline">\(\mathcal T v = \frac{\langle t,v \rangle}{\|t\|^2}t\)</span></p>
 <p>Pick <span class="math inline">\(t(z) = z\)</span> as the representative from <span class="math inline">\(\mathcal T\)</span>. Then <span class="math inline">\(\langle t,v \rangle = \int_0^1 z z^2 dz = 1/4\)</span> and <span class="math inline">\(\|t\|^2 = \int_0^1 z^2 dz = 1/3\)</span>. Thus <span class="math inline">\(\mathcal T v = \frac{3}{4}x\)</span>. Visually your eye might agree that this is the best (no-intercept) linear approximation:</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="5-2-L2_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
 </div>
 <p>We call what’s left over when you subtract the projection from the original vector the <em>residual</em>. An important geometric property of projections that you may recall from linear algebra (and which I have already been showing in the figures) is that residuals are always orthogonal to the entire subspace that gets projected on (see <a href="#fig-orth-proj" class="quarto-xref">Figure&nbsp;<span>B.1</span></a>).</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
@@ -765,7 +760,7 @@ Orthogonal Sum and Complement
 <p>Pick <span class="math inline">\(f(z) = 1\)</span>. The span of <span class="math inline">\(f\)</span> is clearly <span class="math inline">\(\mathcal T = \{z \mapsto c: c \in \mathbb R\}\)</span>. Using our 1D projection formula and taking the representative <span class="math inline">\(f(z) =1\)</span> (which has norm 1), the residual of any function <span class="math inline">\(g(z) = mz+b\)</span> projected onto <span class="math inline">\(\mathcal T\)</span> is given by <span class="math display">\[
 \begin{aligned}
 (mz-b) - \mathcal T (mz-b)
-&amp;= (mz-b) - \int_0^1 mz+b \ \text{d}z \\
+&amp;= (mz-b) - \int_0^1 mz+b \mathop{}\!\mathrm{d}z \\
 &amp;= m(z - 1/2)
 \end{aligned}
 \]</span></p>
@@ -834,9 +829,14 @@ Proof of <a href="#thm-cauchy-schwarz" class="quarto-xref">Theorem&nbsp;<span>B.
 <div id="exm-bounding-integral" class="theorem example">
 <p><span class="theorem-title"><strong>Example B.6 (Bounding an Integral)</strong></span> Suppose I know <span class="math inline">\(f \in \mathcal L_2(\mathbb P)\)</span>. In many problems we might end up with an expression like <span class="math inline">\(\mathbb E[f(Z)]\)</span> which we might not know how to compute without knowing exactly what <span class="math inline">\(f\)</span> is. However, Cauchy-Schwarz gives us one useful way to approximate such a term in the sense that we can at least say it’s no bigger than a certain number. To wit,</p>
 <p><span class="math display">\[
-|\mathbb E[f(Z)]| = \left|\int f(Z) \cdot 1 \ \text{d}\mathbb P\right| = |\langle f, 1 \rangle| \le \|f\|.
+|\mathbb E[f(Z)]| = \left|\int f(Z) \cdot 1 \mathop{}\!\mathrm{d}\mathbb P\right| = |\langle f, 1 \rangle| \le \|f\|.
 \]</span></p>
 <p>We even know that the bound is <em>sharp</em> (we can’t do any better without knowing more). That’s because if <span class="math inline">\(f = c\)</span> (a constant), then <span class="math inline">\(\mathbb E[c] = \|c\|\)</span>.</p>
+</div>
+<div id="exm-cont-inner-prod" class="theorem example">
+<p><span class="theorem-title"><strong>Example B.7 (Continuity of Inner Product)</strong></span> Recall <a href="5-1-rv-convergence.html#def-continuity" class="quarto-xref">Definition&nbsp;<span>A.5</span></a>. Our plan is to show that the inner product is continuous in either argument. To do so, the definition of continuity says that we need to show that <span class="math inline">\(\langle v_n, u \rangle \to \langle v, u \rangle\)</span> for any sequence <span class="math inline">\(v_n \overset{\mathcal V} v\)</span> where we use the <span class="math inline">\(\mathcal V\)</span>-norm to define the required distance metric <span class="math inline">\(d_{\mathcal V}(v,u) = \|v-u\|_{\mathcal V}\)</span>. The inner products converge if <span class="math inline">\(|\langle v_n, u \rangle - \langle v, u \rangle| = |\langle v_n - v, u \rangle| \to 0\)</span> for all sequences such that <span class="math inline">\(\|v_n - v\| \to 0\)</span>. By Cauchy-Schwarz, <span class="math display">\[
+|\langle v_n - v, u \rangle| \le \|v_n - v\| \|u\|.
+\]</span> Since the right-hand side converges to zero for any convergent sequence <span class="math inline">\(v_n\)</span>, the left hand side does too and thus the inner product is continuous in the first argument. Symmetry of the inner product means this is also true of the second argument.</p>
 </div>
 </section>
 <section id="triangle-inequality" class="level3" data-number="B.3.4">
@@ -898,7 +898,7 @@ Figure&nbsp;B.4: Illustration of the triangle inequality.
 <p>All norms that are induced by inner products satisfy the triangle inequality by design, as we have proven. However, the triangle inequality is actually part of the definition of a norm: any function that someone wants to call a norm must satisfy the triangle inequality in order for them to call it that.</p>
 <p>Sometimes we are interested in proving that one side of a triangle is small, but what we know about are the other two sides. That’s when the triangle inequality comes in handy.</p>
 <div id="exm-triangle-ineq" class="theorem example">
-<p><span class="theorem-title"><strong>Example B.7</strong></span> If I have a sequence of real numbers <span class="math inline">\(x_n \to x\)</span> and another <span class="math inline">\(y_n \to y\)</span>, is it true that <span class="math inline">\(x_n y_n \to xy\)</span>?</p>
+<p><span class="theorem-title"><strong>Example B.8</strong></span> If I have a sequence of real numbers <span class="math inline">\(x_n \to x\)</span> and another <span class="math inline">\(y_n \to y\)</span>, is it true that <span class="math inline">\(x_n y_n \to xy\)</span>?</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1011,11 +1011,11 @@ f(u)
 <h3 data-number="B.4.2" class="anchored" data-anchor-id="infinite-dimensional-riesz-representation"><span class="header-section-number">B.4.2</span> Infinite-Dimensional Riesz Representation</h3>
 <p>Now we’ll talk about the more general case when the Hilbert space of interest could be infinite-dimensional. For the most part we’ll be interested in <span class="math inline">\(\mathcal L_2\)</span> or subspaces thereof. If we talk about functions defined <em>on</em> <span class="math inline">\(\mathcal L_2\)</span>, we’re talking about functions <em>of functions</em>. In functional analysis, people sometimes call these <em>operators</em>, but there’s really nothing special about them: they are still functions. When an operator has real-valued output (i.e.&nbsp;maps functions to numbers), it’s often called a <em>functional</em>.</p>
 <div id="exm-expectation-functional" class="theorem example">
-<p><span class="theorem-title"><strong>Example B.8 (Expectation Functional)</strong></span> The function <span class="math inline">\(f \mapsto \mathbb E_{\mathbb P}[f(Z)]\)</span> is a functional (a linear functional, in fact). The expectation functional is defined on all of <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span> since every square-integrable function is integrable (see <a href="#exm-bounding-integral" class="quarto-xref">Example&nbsp;<span>B.6</span></a>).</p>
+<p><span class="theorem-title"><strong>Example B.9 (Expectation Functional)</strong></span> The function <span class="math inline">\(f \mapsto \mathbb E_{\mathbb P}[f(Z)]\)</span> is a functional (a linear functional, in fact). The expectation functional is defined on all of <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span> since every square-integrable function is integrable (see <a href="#exm-bounding-integral" class="quarto-xref">Example&nbsp;<span>B.6</span></a>).</p>
 </div>
 <p>In general Hilbert spaces the story of Riesz representation is essentially the same except there is one little wrinkle: not all linear functions actually have a direction of steepest ascent. The problem is that there are too many “directions” to go in within infinite-dimensional space. No matter what direction you “look” (e.g.&nbsp;imagine standing at the origin), there may be some other direction you could look in where the slope (the unit rise in the function over a unit change in the input) is steeper! In contrast, in 3D (or <span class="math inline">\(d\)</span>-dimensional) space, the fact that there are only 3 (<span class="math inline">\(d\)</span>) dimensions means that there is <em>always</em> some direction of steepest ascent: you quickly run out of directions to look for steeper slopes.</p>
 <div id="exm-eval-at-point" class="theorem example">
-<p><span class="theorem-title"><strong>Example B.9 (Evaluation at a Point)</strong></span> Let <span class="math inline">\(Z \sim \text{Unif}(-1,1)\)</span> and let <span class="math inline">\(T: f \mapsto f(0)\)</span> be the functional that takes <span class="math inline">\(f \in \mathcal L_2(\mathbb P)\)</span>, evaluates it at the point <span class="math inline">\(z=0\)</span>, and returns the result. Clearly <span class="math inline">\(T\)</span> is linear under the definition of function addition and scaling in <span class="math inline">\(\mathcal L_2\)</span> because <span class="math display">\[
+<p><span class="theorem-title"><strong>Example B.10 (Evaluation at a Point)</strong></span> Let <span class="math inline">\(Z \sim \text{Unif}(-1,1)\)</span> and let <span class="math inline">\(T: f \mapsto f(0)\)</span> be the functional that takes <span class="math inline">\(f \in \mathcal L_2(\mathbb P)\)</span>, evaluates it at the point <span class="math inline">\(z=0\)</span>, and returns the result. Clearly <span class="math inline">\(T\)</span> is linear under the definition of function addition and scaling in <span class="math inline">\(\mathcal L_2\)</span> because <span class="math display">\[
 T(cf+g) = (cf + g)(0) = cf(0) + g(0) = cTf + Tg.
 \]</span> Interestingly, however, <span class="math inline">\(T\)</span> does not have a “direction of steepest ascent”. To understand this, let’s first define the slope of <span class="math inline">\(T\)</span> as the rise in <span class="math inline">\(T\)</span> over a unit change in the input <span class="math inline">\(f\)</span>. Equivalently, we may consider the rise in <span class="math inline">\(T\)</span> divided by the amount of change in the input: <span class="math display">\[
 \frac{T(f) - T(f+h)}{\|h\|}.
@@ -1024,7 +1024,7 @@ T(cf+g) = (cf + g)(0) = cf(0) + g(0) = cTf + Tg.
 h_n(z) = 2\sqrt{n} 1\left(-\frac{1}{n} \le z \le \frac{1}{n}\right).
 \]</span></p>
 <p>These functions have norms <span class="math display">\[
-\|h_n\|^2 = \frac{1}{2}\int_{-n^{-1}}^{n^{-1}} 2^2\sqrt{n}^2 \ \text{d}z = 1.
+\|h_n\|^2 = \frac{1}{2}\int_{-n^{-1}}^{n^{-1}} 2^2\sqrt{n}^2 \mathop{}\!\mathrm{d}z = 1.
 \]</span> On the other hand, <span class="math display">\[
 Th_n = h_n(0) = 2\sqrt{n} \to \infty.
 \]</span></p>
@@ -1561,8 +1561,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./5-1-rv-convergence.html" class="pagination-link" aria-label="Convergence of Random Variables">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Convergence of Random Variables</span></span>
+      <a href="./5-1-rv-convergence.html" class="pagination-link" aria-label="Convergence">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Convergence</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

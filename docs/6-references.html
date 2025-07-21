@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Efficiency Theory – Introduction to Modern Causal Inference</title>
+<title>References – Introduction to Modern Causal Inference</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,8 +49,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./3-1-AL.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./5-1-rv-convergence.html" rel="next">
+<link href="./3-2-regularity.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -110,7 +129,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./6-references.html">References</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -143,7 +162,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./3-0-intro.html" class="sidebar-item-text sidebar-link active">
+            <a href="./3-0-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Efficiency Theory</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -166,7 +185,7 @@ window.Quarto = {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./6-references.html" class="sidebar-item-text sidebar-link">
+  <a href="./6-references.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -206,7 +225,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Efficiency Theory</h1>
+<h1 class="title">References</h1>
 </div>
 
 
@@ -223,11 +242,19 @@ window.Quarto = {
 </header>
 
 
-<p>So far we’ve learned how to pose a good causal question and we’ve examimed what kinds of causal assumptions we might have to make in order to translate the causal estimand to an observable estimand. Now that we have an observable estimand, we’re done with causality for the time being (until we return to interpreting our result in context of the causal assumptions). Now we are left with a purely statistical problem: we want to estimate some aspect of a distribution given some finite samples from that distribution.</p>
-<p>The fact that identification and estimation can be cleanly separated is a wonderful feature of the modern approach to causal inference. The causal problem is that we don’t observe the right “columns” (the potential outcomes) in the “population dataset”. The statistical problem is that we don’t observe all of the “rows”.</p>
-<p>[footnote] cite the uniform convergence thing in RCTs as a counterexample where ID and estimation interplay</p>
-<p>In this chapter we will examine how to define whether an estimator is in some sense “optimal” for a given estimand. If you’ve already done some applied causal inference, you probably already know that there are many different practical approaches for estimating causal effects (matching, regression, inverse probability weighting, etc.). How can we judge these against each other when in reality we never observe the “truth” that all of them are trying to estimate? What reason might we have to choose one over another? Once we’ve developed a characterization of optimality, we will see in the next chapter how to use that knowledge to construct optimal estimators for many kinds of estimands.</p>
-<p>As a heads up, this chapter is technical, so you will see a lot of pointers to the appendices, which explain foundational concepts in mathematical statistics. As a reminder, these are targeted at readers who have taken a course in basic probability and statistics, but perhaps not real analysis or measure-theoretic probability. The appendices by no means cover all of what there is to know about their respective topics. While I strive to be as rigorous as possible, the primary goal is not rigor but instead to give the reader a sense of why and how the concepts are most often used in asymptotic statistics so that they can begin to distinguish between the main ideas and the mathematical details in the literature.</p>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-analysis" class="csl-entry" role="listitem">
+Abbott, Stephen. 2015. <em>Understanding Analysis</em>. Springer.
+</div>
+<div id="ref-functional-analysis" class="csl-entry" role="listitem">
+Kreyszig, Erwin. 1991. <em>Introductory Functional Analysis with
+Applications</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-vdv" class="csl-entry" role="listitem">
+Van der Vaart, Aad W. 2000. <em>Asymptotic Statistics</em>. Vol. 3.
+Cambridge university press.
+</div>
+</div>
 
 
 
@@ -651,13 +678,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Introduction">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+      <a href="./3-2-regularity.html" class="pagination-link" aria-label="Regularity">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Regularity</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./3-1-AL.html" class="pagination-link" aria-label="Asymptotic Linearity">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Asymptotic Linearity</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./5-1-rv-convergence.html" class="pagination-link" aria-label="Convergence">
+        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Convergence</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

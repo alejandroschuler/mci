@@ -6,7 +6,7 @@ diagram:
   engine:
     tikz:
       header-includes:
-        - '\usepackage{adjustbox, tikz-3dplot, amsmath, amsfonts}'
+        - '\usepackage{adjustbox, tikz-3dplot, amsmath, amsfonts, pgfplots}'
         - '\usetikzlibrary{arrows, angles, quotes, arrows.meta, shapes, calc}'
 
 project:
@@ -24,12 +24,14 @@ book:
       chapters:
       - 3-1-AL.qmd
       - 3-2-regularity.qmd
+    - 6-references.qmd
   appendices:
     - 5-1-rv-convergence.qmd
     - 5-2-L2.qmd
 
 execute:
   freeze: auto  # re-render only when source changes
+  eval: false
 
 callout-icon: false
 

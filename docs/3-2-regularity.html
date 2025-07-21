@@ -54,7 +54,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -64,7 +84,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./5-1-rv-convergence.html" rel="next">
+<link href="./6-references.html" rel="next">
 <link href="./3-1-AL.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -198,6 +218,12 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./6-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
@@ -210,7 +236,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./5-1-rv-convergence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Convergence of Random Variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Convergence</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -233,6 +259,7 @@ window.Quarto = {
   <ul>
   <li><a href="#hodges-estimator" id="toc-hodges-estimator" class="nav-link active" data-scroll-target="#hodges-estimator"><span class="header-section-number">2.1</span> Hodges’ Estimator</a></li>
   <li><a href="#regularity" id="toc-regularity" class="nav-link" data-scroll-target="#regularity"><span class="header-section-number">2.2</span> Regularity</a></li>
+  <li><a href="#paths-and-scores" id="toc-paths-and-scores" class="nav-link" data-scroll-target="#paths-and-scores"><span class="header-section-number">2.3</span> Paths and Scores</a></li>
   </ul>
 </nav>
     </div>
@@ -261,7 +288,7 @@ window.Quarto = {
 <p>While restricting ourselves to asymptotically linear estimators is a good start, unfortunately it is not quite enough to develop a sensible theory of optimality. In this section we’ll first argue for why a further restriction is not only sensible but useful. Then we will come up with and refine a definition that suits our needs.</p>
 <section id="hodges-estimator" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="hodges-estimator"><span class="header-section-number">2.1</span> Hodges’ Estimator</h2>
-<p>Let’s presume we’re interested in estimating the mean <span class="math inline">\(\psi = \Psi(\mathbb P) = \mathbb E_{\mathbb P}[Z]\)</span> from <span class="math inline">\(n\)</span> IID draws of a scalar random variable <span class="math inline">\(Z\)</span> that we know is normally distributed with standard deviation <span class="math inline">\(\sigma=1\)</span>. Our statistical model is therefore <span class="math inline">\(\mathcal P = \{\mathcal N(\psi, 1): \psi \in \mathbb R\}\)</span>, a one-dimensional parametric model. Obviously this is a contrived example where we know a lot about <span class="math inline">\(Z\)</span>, but the point is to show that even in this extremely favorable setting we can be led astray by mathematical arguments that put our attention in the wrong place.</p>
+<p>Let’s presume we’re interested in estimating the mean <span class="math inline">\(\psi = \Psi(\mathbb P) = \mathbb E_{\mathbb P}[Z]\)</span> from <span class="math inline">\(n\)</span> IID draws of a scalar random variable <span class="math inline">\(Z\)</span> that we know is normally distributed with standard deviation <span class="math inline">\(\sigma=1\)</span>. Our statistical model is therefore <span class="math inline">\(\mathcal P = \{\mathsf{N}(\psi, 1): \psi \in \mathbb R\}\)</span>, a one-dimensional parametric model. Obviously this is a contrived example where we know a lot about <span class="math inline">\(Z\)</span>, but the point is to show that even in this extremely favorable setting we can be led astray by mathematical arguments that put our attention in the wrong place.</p>
 <p>We’ll consider two estimators: <span class="math display">\[
 \begin{aligned}
 \hat\psi &amp;= \frac{1}{n}\sum Z_i \\
@@ -273,8 +300,8 @@ window.Quarto = {
 \end{aligned}
 \]</span></p>
 <p>The first estimator is just the usual sample mean. The second is what is called <em>Hodges’ estimator</em>. When the sample is large, Hodges’ estimator almost always returns the sample mean. But when the sample is small, Hodges’ estimator often ignores the sample mean and returns zero.</p>
-<p>Let’s compare the asymptotic sampling distributions of the two. Since <span class="math inline">\(Z\)</span> are normal random variables with unit variance and mean <span class="math inline">\(\psi\)</span>, we know that the sample mean has the exact distribution <span class="math inline">\(\mathcal N(\psi, 1 / n)\)</span>. Thus it follows that <span class="math display">\[
-\sqrt{n}(\hat\psi - \psi) \rightsquigarrow \mathcal N(0, 1)
+<p>Let’s compare the asymptotic sampling distributions of the two. Since <span class="math inline">\(Z\)</span> are normal random variables with unit variance and mean <span class="math inline">\(\psi\)</span>, we know that the sample mean has the exact distribution <span class="math inline">\(\mathsf{N}(\psi, 1 / n)\)</span>. Thus it follows that <span class="math display">\[
+\sqrt{n}(\hat\psi - \psi) \rightsquigarrow \mathsf{N}(0, 1)
 \]</span></p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -293,8 +320,8 @@ Warning
 <p><span class="math display">\[
 \sqrt{n}(\hat\psi - \psi) \rightsquigarrow
 \begin{cases}
-\mathcal N(0, 1) &amp; \psi \ne 0 \\
-\mathcal N(0, 0) &amp; \psi = 0
+\mathsf{N}(0, 1) &amp; \psi \ne 0 \\
+\mathsf{N}(0, 0) &amp; \psi = 0
 \end{cases}
 \]</span></p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
@@ -309,7 +336,7 @@ Derivation of the asymptotic distribution of Hodges’ estimator
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Let’s prove that <span class="math inline">\(\sqrt{n}(\hat\psi - \psi) \rightsquigarrow \mathcal N(0, 0)\)</span> when the mean of <span class="math inline">\(Z\)</span> is zero. This will require some understanding of what is meant formally by convergence in probability and a common probability tool called Chebyshev’s inequality. It’s not at all important to understand this proof, I just provide it for completeness and as a refresher for those who are familiar with this kind of argument.</p>
+<p>Let’s prove that <span class="math inline">\(\sqrt{n}(\hat\psi - \psi) \rightsquigarrow \mathsf{N}(0, 0)\)</span> when the mean of <span class="math inline">\(Z\)</span> is zero. This will require some understanding of what is meant formally by convergence in probability and a common probability tool called Chebyshev’s inequality. It’s not at all important to understand this proof, I just provide it for completeness and as a refresher for those who are familiar with this kind of argument.</p>
 <p>That statement is the same as saying that <span class="math inline">\(\sqrt{n}(\hat\psi - \psi) \overset{\mathbb P}{\to} 0\)</span>, which we will prove. For any <span class="math inline">\(\epsilon &gt; 0\)</span>,</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -353,97 +380,64 @@ z - \mathbb E[Z] &amp; \mathbb E[Z] \ne 0 \\
 <p>But if this is true, why do we use the sample mean instead of Hodges’ estimator? And moreover why couldn’t we reason the same way about a Hodges’-style estimator that has a special preference for some other value instead of zero? Wouldn’t that estimator also be better than the sample mean for that special value and otherwise the same?</p>
 <p>The reason we don’t use Hodges’ estimator is that the asymptotic arguments hide that this estimator actually performs much worse than the sample mean for most values of <span class="math inline">\(n\)</span> and most possible distributions of <span class="math inline">\(Z\)</span>. You can see this in a simulation (or work it out analytically):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>hodges <span class="ot">=</span> <span class="cf">function</span>(Z) {</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">=</span> <span class="fu">length</span>(Z)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ifelse</span>(<span class="fu">abs</span>(<span class="fu">mean</span>(Z)) <span class="sc">&gt;</span> n<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>), <span class="fu">mean</span>(Z), <span class="dv">0</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">=</span> <span class="cf">function</span>(n, psi) {</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    Z <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="at">mean=</span>psi)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">n =</span> n,</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">psi =</span> psi,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean =</span> <span class="fu">mean</span>(Z), </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">hodges =</span> <span class="fu">hodges</span>(Z)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>params <span class="ot">=</span> <span class="fu">expand_grid</span>(</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>), </span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">psi =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>, <span class="fl">0.01</span>),</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>result <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span> <span class="sc">|&gt;</span> </span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map_df</span>(<span class="sc">~</span><span class="fu">pmap_df</span>(params, sim)) </span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>result <span class="sc">|&gt;</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(<span class="at">n =</span> <span class="fu">factor</span>(n), psi) <span class="sc">|&gt;</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">mse_mean =</span> <span class="fu">mean</span>((mean <span class="sc">-</span> psi)<span class="sc">^</span><span class="dv">2</span>),</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">mse_hodges =</span> <span class="fu">mean</span>((hodges <span class="sc">-</span> psi)<span class="sc">^</span><span class="dv">2</span>),</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">efficiency =</span> mse_hodges <span class="sc">/</span> mse_mean</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(psi, efficiency, <span class="at">color=</span>n)) <span class="sc">+</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'n'. You can override using the `.groups`
-argument.</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="3-2-regularity_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>hodges <span class="ot">=</span> <span class="cf">function</span>(Z) {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">=</span> <span class="fu">length</span>(Z)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ifelse</span>(<span class="fu">abs</span>(<span class="fu">mean</span>(Z)) <span class="sc">&gt;</span> n<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>), <span class="fu">mean</span>(Z), <span class="dv">0</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">=</span> <span class="cf">function</span>(n, psi) {</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    Z <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="at">mean=</span>psi)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">n =</span> n,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">psi =</span> psi,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean =</span> <span class="fu">mean</span>(Z), </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">hodges =</span> <span class="fu">hodges</span>(Z)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>params <span class="ot">=</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>), </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">psi =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>, <span class="fl">0.01</span>),</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>result <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span> <span class="sc">|&gt;</span> </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map_df</span>(<span class="sc">~</span><span class="fu">pmap_df</span>(params, sim)) </span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>result <span class="sc">|&gt;</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(<span class="at">n =</span> <span class="fu">factor</span>(n), psi) <span class="sc">|&gt;</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">mse_mean =</span> <span class="fu">mean</span>((mean <span class="sc">-</span> psi)<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">mse_hodges =</span> <span class="fu">mean</span>((hodges <span class="sc">-</span> psi)<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">efficiency =</span> mse_hodges <span class="sc">/</span> mse_mean</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(psi, efficiency, <span class="at">color=</span>n)) <span class="sc">+</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <span class="math inline">\(y\)</span>-axis of the plot shows the relative efficiency of Hodges’ estimator, defined as the ratio of MSEs between Hodges’ estimator and the sample mean: <span class="math inline">\(\mathbb E[(\tilde\psi - \psi)^2]/\mathbb E[(\hat\psi - \psi)^2]\)</span>. If this is greater than one, then Hodges’ estimator is better than the sample mean, if less than one, it is worse.</p>
 <p>As you can see, regardless of what <span class="math inline">\(n\)</span> is, Hodges’ estimator is worse (and sometimes <em>much</em> worse) than the sample mean for the majority of the plotted values of <span class="math inline">\(\psi\)</span>. So then why do the asymptotic arguments suggest that Hodges’ estimator is actually better than the sample mean?</p>
 <p>The problem is that the asymptotics are only concerned with the behavior of each estimator at any particular distribution of <span class="math inline">\(Z\)</span>. In our contrived model, the distributions of <span class="math inline">\(Z\)</span> are all normal with unit variance so a single distibution corresponds to a value of <span class="math inline">\(\psi\)</span>. If you look at a single nonzero point on the <span class="math inline">\(x\)</span>-axis (say, <span class="math inline">\(\psi = 1/2\)</span>) and compare the relative efficiency as <span class="math inline">\(n\)</span> increases you’ll see that it does converge to 1: both estimators are asymptotically equivalent. At the point <span class="math inline">\(\psi=0\)</span>, however, the relative efficiency converges to 0 meaning that Hodge’s estimator is infinitely more efficient at that point asymptotically. We can repeat our simulations but plot them a little differently in order to see this. Instead of plotting efficiency against <span class="math inline">\(\psi\)</span> and slicing by <span class="math inline">\(n\)</span>, we’ll instead plot efficiency against <span class="math inline">\(n\)</span> and slice by <span class="math inline">\(\psi\)</span> (you could imagine a 3D plot with efficiency on the z-axis and <span class="math inline">\(n\)</span> and <span class="math inline">\(\psi\)</span> on the x and y).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>params <span class="ot">=</span> <span class="fu">expand_grid</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">1000</span>, <span class="at">by=</span><span class="dv">20</span>),</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">psi =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.3</span>, <span class="fl">0.5</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>result <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span> <span class="sc">|&gt;</span> </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map_df</span>(<span class="sc">~</span><span class="fu">pmap_df</span>(params, sim)) </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>result <span class="sc">|&gt;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(<span class="at">n =</span> n, <span class="at">psi =</span> psi) <span class="sc">|&gt;</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">mse_mean =</span> <span class="fu">mean</span>((mean <span class="sc">-</span> psi)<span class="sc">^</span><span class="dv">2</span>),</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">mse_hodges =</span> <span class="fu">mean</span>((hodges <span class="sc">-</span> psi)<span class="sc">^</span><span class="dv">2</span>),</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">efficiency =</span> mse_hodges <span class="sc">/</span> mse_mean</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(n, efficiency, <span class="at">color=</span><span class="fu">factor</span>(psi))) <span class="sc">+</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'n'. You can override using the `.groups`
-argument.</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="3-2-regularity_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>params <span class="ot">=</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">1000</span>, <span class="at">by=</span><span class="dv">20</span>),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">psi =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.3</span>, <span class="fl">0.5</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>result <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span> <span class="sc">|&gt;</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map_df</span>(<span class="sc">~</span><span class="fu">pmap_df</span>(params, sim)) </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>result <span class="sc">|&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(<span class="at">n =</span> n, <span class="at">psi =</span> psi) <span class="sc">|&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">mse_mean =</span> <span class="fu">mean</span>((mean <span class="sc">-</span> psi)<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">mse_hodges =</span> <span class="fu">mean</span>((hodges <span class="sc">-</span> psi)<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">efficiency =</span> mse_hodges <span class="sc">/</span> mse_mean</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(n, efficiency, <span class="at">color=</span><span class="fu">factor</span>(psi))) <span class="sc">+</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If you look at these plots, you’ll see that the bad behavior of Hodges’ estimator is temporary for each value of <span class="math inline">\(\psi \ne 0\)</span>. As <span class="math inline">\(n\)</span> increases, the estimator eventually behaves like the sample mean. Since the asymptotics don’t care about any initial behavior of the sequence, they completely ignore the fact that Hodges’ estimator is usually much worse than the sample mean because those problems are “temporary” as far as the behavior at any fixed distribution is concerned.</p>
 <p>The issue with that is that is that the problem doesn’t actually disappear, it just goes to another distribution! As you can see in our first plot, the region of bad behavior simply moves as we increase <span class="math inline">\(n\)</span>. If you’re standing still at a given <span class="math inline">\(\psi \ne 0\)</span> you’d think everything is fine, but if you look across all values of <span class="math inline">\(\psi\)</span> you notice that we’re just moving the problem around. That is precisely what the asymptotic arguments ignore: they are incapable of looking at the behavior of each estimator <em>at multiple distributions simultaneously</em>. They only consider a single distribution at a time. We call this <em>pointwise</em> asymptotic behavior because we’re looking at each “point” (distribution) <span class="math inline">\(\mathbb P\)</span> in the model <span class="math inline">\(\mathcal P\)</span> one-at-a-time. Once we look across all values of <span class="math inline">\(\psi\)</span> at the same time, it’s clear that Hodges’ estimator is much worse than the sample mean.</p>
@@ -461,14 +455,12 @@ Warning
 <p>See <a href="5-1-rv-convergence.html#sec-app-uniform-convergence" class="quarto-xref"><span>Section A.1.1</span></a> for the definition of uniform convergence of functions. This is a common type of convergence that we often want to generalize for other kinds of objects. In what follows we will present a notion of “uniform” convergence in distribution for random variables.</p>
 </div>
 </div>
-<p>There’s actually another problem with this estimator that we didn’t capture with our original list of desiderata. We often want to know in advance how big a sample size we might need to get a particular level of confidence in our result (i.e.&nbsp;do a power calculation). If we understand the asymptotic distribution of our estimator under data were generated from a given distribution <span class="math inline">\(\mathbb P\)</span>, we have everything we need to do this. The problem is that we don’t know what the real distribution of the data are. So what is done in practice is we generate a rough guess <span class="math inline">\(\hat{\mathbb P}\)</span> based on domain knowledge or previous data and use that for the power calculation. If <span class="math inline">\(\hat{\mathbb P}\)</span> is close to <span class="math inline">\(\mathbb P\)</span> we’d expect the required sample sizes to be the same. For this to work, however, we need the limiting asymptotic distribution of our estimates to be “continuous” over distributions: two data distributions that are close should give sampling distributions for a estimator that are close.</p>
-<p>For Hodges’ estimator, this is not the case. The limiting distribution is the standard normal no matter how close you get to <span class="math inline">\(\psi=0\)</span>, but suddenly it is the degenerate distribution at that point. The discontinuity in the limiting distribution poses problems for a power calculation: if in reality <span class="math inline">\(\psi = 10^{-9}\)</span> but we did our power calculation assuming <span class="math inline">\(\psi=0\)</span> (a tiny, tiny error!), we would end up massively underpowering our study.</p>
 <p>Estimators like Hodges’ estimator are called <em>superefficient</em> for reasons that will be explained in a few sections’ time. In general, superefficient estimators perform better than other estimators on some very small set of distributions at the cost of abitrarily bad performance that moves around over the other distributions as <span class="math inline">\(n\)</span> increases. We want to rule out that sort of behavior so that we can compare estimators asymptotically without getting burned by their finite-sample behavior.</p>
 </section>
 <section id="regularity" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="regularity"><span class="header-section-number">2.2</span> Regularity</h2>
 <p>We’ve identified a problem with looking only at AL estimators: there are always AL estimators that look good in terms of their pointwise asymptotics but are actually bad because they just move the problem around in a way that makes it invisible to the asymptotics.</p>
-<p>To rule this out, we’ll impose an addition condition called <em>regularity</em>. In a rough sense, regularity usually does two things: it means that limit distributions vary smoothly (so, for example, power calculations are reliable) and that the estimator approaches its limit distribution in a (locally) uniform way across the model (so that asymptotics can’t hide bad performance that moves around the model).</p>
+<p>To rule this out, we’ll impose an addition condition called <em>regularity</em>. Informally, regularity means that the estimator approaches its limit distribution in a (locally) uniform way across the model so that asymptotics can’t hide bad performance that moves around the model.</p>
 <p>We will start with a toy definition of regularity that we will build up to the formal definition in the next few sections. That will require us to introduce and explain a few abstractions but these will also come in handy later so it’s worth doing. For now, though, here’s a first draft:</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -481,18 +473,271 @@ Regularity (version 1)
 </div>
 <div class="callout-body-container callout-body">
 <div id="def-regularity-1" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.1</strong></span> An estimator <span class="math inline">\(\hat\Psi\)</span> is <em>regular</em> in the model <span class="math inline">\(\mathcal P = \{\mathcal N(\psi, 1):\psi \in \mathbb R\}\)</span> if the sampling distribution of <span class="math display">\[
-\sqrt{n}\left(\hat\Psi(\mathsf P_{\mathsf n, n}) - \Psi\left(\mathrm P_n\right)\right) \rightsquigarrow \mathsf N(0, 1)
-\]</span> for the sequence of distributions <span class="math inline">\(\mathbb P_n = \mathcal N(\psi + n^{-1/2}, 1)\)</span>.</p>
+<p><span class="theorem-title"><strong>Definition 2.1</strong></span> An estimator <span class="math inline">\(\hat\Psi\)</span> is <em>regular</em> in the model <span class="math inline">\(\mathcal P= \{\mathsf{N}(\psi, 1):\psi \in \mathbb{R}\}\)</span> if there is a single, fixed distribution <span class="math inline">\(\mathbb D\)</span> such that <span class="math display">\[
+\sqrt{n}\left( \hat\Psi(\mathbb{P}^{(n)}_n) - \Psi(\mathbb{P}^{(n)}) \right) \rightsquigarrow \mathbb D
+\]</span> for <em>any</em> sequence of distributions <span class="math inline">\(\mathbb{P}^{(n)} = \mathsf{N}(\psi^{(n)}, 1)\)</span> such that <span class="math inline">\(\sqrt n (\psi^{(n)} - \psi) \to 0\)</span>.</p>
 </div>
 </div>
 </div>
-<p>To understand this definition, let’s first understand the following standard asymptotic statment which says that <span class="math inline">\(\hat\psi_n = \hat\Psi(\mathbb P_{\dot n})\)</span> is a <span class="math inline">\(\sqrt{n}\)</span>-asymptotically normal estimate of <span class="math inline">\(\psi = \Psi(\mathbb P)\)</span>: <span class="math display">\[
-\sqrt{n}\left(\hat\Psi(\mathbb P_{\dot n}) - \Psi\left(\mathbb P\right)\right) \rightsquigarrow \mathcal N(0, 1)
+<p>To understand this definition, let’s first understand the following standard asymptotic statment which says that <span class="math inline">\(\hat\psi_n = \hat\Psi(\mathbb{P}^{(n)})\)</span> is a <span class="math inline">\(\sqrt{n}\)</span>-asymptotically normal estimate of <span class="math inline">\(\psi = \Psi(\mathbb{P})\)</span>: <span class="math display">\[
+\sqrt{n}\left( \hat\Psi(\mathbb{P}_n) - \Psi(\mathbb{P}) \right) \rightsquigarrow \mathsf{N}(0, 1)
 \]</span></p>
-<p>For each sample size <span class="math inline">\(n\)</span>, the left-hand side here is a random variable corresponding to the scaled and centered sampling distribution of the estimator, drawing the <span class="math inline">\(n\)</span> data points from the distribution <span class="math inline">\(\mathbb P\)</span>. You can think of standing still at the distribution <span class="math inline">\(\mathbb P\)</span>, first drawing samples of size <span class="math inline">\(n=1\)</span> and generating the sampling distribution of <span class="math inline">\(\hat\psi_n\)</span></p>
+<p>For each sample size <span class="math inline">\(n\)</span>, the left-hand side here is a random variable corresponding to the scaled and centered sampling distribution of the estimator, drawing the <span class="math inline">\(n\)</span> data points from the distribution <span class="math inline">\(\mathbb P\)</span>. You can imagine standing still at the distribution <span class="math inline">\(\mathbb{P}\in \mathcal P\)</span>: first drawing many datasets of size <span class="math inline">\(n=1\)</span> and passing them each through <span class="math inline">\(\hat\Psi\)</span> to generate the sampling distribution of <span class="math inline">\(\hat\psi_1 - \psi\)</span>, then drawing many datasets of size <span class="math inline">\(n=2\)</span> to generate the distribution of <span class="math inline">\(\hat\psi_2 -\psi\)</span>, etc. We’re just (repeatedly) drawing larger and larger datasets from the same distribution to feed through the estimator and comparing the results to the estimand. The right-hand side says that those (centered and scaled) sampling distributions look more and more like the standard normal the larger <span class="math inline">\(n\)</span> gets.</p>
+<p>Now compare that to our definition of regularity. The only difference is that instead of <span class="math inline">\(\hat\Psi(\mathbb{P}_n)\)</span> we have <span class="math inline">\(\hat\Psi(\mathbb{P}^{(n)}_n)\)</span> and instead of <span class="math inline">\(\Psi(\mathbb{P})\)</span> we have <span class="math inline">\(\Psi(\mathbb{P}^{(n)})\)</span>. What that means is that we are no longer necessarily “standing still” at a single distribution <span class="math inline">\(\mathbb{P}\in \mathcal P\)</span> while drawing larger datasets. Instead, we are typically <em>moving closer</em> to <span class="math inline">\(\mathbb{P}\)</span> as we increase the size of our draws.</p>
+<p>Concretely, we start at <span class="math inline">\(\mathbb{P}^{(1)} = \mathsf{N}(\psi^{(1)},1)\)</span>. We draw many datasets of size <span class="math inline">\(n=1\)</span> from <span class="math inline">\(\mathbb{P}^{(1)} = \mathsf{N}(\psi^{(1)},1)\)</span> and pass them each through <span class="math inline">\(\hat\Psi\)</span>, comparing the results <span class="math inline">\(\hat\psi^{(1)}_1\)</span> to the current ground truth <span class="math inline">\(\psi^{(1)}\)</span>. Now we move to <span class="math inline">\(\mathbb{P}^{(2)} = \mathsf{N}(^{(2)}, 1)\)</span>. We draw many datasets of size <span class="math inline">\(n=2\)</span> from <span class="math inline">\(\mathbb{P}^{(2)}\)</span> and pass them each through <span class="math inline">\(\hat\Psi\)</span>, comparing the results to the new ground truth <span class="math inline">\(\psi^{(2)}\)</span>. We continue like this: at each <span class="math inline">\(n\)</span>, we arrive at <span class="math inline">\(\mathbb{P}^{(n)} = \mathsf{N}(\psi^{(n)}, 1)\)</span>, draw many datasets of size <span class="math inline">\(n\)</span> from this distribution, and generate the sampling distribution of <span class="math inline">\(\hat\psi^{(n)}_n - \psi^{(n)}\)</span> comparing the current estimates to the current ground truth.</p>
+<div id="fig-regularity-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-regularity-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/regularity-1.jpg" class="img-fluid figure-img"></p>
+<figcaption>The asymptotics in the definition of regularity.</figcaption>
+</figure>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-regularity-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.1
+</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-regularity-1" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2.2</strong></span> Draw a figure based on <a href="#fig-regularity-1" class="quarto-xref">Figure&nbsp;<span>2.1</span></a> the depicts the standard asymptotic statement <span class="math display">\[
+\sqrt{n}\left( \hat\Psi(\mathbb{P}_n) - \Psi(\mathbb{P}) \right) \rightsquigarrow \mathsf{N}(0, 1).
+\]</span> What parts of <a href="#fig-regularity-1" class="quarto-xref">Figure&nbsp;<span>2.1</span></a> do you have to modify to accomplish this?</p>
+</div>
+</div>
+</div>
+</div>
+<p>To summarize: the process in the definition of regularity is the same process as in the standard <span class="math inline">\(\sqrt{n}\)</span> asymptotic convergence statement. The only difference is that we’re now allowed to shift the data generating distribution under the estimator and estimand rather than leaving it fixed. In the definition of regularity, however, the right-hand side must always be the same fixed distribution <span class="math inline">\(\mathbb D\)</span>. In other words, no matter how we move the data-generating distribution around towards <span class="math inline">\(\mathbb{P}\)</span> while we increase the sample size, the estimator behaves more and more like it would if we stood still at <span class="math inline">\(\mathbb{P}\)</span>. The fact that the limit is the same regardless of whether we’re moving the ground truth distribution around (as long as it “converges” to the true distribution) is the key to regularity. Satisfying that property is what forces our estimator to have (locally) uniformly good convergence across distributions and prevents the bad behavior of Hodges’ estimator.</p>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-regularity-sample-mean" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2.3</strong></span> Prove that the sample mean is a regular estimator according to this definition by computing the exact sampling distribution of <span class="math inline">\(\sqrt{n}\left( \hat\Psi(\mathbb{P}_n^{(n)}) - \Psi(\mathbb{P}^{(n)}) \right)\)</span> at any given <span class="math inline">\(n\)</span>, assuming <span class="math inline">\(\mathbb{P}^{(n)} = \mathsf{N}(\psi^{(n)}, 1)\)</span> for some sequence <span class="math inline">\(\sqrt n (\psi^{(n)} - \psi) \to 0\)</span>. As an example you can try <span class="math inline">\(\psi^{(n)} = \psi + \frac{1}{n}\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-regularity-sample-mean" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2.4</strong></span> Prove that Hodges’ estimator is <em>not</em> a regular estimator according to this definition by showing that <span class="math inline">\(\sqrt{n}\left( \hat\Psi(\mathbb{P}_n^{(n)}) - \Psi(\mathbb{P}^{(n)}) \right)\)</span> converges to <span class="math inline">\(\mathsf{N}(0,1)\)</span> if we move toward the true distribution like <span class="math inline">\(\psi^{(n)} = \psi + \frac{1}{n}\)</span> but converges to <span class="math inline">\(0 = \mathsf{N}(0,0)\)</span> if we stand still at <span class="math inline">\(\psi^{(n)} = \psi\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>The definition we’re working with at the moment is specific to the normal model <span class="math inline">\(\mathcal P= \{\mathsf{N}(\psi, 1):\psi \in \mathbb{R}\}\)</span>. We built a very specific sequence of distributions <span class="math inline">\(\mathbb{P}^{(n)} = \mathsf{N}(\psi^{(n)}, 1)\)</span> that get closer and closer to the true distribution. Moreover we required the “distance” to the true distribution to close at faster than the <span class="math inline">\(n^{-1/2}\)</span> rate. Our challenge in the proceeding sections will be figuring out a sensible way to generalize our definition to nonparametric models. But to do that we’ll first have to establish some notions of “geometry” in that setting.</p>
+</section>
+<section id="paths-and-scores" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="paths-and-scores"><span class="header-section-number">2.3</span> Paths and Scores</h2>
+<p>For the remainder of this book we’ll work within models where every distribution <span class="math inline">\(\mathbb{P}\)</span> has a density function <span class="math inline">\(p\)</span>. Formally, we will assume that all our distributions are absolutely continuous with respect to Lebesgue measure (don’t worry if you don’t know what that means). The results we will discuss actually do not depend on that assumption: the theory works exactly the same way for general models. However, the intuition is harder to get across in the general case, especially for readers who are new to measure-theoretic probability. I’ll abuse notation where convenient and use <span class="math inline">\(\mathcal P\)</span> to refer to the set of densities <span class="math inline">\(p\)</span> as well as the set of distributions (measures) <span class="math inline">\(\mathbb{P}\)</span>. If you know some measure theory, you can for now imagine that all distribuitons in the model have a density with respect to an arbitrary dominating measure <span class="math inline">\(\bar{\mathbb{P}}\)</span> and replace references to <span class="math inline">\(\mathcal{L}_2\)</span> below with <span class="math inline">\(\mathcal{L}_2\left((\mathbb{P})\right){\bar{\mathbb{P}}}\)</span>. Throughout the rest of the book I will also write integrals like <span class="math inline">\(\int f(z)\ p(z) \mathop{}\!\mathrm{d}z\)</span> with the standard differential <span class="math inline">\(\mathop{}\!\mathrm{d}z\)</span> so that they are comprehensible without measure theory. If you know measure theory, you can replace these with Lebesgue integrals with respect to the relevant dominating measure.</p>
+<p>Recall that our goal at our moment is to generalize our definition of regularity by establishing some “geometry” in our model so we can talk about a sequence of distributions converging in some required sense. If all the elements of the model have densities, we can think of the model as a collection of densities. Since densities are functions, we might be tempted to say they are elements of <span class="math inline">\(\mathcal{L}_2\)</span>. If we can work in <span class="math inline">\(\mathcal{L}_2\)</span> everything is great: we have lengths, we have angles, we have all sorts of useful identities and relationships. But unfortunately that’s not immediately possible. From <a href="5-2-L2.html#def-L2" class="quarto-xref">Definition&nbsp;<span>B.2</span></a> we see that <span class="math inline">\(\mathcal{L}_2\)</span> only includes functions that are square-integrable (have finite norm). However, there are some density functions for which <span class="math inline">\(\int p(z) \mathop{}\!\mathrm{d}z\)</span> may blow up.</p>
+<div id="exm-non-L2-density" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.1</strong></span> The function <span class="math inline">\(p(z) = \frac{1(0 &lt; z &lt;1)}{2\sqrt z}\)</span> is a valid density because it is positive and integrates to one: <span class="math display">\[
+\frac{1}{2}\int_0^1 \frac{\mathop{}\!\mathrm{d}z}{\sqrt z} = 1.
+\]</span> But it is not square-integrable: the integral of its square is <span class="math display">\[
+\frac{1}{4} \int_0^1 \frac{\mathop{}\!\mathrm{d}z}{z} = \infty.
+\]</span></p>
+</div>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We will be drawing on properties of <span class="math inline">\(\mathcal{L}_2\)</span> substantially from here on out so this is a good time to work through <a href="5-2-L2.html#sec-app-L2-L2" class="quarto-xref"><span>Section B.2</span></a> if you haven’t already.</p>
+</div>
+</div>
+<p>Thankfully, this is an easy problem to fix! Instead of working with the density functions directly, we can work with the <em>root densities</em>. Since <span class="math inline">\(\int p \mathop{}\!\mathrm{d}z = 1\)</span>, it’s clear that <span class="math inline">\(\int (\sqrt p)^2 \mathop{}\!\mathrm{d}z = 1\)</span>. In other words, the square root of any density function is square-integrable and thus a function in <span class="math inline">\(\mathcal{L}_2\)</span>. Moreover, all of these root densities have unit norm in <span class="math inline">\(\mathcal{L}_2\)</span>! I’ll use the symbol <span class="math inline">\(\sqrt{\mathcal P} = \{\sqrt p : p \in \mathcal P\}\)</span> to denote the collection of square roots of densities in the model. Because <span class="math inline">\(\sqrt{\mathcal P}\)</span> contains only positively valued functions with unit norm, we can visualize it as some subset of the unit ball in the “positive orthant” of <span class="math inline">\(\mathcal{L}_2\)</span>.</p>
+<div id="fig-sqrt-model" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sqrt-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="3-2-regularity_files/mediabag/7b3bd0f56f1ebe6a85bd023bab29ef1cc568ea32.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sqrt-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.2: The model <span class="math inline">\(\sqrt{\mathcal P}\)</span> embedded in <span class="math inline">\(\mathcal{L}_2\)</span>. In the drawing <span class="math inline">\(\mathcal{L}_2\)</span> is represented as 3D space but this is not meant to be literal- this is a 3D cartoon representing infinite-dimensional space. The model is represented as the visible quarter section of the unit sphere.
+</figcaption>
+</figure>
+</div>
+<p>In addition to the model, in <a href="#fig-sqrt-model" class="quarto-xref">Figure&nbsp;<span>2.2</span></a> you can also see what we’re going to call a <em>differentiable path</em> through the model. A path (also called a one-dimensional submodel) is intuitively what it sounds like: if you were standing at a point <span class="math inline">\(p\)</span> in the model and you started walking in some direction, you’d be tracing out an example of a path. Formally, a path is a one-dimensional set of distributions in the model, parametrized by some <span class="math inline">\(\epsilon \in \mathbb{R}\)</span>. By “parametrized” I mean that every distribution in this set can be assigned a unique number <span class="math inline">\(\epsilon\)</span>. If you consider <span class="math inline">\(p_0\)</span> to be the “start” of the path, you can think of the parameter <span class="math inline">\(\epsilon\)</span> as encoding “how far” you are along the path (and perhaps in which direction). The density indexed by the particular number <span class="math inline">\(\epsilon\)</span> is often written <span class="math inline">\(p_\epsilon\)</span>. Paths are going to be very useful tools for us to define what we mean by distributions getting close to each other in a sense that is required for a general definition of regularity. Paths will also come up in many other places so it is worth taking some time to understand them here.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Path (1D Submodel)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-path" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2.2</strong></span> A <em>path</em> is any set of distributions <span class="math inline">\(\mathcal P_\epsilon \subseteq \mathcal P\)</span> that can be put into 1-to-1 correspondence with any subset of the reals.</p>
+</div>
+</div>
+</div>
+<div id="exm-path-convex" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.2</strong></span> Presume the model is the set of all continuous distributions. Pick any two points <span class="math inline">\(p, p' \in \mathcal P\)</span>. Then the set of densities <span class="math inline">\(\{p: p = \epsilon p + (1-\epsilon) p'\}\)</span> is a path parametrized by <span class="math inline">\(\epsilon\in [0,1]\)</span>. This is the canonical exmple of a path, which we will call a <em>convex path</em>.</p>
+</div>
+<div id="exm-norm-path" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.3</strong></span> Presume the model includes all normal distributions. Then the set of distributions corresponding to <span class="math inline">\(\mathsf{N}(\epsilon, 1)\)</span> is a path parametrized by <span class="math inline">\(\epsilon\in \mathbb{R}\)</span>.</p>
+</div>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-not-path" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2.5</strong></span> Presume the model is the set of all mean-zero random variables. Why is <span class="math inline">\(\{\mathsf{N}(\epsilon, 1) : \epsilon\in \mathbb{R}\}\)</span> not a path here?</p>
+</div>
+</div>
+</div>
+</div>
+<div id="exm-non-diff-path" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.4</strong></span> Presume the model is the set of all densities. For <span class="math inline">\(\epsilon\le 0\)</span> let <span class="math inline">\(p_\epsilon\)</span> be the density of <span class="math inline">\(\mathsf{N}(\epsilon, 1)\)</span> and for <span class="math inline">\(0 &lt; \epsilon\)</span> let <span class="math inline">\(p_\epsilon\)</span> be the density <span class="math inline">\(\mathsf{Unif}(0,1+\epsilon)\)</span>.</p>
+</div>
+<p>Our definition of path is very general. Too general, in fact, to correspond nicely to the mental model we have from <a href="#fig-sqrt-model" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>. As <a href="#exm-non-diff-path" class="quarto-xref">Example&nbsp;<span>2.4</span></a> shows, we can easily constuct paths that don’t feel “continuous”. To make a definition that reflects our picture of a continuous, smooth path through the model we need to impose more conditions. <!-- 
+In order to help us do that, let's first define a useful notion of distance between two distributions.
+
+::: callout-note
+# Hellinger Distance
+::: {#def-hellinger-dist}
+The *Hellinger distance* between two distributions $\p$ and $\mathbb Q$ is the $\eltwo$ distance between the root densities $\sqrt p$ and $\sqrt q$:
+$$
+d_H(\p, \mathbb Q) = \sqrt{\int (\sqrt p(z) - \sqrt q(z))^2} \dd z
+$$
+:::
+:::
+
+The ability to visualize the Hellinger distance as the straight-line distance between two points on the unit ball in $\eltwo$ is one useful consequence of understanding the (root) model as a subset of $\eltwo$. If you know some measure theory, you can verify that the Hellinger distance does not actually depend on the dominating measure that the densities are taken with respect to (if you don't, you can ignore this without missing any intuition).
+
+::: {.callout-important appearance="minimal"}
+::: {#exr-hellinger-dist}
+Calculate the Hellinger distance between the standard normal and standard uniform distributions.
+:::
+::: 
+--></p>
+<!-- Now that we have distance, we can impose more restrictions on our paths.  -->
+<p>For example, we might impose that paths be continuous in the sense that we would want the <span class="math inline">\(\mathcal{L}_2\)</span> distance between two (root) distributions <span class="math inline">\(\sqrt{p_{\epsilon_0}}\)</span> and <span class="math inline">\(\sqrt{p_{\epsilon}}\)</span> along the path to go to zero if <span class="math inline">\(\epsilon\to \epsilon_0\)</span>. That would rule out the path in <a href="#exm-non-diff-path" class="quarto-xref">Example&nbsp;<span>2.4</span></a>. But it turns out that what we need in order to generate a useful theory of efficiency is not just continuity, but also differentiability. That is, we are interested in continuous paths, but specifically those that do not have any “kinks”.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Differentiable in Quadratic Mean (DQM), Score Function
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-score" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2.3</strong></span> A path <span class="math inline">\(\mathcal P_\epsilon\)</span> is <em>differentiable in quadratic mean</em> (or just <em>differentiable</em> for short) at <span class="math inline">\(\epsilon= 0\)</span> if there is a function <span class="math inline">\(s\)</span> such that <span class="math display">\[
+\int \left[ \frac{\sqrt{p_\epsilon(z)} - \sqrt{p_0(z)}}{\epsilon}  - \frac{1}{2} s(z) \sqrt{p_0(z)} \right]^2 \mathop{}\!\mathrm{d}z  \overset{\epsilon\to 0}{\to} 0.
+\]</span> We say that <span class="math inline">\(s\)</span> is the <em>score function</em> of the path <span class="math inline">\(\mathcal P_\epsilon\)</span> at the point <span class="math inline">\(\epsilon=0\)</span>. Often the score can be written as the derivative of the log-likelihood evaluated at zero: <span class="math display">\[
+s(z) = \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \log p_\epsilon(z) \bigg|_{\epsilon=0}.
+\]</span> The score function is always in <span class="math inline">\(\mathcal{L}_2\)</span> and mean-zero at <span class="math inline">\(p_0\)</span> in the sense that <span class="math inline">\(\mathbb{P}_0 s = \int s(z)\ p_0(z) \mathop{}\!\mathrm{d}z = 0\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof that <span class="math inline">\(\mathbb{P}_0 s=0\)</span>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For this proof to make sense you’ll need to have worked through <a href="5-2-L2.html#sec-app-l2-triangles" class="quarto-xref"><span>Section B.3</span></a>.</p>
+<p>The definition of DQM is also another way of writing that that <span class="math inline">\(\epsilon^{-1}(\sqrt{p_\epsilon} - \sqrt{p_0}) \overset{\mathcal{L}_2}\to \frac{1}{2} s\sqrt{p_0}\)</span> as <span class="math inline">\(\epsilon\to 0\)</span>. In the discussion below we outline how DQM is just <span class="math inline">\((\mathbb{R}\to \mathcal{L}_2)\)</span>-differentiability of the function <span class="math inline">\(\epsilon\mapsto \sqrt{p_\epsilon}\)</span>. If that function is differentiable at 0, it is certainly continuous there, so <span class="math inline">\(\sqrt p_\epsilon\to \sqrt p_0\)</span> as long as <span class="math inline">\(\epsilon\to 0\)</span>. Therefore <span class="math inline">\(\sqrt{p_\epsilon} + \sqrt{p_0} \to 2\sqrt{p_0}\)</span>. Now we write <span class="math display">\[
+\mathbb{P}_0 s = \int s(z)\ p_0(z) \mathop{}\!\mathrm{d}z
+= \int \left( \frac{1}{2}s(z) \sqrt{p_0(z)} \right) \left( 2\sqrt{p_0(z)} \right) \mathop{}\!\mathrm{d}z,
+\]</span> i.e.&nbsp;the <span class="math inline">\(\mathcal{L}_2\)</span> inner product between <span class="math inline">\(\frac{1}{2}s \sqrt{p_0}\)</span> and <span class="math inline">\(2\sqrt{p_0}\)</span>. Notice that these two arguments are the limits of <span class="math inline">\(\epsilon^{-1}(\sqrt{p_\epsilon} - \sqrt{p_0})\)</span> and <span class="math inline">\(\sqrt{p_\epsilon} + \sqrt{p_0}\)</span> respectively because of what we showed above. Since the inner product is continuous (see <a href="5-2-L2.html#exm-cont-inner-prod" class="quarto-xref">Example&nbsp;<span>B.7</span></a>), the inner product at the limits is the same as the limit of the inner products at the sequences, i.e.&nbsp; <span class="math display">\[
+\begin{aligned}
+\left\langle \frac{1}{2}s \sqrt{p_0}, 2\sqrt{p_0} \right\rangle
+&amp;= \underset{\epsilon\to 0}\lim \epsilon^{-1} \left\langle \sqrt{p_\epsilon} - \sqrt{p_0}, \sqrt{p_\epsilon} + \sqrt{p_0} \right\rangle \\
+&amp;= \underset{\epsilon\to 0}\lim \epsilon^{-1} \left( \| \sqrt{p_\epsilon} \| - \| \sqrt{p_0} \| \right)
+\end{aligned}
+\]</span> For any density <span class="math inline">\(p\)</span>, we already showed that <span class="math inline">\(\|\sqrt p\| = 1\)</span>, i.e.&nbsp;the root-densities are on the unit ball. Thus the difference of norms on the right-hand side cancels and we get 0 as desired.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>For those of you who know measure theory, you can check that this definition does not actually require a global dominating measure for the entire path which is used to define the densities. For each sequence <span class="math inline">\(\epsilon_n \to 0\)</span> needed to check the DQM criterion you may construct a bespoke dominating measure using the convex combination of the countable number of distributions <span class="math inline">\(\mathbb{P}_{\epsilon_n}\)</span>.</p>
+</div>
+</div>
+</div>
+<p>To me, this definition is intimidating and not intuitive at first glance. To break it down we can spend a little time reviewing what a standard derivative is and then build up from there. Given a function <span class="math inline">\(f: \mathbb{R}\to \mathbb{R}\)</span>, recall that its derivative at the point <span class="math inline">\(x=0\)</span> (if it exists) is defined as <span class="math inline">\(\dot f_0 = \underset{x\to 0}{\lim} \frac{f(0) - f(x)}{x}\)</span> . Another way to write this is that there exists a number <span class="math inline">\(\dot f_0\)</span> such that <span class="math display">\[
+\left| \frac{f(0) - f(x)}{x} - \dot f_0 \right| \overset{\epsilon\to 0}{\to} 0
+.
+\]</span></p>
+<p>The derivative is usually thought of the “slope” of the function <span class="math inline">\(f\)</span> at the point in question. You can think of it also as the “direction” that <span class="math inline">\(f\)</span> is going at that point: in the simplest interpretation, a positive derivative means that <span class="math inline">\(f\)</span> is increasing (going up), a negative derivative means that it’s decreasing (going down). The magnitude of the derivative gives the rate of increase or decrease.</p>
+<p>Let’s generalize this a bit. You should recognize that the value of the derivative <span class="math inline">\(\dot f_0\)</span> is a number specifically because the function <span class="math inline">\(f\)</span> outputs real numbers. If <span class="math inline">\(f\)</span> returned finite-dimensional vectors, for example, then the numerator in the “slope” fraction <span class="math inline">\(\frac{f(0) - f(x)}{x}\)</span> would also be a vector and the derivative <span class="math inline">\(\dot f_0\)</span> would also have to be a vector in order for the statment above to make sense. Now that we’re working with the difference of two vectors instead of the difference of two numbers, the appropriate measure of distance is a norm on the vector space rather than the absolute value (which is the usual norm on <span class="math inline">\(\mathbb{R}\)</span>). To formalize this, let <span class="math inline">\(\mathcal V\)</span> be a vector space with a norm <span class="math inline">\(\|\cdot \|_{\mathcal V}\)</span>. We’ll say that <span class="math inline">\(f: \mathbb{R}\to \mathcal V\)</span> is differentiable at zero if there is some element <span class="math inline">\(\dot f_0 \in \mathcal V\)</span> such that</p>
+<p><span class="math display">\[
+\left\| \frac{f(0) - f(x)}{x} - \dot f_0 \right\|_\mathcal{V}  \overset{\epsilon\to 0}\to 0
+\]</span></p>
+<p>If in particular we take <span class="math inline">\(\mathcal V = \mathcal{L}_2\)</span> and we take <span class="math inline">\(f(\epsilon) = \sqrt{p_\epsilon}\)</span>, i.e.&nbsp;a function that takes a value of the path parameter <span class="math inline">\(\epsilon\)</span> and returns the root density at that value, then we exactly recover <span class="quarto-unresolved-ref">?def-dqm</span> if we define <span class="math inline">\(s = 2\frac{\dot f_0}{\sqrt{p_0}}\)</span>. Note that since <span class="math inline">\(f\)</span> maps numbers <span class="math inline">\(\epsilon\)</span> to <span class="math inline">\(\mathcal{L}_2\)</span> functions, the derivative of <span class="math inline">\(f\)</span> at a point <span class="math inline">\(\epsilon\)</span> is itself an <span class="math inline">\(\mathcal{L}_2\)</span> function.</p>
+<p>Instead of assuming that <span class="math inline">\(\epsilon\mapsto \sqrt{p_\epsilon}\)</span> is differentiable in this sense at <span class="math inline">\(\epsilon=0\)</span>, we might instead have assumed the existence of the derivative <span class="math inline">\(\frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon}\sqrt{p_\epsilon(z)}\)</span> at every single point <span class="math inline">\(z\)</span>. When both the <span class="math inline">\(z\)</span>-pointwise derivative <span class="math inline">\(\frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon}\sqrt{p_\epsilon(z)}\)</span> and the mean-square derivative <span class="math inline">\(\dot{\sqrt{p_\epsilon}}\)</span> exist they certainly agree with each other, but sometimes one exists and not the other. There are paths that are not <span class="math inline">\(z\)</span>-pointwise differentiable but are still DQM: since the square-mean derivative integrates over the squared difference of the finite-<span class="math inline">\(\epsilon\)</span> “slope” term and the limit term in <span class="math inline">\(z\)</span>, it does not care if that slope term blows up for some points <span class="math inline">\(z\)</span>: they simply fall out of the integral. Similarly there are <span class="math inline">\(z\)</span>-pointwise differentiable paths that are not DQM: refer to the results and examples in Section 7.2 of <span class="citation" data-cites="vdv">Van der Vaart (<a href="6-references.html#ref-vdv" role="doc-biblioref">2000</a>)</span> if you are curious to learn more. The reason we care about DQM is because it will turn out later that this is precisely the condition required to establish something called local asymptotic normality which we will use to prove a very important result.</p>
+<p>Nonetheless it’s still very informative to consider the pointwise derivative because the pointwise derivative explains why we introduce the score function <span class="math inline">\(s\)</span> to write the derivative as <span class="math inline">\(\dot{\sqrt{p_\epsilon}} = \frac{1}{2} s \sqrt{p_0}\)</span>. Starting with the pointwise derivative and using the chain rule,</p>
+<p><span class="math display">\[
+\frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon}\sqrt{p_\epsilon(z)}
+= \frac{1}{2}(p_\epsilon(z))^{-1/2} \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon}  p_\epsilon(z)
+= \frac{1}{2} \sqrt{p_\epsilon(z)} \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon}  \log p_\epsilon(z)
+\]</span></p>
+<p>where in the last line we used <span class="math inline">\(\frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon}  \log p_\epsilon(z) = \frac{1}{p_\epsilon(z)} \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} p_\epsilon\)</span>. Therefore, when the pointwise derivative exists, the score function <span class="math inline">\(s\)</span> is equal to the rate of change of the log-likelihood at <span class="math inline">\(\epsilon=0\)</span>. For almost all practical purposes you can take this to be the definition of the score for a path at <span class="math inline">\(p_0\)</span>, i.e.&nbsp;<span class="math inline">\(s(z) = \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \log p_\epsilon(z) |_{\epsilon=0}\)</span>.</p>
+<p>I find it very helpful to think of the score function at a point <span class="math inline">\(p_0\)</span> in the path as the “direction” that the path is moving when it passes through that point. You can see this is the case geometrically in <a href="#fig-score-path" class="quarto-xref">Figure&nbsp;<span>2.3</span></a>. In the figure I’ve drawn <span class="math inline">\(s \sqrt{p_0}\)</span> is the <em>tangent vector</em> to the path at the point <span class="math inline">\(\sqrt{p_0}\)</span>. This is justified by the fact that <span class="math inline">\(s \sqrt{p_0}\)</span> is the derivative of <span class="math inline">\(\epsilon\mapsto \sqrt{p_\epsilon}\)</span> and therefore encodes the “direction” that function is going. Another way of seeing it is that <span class="math inline">\(s \sqrt{p_0}\)</span> is the “slope” of the best linear approximation to <span class="math inline">\(\epsilon\mapsto \sqrt{p_\epsilon}\)</span> at the point <span class="math inline">\(\sqrt{p_0}\)</span>. So, roughly speaking, <span class="math display">\[
+\sqrt p_\epsilon\approx \sqrt{p_0} + \epsilon(s \sqrt{p_0}).
+\]</span> This is exactly what I’ve drawn in <a href="#fig-score-path" class="quarto-xref">Figure&nbsp;<span>2.3</span></a>: the actual path of densities <span class="math inline">\(\sqrt p_\epsilon\)</span> (the left-hand side of the above display) and what would happen if you followed the current direction <span class="math inline">\(s \sqrt{p}\)</span> starting at <span class="math inline">\(\sqrt p\)</span> (the right-hand side).</p>
+<p>To make an analogy, let’s say you were following a path from New York to San Francisco. A “path” would be equivalent to a line on the map indicating the route you take. Your “score” at some point along the route would be the direction that the route tells you to go in at that point (e.g.&nbsp;in New York your “score” might be “West”).</p>
+<p>Technically it’s not the scores themselves that are tangent to paths in the model, but the scores times the current root-density that are tangent to the root-path. Nonetheless we often speak informally and talk about the scores themselves being tangent, etc, ignoring the fact that we had to take roots of the densities in our model to get everything embedded into <span class="math inline">\(\mathcal{L}_2\)</span>.</p>
+<div id="fig-score-path" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-score-path-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="3-2-regularity_files/mediabag/ee1f5cddf996d5ce118edfad56982f25dfede3f0.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-score-path-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.3: The score <span class="math inline">\(s\)</span> (times <span class="math inline">\(\sqrt p\)</span>) is tangent to the path <span class="math inline">\(\sqrt{\mathcal P_\epsilon}\)</span> at <span class="math inline">\(\sqrt p_0\)</span>
+</figcaption>
+</figure>
+</div>
+<p>Many of the properties of scores and paths are easiest to show and intuit if you consider a convex path between two points in the model.</p>
+<div id="exm-convex-path-score" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.5</strong></span> Fix an initial point <span class="math inline">\(p\)</span> and final point <span class="math inline">\(p'\)</span> in the model and consider the convex path <span class="math inline">\(\{p: \mathbb{P}= \epsilon p + (1-\epsilon) p'\}\)</span> discussed in <a href="#exm-path-convex" class="quarto-xref">Example&nbsp;<span>2.2</span></a>. The score for this path at <span class="math inline">\(\epsilon = 0\)</span> is</p>
+<p><span class="math display">\[
+s(z) &amp;= \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \log \big( \epsilon p + (1-\epsilon) p' \big) |_{\epsilon=0}
+\]</span></p>
+</div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-vdv" class="csl-entry" role="listitem">
+Van der Vaart, Aad W. 2000. <em>Asymptotic Statistics</em>. Vol. 3. Cambridge university press.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -920,8 +1165,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./5-1-rv-convergence.html" class="pagination-link" aria-label="Convergence of Random Variables">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Convergence of Random Variables</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./6-references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
