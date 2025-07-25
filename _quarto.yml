@@ -34,7 +34,6 @@ book:
 
 execute:
   freeze: auto  # re-render only when source changes
-  echo: !expr knitr::is_html_output()
   # eval: false
 
 callout-icon: false
