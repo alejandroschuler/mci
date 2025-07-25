@@ -1,7 +1,11 @@
 \newcommand{\eltwop}[1][\mathbb{P}]{\mathcal{L}_2\left((#1)\right)}
 \newcommand{\eltwo}{\mathcal{L}_2}
 \newcommand{\p}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\V}{\mathbb{V}}
 \newcommand{\model}{\mathcal P}
+
+
 
 \newcommand{\reals}{\mathbb{R}}
 
@@ -12,3 +16,5 @@
 \newcommand{\dd}{\mathop{}\!\mathrm{d}}
 
 \newcommand{\eps}{\epsilon}
+
+\newcommand{\bigdot}[1]{\accentset{\mbox{\huge.}}{#1}}

@@ -6,17 +6,19 @@
 
 ## What do we want from estimators?
 
-Let's forget about what we know about estimators for a second and start from scratch. What is it that we *want* from an estimator in the first place? Can we set some "dealbreaker" conditions and some "nice-to-haves"? 
+Let's forget about what we know about estimators for a second and start from scratch. What is it that we *want* from an estimator in the first place? Can we set some "dealbreaker" conditions or some "nice-to-haves"? 
 
-Ultimately any estimator $\hat\Psi: \mathbb P_n \to \mathbb R$ is characterized entirely by its sampling distribution at a given $n$, for a given $P$ i.e. the distribution of the random variable $\Psi(\mathbb P_n)$. What would we want these sampling distributions to look like relative to some truth $\Psi(\mathbb P)$? I invite you to stop reading at this point and brainstorm some ideas.
+Recall that an estimator $\hat\Psi$ is a function that takes a dataset (which we represent as an empirical distribution) $\p_n$ and returns a number. We use $\hat\psi = \hat\Psi(\p_n)$ to denote the *estimate*, which is a random variable. In practice, however, the term "estimator" is often used to refer to both the function $\hat\Psi$ and the random variable $\hat\psi$ interchangeably. 
 
-To start with, let's shoot the moon: why not demand that the estimate is always *exactly* equal to the estimand, i.e. $\hat\Psi(\mathbb P_n) = \Psi(\mathbb P)$ for all distributions $\mathbb P$ in the model $\mathcal P$? That might seem completely absurd to you but it's worth taking a second to ask why that is really such a crazy thing to demand. It is less extreme to ask that our estimate is correct *on average*, but even this is usually not possible to do. So let's start with asking that our estimator is *asymptotically* unbiased: the estimate is more or less right on average given a large-enough sample size. Informally: $\mathbb E[\hat\psi] \approx \psi$ for $n$ large enough.
+Any estimator $\hat\Psi$ can be characterized by the distribution of $\hat\psi$ at each sample size $n$ from each distributon $\p \in \model$. What would we want these sampling distributions to look like relative to the true value $\psi = \Psi(\mathbb P)$? 
+
+Why not demand that the estimate is always *exactly* equal to the estimand, i.e. $\hat\Psi(\mathbb P_n) = \Psi(\mathbb P)$ for all distributions $\mathbb P$ in the model $\mathcal P$? That might seem completely absurd but it's worth taking a second to ask why that is really such a crazy thing to demand. It is less extreme to ask that our estimate is correct *on average*, but even this is usually not possible to do. So let's settle for asking that our estimator is *asymptotically* unbiased: the estimate is more or less right on average given a large-enough sample size. Informally: $\mathbb E[\hat\psi] \approx \psi$ for $n$ large enough.
 
 If I have two estimators that are both unbiased, which is better? Since the total estimation error $\mathbb E[(\hat\psi - \psi)^2]$ can be decomposed to $\mathbb (E[\hat\psi]-\psi)^2 + \mathbb V[\hat\psi]$ (by adding and subtracting $\mathbb E[\hat\psi]$ inside the square and expanding), the unbiased estimator with the smallest overall error will be the one with the smallest variance. Therefore we should desire estimators that have small (asympytotic) sampling variance, subject to being (asymptotically) unbiased.
 
-Let's throw in a practical consideration. When we estimate a quantity we usually report confidence intervals or p-values alongside the point estimate. Those inferential statistics depend on having some estimate of the sampling variance of our estimator, which we usually construct based on a theoretical understanding of what that sampling distribution should be. Many commonly used estimators are known to be asymptotically normal, which greatly facillitates inference. Therefore another desired criterion might be that our estimator should have a theoreticlly understood sampling distribution.
+Let's throw in a practical consideration. When we estimate a quantity we usually report confidence intervals or p-values alongside the point estimate. Those inferential statistics depend on having some estimate of the sampling variance of our estimator, which we usually construct based on a theoretical understanding of what that sampling distribution should be. Many commonly used estimators are known to be asymptotically normal, which greatly facillitates inference. Therefore another desired criterion might be that our estimator should have a theoretically-understood sampling distribution.
 
-Let's summarize our list of what we want out of our estimator so we can easily refer back:
+Therefore a sensible list of desiderata for an estimator might be:
 
 1. asymptotically unbiased
 2. small asymptotic sampling variance
@@ -24,7 +26,7 @@ Let's summarize our list of what we want out of our estimator so we can easily r
 
 ## Asymptotic Linearity
 
-Given these criteria, let's simplify our problem of finding an optimal estimator to finding an optimal estimator among those that are *asymptotically linear*. I'll lay out what that means, argue for why it's a reasonable restriction given our criteria above, and then explain why this restriction is helpful in characterizing optimality.
+In light of these criteria, we will simplify the problem of finding an optimal estimator to finding an optimal estimator among those that are *asymptotically linear*. I'll lay out what that means, argue for why it's a reasonable restriction given our criteria above, and then explain why this restriction is helpful in characterizing optimality.
 
 ::: callout-note
 # Asymptotic Linearity

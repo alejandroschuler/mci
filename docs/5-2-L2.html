@@ -163,6 +163,23 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./4-0-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Building Efficient Estimators</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./6-references.html" class="sidebar-item-text sidebar-link">
@@ -171,13 +188,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./5-1-rv-convergence.html" class="sidebar-item-text sidebar-link">
@@ -204,7 +221,7 @@ window.Quarto = {
   <ul>
   <li><a href="#sec-app-L2-vectors" id="toc-sec-app-L2-vectors" class="nav-link active" data-scroll-target="#sec-app-L2-vectors"><span class="header-section-number">B.1</span> Vector Spaces</a>
   <ul class="collapse">
-  <li><a href="#functions-as-vectors" id="toc-functions-as-vectors" class="nav-link" data-scroll-target="#functions-as-vectors"><span class="header-section-number">B.1.1</span> Functions as Vectors</a></li>
+  <li><a href="#sec-functions-as-vectors" id="toc-sec-functions-as-vectors" class="nav-link" data-scroll-target="#sec-functions-as-vectors"><span class="header-section-number">B.1.1</span> Functions as Vectors</a></li>
   </ul></li>
   <li><a href="#sec-app-L2-L2" id="toc-sec-app-L2-L2" class="nav-link" data-scroll-target="#sec-app-L2-L2"><span class="header-section-number">B.2</span> <span class="math inline">\(\mathcal L_2\)</span> Space</a></li>
   <li><a href="#sec-app-l2-triangles" id="toc-sec-app-l2-triangles" class="nav-link" data-scroll-target="#sec-app-l2-triangles"><span class="header-section-number">B.3</span> Triangles in Inner Product Spaces</a>
@@ -302,8 +319,8 @@ VectorSpace = Set(  # a set containing various Vectors (usually infinite)
 <p>This has no practical value, I’m just trying to help you wrap your head around the ideas in case you are more familiar with programming than you are with abstract mathematics.</p>
 <p>The definitions I gave for addition and scaling may seem so natural to you that you don’t even think about them but in fact they are just one specific way we could define these operations for finite dimensional ordered tuples. You can check that the given definitions satisfy the usual properties of “addition” and “multiplication” (e.g.&nbsp;<span class="math inline">\(a+(b+c) = (a+b +c)\)</span>) so it is sensible to call them by those names.</p>
 <p>You can make a vector space out of pretty much anything upon which you can define some kind of scaling and addition. For example, consider the space of all functions that map real numbers to real numbers. If you give me a function <span class="math inline">\(f\)</span>, let me define multiplication of a function by a scalar <span class="math inline">\(c\)</span> to produce another function in the following way: <span class="math inline">\(cf\)</span> is a new function that maps reals to reals where the output <span class="math inline">\((cf)(x)\)</span> is given by <span class="math inline">\(c\cdot f(x)\)</span>. Similarly, define addition of two functions as <span class="math inline">\((f + g)(x) = f(x) + g(x)\)</span>, i.e.&nbsp;the function sum <span class="math inline">\(f+g\)</span> is the unique function which when evaluated at any <span class="math inline">\(x\)</span> gives the value <span class="math inline">\(f(x) +g(x)\)</span>. Again this might seem so natural as to not need explanation (or to be made confusing by explanation) but you should be aware that these are man-made definitions of “addition” and “scaling” for functions rather than numbers. Equipped with these operations, the set of all functions from reals to reals becomes a vector space and the functions within it are the vectors.</p>
-<section id="functions-as-vectors" class="level3" data-number="B.1.1">
-<h3 data-number="B.1.1" class="anchored" data-anchor-id="functions-as-vectors"><span class="header-section-number">B.1.1</span> Functions as Vectors</h3>
+<section id="sec-functions-as-vectors" class="level3" data-number="B.1.1">
+<h3 data-number="B.1.1" class="anchored" data-anchor-id="sec-functions-as-vectors"><span class="header-section-number">B.1.1</span> Functions as Vectors</h3>
 <p>In linear algebra or vector calculus you may have built some intuition about finite-dimensional vectors by imagining them as “arrows” from the origin to a particular point in 3D (or higher dimensional) space. This helps us reason about vectors geometrically using our physical sense of space. For example, you have probably seen the usual definition of the “length” of a vector (the <em>norm</em>) for <span class="math inline">\(d\)</span>-dimensional vectors: <span class="math inline">\(\|x\| = \sqrt{\sum^d x_i^2}\)</span>). You probably also know the <em>inner product</em> (dot product) <span class="math inline">\(x\cdot y = \sum^d x_i y_i\)</span> (more generally written <span class="math inline">\(\langle x, y \rangle\)</span>) and may recall that the inner product measures the <em>angle</em> between two vectors according to the law of cosines: <span class="math inline">\(\cos(\theta_{x,y}) = \frac{x \cdot y}{\|x\|\|y\|}\)</span>. If the inner product is zero, the two vectors are <em>orthogonal</em>. You may also recall that the norm is actually defined from the inner product, i.e.&nbsp;<span class="math inline">\(\|x\|^2 = x\cdot x\)</span>.</p>
 <p>Seeing functions as vectors (“arrows”) helps us apply similar geometrical reasoning. We can talk about the “length” of a function or the “angle” between two functions. We just need to come up with definitions for those things that satisfy our expectations for how geometry should work. But before doing that I want to give you some more intitution to help you “see” functions as vectors outside of an abstract definition of a vector space.</p>
 <p>I like to think of a function as a (continuously) infinte list of numbers like this: <span class="math display">\[

@@ -6,7 +6,7 @@ diagram:
   engine:
     tikz:
       header-includes:
-        - '\usepackage{adjustbox, tikz-3dplot, amsmath, amsfonts, pgfplots}'
+        - '\usepackage{adjustbox, tikz-3dplot, amsmath, amsfonts, pgfplots, accents}'
         - '\usetikzlibrary{arrows, angles, quotes, arrows.meta, shapes, calc}'
 
 project:
@@ -24,6 +24,9 @@ book:
       chapters:
       - 3-1-AL.qmd
       - 3-2-regularity.qmd
+    - part: 4-0-intro.qmd
+      chapters:
+      - 4-1-plugin-expansion.qmd
     - 6-references.qmd
   appendices:
     - 5-1-rv-convergence.qmd
@@ -31,7 +34,8 @@ book:
 
 execute:
   freeze: auto  # re-render only when source changes
-  eval: false
+  echo: !expr knitr::is_html_output()
+  # eval: false
 
 callout-icon: false
 
@@ -40,9 +44,13 @@ bibliography: references.bib
 # must generate html and pdf SEPARATELY for tikz to work!!
 format:
   html:
+    code-fold: true
+    warning: false
     theme:
       - cosmo
       - brand
     grid:
       body-width: 1200px
-  pdf: {}
+  pdf:
+    keep-tex: true
+    echo: false

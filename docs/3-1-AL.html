@@ -164,6 +164,23 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./4-0-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Building Efficient Estimators</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./6-references.html" class="sidebar-item-text sidebar-link">
@@ -172,13 +189,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./5-1-rv-convergence.html" class="sidebar-item-text sidebar-link">
@@ -233,12 +250,13 @@ window.Quarto = {
 
 <section id="what-do-we-want-from-estimators" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="what-do-we-want-from-estimators"><span class="header-section-number">1.1</span> What do we want from estimators?</h2>
-<p>Let’s forget about what we know about estimators for a second and start from scratch. What is it that we <em>want</em> from an estimator in the first place? Can we set some “dealbreaker” conditions and some “nice-to-haves”?</p>
-<p>Ultimately any estimator <span class="math inline">\(\hat\Psi: \mathbb P_n \to \mathbb R\)</span> is characterized entirely by its sampling distribution at a given <span class="math inline">\(n\)</span>, for a given <span class="math inline">\(P\)</span> i.e.&nbsp;the distribution of the random variable <span class="math inline">\(\Psi(\mathbb P_n)\)</span>. What would we want these sampling distributions to look like relative to some truth <span class="math inline">\(\Psi(\mathbb P)\)</span>? I invite you to stop reading at this point and brainstorm some ideas.</p>
-<p>To start with, let’s shoot the moon: why not demand that the estimate is always <em>exactly</em> equal to the estimand, i.e.&nbsp;<span class="math inline">\(\hat\Psi(\mathbb P_n) = \Psi(\mathbb P)\)</span> for all distributions <span class="math inline">\(\mathbb P\)</span> in the model <span class="math inline">\(\mathcal P\)</span>? That might seem completely absurd to you but it’s worth taking a second to ask why that is really such a crazy thing to demand. It is less extreme to ask that our estimate is correct <em>on average</em>, but even this is usually not possible to do. So let’s start with asking that our estimator is <em>asymptotically</em> unbiased: the estimate is more or less right on average given a large-enough sample size. Informally: <span class="math inline">\(\mathbb E[\hat\psi] \approx \psi\)</span> for <span class="math inline">\(n\)</span> large enough.</p>
+<p>Let’s forget about what we know about estimators for a second and start from scratch. What is it that we <em>want</em> from an estimator in the first place? Can we set some “dealbreaker” conditions or some “nice-to-haves”?</p>
+<p>Recall that an estimator <span class="math inline">\(\hat\Psi\)</span> is a function that takes a dataset (which we represent as an empirical distribution) <span class="math inline">\(\mathbb{P}_n\)</span> and returns a number. We use <span class="math inline">\(\hat\psi = \hat\Psi(\mathbb{P}_n)\)</span> to denote the <em>estimate</em>, which is a random variable. In practice, however, the term “estimator” is often used to refer to both the function <span class="math inline">\(\hat\Psi\)</span> and the random variable <span class="math inline">\(\hat\psi\)</span> interchangeably.</p>
+<p>Any estimator <span class="math inline">\(\hat\Psi\)</span> can be characterized by the distribution of <span class="math inline">\(\hat\psi\)</span> at each sample size <span class="math inline">\(n\)</span> from each distributon <span class="math inline">\(\mathbb{P}\in \mathcal P\)</span>. What would we want these sampling distributions to look like relative to the true value <span class="math inline">\(\psi = \Psi(\mathbb P)\)</span>?</p>
+<p>Why not demand that the estimate is always <em>exactly</em> equal to the estimand, i.e.&nbsp;<span class="math inline">\(\hat\Psi(\mathbb P_n) = \Psi(\mathbb P)\)</span> for all distributions <span class="math inline">\(\mathbb P\)</span> in the model <span class="math inline">\(\mathcal P\)</span>? That might seem completely absurd but it’s worth taking a second to ask why that is really such a crazy thing to demand. It is less extreme to ask that our estimate is correct <em>on average</em>, but even this is usually not possible to do. So let’s settle for asking that our estimator is <em>asymptotically</em> unbiased: the estimate is more or less right on average given a large-enough sample size. Informally: <span class="math inline">\(\mathbb E[\hat\psi] \approx \psi\)</span> for <span class="math inline">\(n\)</span> large enough.</p>
 <p>If I have two estimators that are both unbiased, which is better? Since the total estimation error <span class="math inline">\(\mathbb E[(\hat\psi - \psi)^2]\)</span> can be decomposed to <span class="math inline">\(\mathbb (E[\hat\psi]-\psi)^2 + \mathbb V[\hat\psi]\)</span> (by adding and subtracting <span class="math inline">\(\mathbb E[\hat\psi]\)</span> inside the square and expanding), the unbiased estimator with the smallest overall error will be the one with the smallest variance. Therefore we should desire estimators that have small (asympytotic) sampling variance, subject to being (asymptotically) unbiased.</p>
-<p>Let’s throw in a practical consideration. When we estimate a quantity we usually report confidence intervals or p-values alongside the point estimate. Those inferential statistics depend on having some estimate of the sampling variance of our estimator, which we usually construct based on a theoretical understanding of what that sampling distribution should be. Many commonly used estimators are known to be asymptotically normal, which greatly facillitates inference. Therefore another desired criterion might be that our estimator should have a theoreticlly understood sampling distribution.</p>
-<p>Let’s summarize our list of what we want out of our estimator so we can easily refer back:</p>
+<p>Let’s throw in a practical consideration. When we estimate a quantity we usually report confidence intervals or p-values alongside the point estimate. Those inferential statistics depend on having some estimate of the sampling variance of our estimator, which we usually construct based on a theoretical understanding of what that sampling distribution should be. Many commonly used estimators are known to be asymptotically normal, which greatly facillitates inference. Therefore another desired criterion might be that our estimator should have a theoretically-understood sampling distribution.</p>
+<p>Therefore a sensible list of desiderata for an estimator might be:</p>
 <ol type="1">
 <li>asymptotically unbiased</li>
 <li>small asymptotic sampling variance</li>
@@ -247,7 +265,7 @@ window.Quarto = {
 </section>
 <section id="asymptotic-linearity" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="asymptotic-linearity"><span class="header-section-number">1.2</span> Asymptotic Linearity</h2>
-<p>Given these criteria, let’s simplify our problem of finding an optimal estimator to finding an optimal estimator among those that are <em>asymptotically linear</em>. I’ll lay out what that means, argue for why it’s a reasonable restriction given our criteria above, and then explain why this restriction is helpful in characterizing optimality.</p>
+<p>In light of these criteria, we will simplify the problem of finding an optimal estimator to finding an optimal estimator among those that are <em>asymptotically linear</em>. I’ll lay out what that means, argue for why it’s a reasonable restriction given our criteria above, and then explain why this restriction is helpful in characterizing optimality.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

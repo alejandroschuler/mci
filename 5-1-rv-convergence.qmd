@@ -364,12 +364,6 @@ Below, you can see some density plots for this sequence and how they change if t
 #| echo: false
 #| warning: false
 
-# Demonstrate convergence in distribution at different rates
-# Top row:       Z ~ N(0, σ²/n)
-# 2nd row:      n^(–1/4)·Z
-# 3rd row:      sqrt(n)·Z
-# 4th row:      n·Z
-
 library(ggplot2)
 library(dplyr)
 
@@ -431,6 +425,7 @@ ggplot(df, aes(x = x, y = density)) +
 ```
 Scaled normal densities.
 :::
+
 Since we can see $Z_n \overset{\mathbb P}{\to} 0$ we could write $Z_n = o_{\mathbb P}(1)$. Similarly, since we see $n^{1/2}Z_n \overset{\mathbb P}{\to} 0$ we could also write $Z_n = o_{\mathbb P}(n^{-1/4})$, which is a stronger statement. However, we *cannot* write $Z_n = o_{\mathbb P}(n^{-1/2})$ because $n^{1/2}Z_n$ is not collapsing to zero. Similarly we cannot write $Z_n = o_{\mathbb P}(n^{-1})$.
 :::
 

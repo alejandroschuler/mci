@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Alejandro Schuler, Mark van der Laan">
 
-<title>Introduction to Modern Causal Inference</title>
+<title>3&nbsp; Plug-In Estimators – Introduction to Modern Causal Inference</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./3-0-intro.html" rel="next">
+<link href="./6-references.html" rel="next">
+<link href="./4-0-intro.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -110,7 +110,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./4-0-intro.html">Building Efficient Estimators</a></li><li class="breadcrumb-item"><a href="./4-1-plugin-expansion.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -137,7 +137,7 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -175,7 +175,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link">
+  <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
   </div>
 </li>
@@ -220,37 +220,25 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
-  <ul class="collapse">
-  <li><a href="#goals-and-approach" id="toc-goals-and-approach" class="nav-link" data-scroll-target="#goals-and-approach">Goals and Approach</a>
-  <ul class="collapse">
-  <li><a href="#philosophy" id="toc-philosophy" class="nav-link" data-scroll-target="#philosophy">Philosophy</a></li>
-  <li><a href="#pedagogy" id="toc-pedagogy" class="nav-link" data-scroll-target="#pedagogy">Pedagogy</a></li>
-  </ul></li>
-  <li><a href="#topics" id="toc-topics" class="nav-link" data-scroll-target="#topics">Topics</a></li>
-  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
-  </ul></li>
+  <li><a href="#what-is-a-plug-in" id="toc-what-is-a-plug-in" class="nav-link active" data-scroll-target="#what-is-a-plug-in"><span class="header-section-number">3.1</span> What is a Plug-In?</a></li>
+  <li><a href="#plug-in-bias" id="toc-plug-in-bias" class="nav-link" data-scroll-target="#plug-in-bias"><span class="header-section-number">3.2</span> Plug-In Bias</a></li>
+  <li><a href="#von-mises-expansion-formalizing-above" id="toc-von-mises-expansion-formalizing-above" class="nav-link" data-scroll-target="#von-mises-expansion-formalizing-above"><span class="header-section-number">3.3</span> Von Mises Expansion (formalizing above)</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">3.4</span> </a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./4-0-intro.html">Building Efficient Estimators</a></li><li class="breadcrumb-item"><a href="./4-1-plugin-expansion.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Introduction to Modern Causal Inference</h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Alejandro Schuler, Mark van der Laan </p>
-          </div>
-  </div>
     
   
     
@@ -261,108 +249,27 @@ window.Quarto = {
 </header>
 
 
-<section id="introduction" class="level1 unnumbered">
-<h1 class="unnumbered">Introduction</h1>
-<section id="goals-and-approach" class="level2">
-<h2 class="anchored" data-anchor-id="goals-and-approach">Goals and Approach</h2>
-<p>Our goal is to get people with any amount of experience in formal mathematics past undergraduate probability to be able to take a vaguely-defined scientific question, translate it into a formal statistical problem, and solve it by constructing a tool that is optimal for the job at hand.</p>
-<p>There are many texts and courses that share the same philosophy and have substantial overlap in terms of the pedagogic approach and topics. In particular, we owe a lot to the biostatistics curriculum at UC Berkeley and to more encyclopedic texts like <a href="https://link.springer.com/book/10.1007/978-1-4419-9782-1">*Targeted Learning</a>.* Nonetheless, we think that the particular selection of topics and tone in this book will make the content accessible enough to new audiences that it’s worthwhile to recombine the material in this way.</p>
-<section id="philosophy" class="level3">
-<h3 class="anchored" data-anchor-id="philosophy">Philosophy</h3>
-<p>This book is rooted in the philosophy of modern causal inference. What sets this philosophy apart are the three following tenets:</p>
-<ol type="1">
-<li>The first is that for most practical purposes, <strong>the point of statistics <em>is</em> causal inference</strong>. Ultimately, we humans are concerned with how to make decisions under uncertainty that lead to the best outcome. These are fundamentally causal questions that ask “<em>what if</em>” we did A instead of B? The machinery of statistical inference is agnostic to causality, but that doesn’t change the fact that our motivation in using it isn’t. Therefore there is little point in shying away from causal claims because noncausal claims are not often of any practical utility.</li>
-<li>That leads to the second, often misunderstood point, which is that <strong>there is no such thing as a method for causal inference</strong>. This isn’t a failing of the statistics literature so much as a failing of the naive popularization of new ideas (e.g.&nbsp;blog posts, low-quality papers). The process of statistical inference (for point estimation) only cares about estimating a parameter of a probability distribution and quantifying the sampling distribution of that estimate. There is nothing “causal” about that, and many are surprised to learn that the algorithms used for “causal” inference are actually identical to those used to make noncausal statements. What makes an analysis causal has little if anything to do with the estimator or algorithm used. It has everything to do with whether or not the researcher can satisfy certain non-testable assumptions about the process that generated the observed data. It’s important to keep these things (statistical inference and causal identification) separated in your mind even though they must always work together.</li>
-<li>The last and perhaps greatest shortcoming of traditional statistics pedagogy is that it generally does not teach you to ask the question that makes sense scientifically and <em>then</em> translate it into a statistical formalism. This is partly because, in the past, our analytic tools were quite limited and no progress could be made unless one imposed unrealistic assumptions or changed the question to fit the existing methods. Today, however, <strong>we have powerful tools that can then translate a given statistical problem into an optimal method for estimation</strong> in a wide variety of settings. It’s not always totally automatic, but at a minimum it provides a clear way to think about what’s better and what’s worse. It liberates you from the route if-this-kind-of-data-then-that-method thinking that only makes for bad statistics and bad science.</li>
-</ol>
-<p>Taken together, these three points give this movement a clear, unified, and increasingly popular perspective on causal inference. We have no doubt whatsoever that this is the paradigm that will come to dominate common practice in the next decades and century.</p>
+<section id="what-is-a-plug-in" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="what-is-a-plug-in"><span class="header-section-number">3.1</span> What is a Plug-In?</h2>
+<p>…</p>
 </section>
-<section id="pedagogy" class="level3">
-<h3 class="anchored" data-anchor-id="pedagogy">Pedagogy</h3>
-<p>The modern approach to causal inference is already well-established and discussed at length in many high-quality resources and courses. So why have yet another book going over the same material?</p>
-<p>Well, there are many different kinds of students with different backgrounds for whom different presentation styles work better! We’ve chosen an approach for this particular text that focuses on the following principles:</p>
-<ol type="1">
-<li><p><strong>Rigor with fewer prerequisites</strong>. Many students are turned off or intimidated by the amount of mathematical formality that is required to rigorously understand modern causal inference. While you don’t actually need a lot of math to use and understand the ideas, you do need <em>some</em> math to be able to work independently in the field. Since one of our goals is for you to be able to <em>construct your own</em> efficient estimator for a never-before-seen problem, we have to think precisely and not hand-wave away rigor.</p>
-<p>For better or worse, the math you need is built on several layers of prerequisites- real analysis, probability theory, functional analysis, and asymptotic statistics (more on that later). In an ideal world, we would all have taken these courses and be prepared for what’s next, but in practice we know many people have gaps in their knowledge.</p>
-<p>In this book we try to address that by providing a lot of foundational background information about these topics as they come up. We do our best to build up intuition for the component pieces of things before diving into implications. We lean heavily on figures and natural english prose to explain these concepts alongside the formal mathematical notation. We emphasize intuition and practical use rather than formalism. At a minimum, we try to be very clear about what the foundations actually <em>are</em> so that if you don’t understand something you at least know where to look.</p></li>
-<li><p><strong>Core concepts</strong>. Modern causal inference is a huge field. There are so many exciting applications and theoretical developments that it can be hard for students to find their way at first.</p>
-<p>We’ve tried to keep thing as short and concise as possible in this book by focusing on core ideas and a limited number of examples. The point of this is to emphasize what is most important and to allow you to learn the fundamentals without getting distracted. That means there are many topics that aren’t covered in this book (see section below), but the idea is that this book will give you the tools and mindset you need in order to continue your learning productively.</p></li>
-<li><p><strong>A welcoming voice.</strong> Modern causal inference is fast-moving and intense. It’s easy to feel like you don’t belong or aren’t good enough to participate. The agnostic, impersonal tone that is best for writing a clear academic paper doesn’t always create the warm, emotional connection that is necessary for us to feel secure and ready to learn.</p>
-<p>To deal with that problem, the voice we use throughout this book is informal and decidedly nonacademic. We write in the first person and address you, the reader, directly. Figures are hand-drawn and cartoonish. We provide personal commentary alongside agnostic technical material. All of this is deliberate and meant to help you feel comfortable and guided through this world. You are not alone in learning!</p></li>
-</ol>
-<p>If you find this book isn’t for you, that’s also great! Here is a list of other resources that cover some of the same ground:</p>
-<ul>
-<li><a href="https://arxiv.org/pdf/2203.06469.pdf"><em>Semiparametric Doubly Robust Targeted Double Machine Learning: A Review</em> - Edward Kennedy</a></li>
-<li><a href="https://link.springer.com/book/10.1007/0-387-37345-4"><em>Semiparametric Theory and Missing Data</em> - Anastasios Tsiatis</a></li>
-<li><a href="https://link.springer.com/book/10.1007/978-1-4419-9782-1"><em>Targeted Learning</em> - Mark van der Laan, Sherri Rose</a></li>
-<li><a href="https://link.springer.com/book/10.1007/978-0-387-21700-0"><em>Unified Methods for Censored Longitudinal Data and Causality</em> - Mark van der Laan, James Robins</a></li>
-<li><a href="https://cdn1.sph.harvard.edu/wp-content/uploads/sites/1268/2021/03/ciwhatif_hernanrobins_30mar21.pdf"><em>Causal Inference: What If?</em> - Miguel Hernán, James Robins</a></li>
-</ul>
-<section id="rigor-with-fewer-prerequisites" class="level4">
-<h4 class="anchored" data-anchor-id="rigor-with-fewer-prerequisites">Rigor with Fewer Prerequisites</h4>
-<p>Despite our best efforts, you will need <em>some</em> background material to get the most out of this book. The “hard” prerequisites listed are non-negotiable (this book will make no sense to you at all if you don’t know what a probability distribution is), but the “soft” prerequisites are completely optional. We don’t cover these topics here because there are already so many good resources to learn them and there’s no need to reinvent the wheel. We provide the curated references below so you know where to go to fill in the holes in your understanding as you go along.</p>
-<p><strong>Hard Prerequisites</strong> You’ll need to know probability theory at the undergraduate level. Random variables, expectation, conditional expectation, probability densities should be familiar to you, and ideally you have at least a vague understanding of what convergence in distribution means.</p>
-<p>You also need undergraduate multivariable calculus and linear algebra: integrals, derivatives, vectors, etc. should all be well-worn tools at your disposal.</p>
-<p>If you’re shaky on these topics, we recommend <a href="https://www.khanacademy.org/">Khan Academy</a>. We also encourage you to check out the real analysis and measure-theoretic probability resources listed below, which will provide you with a very useful conceptual understanding.</p>
-<p><strong>Soft Prerequisites</strong> The following topics aren’t necessary to grasp the arc of the arguments we’ll make, but a fully rigorous understanding isn’t possible without them. As we go along, we’ll provide parenthetical commentary to elucidate concepts from these subjects that you may not be familiar with. We suggest attempting to read and understand this book all the way through and taking notes on the places where you feel like you’re missing something. This will help you prioritize your time if you choose to fill in the gaps. None of this material is beyond you, I promise. It just takes a little time to work through it. I learned it all from these books myself: you may be surprised to hear I don’t have any formal training in mathematical statistics!</p>
-<p>These books and videos give what I think is the most self-contained treatment of their respective topics that is in line with the didactic approach taken in this book. They tend to have a more conversational tone, provide more background and intuition to the reader, and have plenty of worked examples. As always, however, there are many alternatives that may work better for you depending on your needs. These subjects should be tackled in the order they are listed here:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Field</th>
-<th>Topics to Focus On</th>
-<th>Resources</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1. Intro Real Analysis</td>
-<td>sequences, limits, series, continuity, convergence (pointwise, uniform), derivative</td>
-<td><a href="https://www.math.ucdavis.edu/~babson/MAT127B/abbott-second-edition.pdf"><em>Understanding Analysis</em> (Ch 1-6)</a> - Abbott</td>
-</tr>
-<tr class="even">
-<td>2. Measure-Theoretic Probability</td>
-<td>definition and construction of measure, Lebesgue integral and its properties, Radon-Nikodym theorem, change-of-variables formula, modes of convergence for random variables, independence, central limit theorem, conditional expectation</td>
-<td><a href="https://www.youtube.com/playlist?list=PLo4jXE-LdDTQq8ZyA8F8reSQHej3F6RFX"><em>Measure Theory Youtube Lectures</em></a> - Landim, <a href="https://s2pnd-matematika.fkip.unpatti.ac.id/wp-content/uploads/2019/03/Marek-Capinski-Peter-E.-Kopp-Measure-integral-and-probability-Springer-2004.pdf"><em>Measure, Integral, and Probability</em></a> - Capiński &amp; Kopp</td>
-</tr>
-<tr class="odd">
-<td>3. Functional Analysis in <span class="math inline">\(\mathcal L_2\)</span></td>
-<td>projection, bounded dual space, Reisz representation</td>
-<td><a href="https://physics.bme.hu/sites/physics.bme.hu/files/users/BMETE15AF53_kov/Kreyszig%20-%20Introductory%20Functional%20Analysis%20with%20Applications%20(1).pdf"><em>Introductory Functional Analysis with Applications</em> (Ch 1-3)</a> - Kreyszig</td>
-</tr>
-</tbody>
-</table>
-<p>A few tips for self study: I recommend reading skimming each chapter first and getting an idea of what the main ideas are and how they interconnect to each other and to what you’ve already done. Take your time to understand what the definitions of the objects are that are used in each theorem (e.g.&nbsp;what exactly is a sequence / random variable / linear bounded functional?). Think of some examples and draw pictures.</p>
-<p>Then go through the chapter again and read it slowly, line by line. Reading a line of math should take you as long as it takes to read a paragraph of english because that’s often how much information is conveyed therein. Now draw some pictures or think of examples attempting the illustrate the content of the theorems. After you’re done, do several of the exercises that the author provides. I’ve found that it also helps to make a “one-page summary” or “cheatsheet” of all the material in the chapter (definitions, important theorems, and their relationships). This will help you keep all the concepts organized as you go along.</p>
-<p>I’ll also refer to <a href="https://www.cambridge.org/core/books/asymptotic-statistics/A3C7DAD3F7E66A1FA60E9C8FE132EE1D"><em>Asymptotic Statistics</em></a> by A.W. van der Vaart in many places throughout the guide where we need to point to technical material. Relative to the way we write things up here, that book goes over background material much faster, so you may find it more challenging to read through. However, it does contain all the necessary information and details. If you’ve read the material in the table above and you really want to dot your i’s and cross your t’s on the material in this book you can try your hand at ch.&nbsp;1, 2, 6, 7, 8, and 25 of Asymptotic Statistics.</p>
+<section id="plug-in-bias" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="plug-in-bias"><span class="header-section-number">3.2</span> Plug-In Bias</h2>
+<p>What’s wrong with a plugin <span class="math inline">\(\Psi(\hat{\mathbb{P}}_n)\)</span>?</p>
+<p>If <span class="math inline">\(\hat{\mathbb{P}}_n\)</span> is fit with ML we always get bias.</p>
+<p>Model selection: bigger and smaller models.</p>
+<p>Validation error is bias^2 + variance. When we minimize it some bias (eg in <span class="math inline">\(\mu\)</span>) remains and it translates to bias in <span class="math inline">\(\hat\phi\)</span></p>
+<p>Bias is a problem if you want to construct CIs</p>
+<p>The plug-in bias does not disappear quickly enough in the asymptotic expansion to be CLT-negligible</p>
+<p>Thus CIs etc will be wrong, even though estimate may be ok. — ppl need practice for this (or example)</p>
 </section>
-<section id="core-concepts" class="level4">
-<h4 class="anchored" data-anchor-id="core-concepts">Core Concepts</h4>
-<p>We’ve done our best to keep this book lean and targeted on foundational concepts. As a consequence, there are many important and interesting topics that we’ll say nothing or little about. For the sake of completeness, we’ll list some of them here so you know where to start looking when you’re ready to build on your solid foundation.</p>
-<p>To keep things simple and consistent, most of the examples in this book focus on inference of the average treatment effect in simple covariate-treatment-outcome observational or randomized studies. However, there are many data structures which are much more elaborate than this. For example, we do not fully discuss inference in longitudinal settings with time-varying covariates and treatments, inference when some outcomes are censored, stochastic interventions, or continuous treatments. Non-IID data (e.g.&nbsp;treatment spillover in a network) is another interesting topic that is not covered. Nonetheless, what is in this book will prepare you to study all of these topics and to understand them as special cases or extensions of the general approach presented here.</p>
-<p>While the tools we describe in this book are extremely powerful, they are not <em>all</em>-powerful. Some estimands of legitimate interest are not “pathwise differentiable” and therefore cannot be analyzed with these tools. An important example of such an estimand is the conditional average treatment effect, which is the subject of extensive research. There is not yet a unified approach to these problems.</p>
-<p>Another interesting and useful setting that we do not discuss is online (or reinforcement) learning. Many topics related to this literature (e.g.&nbsp;off-policy evaluation) are directly addressable with the methods in this book, but here we omit all discussion of scenarios where the treatment policy can be manipulated during data collection as more information comes in. The framework for causal inference we develop in this book does extend to such settings but only with some added complexity that is best understood after learning the basics.</p>
-<p>Lastly, the reader should be aware that this book discusses the most popular and widely used framework for causal inference, which is that of potential outcomes in the frequentist population model. Readers may have heard of directed acyclic graphs (DAGs) or nonparametric structural equations models (np-SEM) as alternatives to potential outcomes, but these frameworks are in fact largely equivalent for the vast majority of practical problems so it is really not worth worrying about the differences until your are very deep in the weeds.</p>
-<p>Potential outcomes are also used outside the population model in the randomization inference framework, which differs in that only the treatment assignment is assumed to be random (i.e.&nbsp;sampling from a larger population is not a source of variability). Much of what you learn here is also applicable to randomization inference. Potential outcomes are also commonly used in Bayesian approaches to causal inference, which we also don’t discuss here.</p>
+<section id="von-mises-expansion-formalizing-above" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="von-mises-expansion-formalizing-above"><span class="header-section-number">3.3</span> Von Mises Expansion (formalizing above)</h2>
 </section>
-</section>
-</section>
-<section id="topics" class="level2">
-<h2 class="anchored" data-anchor-id="topics">Topics</h2>
-<p>This book aims to be a relatively self-contained treatment of the modern approach to causal inference. As we said above, the goal is for you to be able to take a vaguely-defined scientific question, translate it into a formal statistical problem, and solve it using a tool that you optimally construct for the job at hand. Thankfully, there’s a well-developed process for doing that called the <a href="https://pubmed.ncbi.nlm.nih.gov/24713881/">Statistical Roadmap</a> which we follow closely in the chapters of this book:</p>
-<ol type="1">
-<li>To begin with, we need to first understand the process of <strong><em>statistical inference</em></strong>. We do that by defining a set of assumptions that represent what we know is true about the real world along with some true quantity of interest. Only then do we propose some kind of method or algorithm that, given data, produces an estimate of this quantity. We should be able to show that, with enough data, our answer gets closer and closer to the truth and that we have some way to quantify the uncertainty due to random sampling. These are the topics we’ll work through in chapter 1, closing out with an example that illustrates the danger of blindly applying popular methods without thinking through the question and assumptions.</li>
-<li>Once we’ve understood the goal and process of inference, we introduce causality. Causal inference questions are just statistical inference questions but in an imaginary world where we can always observe the result of alternative “what if”s. Of course in the real world we can’t see all the “what if”s. We only get to see what happened, not what <em>could</em> have happened had we made a different choice, taken a different drug, or implemented a different policy. To link the two worlds together we have to make some assumptions to guarantee that the answer to a statistical inference problem in the real world actually represents the answer to our causal question in the world of “what if”s. Chapter 2 lays out this process (<strong><em>causal identification</em></strong>) and gives examples. Chapter 2 also addresses why a well-defined intervention is important to formulating something as a causal question and discusses broadly applicable methods that quantify the impact of potentially erroneous identifying assumptions.</li>
-<li>Once we have an identification result in hand, we are completely done with causality and can focus on solving the real-world inference problem. But for better or for worse there are thousands of inference methods, each of which work under different assumptions and target different parameters. Choosing among these is daunting and often puts the cart before the horse because we’re forced to define our question such that an existing method can solve it. Chapter 3 lays the foundation to address this problem by showing that for a wide range of assumptions and questions, there is generally a way to quantify what the best possible estimator is in terms of the <strong><em>efficient influence function</em></strong>. The efficient influence function completely describes the behavior of the optimal estimator in large samples. This optimal estimator always converges to the right answer with more data and has the lowest legitimate uncertainty possible under the given assumptions. We work through examples of deriving efficient influence functions for the average treatment effect in standard observational and randomized experiments.</li>
-<li>Finally, chapter 4 does the hard work of putting the theory from chapter 3 into practice. Here we show how we can actually build an <strong><em>efficient estimator</em></strong>- one which has the efficient influence function. In other words, given a statistical problem, we can construct an optimal method to solve it. We outline the three main strategies for doing this, which are called bias-correction, estimating equations, and targeted maximum likelihood. We show the different ways in which these strategies ensure that the constructed estimator has the right behavior. All of them ultimately attain the same goal and are theoretically equivalent in large-enough samples, but the differences are relevant for how the constructed estimators perform in practice.</li>
-</ol>
-</section>
-<section id="acknowledgements" class="level2">
-<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
-<p>The authors thank Shira Mitchell, Lauren Liao, and Kat Hoffman for productive comments on chapter drafts.</p>
+<section id="section" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="section"><span class="header-section-number">3.4</span> </h2>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -785,10 +692,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./4-0-intro.html" class="pagination-link" aria-label="Building Efficient Estimators">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Building Efficient Estimators</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./3-0-intro.html" class="pagination-link" aria-label="Efficiency Theory">
-        <span class="nav-page-text">Efficiency Theory</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./6-references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,0 +1,30 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# Plug-In Estimators
+
+## What is a Plug-In?
+
+...
+
+## Plug-In Bias
+
+What's wrong with a plugin $\Psi(\hat{\p}_n)$? 
+
+If $\hat{\p}_n$ is fit with ML we always get bias. 
+
+Model selection: bigger and smaller models.
+
+Validation error is bias^2 + variance. When we minimize it some bias (eg in $\mu$) remains and it translates to bias in $\hat\phi$
+
+Bias is a problem if you want to construct CIs
+
+The plug-in bias does not disappear quickly enough in the asymptotic expansion to be CLT-negligible 
+
+Thus CIs etc will be wrong, even though estimate may be ok. 
+--- ppl need practice for this (or example)
+
+## Von Mises Expansion (formalizing above)
+
+## 
