@@ -1,16 +1,18 @@
-\newcommand{\eltwop}[1][\mathbb{P}]{\mathcal{L}_2\left((#1)\right)}
+\newcommand{\eltwop}[1][\mathbb{P}]{\mathcal{L}_2\left(#1\right)}
+\newcommand{\eltwopz}[1][\mathbb{P}]{\mathcal{L}_2^0\left(#1\right)}
 \newcommand{\eltwo}{\mathcal{L}_2}
-\newcommand{\p}{\mathbb{P}}
+\newcommand{\p}{{\mathbb{P}}}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\V}{\mathbb{V}}
 \newcommand{\C}{\mathbb{C}}
-\newcommand{\model}{\mathcal P}
+\newcommand{\model}{\mathcal{P}}
+\newcommand{\tset}{\mathcal{S}}
 
 \newcommand{\dto}{\rightsquigarrow}
 \newcommand{\pto}{\overset{\mathbb P}\to}
 
-\newcommand{\op}{o_{\mathbb P}}
-\newcommand{\Op}{O_{\mathbb P}}
+\newcommand{\op}{o_{\mathbb{P}}}
+\newcommand{\Op}{O_{\mathbb{P}}}
 
 
 \newcommand{\reals}{\mathbb{R}}

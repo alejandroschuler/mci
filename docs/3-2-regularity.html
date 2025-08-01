@@ -557,7 +557,7 @@ Regularity in the Normal Location Model
 </div>
 <div class="callout-body-container callout-body">
 <div id="def-regularity-1" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.1</strong></span> An estimator <span class="math inline">\(\hat\Psi\)</span> is <em>regular</em> at the point $\p = (0,1)$ in the model <span class="math inline">\(\mathcal P= \{\mathsf{N}(\psi, 1):\psi \in \mathbb{R}\}\)</span> if there is a single, fixed distribution <span class="math inline">\(\mathbb D\)</span> such that <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 2.1</strong></span> An estimator <span class="math inline">\(\hat\Psi\)</span> is <em>regular</em> at the point <span class="math inline">\(\mathbb{P}= \mathsf{N}(0,1)\)</span> in the model <span class="math inline">\(\mathcal P= \{\mathsf{N}(\psi, 1):\psi \in \mathbb{R}\}\)</span> if there is a single, fixed distribution <span class="math inline">\(\mathbb D\)</span> such that <span class="math display">\[
 \sqrt{n}\left( \hat\Psi(\mathbb{P}^{(n)}_n) - \Psi(\mathbb{P}^{(n)}) \right) \rightsquigarrow \mathbb D
 \]</span> for any sequence of distributions <span class="math inline">\(\mathbb{P}^{(n)} = \mathsf{N}\left(\psi_n, 1\right)\)</span> such that <span class="math inline">\(\sqrt{n} \psi_n\)</span> is bounded.</p>
 </div>
@@ -690,7 +690,7 @@ Path (1D Submodel)
 </div>
 </div>
 <div id="exm-path-convex" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.2</strong></span> Presume the model is the set of all continuous distributions. Pick any two points <span class="math inline">\(p_-, p_+ \in \mathcal P\)</span>. Then the set of densities <span class="math inline">\(\left\{p: p = \left(\frac{1}{2} - \epsilon\right) p_- + \left(\frac{1}{2}+\epsilon\right) p_+\right\}\)</span> is a path parameterized by <span class="math inline">\(\epsilon\in \left(-\frac{1}{2},\frac{1}{2} \right)\)</span>. This is an example of a <em>convex</em> path. You can think of this as the straight-line path starting at <span class="math inline">\(p_-\)</span> (at <span class="math inline">\(\epsilon=-1/2\)</span>) and ending at <span class="math inline">\(p_+\)</span> (at <span class="math inline">\(\epsilon=1/2\)</span>). At <span class="math inline">\(\epsilon= 0\)</span> we have the halfway point <span class="math inline">\(p_0 = \frac{p_- + p_+}{2}\)</span>. Some algebra shows that another way to write the elements of this path is <span class="math inline">\(p_\epsilon= p_0 + \epsilon(p_+ - p_-)\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 2.2</strong></span> Presume the model is the set of all continuous distributions. Pick any two points <span class="math inline">\(p_0, p_1 \in \mathcal P\)</span>. Then the set of densities <span class="math inline">\(\left\{\left(\frac{1}{2} - \epsilon\right) p_0 + \left(\frac{1}{2}+\epsilon\right) p_1 : \epsilon\in [0,1]\right\}\)</span>. This is an example of a <em>convex</em> path. You can think of this as the straight-line path starting at <span class="math inline">\(p_0\)</span> and ending at <span class="math inline">\(p_1\)</span> (at <span class="math inline">\(\epsilon=1/2\)</span>). Some algebra shows that another way to write the elements of this path is <span class="math inline">\(p_\epsilon= p_0 + \epsilon(p_1 - p_0)\)</span>.</p>
 </div>
 <div id="exm-norm-path" class="theorem example">
 <p><span class="theorem-title"><strong>Example 2.3</strong></span> Presume the model includes all normal distributions. Then the set of distributions corresponding to <span class="math inline">\(\mathsf{N}(\epsilon, 1)\)</span> is a path parameterized by <span class="math inline">\(\epsilon\in \mathbb{R}\)</span>.</p>
@@ -861,13 +861,13 @@ Figure&nbsp;2.7: A cartoon of the model and a distribution <span class="math inl
 </figure>
 </div>
 <div id="exm-convex-path-score" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.5</strong></span> Fix an initial point <span class="math inline">\(p_-\)</span> and final point <span class="math inline">\(p_+\)</span> in a model and consider the convex path <span class="math inline">\(\{p: \mathbb{P}= (1/2 -\epsilon) p_- + (1/2 + \epsilon) p_+\}\)</span> discussed in <a href="#exm-path-convex" class="quarto-xref">Example&nbsp;<span>2.2</span></a>. For this path, the (pointwise derivative version of the) score at <span class="math inline">\(\epsilon = 0\)</span> is defined and is equal to <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.5</strong></span> Fix an initial point <span class="math inline">\(p_-\)</span> and final point <span class="math inline">\(p_+\)</span> in a model and consider the convex path <span class="math inline">\(\{p_0 + \epsilon(p_1 - p_0) : \epsilon\in [0,1]\}\)</span> discussed in <a href="#exm-path-convex" class="quarto-xref">Example&nbsp;<span>2.2</span></a>. For this path, the (pointwise derivative version of the) score at <span class="math inline">\(\epsilon = 0\)</span> is defined and is equal to <span class="math display">\[
 \begin{aligned}
 s
-&amp;= \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \log \big( p_0 + \epsilon(p_+ - p_-) \big) \bigg|_{\epsilon=0} \\
-&amp;= \frac{1}{p_0 + \epsilon(p_+ - p_-)} (p_+ - p_-) \bigg|_{\epsilon=0}\\
-&amp;= \frac{p_+ - p_-}{p_0} \\
-&amp;= 2\left(\frac{p_+}{p_0} - 1 \right)
+&amp;= \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \log \big( p_0 + \epsilon(p_1 - p_0) \big) \bigg|_{\epsilon=0} \\
+&amp;= \frac{1}{p_0 + \epsilon(p_1 - p_0)} (p_1 - p_0) \bigg|_{\epsilon=0}\\
+&amp;= \frac{p_1 - p_0}{p_0} \\
+&amp;= \left(\frac{p_1}{p_0} - 1 \right)
 \end{aligned}
 \]</span> A little algebra shows that this path can also be written as <span class="math inline">\(p_\epsilon= \left(1+ \epsilon s \right) p_0\)</span>.</p>
 </div>

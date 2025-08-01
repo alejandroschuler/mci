@@ -110,7 +110,7 @@ $$
 
 for all sequences $\eps_n = c_n n^{-1/2}$ with $c_n \to 1$ does not obviously imply that the same is true for *any* sequence $\eps_n \to 0$ (here I am abbreviating $f(\eps) = \Psi(\p^{(\eps)})$ and $\dot f = \p s\phi$). The latter convergence along any sequence $\eps_n \to 0$ is what we need for the left-hand side above to define a derivative.
 
-To do this rigorously requires a little more effort. The rigorous proof is a bit tedious and not at all important to understand if you are happy to believe the result. On the other hand, since it only relies on standard tools from analysis I include it here anyways.
+To do this rigorously requires a little more effort. The rigorous proof is a bit tedious and not at all important to understand if you are happy to believe the result. I include it here only because it relies only on standard tools from analysis and I have not found a thorough version elsewhere in the literature.
 
 In terms of the abbreviations with $f$, the display above @thm-RAL-IFs says that
 
@@ -169,14 +169,200 @@ This is an astounding result because it connects two seemingly unrelated things:
 
 ## Tangent Spaces
 
-@thm-RAL-IFs holds simultaneously for *all* differentiable paths in the model through $\p$ (and their induced scores). To unlock the important insights from the theorem we therefore need to understand what that set of scores *is*. 
+@thm-RAL-IFs holds simultaneously for *all* differentiable paths in the model through $\p$ (and all their induced scores). To unlock the important insights from the theorem we therefore need to be able to refer to that set of scores.
 
 :::: callout-note
 # Tangent Set and Space
-::: {#def-tangent-space}
-The *tangent set* at a point $\p \in \model$ is the set of all scores of all differentiable paths through that point. The *tangent space* $\mathcal S$ is the linear closure of the tangent set (all linear combinations of scores and their limits).
+::: {#def-tangent-set}
+The *tangent set* $\mathcal S_{\p \in \model}$ at a point $\p \in \model$ is the set of all scores of all differentiable paths through that point. The *tangent space* is the linear closure of the tangent set (all linear combinations of scores and their $\eltwo$-limits). When the point of interest $\p$ and model $\model$ are clear from context we leave the subscript off and just write $\mathcal S$ for the tangent set.
+
+$\tset_{\p} \subseteq \{f \in \eltwop: \p f = 0\} \equiv \eltwopz$ since any score $s$ of a differentiable path through $\p$ is in $\eltwop$ and has mean zero by @def-score.
 :::
 ::::
+
+::: {#fig-tangent-set}
+``` tikz
+\resizebox{12cm}{!}{
+\begin{tikzpicture}
+
+\pgfplotsset{compat=1.18}
+
+  \begin{axis}[
+    axis lines=middle,
+    xlabel=$ $, 
+    ylabel=$ $, 
+    zlabel=$ $,
+    xtick=\empty, ytick=\empty, ztick=\empty,
+    view={50}{30},                % camera angle
+    colormap/blackwhite,     % grayscale shading
+  ]
+
+    \node at (axis cs:0.05,0.05,0.15) {$\mathcal L_2$};
+
+    \addplot3[
+      surf,
+      shader=flat,      % draws both smooth shading + facet edges
+      fill opacity=0.8,           % only the surface is semi‐transparent
+      draw=gray,                 % mesh‐lines in black
+      very thin,                  % edge‐line thickness
+      samples=15,                 % φ‐resolution
+      samples y=15,               % θ‐resolution
+      domain=0:90,                % φ from 0° to 90°
+      y domain=0:90,              % θ from 0° to 90°
+    ]
+    (
+      {sin(x)*cos(y)},            % x = sin φ cos θ
+      {sin(x)*sin(y)},            % y = sin φ sin θ
+      {cos(x)}                    % z = cos φ
+    );
+    \node[anchor=north east, color=gray] at (rel axis cs:0.125,0.125,0.8) {$\sqrt{\mathcal P}$};
+
+    %%%%%%%%%%%%%%%%%%%
+    %%% POINT %%%%%%
+    %%%%%%%%%%%%%%%%%%%
+    \addplot3[
+      only marks,
+      mark=*,
+      mark options={fill=black},
+    ]
+    coordinates {(0.5,0.5,0.7071)};
+    \node at (axis cs:0.55,0.55,0.7071) [anchor=south] {$\sqrt p$};
+
+    %%%%%%%%%%%%%%%%%%%
+    %%%%% PATH 1 %%%%% 
+    %%%%%%%%%%%%%%%%%%%
+    \addplot3[
+      parametric,             % ← treat as a 1D parametric plot
+      variable=\phi,          % ← name of the parameter
+      domain=15:85,           % φ from 15° to 85°
+      samples=25,             % number of points along the arc
+      samples y=1,     % ← no second direction → no loop
+      very thick,
+      dotted,
+      orange,
+      mark=none
+    ]
+    (
+      {sin(\phi)*cos(45)},   % x(φ)
+      {sin(\phi)*sin(45)},   % y(φ)
+      {cos(\phi)}            % z(φ)
+    );
+    % \node[anchor=north east, color=orange] at (rel axis cs:0.7,0.93) {$\sqrt{\mathcal P_{\epsilon}}$};
+
+    %%%%%%%%%%%%%%%%%%%
+    %%%% SCORE 1 %%%%%
+    %%%%%%%%%%%%%%%%%%%
+    \addplot3[
+      ->,                % arrow head
+      orange,              % arrow color
+      thick,             % line width
+      mark=none,
+    ]
+    coordinates {
+      % from P …
+      (0.5,0.5,0.7071)
+      % … to P + 0.4·(0.5,0.5,−0.7071)
+      (0.7,0.7,0.4243)
+    };
+    % \node at (axis cs:0.7,0.7,0.4243) [anchor=west, color=orange] {$s \sqrt{p}$};
+
+    %%%%%%%%%%%%%%%%%%%
+    %%%% PATH 2 %%%%%
+    %%%%%%%%%%%%%%%%%%%
+\addplot3[
+      parametric,
+      variable=\t,
+      domain=-30:30,
+      samples=20,
+      samples y=1,
+      very thick,
+      dotted,
+      blue,
+      mark=none,
+    ]
+    (
+      {0.5*cos(\t)  - 0.7071*sin(\t)},  % x = OP_x*cos t + D2_x*sin t
+      {0.5*cos(\t)  + 0.7071*sin(\t)},  % y = OP_y*cos t + D2_y*sin t
+      {0.7071*cos(\t)}                  % z = OP_z*cos t
+    );
+    % \node[anchor=south west, color=blue] at (rel axis cs:0.75,0.2,1.1) {$\sqrt{\mathcal P_{\epsilon}}$};
+
+    %%%%%%%%%%%%%%%%%%%
+    %%%% SCORE 2 %%%%%
+    %%%%%%%%%%%%%%%%%%%
+    \addplot3[
+      ->,
+      blue,
+      thick,
+      mark=none,
+    ]
+    coordinates {
+      (0.5,     0.5,     0.7071)
+      ((0.5+0.2828), (0.5-0.2828), 0.7071) % ≈ (0.2172,0.7828,0.7071)
+    };
+    % \node[anchor=north, color=blue] at (axis cs:0.5+0.2828, 0.5-0.2828, 0.7071) {$s \sqrt{p}$};
+
+    %%%%%%%%%%%%%%%%%%%
+    %%%% TANGENT SPACE %%%%%
+    %%%%%%%%%%%%%%%%%%%
+
+ % % tangent plane patch at (0.5,0.5,0.7071):
+    \addplot3[
+      surf,
+      shader=flat,                % flat shading for a single‐color patch
+      draw=violet,                 % outline edges in black
+      fill=violet,                  % fill color
+      fill opacity=0.3,           % semi‐transparent
+      samples=2,                  % two divisions → one quad
+      samples y=2,
+      domain=0.2:0.8,             % x from 0.2 to 0.8
+      y domain=0.2:0.8,           % y from 0.2 to 0.8
+    ]
+    (
+      {x},                        % x‐coordinate
+      {y},                        % y‐coordinate
+      {(1 - 0.5*x - 0.5*y)/(sqrt(2)/2)} % z = (1 - x0*x - y0*y)/z0
+    );
+    \node at (axis cs:0.7,0.6,0.7071) [anchor=west, color=violet] {$\mathcal S \sqrt{p}$};
+
+  \end{axis}
+\end{tikzpicture}
+}
+```
+A visual representation of the tangent set $\mathcal S$ along with the model $\sqrt{\model}$, two differentiable paths, and two scores (times $\sqrt p$). The set $\mathcal S \sqrt{p}$ denotes the set of all scores times the root density: $\{s \sqrt{p}: s \in \mathcal S\}$.
+:::
+
+Looking at @fig-tangent-set, it's clear why we call this the the "tangent" set: the plane $\tset \sqrt p$ is tangent to the surface of the root-model $\sqrt{\model}$ at the density $\sqrt p$. Although the picture in fact shows the root-model and tangent set times the root density, we often say informally that the tangent set $\tset_{\p}$ itself is "tangent" to the model $\model$ at the distribution $\p$.
+
+Since it's useful to think of scores as directions we can move away from $\p$ in the model, the tangent set is simply the set of all such directions. If a model is "large" in a neighborhood of $\p$ in the sense that there are many directions you can go in and stay in the model, then the tangent set will be large. If a model is "small" around $\p$ then the tangent set will be small. 
+
+::: {#exm-tangent-set-normal}
+Consider the model $\model = \{\norm(\mu,\sigma^2): \mu \in \reals, \sigma^2 > 0\}$ with densities $p_{\mu,\sigma^2}(z)$ and the point $\p = \norm(0,1)$ with density $p(z) = (2\pi)^{-1/2} e^{-{z^2}/{2}}$ of the standard normal. Since this is a two-dimensional parametric model, the tangent set at $p$ is all linear combinations of
+
+$$
+\begin{aligned}
+s_\mu(z) &= \frac{\dd p_{\mu,\sigma^2}(z)}{\dd \mu} \bigg|_{\mu=0, \sigma^2=1} = z \\
+s_{\sigma^2}(z)  &= \frac{\dd p_{\mu,\sigma^2}(z)}{\dd \sigma^2} \bigg|_{\mu=0, \sigma^2 =1} = \frac{z^2 -1}{2} \\
+\end{aligned}
+$$
+
+Thus in this case $\tset_{\p \in \model}$ is a two-dimensional set of functions.
+
+If we instead restricted the model to be $\model_\mu = \{\norm(\mu,1): \mu \in \reals\}$ by fixing $\sigma^2 =1$ (presume we knew this a-priori), then the tangent set would be all linear combinations of $s_\mu$ alone, i,e, $\{cs_\mu: c \in \reals\}$, a one-dimensional subset of the tangent set for the larger model. 
+
+Lastly, if we considered the even smaller model $\model_{\mu,+} = \{\norm(\mu,1): \mu \ge 0\}$, then the point $\p = \norm(0,1)$ would be on the "edge" of this model. Consequently there is no differentiable path that goes in the "negative $\mu$" direction from $\p$ and therefore the tangent set would be restricted to $\{cs_\mu: c \ge 0\}$, again a subset of the tangent space in the larger parent model. On the other hand, if we considered the point $\p = \norm(1,1)$ in this same model, the tangent space set would be $\{cs_\mu: c \in \reals\}$, the same as in the larger model where $\mu$ is allowed to be negative. This is because $\norm(1,1)$ is in the "interior" of the restricted model, so the mean can be decreased without any problem.
+:::
+
+This example demonstrates why we should index the tangent set by the model as well as the point of interest, like $\tset_{\p \in \model}$. The tangent set depends crucially on where the point is within the model because that affects what directions it is legal to move in while remaining in the model (recall that paths are strict subsets of the model). The shape and size of the tangent set is determined entirely by the *local* character of the model at $\p$. We saw in the example above that the tangent set at $\norm(0,1)$ became smaller if we restricted the mean in the normal model to be nonnegative, but at $\norm(1,1)$ the tangent set was unaffected by that restriction.
+
+In @def-tangent-set we saw that $\tset_{\p} \subseteq \eltwopz$ (recall we defined this as the set of $\eltwo$ functions with $\p$-mean zero). Some models are so "large", however, that the inclusion is actually an equality. If the model is big enough (locally), you can move in "any" direction.
+
+::: {#exm-tangent-set-nonparam}
+Let $\mathcal p$ be the set of all distributions of continuous random variables (i.e. distributions with standard densities) and pick some point $\p \in \model$. For any bounded function $s \in \eltwopz$ we can construct the convex path $\p_\eps = (1+ \eps s) p_0$ (bounding $s$ is required so that $\p_\eps$ remains a density and the mean-square and pointwise scores coincide). As we saw in @exm-convex-path-score, $s$ is the score for such a path at $\p$ and thus the tangent set at that point includes at least all bounded functions $s \in \eltwopz$. 
+
+This is good enough for intuition, but to formally extend to all $\eltwopz$ we can instead use the paths $p_\eps = \frac{e^{\lambda(\eps s)}}{\int e^{\lambda(\eps s(z))} p_0(z) \dd z} p_0$ with $\lambda(t) = 2(1+e^{-2t})^{-1}$. These paths also have scores $s$ and generate valid densities for any $s \in \eltwopz$. For details see Example 1 in Chapter 3 of @bkrw.
+:::
+
 
 ## Pathwise Differentiability
 
@@ -287,7 +473,7 @@ The first thing to notice is that for any fixed path, this is a standard derivat
   \node[magenta, right] at (tangentEnd) {$\epsilon \times \dot{\Psi}_{\mathbb{P}}(s)$};
 
   %--- Blob region \mathcal{P} (outline) ---
-  \filldraw[fill=white, draw=black, line width=0.6pt]
+  \filldraw[fill=white, draw=black, line width=1.5pt]
     plot[smooth cycle, tension=0.7] coordinates {
       (shape1) (shape2) (shape3) (shape4) (shape5) (shape6)
       (shape7) (shape8) (shape9) (shape10) (shape11) (shape12)
@@ -295,7 +481,7 @@ The first thing to notice is that for any fixed path, this is a standard derivat
   \node[scale = 1.3] at (blobLabel) {$\mathcal{P}$};
 
   %--- Internal path \mathcal{P}_\epsilon ---
-  \draw[blue, dashed, line width=0.8pt]
+  \draw[blue, dashed, line width=1.2pt]
     plot[smooth] coordinates {
       (blobCtrl1) (blobZero) (blobCtrl2)
     };
@@ -303,11 +489,11 @@ The first thing to notice is that for any fixed path, this is a standard derivat
   \node[blue, left] at (blobCtrl1) {$\mathcal{P}_\epsilon$};
 
   % Tangent arrow s on the internal path at \epsilon=0
-  \draw[blue, ->, line width=0.8pt] (blobZero) -- ++(0.40,0.05) node[right] {\small $s$};
+  \draw[blue, ->, line width=1.2pt] (blobZero) -- ++(0.40,0.05) node[right] {\small $s$};
 
   % Mark \epsilon=0 on the internal path
   \fill[black] (blobZero) circle (0.04);
-  \node[below] at (blobZero) {\small $\mathbb P_{0}$};
+  \node[below] at (blobZero) {\small $\mathbb P$};
 
   %--- Dotted vertical connectors from the x-axis down to the shifted blob points ---
   \draw[gray!60, dotted] (xNegTop)  -- (blobCtrl1);
