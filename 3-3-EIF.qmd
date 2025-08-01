@@ -87,7 +87,7 @@ $$ Because $\eps_n \sim 1/\sqrt n$ and the choice of differentiable path was arb
 # Influence Functions of RAL Estimators
 
 ::: {#thm-RAL-IFs}
-If $\phi$ is an influence function of a RAL estimator, then $$
+If $\phi$ is an influence function of an estimator that is RAL at $\p \in \mathcal P$, then $$
 \lim_{\eps \to 0} \frac{\Psi(\p^{(\eps)}) - \Psi(\p^{(0)})}{\eps} = \p s\phi
 $$
 
@@ -167,6 +167,17 @@ We may now return to our original sequence $c_m = \eta_m n_m$ whose absolute val
 
 This is an astounding result because it connects two seemingly unrelated things: the left-hand side is the rate of change in the estimand as we move the underlying distribution along a path. That has nothing to do with any estimator. The right-hand side is some measure of the "angle" between the influence function of an estimator and the direction of the path. By assuming regularity and asymptotic normality we have managed to connect these two seemingly unrelated quantities. What this means about the set of possible influence functions may still be unclear, but for the moment I hope you can appreciate the result as a very interesting connection nonetheless!
 
+## Tangent Spaces
+
+@thm-RAL-IFs holds simultaneously for *all* differentiable paths in the model through $\p$ (and their induced scores). To unlock the important insights from the theorem we therefore need to understand what that set of scores *is*. 
+
+:::: callout-note
+# Tangent Set and Space
+::: {#def-tangent-space}
+The *tangent set* at a point $\p \in \model$ is the set of all scores of all differentiable paths through that point. The *tangent space* $\mathcal S$ is the linear closure of the tangent set (all linear combinations of scores and their limits).
+:::
+::::
+
 ## Pathwise Differentiability
 
 Let's dig into the left-hand side term 
@@ -177,7 +188,7 @@ $$
 = \frac{\dd}{\dd \eps} \Psi(\p^{(\eps)}) \bigg|_{\eps=0}
 $$ 
 
-The first thing to notice is that for any fixed path, this is a standard derivative of a one-dimensional function of $\epsilon$. What we're measuring is the (instantaneous) rate of change of the estimand as we shift the underlying distribution along the path away from $\eps=0$. 
+The first thing to notice is that for any fixed path, this is a standard derivative of a one-dimensional function of $\epsilon$. What we're measuring is the (instantaneous) rate of change of the estimand as we shift the underlying distribution along the path away from $\eps=0$. This is illustrated in @fig-pathwise-derivative. 
 
 ::: {#fig-pathwise-derivative}
 ``` tikz
@@ -310,7 +321,14 @@ The first thing to notice is that for any fixed path, this is a standard derivat
 The pathwise derivative evaluated at a particular score $s$ gives the rate of change of the estimand if we move the underlying distribution in the direction of the score.
 :::
 
+We can conceptualize the "slope in the direction $s$" $\dot\Psi_{\p}(s)$ as a function mapping from scores $s \in \eltwop$ (recall @def-score) to numbers. What's interesting is that we can find that slope $\dot\Psi_{\p}(s)$ by taking the inner product of $s$ with *any* influence function $\phi$ of a RAL estimator (it doesn't matter which, the result must be the same!). But that's assuming there *is* a RAL estimator- in the proof above we simply presupposed that existence! We should say that *if* there is any RAL estimator of the estimand in the model, then $\dot\Psi_{\p}(s) = \p s\phi$. Since $\p s \phi$ is an inner product, $s \mapsto \p s\phi$ is a bounded (continuous) linear functional acting on $\eltwop$ (review @sec-app-riesz for details and definitions). That, in turn, implies $\dot\Psi_{\p}$ is also a bounded linear functional. 
 
+:::: callout-note
+# Pathwise Differentiability
+::: {#def-pathwise-differentiability}
+If 
+:::
+::::
 
 ```{=html}
 <!-- 

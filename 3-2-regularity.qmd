@@ -374,7 +374,7 @@ A *path* is any set of distributions $\model_\epsilon \subseteq \model$ that can
 ::::
 
 ::: {#exm-path-convex}
-Presume the model is the set of all continuous distributions. Pick any two points $p_-, p_+ \in \model$. Then the set of densities $\left\{p: p = \left(\frac{1}{2} - \epsilon\right) p_- + \left(\frac{1}{2}+\epsilon\right) p_+\right\}$ is a path parameterized by $\eps \in \left(-\frac{1}{2},\frac{1}{2} \right)$. This is an example of a *convex* path. You can think of this as the straight-line path starting at $p_-$ (at $\eps=-1/2$) and ending at $p_+$ (at $\eps=1/2$). At $\eps = 0$ we have the halfway point $p_0 = \frac{p_- + p_+}{2}$. Some algebra shows that another way to write the elements of this path is $p_\eps = p_0 + \eps (p_+ - p_-)$.
+Presume the model is the set of all continuous distributions. Pick any two points $p_0, p_1 \in \model$. Then the set of densities $\left\{\left(\frac{1}{2} - \epsilon\right) p_0 + \left(\frac{1}{2}+\epsilon\right) p_1 : \eps \in [0,1]\right\}$. This is an example of a *convex* path. You can think of this as the straight-line path starting at $p_0$ and ending at $p_1$ (at $\eps=1/2$). Some algebra shows that another way to write the elements of this path is $p_\eps = p_0 + \eps (p_1 - p_0)$.
 :::
 
 ::: {#exm-norm-path}
@@ -770,13 +770,13 @@ A cartoon of the model and a distribution $\p$ within it. Two differentiable pat
 :::
 
 ::: {#exm-convex-path-score}
-Fix an initial point $p_-$ and final point $p_+$ in a model and consider the convex path $\{p: \p = (1/2 -\eps) p_- + (1/2 + \eps) p_+\}$ discussed in @exm-path-convex. For this path, the (pointwise derivative version of the) score at $\epsilon = 0$ is defined and is equal to $$
+Fix an initial point $p_-$ and final point $p_+$ in a model and consider the convex path $\{p_0 + \eps (p_1 - p_0) : \eps \in [0,1]\}$ discussed in @exm-path-convex. For this path, the (pointwise derivative version of the) score at $\epsilon = 0$ is defined and is equal to $$
 \begin{aligned}
 s
-&= \frac{\dd}{\dd \eps} \log \big( p_0 + \eps (p_+ - p_-) \big) \bigg|_{\eps=0} \\
-&= \frac{1}{p_0 + \eps(p_+ - p_-)} (p_+ - p_-) \bigg|_{\eps=0}\\
-&= \frac{p_+ - p_-}{p_0} \\
-&= 2\left(\frac{p_+}{p_0} - 1 \right)
+&= \frac{\dd}{\dd \eps} \log \big( p_0 + \eps (p_1 - p_0) \big) \bigg|_{\eps=0} \\
+&= \frac{1}{p_0 + \eps(p_1 - p_0)} (p_1 - p_0) \bigg|_{\eps=0}\\
+&= \frac{p_1 - p_0}{p_0} \\
+&= \left(\frac{p_1}{p_0} - 1 \right)
 \end{aligned}
 $$ A little algebra shows that this path can also be written as $p_\eps = \left(1+ \eps s \right) p_0$.
 :::
