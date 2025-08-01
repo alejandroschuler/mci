@@ -24,6 +24,7 @@ book:
       chapters:
       - 3-1-AL.qmd
       - 3-2-regularity.qmd
+      - 3-3-EIF.qmd
     - part: 4-0-intro.qmd
       chapters:
       - 4-1-plugin-expansion.qmd

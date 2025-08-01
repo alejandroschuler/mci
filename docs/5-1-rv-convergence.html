@@ -182,6 +182,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Regularity</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-3-EIF.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The Efficient Influence Function</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -196,7 +202,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
   </div>
 </li>
       </ul>
@@ -240,15 +246,17 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-app-conv-seq" id="toc-sec-app-conv-seq" class="nav-link active" data-scroll-target="#sec-app-conv-seq"><span class="header-section-number">A.1</span> Sequences and Functions</a>
+  <li><a href="#sec-app-conv-seq" id="toc-sec-app-conv-seq" class="nav-link active" data-scroll-target="#sec-app-conv-seq"><span class="header-section-number">A.1</span> Sequences</a></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions"><span class="header-section-number">A.2</span> Functions</a>
   <ul class="collapse">
-  <li><a href="#sec-app-uniform-convergence" id="toc-sec-app-uniform-convergence" class="nav-link" data-scroll-target="#sec-app-uniform-convergence"><span class="header-section-number">A.1.1</span> Uniform Convergence</a></li>
-  <li><a href="#continuity" id="toc-continuity" class="nav-link" data-scroll-target="#continuity"><span class="header-section-number">A.1.2</span> Continuity</a></li>
+  <li><a href="#sec-app-uniform-convergence" id="toc-sec-app-uniform-convergence" class="nav-link" data-scroll-target="#sec-app-uniform-convergence"><span class="header-section-number">A.2.1</span> Uniform Convergence</a></li>
+  <li><a href="#continuity" id="toc-continuity" class="nav-link" data-scroll-target="#continuity"><span class="header-section-number">A.2.2</span> Continuity</a></li>
   </ul></li>
-  <li><a href="#random-variables" id="toc-random-variables" class="nav-link" data-scroll-target="#random-variables"><span class="header-section-number">A.2</span> Random Variables</a>
+  <li><a href="#random-variables" id="toc-random-variables" class="nav-link" data-scroll-target="#random-variables"><span class="header-section-number">A.3</span> Random Variables</a>
   <ul class="collapse">
-  <li><a href="#little-o_mathbb-p" id="toc-little-o_mathbb-p" class="nav-link" data-scroll-target="#little-o_mathbb-p"><span class="header-section-number">A.2.1</span> Little <span class="math inline">\(o_{\mathbb P}\)</span></a></li>
-  <li><a href="#sec-app-conv-bigO" id="toc-sec-app-conv-bigO" class="nav-link" data-scroll-target="#sec-app-conv-bigO"><span class="header-section-number">A.2.2</span> Big <span class="math inline">\(O_{\mathbb P}\)</span></a></li>
+  <li><a href="#little-o_mathbb-p" id="toc-little-o_mathbb-p" class="nav-link" data-scroll-target="#little-o_mathbb-p"><span class="header-section-number">A.3.1</span> Little <span class="math inline">\(o_{\mathbb P}\)</span></a></li>
+  <li><a href="#sec-app-conv-bigO" id="toc-sec-app-conv-bigO" class="nav-link" data-scroll-target="#sec-app-conv-bigO"><span class="header-section-number">A.3.2</span> Big <span class="math inline">\(O_{\mathbb P}\)</span></a></li>
+  <li><a href="#convergence-algebra" id="toc-convergence-algebra" class="nav-link" data-scroll-target="#convergence-algebra"><span class="header-section-number">A.3.3</span> Convergence Algebra</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -277,7 +285,7 @@ window.Quarto = {
 
 <p>Throughout chapters 3 and 4 we talk a lot about the convergence of random variables so it helps to understand what we mean by these things. In the definition of asymptotic linearity the term <span class="math inline">\(o_{\mathbb P}(n^{-1/2})\)</span> already invokes a specific type of convergence (more on that below).</p>
 <section id="sec-app-conv-seq" class="level2" data-number="A.1">
-<h2 data-number="A.1" class="anchored" data-anchor-id="sec-app-conv-seq"><span class="header-section-number">A.1</span> Sequences and Functions</h2>
+<h2 data-number="A.1" class="anchored" data-anchor-id="sec-app-conv-seq"><span class="header-section-number">A.1</span> Sequences</h2>
 <p>We’ll start with the convergence of a sequence of real numbers. A sequence of real numbers is what is sounds like: an infinite ordered list of numbers. We write a sequence like <span class="math inline">\([x_1, x_2, x_3, \dots x_n \dots]\)</span>. Technically we should use something like <span class="math inline">\(\{x_n\}\)</span> to refer to the entire sequence because <span class="math inline">\(x_n\)</span> refers to the <span class="math inline">\(n\)</span>th element, but usually we’ll be lazy and just say <span class="math inline">\(x_n\)</span> where it’s otherwise clear.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -290,7 +298,7 @@ Convergence of Sequences
 </div>
 <div class="callout-body-container callout-body">
 <div id="def-conv-seq" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition A.1</strong></span> A sequence <em>converges</em> to the <em>limit</em> <span class="math inline">\(x\)</span> if for every <span class="math inline">\(\epsilon &gt; 0\)</span>, there is an integer <span class="math inline">\(N\)</span> such that for all <span class="math inline">\(n &gt; N\)</span>, we have <span class="math inline">\(|x_n - x| &lt; \epsilon\)</span>.</p>
+<p><span class="theorem-title"><strong>Definition A.1</strong></span> A sequence <span class="math inline">\(x_n\)</span> <em>converges</em> to the <em>limit</em> <span class="math inline">\(x\)</span> if for every <span class="math inline">\(\epsilon &gt; 0\)</span>, there is an integer <span class="math inline">\(N\)</span> such that for all <span class="math inline">\(n &gt; N\)</span>, we have <span class="math inline">\(|x_n - x| &lt; \epsilon\)</span>. To denote this we write either <span class="math inline">\(x_n \to x\)</span> or <span class="math inline">\(\lim_{n\to \infty} x_n = x\)</span>.</p>
 </div>
 </div>
 </div>
@@ -305,6 +313,35 @@ Convergence of Sequences
 </div>
 </div>
 <p>It’s important to understand that the convergence of a sequence does not depend on any of the initial values of a sequence. If I chop off the first 100 values of a sequence which converges, that sequence will still converge. If the original didn’t converge converge, the truncated sequence will still not converge. If I chop off the first billion entries, the same holds. It doesn’t matter how many of the initial values I cut because there are infinitely more after them! The point is that convergence is purely a property of how the “tail” of the sequence behaves. And moreover, it doesn’t matter how far away from the beginning of the sequence that behavior “kicks in”. For that reason, plots like the ones above are actually totally non-informative about the convergence of the sequence because they can’t tell us what’s happening in the tails. Nonetheless they are a useful teaching tool to build intuition for what convergence looks like.</p>
+<p>There are many, many interesting and useful results relating to limits and convergence of sequences of real numbers. For example,limits obey a kind of “limit algebra” that makes it easy to manipulate them algebraically.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Limit Algebra
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="thm-limit-algebra" class="theorem">
+<p><span class="theorem-title"><strong>Theorem A.1</strong></span> If <span class="math inline">\(x_n \to x\)</span> and <span class="math inline">\(y_n \to y\)</span>, then <span class="math display">\[
+\begin{aligned}
+x_n + y_n &amp;\to x + y \\
+x_n y_n &amp;\to xy
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+<!-- Many proofs use arguments relating to *subsequences*. A subsequence is what you get when you take a sequence and "skip over" some of the elements. Formally the way that we write a subsequence of $x_n$ is $x_{n_m}$. The reason we write it this way is that we imagine that $n_m$ is a seqeunce of increasing positive integers, like $\{1,5,9,20 \dots\}$. The index $m$ corresponds to how far along we are in the sequence $n_m$, i.e. $n_2 = 5, n_3=9$, etc.  Then $x_{n_m}$ is the subsequence of $x_n$ corresponding to the elements $\{x_1, x_5, x_9, x_20, \dots\}$ where we count the index along $n_m$ instead of the usual $\{1,2,3,\dots\}$. 
+
+::: {#exm-subseq}
+
+::: -->
+</section>
+<section id="functions" class="level2" data-number="A.2">
+<h2 data-number="A.2" class="anchored" data-anchor-id="functions"><span class="header-section-number">A.2</span> Functions</h2>
 <p>Functions can be said to converge too. A sequence of functions is just what it sounds like: a never-ending list of functions like <span class="math inline">\(\{x^2, 2x^2, 3x^2 \dots \}\)</span>.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -369,7 +406,7 @@ Metric Space Convergence
 <li><span class="math inline">\(d(x,y) \le d(x,z) + d(z,y)\)</span>, i.e.&nbsp;taking a detour to <span class="math inline">\(z\)</span> on the way from <span class="math inline">\(x\)</span> to <span class="math inline">\(y\)</span> increases the total distance traveled</li>
 </ol>
 <p>The set <span class="math inline">\(\mathcal X\)</span> and metric <span class="math inline">\(d\)</span> are together called a <em>metric space</em> <span class="math inline">\((\mathcal X ,d)\)</span>.</p>
-<p>In a metric space, we say that a sequence of objects <span class="math inline">\(x_n \in \mathcal X\)</span> <span class="math inline">\((\mathcal X, d)\)</span>-converges to a limit <span class="math inline">\(x\)</span> if for every <span class="math inline">\(\epsilon &gt; 0\)</span>, there is an integer <span class="math inline">\(N\)</span> such that for all <span class="math inline">\(n &gt; N\)</span>, we have <span class="math inline">\(d(x_n, x) &lt; \epsilon\)</span>. Alternatively, we can say that <span class="math inline">\(x_n \overset{(\mathcal X, d)}\to x\)</span> if and only if <span class="math inline">\(d(x_n, x) \to 0\)</span> in the conventional sense as a sequence of real numbers.</p>
+<p>In a metric space, we say that a sequence of objects <span class="math inline">\(x_n \in \mathcal X\)</span> <span class="math inline">\((\mathcal X, d)\)</span>-converges to a limit <span class="math inline">\(x\)</span> if for every <span class="math inline">\(\epsilon &gt; 0\)</span>, there is an integer <span class="math inline">\(N\)</span> such that for all <span class="math inline">\(n &gt; N\)</span>, we have <span class="math inline">\(d(x_n, x) &lt; \epsilon\)</span>. Equivalently, we can say that <span class="math inline">\(x_n \overset{(\mathcal X, d)}\to x\)</span> if and only if <span class="math inline">\(d(x_n, x) \to 0\)</span> in the conventional sense as a sequence of real numbers.</p>
 </div>
 </div>
 </div>
@@ -395,8 +432,8 @@ Metric Space Convergence
 </div>
 <p>There is actually an even more general notion of convergence (convergence in topological space) that also generalizes metric convergence as well as pointwise convergence of functions (which can’t be seen as convergence in any metric space) but we don’t need to bother with it in this book since we’ll always work in metric spaces.</p>
 <p>Convergence of sequences and functions is a central topic in real analysis. You can consult an analysis book or lecture series to learn more. I recommend starting with <span class="citation" data-cites="analysis">Abbott (<a href="6-references.html#ref-analysis" role="doc-biblioref">2015</a>)</span> and then proceeding to the first three chapters of <span class="citation" data-cites="functional-analysis">Kreyszig (<a href="6-references.html#ref-functional-analysis" role="doc-biblioref">1991</a>)</span>.</p>
-<section id="sec-app-uniform-convergence" class="level3" data-number="A.1.1">
-<h3 data-number="A.1.1" class="anchored" data-anchor-id="sec-app-uniform-convergence"><span class="header-section-number">A.1.1</span> Uniform Convergence</h3>
+<section id="sec-app-uniform-convergence" class="level3" data-number="A.2.1">
+<h3 data-number="A.2.1" class="anchored" data-anchor-id="sec-app-uniform-convergence"><span class="header-section-number">A.2.1</span> Uniform Convergence</h3>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -434,8 +471,8 @@ Uniform Convergence of Functions
 </div>
 <p>Similar concepts pop up in different places across mathematics. in general, when we’re looking at some property of the worst-case behavior of a mapping across a variety of inputs simultaneously we usually use the word “uniform” to describe it.</p>
 </section>
-<section id="continuity" class="level3" data-number="A.1.2">
-<h3 data-number="A.1.2" class="anchored" data-anchor-id="continuity"><span class="header-section-number">A.1.2</span> Continuity</h3>
+<section id="continuity" class="level3" data-number="A.2.2">
+<h3 data-number="A.2.2" class="anchored" data-anchor-id="continuity"><span class="header-section-number">A.2.2</span> Continuity</h3>
 <p>Convergence is the foundation for many other useful concepts. One of these is <em>continuity</em>.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -449,15 +486,15 @@ Continuity
 <div class="callout-body-container callout-body">
 <div id="def-continuity" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition A.5</strong></span> A function <span class="math inline">\(f: \mathcal X \to \mathcal Y\)</span> is <em>continuous</em> at a point in its domain <span class="math inline">\(x \in \mathcal X\)</span> if <span class="math inline">\(f(x_n) \overset{\mathcal Y}\to f(x)\)</span> for all sequences <span class="math inline">\(x_n \overset{\mathcal X}\to x\)</span>.</p>
-<p>A second way to write this is that <span class="math inline">\(d_{\mathcal X}(x,x_n) \to 0\)</span> implies <span class="math inline">\(d_{\mathcal Y}(f(x),(x_n)) \to 0\)</span>. A third way is that <span class="math inline">\(\underset{n\to \infty}\lim f(x_n) = f(\underset{n\to \infty}\lim x_n)\)</span> for sequences <span class="math inline">\(x_n \to x\)</span></p>
+<p>A second way to write this is that <span class="math inline">\(d_{\mathcal X}(x,x_n) \to 0\)</span> implies <span class="math inline">\(d_{\mathcal Y}(f(x),(x_n)) \to 0\)</span>. A third way is that <span class="math inline">\(\underset{n\to \infty}\lim f(x_n) = f(\underset{n\to \infty}\lim x_n)\)</span> for sequences <span class="math inline">\(x_n \to x\)</span>.</p>
 </div>
 </div>
 </div>
 <p>Informally, a function is continuous if small perturbations in its input can only create small perturbations in the output. In this definition I’ve abused notation a bit to let <span class="math inline">\(\mathcal X\)</span> and <span class="math inline">\(\mathcal Y\)</span> represent metric spaces so that I don’t have to explicitly write the metrics.</p>
 </section>
 </section>
-<section id="random-variables" class="level2" data-number="A.2">
-<h2 data-number="A.2" class="anchored" data-anchor-id="random-variables"><span class="header-section-number">A.2</span> Random Variables</h2>
+<section id="random-variables" class="level2" data-number="A.3">
+<h2 data-number="A.3" class="anchored" data-anchor-id="random-variables"><span class="header-section-number">A.3</span> Random Variables</h2>
 <p>Finally we get to random variables. When rigorously defined, random variables are actually functions and can converge in many different ways, but most of them will not be important for the rest of this book. For our purposes, we will be able to think about random variables pretty much exclusively as distributions. The type of convergence we will mostly be concerned with is <em>convergence in distribution</em>. You can think of a sequence of random variables <span class="math inline">\(Z_n\)</span> as a sequence of distributions. Since all distributions have cumulative distribution functions (CDFs) you can also think of a sequence of CDFs <span class="math inline">\(F_n(z) = F_{Z_n}(z)\)</span>. You may lastly also imagine a sequence of densities or mass functions if you like. Not all distributions actually have densities in the way you may be used to thinking about them, but that shouldn’t stop you from using densities to build your intuition. I usually picture something like this Joy Division album cover when I think of a sequence of random variables:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -476,7 +513,7 @@ Convergence in Distribution
 </div>
 <div class="callout-body-container callout-body">
 <div id="def-conv-dist" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition A.6</strong></span> The sequence <span class="math inline">\(Z_n\)</span> converges in distribution (or “converges in law” or “weakly converges”) to a limit <span class="math inline">\(Z\)</span> if and only if the CDFs <span class="math inline">\(F_n\)</span> converge pointwise (as functions) to the CDF <span class="math inline">\(F\)</span> of <span class="math inline">\(Z\)</span> (at all points where <span class="math inline">\(F\)</span> is continuous). We write this as <span class="math inline">\(Z_n \rightsquigarrow Z\)</span></p>
+<p><span class="theorem-title"><strong>Definition A.6</strong></span> The sequence <span class="math inline">\(Z_n\)</span> converges in distribution (or “converges in law” or “weakly converges”) to a limit <span class="math inline">\(Z\)</span> if and only if the CDFs <span class="math inline">\(F_n\)</span> converge pointwise (as functions) to the CDF <span class="math inline">\(F\)</span> of <span class="math inline">\(Z\)</span> (at all points where <span class="math inline">\(F\)</span> is continuous). We write this as <span class="math inline">\(Z_n \rightsquigarrow Z\)</span>.</p>
 </div>
 </div>
 </div>
@@ -515,8 +552,31 @@ Convergence in Probability
 </div>
 </div>
 </div>
-<section id="little-o_mathbb-p" class="level3" data-number="A.2.1">
-<h3 data-number="A.2.1" class="anchored" data-anchor-id="little-o_mathbb-p"><span class="header-section-number">A.2.1</span> Little <span class="math inline">\(o_{\mathbb P}\)</span></h3>
+<p>Limits of random variables obey some “limit algebra” rules that are the equivalents to the limit algebra rules for sequences of real numbers (<a href="#thm-limit-algebra" class="quarto-xref">Theorem&nbsp;<span>A.1</span></a>).</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Distributional Limit Algebra (Slutsky’s Lemma)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="thm-slutsky" class="theorem">
+<p><span class="theorem-title"><strong>Theorem A.2</strong></span> <span class="math display">\[
+If $X_n \rightsquigarrow X$ and $Y_n \overset{\mathbb P}\to y \in \mathbb{R}$, then
+\begin{aligned}
+X_n + Y_n \rightsquigarrow X + y \\
+X_n Y_n \rightsquigarrow Xy
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+<p>See Lemma 2.8 in <span class="citation" data-cites="vdv">Van der Vaart (<a href="6-references.html#ref-vdv" role="doc-biblioref">2000</a>)</span> for a proof.</p>
+<section id="little-o_mathbb-p" class="level3" data-number="A.3.1">
+<h3 data-number="A.3.1" class="anchored" data-anchor-id="little-o_mathbb-p"><span class="header-section-number">A.3.1</span> Little <span class="math inline">\(o_{\mathbb P}\)</span></h3>
 <p>Often in asymptotic statistics we want to say something like <span class="math display">\[
 Y_n = X_n + U_n \text{ where } U_n \overset{\mathbb P}{\to} 0.
 \]</span></p>
@@ -571,9 +631,23 @@ Figure&nbsp;A.1: Scaled normal densities.
 <p>This does <em>not</em> converge to zero: it stays stable at this normal distribution with “spread” <span class="math inline">\(\sigma\)</span> even as <span class="math inline">\(n\)</span> increases. If we can show that <span class="math inline">\(\sqrt{n}U_n \overset{\mathbb P}{\to} 0\)</span> (also written <span class="math inline">\(U_n = o_{\mathbb P}(n^{-1/2})\)</span>), then we would know that <span class="math inline">\(U_n\)</span> is “negligible” compared to <span class="math inline">\(X_n\)</span> in large samples: <span class="math inline">\(U_n\)</span> converges to 0 even when blown up by <span class="math inline">\(\sqrt{n}\)</span> whereas <span class="math inline">\(X_n\)</span> doesn’t. Therefore, asymptotically, <span class="math inline">\(Y_n \approx X_n\)</span>. To make this a little more precise we would write <span class="math inline">\(Y_n = X_n + o_{\mathbb P}(n^{-1/2})\)</span> to indicate “how quickly” this approximation kicks in.</p>
 <p>Alternatively, if you saw <span class="math inline">\(Y_n = X_n + o_{\mathbb P}(n^{-1/2})\)</span> without knowledge of the distribution of <span class="math inline">\(X_n\)</span> then you would know that <span class="math inline">\(Y_n \approx X_n\)</span> asymptotically only if <span class="math inline">\(X_n\)</span> converges more slowly (if at all) to zero than <span class="math inline">\(n^{-1/2}\)</span>. Alternatively, you would know that <span class="math inline">\(Y_n\)</span> converges to zero at an <span class="math inline">\(n^{-1/2}\)</span> rate if and only if <span class="math inline">\(X_n = o_{\mathbb P}(n^{-1/2})\)</span>.</p>
 <p>Usually the most important part of a rate will be some polynomial factor like <span class="math inline">\(n^{1/2}\)</span>. You should remember that the larger the exponent, the faster a polynomial grows. If you have a negative exponent, the larger in magnitude it is the faster it decays. A term that is <span class="math inline">\(o_{\mathbb P}(n^{-1})\)</span> decays very quickly, while <span class="math inline">\(o_{\mathbb P}(n^{-1/2})\)</span> decays more slowly and <span class="math inline">\(o_{\mathbb P}(n^{-1/3})\)</span> more slowly still.</p>
+<p>A final note is that a similar notation is often used to describe <em>deterministic</em> sequences. If <span class="math inline">\(r_n a_n \to 0\)</span>, you will sometimes see that written as <span class="math inline">\(a_n = o(r_n^{-1})\)</span>.</p>
+<div id="exm-little-oh-derivative" class="theorem example">
+<p><span class="theorem-title"><strong>Example A.5</strong></span> If a function <span class="math inline">\(f(z)\)</span> is differentiable at <span class="math inline">\(z=0\)</span> with derivative <span class="math inline">\(\dot f\)</span> it means that</p>
+<p><span class="math display">\[
+\lim_{t \to 0} \frac{f(t) - f(0)}{t} = \dot f
+\]</span></p>
+<p>Another way to write this is that <span class="math display">\[
+\frac{f(t) - f(0)}{t} - \dot f \overset{t\to 0}\to 0,
+\]</span> or, using the little o notation, <span class="math display">\[
+\frac{f(t) - f(0)}{t} - \dot f = o(1).
+\]</span></p>
+<p>Multiplying by <span class="math inline">\(t\)</span> we get another way to write differentiability: $$ (f(t) - f(0)) - f t = o(t).</p>
+<p>$$ This way of writing the definition more clearly illustrates that <span class="math inline">\(\dot f\)</span> is the slope of a linear function <span class="math inline">\(g(t) = \dot f t\)</span> which approximates the difference <span class="math inline">\(f(t) - f(0)\)</span> well-enough that the remainder of the approximation disappears at a better-than-linear rate <span class="math inline">\(o(t)\)</span> (recall <span class="math inline">\(t\to 0\)</span>). This is really the key to differentiability: you can construct a linear approximation to any function at a point, but for the function to be <em>differentiable</em>, that approximation error has to improve linearly or better as you zoom in at a steady rate to the approximation point.</p>
+</div>
 </section>
-<section id="sec-app-conv-bigO" class="level3" data-number="A.2.2">
-<h3 data-number="A.2.2" class="anchored" data-anchor-id="sec-app-conv-bigO"><span class="header-section-number">A.2.2</span> Big <span class="math inline">\(O_{\mathbb P}\)</span></h3>
+<section id="sec-app-conv-bigO" class="level3" data-number="A.3.2">
+<h3 data-number="A.3.2" class="anchored" data-anchor-id="sec-app-conv-bigO"><span class="header-section-number">A.3.2</span> Big <span class="math inline">\(O_{\mathbb P}\)</span></h3>
 <p>The last thing to know about is the “big oh-p” notation. If <span class="math inline">\(U_n = O_{\mathbb P}(1/r_n)\)</span>, then it means that <span class="math inline">\(r_n U_n\)</span> is <em>stochastically bounded</em> (also called <em>asymptotically tight</em>). Essentially, a sequence that is stochastically bounded does not diverge. For a sequence of random variables to “not diverge” we mean that its probability mass mostly concentrates in some region <span class="math inline">\([-b,b]\)</span> (but doesn’t necessarily accumulate at a single point). We’ll formalize this in a minute.</p>
 <p>For example, let’s say that the random variables <span class="math inline">\(Z_n\)</span> converge to a normal distribution: since the limit is stable, we’d like to say that this sequence does not diverge. But because the normal is unbounded, there is no region <span class="math inline">\([-b,b]\)</span> that contains all of the mass of the limit distribution. However, for a given tolerance <span class="math inline">\(\epsilon\)</span>, we can always find a region that contains <span class="math inline">\(1-\epsilon\)</span> percent of the mass.</p>
 <p>To rigorously define stochastic bounding we’ll just generalize this insight.</p>
@@ -610,20 +684,73 @@ Figure&nbsp;A.2: The sequence of random variables <span class="math inline">\(\m
 </figcaption>
 </figure>
 </div>
-<p>Saying a sequence is stochastically bounded is only <em>slightly</em> weaker than saying it converges to zero. If we multiply a stochastically bounded sequence by any sequence that converges to zero, however slowly, the resulting sequence will converge to zero. On the other hand, if we multiply it by any sequence that diverges, however slowly, then the resulting sequence also diverges. A stochastically bounded sequence that does not converge to zero is therefore on the knife’s edge between convergence (to zero) and divergence. Another way to think of it is that <span class="math inline">\(U_n = O_{\mathbb P}(1/r_n)\)</span> means that <span class="math inline">\(U_n \le C/r_n\)</span> with high probability (for a constant <span class="math inline">\(C\)</span> and large enough <span class="math inline">\(n\)</span>). Notice that for big <span class="math inline">\(O\)</span> it’s less than <em>or equal to</em> whereas for little <span class="math inline">\(o\)</span> it’s a strict inequality.</p>
+<p>Saying a sequence is stochastically bounded is only <em>slightly</em> weaker than saying it converges to zero. If we multiply a stochastically bounded sequence by any sequence that converges to zero, however slowly, the resulting sequence will converge to zero. On the other hand, if we multiply it by any sequence that diverges, however slowly, then the resulting sequence also diverges. A stochastically bounded sequence that does not converge to zero is therefore on the knife’s edge between convergence and divergence. Another way to think of it is that <span class="math inline">\(U_n = O_{\mathbb P}(1/r_n)\)</span> means that <span class="math inline">\(U_n \le C/r_n\)</span> with high probability (for a constant <span class="math inline">\(C\)</span> and large enough <span class="math inline">\(n\)</span>). Notice that for big <span class="math inline">\(O\)</span> it’s less than <em>or equal to</em> whereas for little <span class="math inline">\(o\)</span> it’s a strict inequality.</p>
 <p>Any sequence of random variables that converges in distribution is stochastically bounded. This makes sense if we’re thinking of stochastic boundedness as “almost” convergence to zero: if the sequence converges to a (nonzero) stable limit distribution, any additional shrinking will collapse it to zero.</p>
 <div id="exm-stochastic-bounding-clt" class="theorem example">
-<p><span class="theorem-title"><strong>Example A.5</strong></span> The CLT says that under a variety of conditions <span class="math display">\[
+<p><span class="theorem-title"><strong>Example A.6</strong></span> The CLT says that under a variety of conditions <span class="math display">\[
 \sqrt{n}\underbrace{\left(\frac{1}{n}\sum Z_i - \mathbb E[Z] \right)}_{X_n} \rightsquigarrow \mathsf{N}(0, \sigma^2)
 \]</span></p>
-<p>Since the demeaned sample average <span class="math inline">\(X_n\)</span> converges to a stable distribution when scaled by <span class="math inline">\(\sqrt{n}\)</span>, it does not diverge. Therefore we can say <span class="math inline">\(X_n = O_{\mathbb P}(n^{-1/2})\)</span>. However, notice that this limit is not zero. Therefore <span class="math inline">\(X_n \ne o_{\mathbb P}(n^{-1/2})\)</span>.</p>
+<p>Since the demeaned sample average <span class="math inline">\(X_n\)</span> converges to a stable distribution when scaled by <span class="math inline">\(\sqrt{n}\)</span>, it does not diverge. Therefore we can say <span class="math inline">\(X_n = O_{\mathbb P}(n^{-1/2})\)</span>. However, the limit distribution is not deterministically zero. Therefore <span class="math inline">\(X_n \ne o_{\mathbb P}(n^{-1/2})\)</span>.</p>
 </div>
-<p>Often the big <span class="math inline">\(O\)</span> is used to indicate that <span class="math inline">\(r_n\)</span> is <em>exactly</em> the rate that “stabilizes” the asymptotic distribution of <span class="math inline">\(U_n\)</span> so that is neither converging to zero nor diverging. Any rate that is slightly slower (like <span class="math inline">\(n^{1/2 - \epsilon}\)</span>) and <span class="math inline">\(r_n U_n\)</span> would go to zero. Anything slightly faster (like <span class="math inline">\(n^{1/2 + \epsilon}\)</span>) and it would blow up.</p>
+<p>Often the big <span class="math inline">\(O\)</span> is used to indicate that <span class="math inline">\(r_n\)</span> is <em>exactly</em> the rate that “stabilizes” the asymptotic distribution of <span class="math inline">\(U_n\)</span> so that is neither converging to zero nor diverging. Any rate that is slightly slower (like <span class="math inline">\(n^{1/2 - \epsilon}\)</span>) and <span class="math inline">\(r_n U_n\)</span> would collapse to a point. Anything slightly faster (like <span class="math inline">\(n^{1/2 + \epsilon}\)</span>) and it would blow up.</p>
 <div id="exm-Op-vs-op" class="theorem example">
-<p><span class="theorem-title"><strong>Example A.6</strong></span> Recall the example above where <span class="math inline">\(Z_n = \mathsf{N}(0, \sigma_n^2)\)</span> where <span class="math inline">\(\sigma_n = n^{-1/2}\)</span>. In this case we saw that <span class="math inline">\(n^{1/2}Z_n\)</span> does <em>not</em> converge to zero in probability. However, <span class="math inline">\(n^{1/2}Z_n\)</span> <em>is</em> stochastically bounded because it converges to a stable limit distribution (in this case <span class="math inline">\(N(0,1)\)</span>). Therefore while we cannot write <span class="math inline">\(Z_n = o_{\mathbb P}(n^{-1/2})\)</span>, we <em>can</em> write <span class="math inline">\(Z_n = O_{\mathbb P}(n^{-1/2})\)</span> with the big <span class="math inline">\(O\)</span>.</p>
+<p><span class="theorem-title"><strong>Example A.7</strong></span> Recall the example above where <span class="math inline">\(Z_n = \mathsf{N}(0, \sigma_n^2)\)</span> where <span class="math inline">\(\sigma_n = n^{-1/2}\)</span>. In this case we saw that <span class="math inline">\(n^{1/2}Z_n\)</span> does <em>not</em> converge to zero in probability. However, <span class="math inline">\(n^{1/2}Z_n\)</span> <em>is</em> stochastically bounded because it converges to a stable limit distribution (in this case <span class="math inline">\(N(0,1)\)</span>). Therefore while we cannot write <span class="math inline">\(Z_n = o_{\mathbb P}(n^{-1/2})\)</span>, we <em>can</em> write <span class="math inline">\(Z_n = O_{\mathbb P}(n^{-1/2})\)</span> with the big <span class="math inline">\(O\)</span>.</p>
 </div>
 <p>Technically something that is <span class="math inline">\(O_{\mathbb P}(1/r_n)\)</span> might also be <span class="math inline">\(o_{\mathbb P}(1/r_n)\)</span> (big <span class="math inline">\(O\)</span> means less than or equal to, which <em>could</em> be strictly less). But usually for given rates <span class="math inline">\(1/a_n &lt; 1/b_n\)</span> (e.g.&nbsp;<span class="math inline">\(n^{-1/2} &lt; n^{-1/3}\)</span>) you should roughly understand that <span class="math inline">\(o_{\mathbb P}(1/a_n) &lt; O_{\mathbb P}(1/a_n) &lt; o_{\mathbb P}(1/b_n)\)</span>.</p>
-<p>You can learn more about this notation in a number of online resources (google “little oP” or “little oh p”) or in Chapter 2 of <span class="citation" data-cites="vdv">Van der Vaart (<a href="6-references.html#ref-vdv" role="doc-biblioref">2000</a>)</span>. A thorough understanding requires a grasp of convergence in probability.</p>
+</section>
+<section id="convergence-algebra" class="level3" data-number="A.3.3">
+<h3 data-number="A.3.3" class="anchored" data-anchor-id="convergence-algebra"><span class="header-section-number">A.3.3</span> Convergence Algebra</h3>
+<p>Once you’ve understood the definitions of the symbols, the O notation lets you do some quick “algebraic” manipulations of asymptotic statements. Some of the following are copied from Chapter 2 of <span class="citation" data-cites="vdv">Van der Vaart (<a href="6-references.html#ref-vdv" role="doc-biblioref">2000</a>)</span>:</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="math inline">\(o_\mathbb{P}\)</span> Algebra
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="thm-op-algebra" class="theorem">
+<p><span class="theorem-title"><strong>Theorem A.3</strong></span> &nbsp;</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>statement</th>
+<th>intuition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(o_{\mathbb P}(1) + o_{\mathbb P}(1) = o_{\mathbb P}(1)\)</span></td>
+<td>the sum of two convergent sequences converges</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(O_{\mathbb P}(1) + o_{\mathbb P}(1) = O_{\mathbb P}(1)\)</span></td>
+<td>a stochastically bounded sequence plus a convergent seqeunce remains stochastically bounded</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(O_{\mathbb P}(1)  o_{\mathbb P}(1) = o_{\mathbb P}(1)\)</span></td>
+<td>multiplying a stochastically bounded sequence by a convergent sequence is enough to tip it over the edge and make it converge</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((c + o_{\mathbb P}(1))^{-1} = O_{\mathbb P}(1)\)</span></td>
+<td>the reciprocal of a nonzero constant plus a convergent term will be stochastically bounded (because the denominator will eventually be close to <span class="math inline">\(c \ne 0\)</span>)</td>
+</tr>
+<tr class="odd">
+<td>if <span class="math inline">\(r_n \to \infty\)</span> then <span class="math inline">\(O_{\mathbb P}(r_n^{-1}) = o_{\mathbb P}(1)\)</span></td>
+<td>any sequence that is still stochastically bounded when “blown up” by <span class="math inline">\(r_n\)</span> must by itself converge</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>As per the abuse of notation, these are really implications rather than equalities. For example, the first statment is an abbreviation for <span class="math inline">\(X_n = o_{\mathbb P}(1) + o_{\mathbb P}(1) \implies X_n = o_{\mathbb P}(1)\)</span> which itself is an abbreviation for <span class="math inline">\(X_n \to 0, Y_n \to 0 \implies X_n + Y_n \to 0\)</span>.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">

@@ -3,8 +3,14 @@
 \newcommand{\p}{\mathbb{P}}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\V}{\mathbb{V}}
+\newcommand{\C}{\mathbb{C}}
 \newcommand{\model}{\mathcal P}
 
+\newcommand{\dto}{\rightsquigarrow}
+\newcommand{\pto}{\overset{\mathbb P}\to}
+
+\newcommand{\op}{o_{\mathbb P}}
+\newcommand{\Op}{O_{\mathbb P}}
 
 
 \newcommand{\reals}{\mathbb{R}}
@@ -16,5 +22,3 @@
 \newcommand{\dd}{\mathop{}\!\mathrm{d}}
 
 \newcommand{\eps}{\epsilon}
-
-\newcommand{\bigdot}[1]{\accentset{\mbox{\huge.}}{#1}}

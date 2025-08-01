@@ -7,7 +7,7 @@ library(tidyverse)
 ```
 :::
 
-# Regularity
+# Regularity {#sec-3-regularity}
 
 While restricting ourselves to asymptotically linear estimators is a good start, unfortunately it is not quite enough to develop a sensible theory of optimality. In this section we'll first argue for why a further restriction is not only sensible but useful. Then we will come up with and refine a definition that suits our needs.
 
@@ -152,7 +152,7 @@ The $y$-axis of @fig-hodges-efficiency shows the relative efficiency of Hodges' 
 
 As you can see, regardless of what $n$ is, Hodges' estimator is worse (and sometimes *much* worse) than the sample mean for the majority of the plotted values of $\psi$. So then why do the asymptotic arguments suggest that Hodges' estimator is actually better than the sample mean?
 
-The problem is that the asymptotics are only concerned with the behavior of each estimator at any particular distribution of $Z$. In our contrived model, the distributions of $Z$ are all normal with unit variance so a single distibution corresponds to a value of $\psi$. If you look at a single nonzero point on the $x$-axis (say, $\psi = 1/2$) and compare the relative efficiency as $n$ increases you'll see that it does converge to 1: both estimators are asymptotically equivalent. At the point $\psi=0$, however, the relative efficiency converges to 0 meaning that Hodge's estimator is infinitely more efficient at that point asymptotically. We can repeat our simulations but plot them a little differently in order to see this. Instead of plotting efficiency against $\psi$ and slicing by $n$, we'll instead plot efficiency against $n$ and slice by $\psi$ (you could imagine a 3D plot with efficiency on the z-axis and $n$ and $\psi$ on the x and y).
+The problem is that the asymptotics are only concerned with the behavior of each estimator at any particular distribution of $Z$. In our contrived model, the distributions of $Z$ are all normal with unit variance so a single distribution corresponds to a value of $\psi$. If you look at a single nonzero point on the $x$-axis (say, $\psi = 1/2$) and compare the relative efficiency as $n$ increases you'll see that it does converge to 1: both estimators are asymptotically equivalent. At the point $\psi=0$, however, the relative efficiency converges to 0 meaning that Hodge's estimator is infinitely more efficient at that point asymptotically. We can repeat our simulations but plot them a little differently in order to see this. Instead of plotting efficiency against $\psi$ and slicing by $n$, we'll instead plot efficiency against $n$ and slice by $\psi$ (you could imagine a 3D plot with efficiency on the z-axis and $n$ and $\psi$ on the x and y).
 
 ::: {#fig-hodges-efficiency-2}
 ```{r}
@@ -215,15 +215,15 @@ We will start with a toy definition of regularity that we will build up to the f
 # Regularity in the Normal Location Model
 
 ::: {#def-regularity-1}
-An estimator $\hat\Psi$ is *regular* in the model $\model = \{\norm(\psi, 1):\psi \in \reals\}$ if there is a single, fixed distribution $\mathbb D$ such that $$
+An estimator $\hat\Psi$ is *regular* at the point $\p = \norm(0,1)$ in the model $\model = \{\norm(\psi, 1):\psi \in \reals\}$ if there is a single, fixed distribution $\mathbb D$ such that $$
 \sqrt{n}\left( \hat\Psi(\p^{(n)}_n) - \Psi(\p^{(n)}) \right) \rightsquigarrow \mathbb D
-$$ for *any* sequence of distributions $\p^{(n)} = \norm(\psi^{(n)}, 1)$ such that $\sqrt n (\psi^{(n)} - \psi) \to 0$.
+$$ for any sequence of distributions $\p^{(n)} = \norm\left(\psi_n, 1\right)$ such that $\sqrt{n} \psi_n$ is bounded.
 :::
 ::::
 
 First, let's clarify the notation. Since $\p_n$ is used to denote the (random) empirical distribution of $n$ draws from a distribution $\p$, I'm using superscripts to denote a sequence of (fixed) distributions $\p^{(1)}, \p^{(2)} \dots \p^{(n)} \dots$. In this convention, $\p^{(m)}_n$ would be the empirical distribution of $n$ draws from distribution $\p^{(m)}$.
 
-Now we turn to @def-regularity. The first step in understanding its meaning is to understand the following standard asymptotic statement which says that $\hat\psi_n = \hat\Psi(\p^{(n)})$ is a $\sqrt{n}$-asymptotically normal estimate of $\psi = \Psi(\p)$: $$
+Before understanding the definition above, let's break down the following standard asymptotic statement which says that $\hat\psi_n = \hat\Psi(\p^{(n)})$ is a $\sqrt{n}$-asymptotically normal estimate of $\psi = \Psi(\p)$: $$
 \sqrt{n}\left( \hat\Psi(\p_n) - \Psi(\p) \right) \rightsquigarrow \norm(0, 1)
 $$
 
@@ -231,35 +231,31 @@ For each sample size $n$, the left-hand side here is a random variable correspon
 
 Now compare that to our definition of regularity. The only difference is that instead of $\hat\Psi(\p_n)$ we have $\hat\Psi(\p^{(n)}_n)$ and instead of $\Psi(\p)$ we have $\Psi(\p^{(n)})$. What that means is that we are no longer necessarily "standing still" at a single distribution $\p \in \model$ while drawing larger datasets. Instead, we are typically *moving closer* to $\p$ as we increase the size of our draws.
 
-Concretely, we start at $\p^{(1)} = \norm(\psi^{(1)},1)$. We draw many datasets of size $n=1$ from $\p^{(1)} = \norm(\psi^{(1)},1)$ and pass them each through $\hat\Psi$, comparing the results $\hat\psi^{(1)}_1$ to the current ground truth $\psi^{(1)}$. Now we move to $\p^{(2)} = \norm(^{(2)}, 1)$. We draw many datasets of size $n=2$ from $\p^{(2)}$ and pass them each through $\hat\Psi$, comparing the results to the new ground truth $\psi^{(2)}$. We continue like this: at each $n$, we arrive at $\p^{(n)} = \norm(\psi^{(n)}, 1)$, draw many datasets of size $n$ from this distribution, and generate the sampling distribution of $\hat\psi^{(n)}_n - \psi^{(n)}$ comparing the current estimates to the current ground truth.
+Concretely, we start at $\p^{(1)} = \norm(\psi_1,1)$. We draw many datasets of size $n=1$ from that distribution and pass them each through $\hat\Psi$, comparing the results to the current ground truth $\psi_1$\$. Now we move to $\p^{(2)} = \norm(\psi_2, 1)$. We draw many datasets of size $n=2$ from $\p^{(2)}$ and pass them each through $\hat\Psi$, comparing the results to the *new* ground truth $\psi_2$. We continue like this: at each $n$, we arrive at the distribution $\p^{(n)} = \norm(\psi_n, 1)$, draw many datasets of size $n$, and generate the sampling distribution of the estimation error relative to the current ground truth. An estimator is said to be regular in the normal location model at the standard normal if that error distribution, scaled by $\sqrt n$, approaches a fixed distribution no matter how we choose the sequence of "truths" $\psi_n$ as long as $\sqrt n \psi_n$ stays bounded.
 
 ![The asymptotics in the definition of regularity.](assets/regularity-1.jpg){#fig-regularity-1}
 
 :::: {.callout-important appearance="minimal"}
-::: {#exr-regularity-slow-seq}
-Let's say that we have an estimator $\hat\Psi$ that is asymptotically normal when data are drawn $Z \sim \norm()$ with $\mathbb V_{\p}[\phi_{\p}(Z)] = 1$. However,
-:::
-::::
+<div>
 
-:::: {.callout-important appearance="minimal"}
-::: {#exr-regularity-picture}
 Draw a figure based on @fig-regularity-1 the depicts the standard asymptotic statement $$
 \sqrt{n}\left( \hat\Psi(\p_n) - \Psi(\p) \right) \rightsquigarrow \norm(0, 1).
 $$ What parts of @fig-regularity-1 do you have to modify to accomplish this?
-:::
+
+</div>
 ::::
 
-To summarize: the process in the definition of regularity is the same process as in the standard $\sqrt{n}$ asymptotic convergence statement. The only difference is that we're now allowed to shift the data generating distribution under the estimator and estimand rather than leaving it fixed. In the definition of regularity, however, the right-hand side must always be the same fixed distribution $\mathbb D$. In other words, no matter how we move the data-generating distribution around towards $\p$ while we increase the sample size, the estimator behaves more and more like it would if we stood still at $\p$. The fact that the limit is the same regardless of whether we're moving the ground truth distribution around (as long as it "converges" to the true distribution) is the key to regularity. Satisfying that property is what forces our estimator to have (locally) uniformly good convergence across distributions and prevents the bad behavior of Hodges' estimator.
+To summarize: the process in the definition of regularity is the same process as in the standard $\sqrt{n}$ asymptotic convergence statement. The only difference is that we're now allowed to shift the data generating distribution under the estimator and estimand rather than leaving it fixed. In the definition of regularity, however, the right-hand side must always be the same fixed distribution $\mathbb D$. In other words, no matter how we move the data-generating distribution around in a shrinking neighborhood of $\p$ while we increase the sample size, the estimator behaves more and more like it would if we stood still at $\p$. The fact that the limit is the same regardless of whether we're moving the ground truth distribution around (as long as it "converges quickly" to the true distribution) is the key to regularity. Satisfying that property is what forces our estimator to have (locally) uniformly good convergence across distributions and prevents the bad behavior of Hodges' estimator.
 
-The fact that regularity is only concerned with sequences $\psi^{(n)}$ such that $\sqrt n (\psi^{(n)} - \psi) \to 0$ makes it more *lenient* than if we required the same kind of asymptotic convergence in distribution along *all* sequences $\psi^{(n)} \to \psi$. We want to a-priori rule out estimators whose bad performance will escape asymptotic detection, but we want to do this in the most lenient way possible so that we don't accidentally rule out some good estimators too. That's why we say that regularity enforces a kind of *local* uniform convergence in distribution: all the sequences of distributions we want to check still converge (quickly) to the distribution of interest. Another way to think of this is that the sequences we care about are all quickly shrinking perturbations of the distribution of interest.
+In our definition we only consider sequences $\psi_n$ such that $\sqrt n \psi_n$ stays bounded. This means that $\psi^n$\$ is converging to the reference value $\psi=0$ relatively quickly because even if we "blow up" $\psi_n$ by an increasing factor of $\sqrt n$, the result *still* converges to zero. The fact that regularity is only concerned with *quickly*-converging sequences makes it more *lenient* than if we required the same kind of asymptotic convergence in distribution along *all* sequences $\psi_n \to \psi$. We want to a-priori rule out estimators whose bad performance will escape asymptotic detection, but we want to do this in the most lenient way possible so that we don't accidentally rule out some good estimators too. That's why we say that regularity enforces a kind of *local* uniform convergence in distribution: all the sequences of distributions we want to check still converge (quickly) to the distribution of interest. Another way to think of this is that the sequences we care about are all perturbations with in a "$\sqrt n$-sized" neighborhood of the distribution of interest.
 
 :::: {.callout-important appearance="minimal"}
 ::: {#exr-regularity-sample-mean}
 Prove that the sample mean is a regular estimator at any distribution $\norm(\mu,1)$ according to @def-regularity-1:
 
 a)  If $\p$ is such that $Z_i \overset{\text{IID}}\sim \norm(\mu, \sigma^2)$ for any $\mu \in \reals, \sigma > 0$, what is the exact distribution of $\hat\Psi(\p_n) = \frac{1}{n} \sum Z_i$?
-b)  Using your answer from part (a), what is the exact distribution of $\sqrt{n}\left( \hat\Psi(\p_n^{(n)}) - \Psi(\p^{(n)}) \right)$ at any given $n$, assuming $\p^{(n)} = \norm(\psi^{(n)}, 1)$? What is the CDF $F_n(z)$ of this distribution at each $n$?
-c)  Recall that pointwise convergence of the CDFs is the definition of convergence in distribution (@def-conv-dist). Let $\sqrt n (\psi^{(n)} - \psi) \to 0$ (as examples you can try $\psi^{(n)} = \psi + \frac{1}{n}$ or $\psi^{(n)} = \psi$). Prove that under any such sequence, the sequence of CDFs $F_n(z)$ from part (b) converge at each point to the same limit $F_{\norm(0,1)}(z)$, the CDF of the standard normal.
+b)  Using your answer from part (a), what is the exact distribution of $\sqrt{n}\left( \hat\Psi(\p_n^{(n)}) - \Psi(\p^{(n)}) \right)$ at any given $n$, assuming $\p^{(n)} = \norm(\psi_n, 1)$? What is the CDF $F_n(z)$ of this distribution at each $n$?
+c)  Recall that pointwise convergence of the CDFs is the definition of convergence in distribution (@def-conv-dist). Let $\sqrt n (\psi_n - \psi) \to 0$ (as examples you can try $\psi_n = \psi + \frac{1}{n}$ or $\psi_n = \psi$). Prove that under any such sequence, the sequence of CDFs $F_n(z)$ from part (b) converge at each point to the same limit $F_{\norm(0,1)}(z)$, the CDF of the standard normal.
 :::
 ::::
 
@@ -275,11 +271,11 @@ a)  Presume that $\hat\psi \sim \norm(\mu,\sigma^2)$. Given that $\tilde \psi = 
 b)  Using your answer from part (a), what is the exact distribution of $\sqrt{n}\left( \tilde\Psi(\p_n^{(n)}) - \Psi(\p^{(n)}) \right)$ at any given $n$, assuming $\p^{(n)} = \norm(\frac{1}{n}, 1)$? What is the CDF $F_n(z)$ of this distribution at each $n$?
 c)  Argue that this CDF $F_n(z)$ converges pointwise to the limit $F_{\norm(0,1)}(z)$, the CDF of the standard normal.
 
-Since the asymptotic distribution of Hodges' estimator is different depending on how we approach $\norm(0,1)$ with $\sqrt{n} \psi^{(n)} \to 0$ (standing still at $\psi^{(n)}=0$ or with $\psi^{(n)} = \frac{1}{n}$), we conclude that Hodges' estimator is not regular at this distribution.
+Since the asymptotic distribution of Hodges' estimator is different depending on how we approach $\norm(0,1)$ with $\sqrt{n} \psi_n \to 0$ (standing still at $\psi_n=0$ or with $\psi_n = \frac{1}{n}$), we conclude that Hodges' estimator is not regular at this distribution.
 :::
 ::::
 
-The definition we're working with at the moment is specific to the normal model $\model = \{\norm(\psi, 1):\psi \in \reals\}$. We built a very specific sequence of distributions $\p^{(n)} = \norm(\psi^{(n)}, 1)$ that get closer and closer to the true distribution. Moreover we required the "distance" to the true distribution to close at faster than the $n^{-1/2}$ rate. Our challenge in the proceeding sections will be figuring out a sensible way to generalize our definition to nonparametric models. But to do that we'll first have to establish some notions of "geometry" in that setting.
+The definition we're working with at the moment is specific to the normal model $\model = \{\norm(\psi, 1):\psi \in \reals\}$. We built a very specific sequence of distributions $\p^{(n)} = \norm(\psi_n, 1)$ that get closer and closer to the true distribution. Moreover we required the "distance" to the true distribution to close at the $n^{-1/2}$ rate or faster. Our challenge in the proceeding sections will be figuring out a sensible way to generalize our definition to nonparametric models. But to do that we'll first have to establish some notions of "geometry" in that setting.
 
 ## Paths and Scores
 
@@ -373,12 +369,12 @@ In addition to the model, in @fig-sqrt-model you can also see what we're going t
 # Path (1D Submodel)
 
 ::: {#def-path}
-A *path* is any set of distributions $\model_\epsilon \subseteq \model$ that can be put into 1-to-1 correspondence with any subset of the reals.
+A *path* is any set of distributions $\model_\epsilon \subseteq \model$ that can be put into 1-to-1 correspondence with any interval of the reals containing $0$.
 :::
 ::::
 
 ::: {#exm-path-convex}
-Presume the model is the set of all continuous distributions. Pick any two points $p, p' \in \model$. Then the set of densities $\{p: p = \epsilon p' + (1-\epsilon) p\}$ is a path parameterized by $\eps \in [0,1]$. You can think of this as the straight-line path starting at $p$ (at $\eps=0$) and ending at $p'$ (at $\eps=1$). This is the canonical example of a path, which we will call a *convex path*.
+Presume the model is the set of all continuous distributions. Pick any two points $p_-, p_+ \in \model$. Then the set of densities $\left\{p: p = \left(\frac{1}{2} - \epsilon\right) p_- + \left(\frac{1}{2}+\epsilon\right) p_+\right\}$ is a path parameterized by $\eps \in \left(-\frac{1}{2},\frac{1}{2} \right)$. This is an example of a *convex* path. You can think of this as the straight-line path starting at $p_-$ (at $\eps=-1/2$) and ending at $p_+$ (at $\eps=1/2$). At $\eps = 0$ we have the halfway point $p_0 = \frac{p_- + p_+}{2}$. Some algebra shows that another way to write the elements of this path is $p_\eps = p_0 + \eps (p_+ - p_-)$.
 :::
 
 ::: {#exm-norm-path}
@@ -467,7 +463,7 @@ $$ This is equivalent but in my opinion makes it opaque that $\frac{1}{2} s(z) \
 **Proof that** $s \in \eltwo(\p_0)$: By definition, $\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}} \in \eltwo$ and $\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}} = \frac{1}{2} s \sqrt{p_0}$. Then $$ 
 \|s\|^2_{\eltwo(\p_0)} 
 = \int s^2(z) p_0(z) \dd z 
-= \int \overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}}(z) \dd z 
+= \int \left( \overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}}(z) \right)^2 \dd z 
 = \left\| \overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}} \right\|^2_{\eltwo}
 < \infty
 .
@@ -475,7 +471,9 @@ $$
 
 **Proof that** $\p_0 s = 0$: For this proof to make sense you'll need to have worked through @sec-app-l2-triangles.
 
-The definition of DQM is the same as saying that $\eps^{-1}(\sqrt{p_\eps} - \sqrt{p_0}) \overset{\eltwo}\to \frac{1}{2} s\sqrt{p_0}$ as $\eps \to 0$ in the sense of @def-metric-conv. Since $\eps^{-1}$ diverges, there is no way for that series to converge unless $\sqrt{p_\eps} \overset{\eps \to 0}\to \sqrt{p_0}$. Therefore $\sqrt{p_\eps} + \sqrt{p_0} \to 2\sqrt{p_0}$. Now we write $$
+The definition of DQM is the same as saying that $\eps^{-1}(\sqrt{p_\eps} - \sqrt{p_0}) \overset{\eltwo}\to \frac{1}{2} s\sqrt{p_0}$ as $\eps \to 0$ in the sense of @def-metric-conv. Since $\eps^{-1}$ diverges, there is no way for that series to converge unless $\sqrt{p_\eps} \overset{\eps \to 0}\to \sqrt{p_0}$. This is a rather formal way of saying that if the path $\eps \mapsto \sqrt{p_\eps}$ is differentiable, then it certainly must be continuous since that is a weaker condition.
+
+As a conseqeunce of that continuity, $\sqrt{p_\eps} + \sqrt{p_0} \to 2\sqrt{p_0}$. Now we write $$
 \p_0 s = \int s(z)\ p_0(z) \dd z 
 = \int \left( \frac{1}{2}s(z) \sqrt{p_0(z)} \right) \left( 2\sqrt{p_0(z)} \right) \dd z,
 $$ i.e. the $\eltwo$ inner product between $\frac{1}{2}s \sqrt{p_0}$ and $2\sqrt{p_0}$. Notice that these two arguments are the limits of $\eps^{-1}(\sqrt{p_\eps} - \sqrt{p_0})$ and $\sqrt{p_\eps} + \sqrt{p_0}$ respectively because of what we showed above. Since the inner product is continuous (see @exm-cont-inner-prod), the inner product at the limits is the same as the limit of the inner products at the sequences, i.e. $$
@@ -772,15 +770,24 @@ A cartoon of the model and a distribution $\p$ within it. Two differentiable pat
 :::
 
 ::: {#exm-convex-path-score}
-Fix an initial point $p$ and final point $p'$ in a model and consider the convex path $\{p: \p = \epsilon p' + (1-\epsilon) p\}$ discussed in @exm-path-convex. For this path, the (pointwise derivative version of the) score at $\epsilon = 0$ is defined and is equal to $$
+Fix an initial point $p_-$ and final point $p_+$ in a model and consider the convex path $\{p: \p = (1/2 -\eps) p_- + (1/2 + \eps) p_+\}$ discussed in @exm-path-convex. For this path, the (pointwise derivative version of the) score at $\epsilon = 0$ is defined and is equal to $$
 \begin{aligned}
 s
-&= \frac{\dd}{\dd \eps} \log \big( p + \epsilon (p'-p) \big) \bigg|_{\eps=0} \\
-&= \frac{1}{p + \eps(p'-p)} (p'-p) \bigg|_{\eps=0}\\
-&= \frac{p'}{p} -1
+&= \frac{\dd}{\dd \eps} \log \big( p_0 + \eps (p_+ - p_-) \big) \bigg|_{\eps=0} \\
+&= \frac{1}{p_0 + \eps(p_+ - p_-)} (p_+ - p_-) \bigg|_{\eps=0}\\
+&= \frac{p_+ - p_-}{p_0} \\
+&= 2\left(\frac{p_+}{p_0} - 1 \right)
 \end{aligned}
-$$ A little algebra shows that this path can also be written as $p_\eps = (1+\eps s) p$.
+$$ A little algebra shows that this path can also be written as $p_\eps = \left(1+ \eps s \right) p_0$.
 :::
+
+:::: {.callout-important appearance="minimal"}
+::: {#exr-scaled-score}
+While it's most helpful to think of scores as encoding "direction" within a model, scores also encode the "speed" at which a path goes.
+
+Presume that the score for a path $\epsilon \mapsto p_\eps$ is $s$. In terms of $s$, what is the score for the reparametrized path $\epsilon \mapsto p_{c\eps}$ for some $c \in \reals$? To solve this problem you can use the pointwise derivative version of the score for convenience. For intuition, note that for $c > 1$, the reparametrized path is the same as the original, just traversed "faster", whereas for $c \in (0,1)$ it is the same path traversed more "slowly" (and for $c<0$, in reverse).
+:::
+::::
 
 Paths and scores are extremely useful objects in nonparametric asymptotics and we will use them many times in the rest of the book.
 
@@ -788,7 +795,7 @@ Paths and scores are extremely useful objects in nonparametric asymptotics and w
 
 Equppied with these tools we can craft a definition of regularity that is more general than @def-regularity-1. In this section I'll return using superscripts to denote a sequence of distributions so that the subscript $n$ can indicate the empirical distribution. For example, in the context of a path, I'll use $\p^{(\epsilon)}$ rather than $\p_\epsilon$ (and I'll use distributions $\p$ rather than densities $p$ since we can now be more general).
 
-First let's generalize the model. In our previous definition we had the normal model $\model = \{\norm(\psi, 1): \psi \in \reals\}$. This is actually one example of a differentiable path within a larger, possibly nonparametric model (e.g. all continuous distributions)! So let's replace the normal model with a generic differentiable path that includes the true distribution (at $\p_0$ so $\eps = 0$ is the true value, for convenience). Next, we can replace the condition that $\sqrt n (\psi^{(n)} - \psi) \to 0$ with an equivalent root-$n$ convergence $\sqrt n (\eps^{(n)} - 0) \to 0$ of the parameter in the path. That yields our general pathwise definition of regularity:
+First let's generalize the model. In our previous definition we had the normal model $\model = \{\norm(\psi, 1): \psi \in \reals\}$. This is actually one example of a differentiable path within a larger, possibly nonparametric model (e.g. all continuous distributions). So let's replace the normal model with a generic differentiable path that includes the true distribution (at $\p_0$ so $\eps = 0$ is the true value, for convenience). Next, we can replace the condition that $\sqrt n \psi_n$ stays bounded with an equivalent condition on the parameter in the path. That yields our general pathwise definition of regularity:
 
 :::: callout-note
 # Pathwise Regularity
@@ -796,11 +803,11 @@ First let's generalize the model. In our previous definition we had the normal m
 ::: {#def-regularity-pathwise}
 An estimator $\hat\Psi$ is *regular* at $\p_0$ in the differentiable path $\model_\eps$ if there is a single, fixed distribution $\mathbb D$ such that $$
 \sqrt{n}\left( \hat\Psi(\p^{(n)}_n) - \Psi(\p^{(n)}) \right) \rightsquigarrow \mathbb D
-$$ for *any* sequence of distributions $\p^{(n)} = \p^{(\eps_n)}$ with $\sqrt n (\eps^{(n)} - 0) \to 0$.
+$$ for *any* sequence of distributions $\p^{(n)} = \p^{(\eps_n)}$ such that $\sqrt n \eps_n$ remains bounded.
 :::
 ::::
 
-In other words, an estimator is regular in a given path if the limiting distribution doesn't depend on what distributions you draw from asymptotically as long as they move to true distribution quickly enough. You should refer to @fig-regularity-1 to review how the asymptotics work under a shifting data-generating distribution. It is that "uniformity" across distributions in the path that prevents the bad behavior of Hodges' estimator. That behavior escapes detection in "pointwise" asymptotic arguments where the distribution is fixed.
+In other words, an estimator is regular in a given differentiable path if the limiting distribution doesn't depend on what distributions you draw from asymptotically as long as they move to true distribution quickly enough. Recall that $\sqrt n \eps_n$ staying bounded (not diverging) means that $\eps_n \to 0$ faster than the $\sqrt n$ factor blows up; another way to write this condition is $\eps_n = O(n^{-1/2})$. The "uniform" behavior of regular estimators across "local" distributions in the path is what prevents the bad behavior of Hodges' estimator. The defects of irregularity escape detection in pointwise asymptotic arguments where the distribution is fixed.
 
 To generalize our definition to a larger, possibly nonparametric model, we simply require that the limiting distribution $\mathbb D$ is also the same no matter which differentiable path through $\p$ you choose. In other words, we require the "uniformity" of convergence in distribution across all sequences of distributions converging quickly to the truth along differentiable paths.
 
@@ -808,11 +815,11 @@ To generalize our definition to a larger, possibly nonparametric model, we simpl
 # Regularity
 
 ::: {#def-regularity}
-An estimator $\hat\Psi$ is *regular* at a point $\p$ in the model $\model$ if is is regular along all paths $\model_\eps \subseteq \model$ that are differentiable at $\p_0 = \p$. An estimator is regular in a model $\p$ if it is regular at every point $\p \in \model$.
+An estimator $\hat\Psi$ is *regular* at a point $\p$ in the model $\model$ if is is regular with the same limiting distribution $\mathbb D$ along all paths $\model_\eps \subseteq \model$ that are differentiable at $\p_0 = \p$. An estimator is regular in a model $\p$ if it is regular at every point $\p \in \model$.
 :::
 ::::
 
-We do not care about the behavior of the estimator along non-differentiable paths because these paths don't go smoothly towards the true distribution. It would not be sensible to assume that any estimator should behave in a predictable or consistent way if we moved along a non-differentiable path.
+We do not care about the behavior of the estimator along non-differentiable paths because these paths don't go smoothly towards the true distribution. It would not be sensible to assume that any estimator should behave in a predictable or consistent way if we moved along a non-differentiable path. Moreover we do not care about sequences of distributions along paths that do not converge quickly enough (at a $n^{-1/2}$ rate) to zero: we have no need to impose uniformity outside of "neighborhoods" of distributions that are roughly of "radius" $n^{-1/2}$ in order to get a nice, general theory of optimality.
 
 Proving that an estimator is not regular is only as difficult as finding a single differentiable path for which it is not regular. We already did that for Hodges' estimator in @exr-regularity-hodges. To directly prove an estimator *is* regular you have to prove regularity for all differentiable paths. There are ways to do this but more often it is easier to prove regularity *indirectly*. In the next chapter we will prove a powerful result that lets us characterize the set of all regular, asymptotically linear estimators. We can then show an estimator is regular by proving it is asymptotically linear and also meets the conditions required for membership in that set. More importantly, the characterization we develop will let us precisely identify the *most efficient* regular and asymptotically linear estimator.
 
@@ -826,7 +833,7 @@ A second argument for regularity follows from the local asymptotic minimax theor
 
 The local asymptotic minimax theorem is concerned with the expected loss $\E_{\p}[l(E_{n,\p, \hat\Psi})]$. Clearly we would like to find an estimator that makes the expected loss as small as possible. But the theorem tells us that there is a limit to how low the expected loss can get if we want the loss to be *uniformly* low in some sense around a distribution $\p$. Let $\p^{(n)}$ denote any sequence $\p^{(\epsilon_n)}$ in a differentiable path with $\p_0 = \p$ such that $\sqrt{n} \epsilon \to 0$. Informally, the theorem establishes that in most models, if we consider a large enough set of possible differentiable paths and sequences and take $n$ to be large enough, then there is *no* estimator for which the worst-case value (over paths) of $\E_{\p^{(n)}}[l(E_{n,\p^{(n)}, \hat\Psi})]$ can be meaningfully better than $\E_{Z\sim \norm(0,\sigma_{\p}^2)}[l(Z)]$. The quantity $\E_{Z\sim \norm(0,\sigma_{\p}^2)}[l(Z)]$ is a sort of universal "speed limit" for good locally-uniform estimation of the estimand at $\p$ as measured by the loss $l$. In the next few chapters we'll say a lot more about the mysterious quantity $\sigma_{\p}^2$ and how to derive it.
 
-It's natural to ask whether there are estimators that can meet this bound, i.e. whether there are estimators that are *locally asymptotically minimax* for a loss $l$. If such an estimator were available, there would be very good reason to prefer it over alternatives. The second part of the local asymptotic minimax theorem establishes that, roughly speaking, only *regular* estimators can be locally asymptotically minimax for scalar estimands. One implication of this theorem is that the undesireable behavior exhibited by Hodges' estimator is characteristic of *all* superefficient estimators. If there is no *irregular* locally asymptotically minimax estimator, that means that irregular estimators *all* have regions of bad performance with in the model that shift towards the point of superefficiency as $n$ increases.
+It's natural to ask whether there are estimators that can meet this bound, i.e. whether there are estimators that are *locally asymptotically minimax* for a loss $l$. If such an estimator were available, there would be very good reason to prefer it over alternatives. The second part of the local asymptotic minimax theorem establishes that, roughly speaking, only *regular* estimators can be locally asymptotically minimax for scalar estimands. One implication of this theorem is that the undesirable behavior exhibited by Hodges' estimator is characteristic of *all* superefficient estimators. If there is no *irregular* locally asymptotically minimax estimator, that means that irregular estimators *all* have regions of bad performance with in the model that shift towards the point of superefficiency as $n$ increases.
 
 Together, the convolution and local asymptotic minimax theorem provide strong reasons to prefer regular estimators, but ultimately both are asymptotic statements and say nothing about how irregular estimators might perform in finite samples. Moreover, parts of the local asymptotic minimax theorem don't hold if the estimand is a vector rather than a scalar. For example, the James-Stein estimator is an *irregular* estimator of a vector-valued mean that *also* locally asymptotically minimax (in a sense defined for vector estimands) for the squared error loss (see Section 8.8 of @vdv or Chapter 2 of @ibragimov). But even this is a qualified improvement: while James-Stein improves on the sample mean for squared error loss, there are other losses for which it can be much worse.
 

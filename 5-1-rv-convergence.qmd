@@ -6,7 +6,7 @@
 
 Throughout chapters 3 and 4 we talk a lot about the convergence of random variables so it helps to understand what we mean by these things. In the definition of asymptotic linearity the term $o_{\mathbb P}(n^{-1/2})$ already invokes a specific type of convergence (more on that below).
 
-## Sequences and Functions {#sec-app-conv-seq}
+## Sequences  {#sec-app-conv-seq}
 
 We'll start with the convergence of a sequence of real numbers. A sequence of real numbers is what is sounds like: an infinite ordered list of numbers. We write a sequence like $[x_1, x_2, x_3, \dots x_n \dots]$. Technically we should use something like $\{x_n\}$ to refer to the entire sequence because $x_n$ refers to the $n$th element, but usually we'll be lazy and just say $x_n$ where it's otherwise clear.
 
@@ -14,7 +14,7 @@ We'll start with the convergence of a sequence of real numbers. A sequence of re
 # Convergence of Sequences
 
 ::: {#def-conv-seq}
-A sequence *converges* to the *limit* $x$ if for every $\epsilon > 0$, there is an integer $N$ such that for all $n > N$, we have $|x_n - x| < \epsilon$.
+A sequence $x_n$ *converges* to the *limit* $x$ if for every $\epsilon > 0$, there is an integer $N$ such that for all $n > N$, we have $|x_n - x| < \epsilon$. To denote this we write either $x_n \to x$ or $\lim_{n\to \infty} x_n = x$.
 :::
 ::::
 
@@ -77,6 +77,29 @@ ggplot(df_long, aes(x = n, y = value)) +
 ```
 
 It's important to understand that the convergence of a sequence does not depend on any of the initial values of a sequence. If I chop off the first 100 values of a sequence which converges, that sequence will still converge. If the original didn't converge converge, the truncated sequence will still not converge. If I chop off the first billion entries, the same holds. It doesn't matter how many of the initial values I cut because there are infinitely more after them! The point is that convergence is purely a property of how the "tail" of the sequence behaves. And moreover, it doesn't matter how far away from the beginning of the sequence that behavior "kicks in". For that reason, plots like the ones above are actually totally non-informative about the convergence of the sequence because they can't tell us what's happening in the tails. Nonetheless they are a useful teaching tool to build intuition for what convergence looks like.
+
+There are many, many interesting and useful results relating to limits and convergence of sequences of real numbers. For example,limits obey a kind of "limit algebra" that makes it easy to manipulate them algebraically.
+
+:::: callout-note
+# Limit Algebra
+::: {#thm-limit-algebra}
+If $x_n \to x$ and $y_n \to y$, then
+$$
+\begin{aligned}
+x_n + y_n &\to x + y \\
+x_n y_n &\to xy 
+\end{aligned}
+$$
+:::
+::::
+
+<!-- Many proofs use arguments relating to *subsequences*. A subsequence is what you get when you take a sequence and "skip over" some of the elements. Formally the way that we write a subsequence of $x_n$ is $x_{n_m}$. The reason we write it this way is that we imagine that $n_m$ is a seqeunce of increasing positive integers, like $\{1,5,9,20 \dots\}$. The index $m$ corresponds to how far along we are in the sequence $n_m$, i.e. $n_2 = 5, n_3=9$, etc.  Then $x_{n_m}$ is the subsequence of $x_n$ corresponding to the elements $\{x_1, x_5, x_9, x_20, \dots\}$ where we count the index along $n_m$ instead of the usual $\{1,2,3,\dots\}$. 
+
+::: {#exm-subseq}
+
+::: -->
+
+## Functions
 
 Functions can be said to converge too. A sequence of functions is just what it sounds like: a never-ending list of functions like $\{x^2, 2x^2, 3x^2 \dots \}$.
 
@@ -215,7 +238,7 @@ d.  $d(x,y) \le d(x,z) + d(z,y)$, i.e. taking a detour to $z$ on the way from $x
 
 The set $\mathcal X$ and metric $d$ are together called a *metric space* $(\mathcal X ,d)$.
 
-In a metric space, we say that a sequence of objects $x_n \in \mathcal X$ $(\mathcal X, d)$-converges to a limit $x$ if for every $\epsilon > 0$, there is an integer $N$ such that for all $n > N$, we have $d(x_n, x) < \epsilon$. Alternatively, we can say that $x_n \overset{(\mathcal X, d)}\to x$ if and only if $d(x_n, x) \to 0$ in the conventional sense as a sequence of real numbers.
+In a metric space, we say that a sequence of objects $x_n \in \mathcal X$ $(\mathcal X, d)$-converges to a limit $x$ if for every $\epsilon > 0$, there is an integer $N$ such that for all $n > N$, we have $d(x_n, x) < \epsilon$. Equivalently, we can say that $x_n \overset{(\mathcal X, d)}\to x$ if and only if $d(x_n, x) \to 0$ in the conventional sense as a sequence of real numbers.
 :::
 ::::
 
@@ -244,7 +267,8 @@ Convergence of sequences and functions is a central topic in real analysis. You 
 # Uniform Convergence of Functions
 
 ::: {#def-unif-conv-fns}
-$f_n$ converges to $f$ *uniformly* if the largest difference between $f$ and $f_n$ across all values of $x$ at each $n$ converges to 0: $$
+$f_n$ converges to $f$ *uniformly* if the largest difference between $f$ and $f_n$ across all values of $x$ at each $n$ converges to 0: 
+$$
 \sup_x |f_n(x) - f(x)| \to 0.
 $$
 :::
@@ -278,7 +302,7 @@ Convergence is the foundation for many other useful concepts. One of these is *c
 ::: {#def-continuity}
 A function $f: \mathcal X \to \mathcal Y$ is *continuous* at a point in its domain $x \in \mathcal X$ if $f(x_n) \overset{\mathcal Y}\to f(x)$ for all sequences $x_n \overset{\mathcal X}\to x$.
 
-A second way to write this is that $d_{\mathcal X}(x,x_n) \to 0$ implies $d_{\mathcal Y}(f(x),(x_n)) \to 0$. A third way is that $\underset{n\to \infty}\lim f(x_n) = f(\underset{n\to \infty}\lim x_n)$ for sequences $x_n \to x$
+A second way to write this is that $d_{\mathcal X}(x,x_n) \to 0$ implies $d_{\mathcal Y}(f(x),(x_n)) \to 0$. A third way is that $\underset{n\to \infty}\lim f(x_n) = f(\underset{n\to \infty}\lim x_n)$ for sequences $x_n \to x$.
 :::
 ::::
 
@@ -294,7 +318,7 @@ Finally we get to random variables. When rigorously defined, random variables ar
 # Convergence in Distribution
 
 ::: {#def-conv-dist}
-The sequence $Z_n$ converges in distribution (or "converges in law" or "weakly converges") to a limit $Z$ if and only if the CDFs $F_n$ converge pointwise (as functions) to the CDF $F$ of $Z$ (at all points where $F$ is continuous). We write this as $Z_n \rightsquigarrow Z$
+The sequence $Z_n$ converges in distribution (or "converges in law" or "weakly converges") to a limit $Z$ if and only if the CDFs $F_n$ converge pointwise (as functions) to the CDF $F$ of $Z$ (at all points where $F$ is continuous). We write this as $Z_n \rightsquigarrow Z$.
 :::
 ::::
 
@@ -325,6 +349,23 @@ Thankfully, in this book, the only place we'll see convergence in probability is
 Let $Z_n \sim \text{Unif}(0,1+1/n)$. What distribution does this converge to? Draw a picture to sharpen your intuition, then prove the convergence rigorously by taking the pointwise limit of the CDFs.
 :::
 ::::
+
+Limits of random variables obey some "limit algebra" rules that are the equivalents to the limit algebra rules for sequences of real numbers (@thm-limit-algebra).
+
+:::: callout-note
+# Distributional Limit Algebra (Slutsky's Lemma)
+::: {#thm-slutsky}
+If $X_n \dto X$ and $Y_n \pto y \in \reals$, then
+$$
+\begin{aligned}
+X_n + Y_n \dto X + y \\
+X_n Y_n \dto Xy 
+\end{aligned}
+$$
+:::
+::::
+
+See Lemma 2.8 in @vdv for a proof.
 
 ### Little $o_{\mathbb P}$
 
@@ -440,6 +481,32 @@ Alternatively, if you saw $Y_n = X_n + o_{\mathbb P}(n^{-1/2})$ without knowledg
 
 Usually the most important part of a rate will be some polynomial factor like $n^{1/2}$. You should remember that the larger the exponent, the faster a polynomial grows. If you have a negative exponent, the larger in magnitude it is the faster it decays. A term that is $o_{\mathbb P}(n^{-1})$ decays very quickly, while $o_{\mathbb P}(n^{-1/2})$ decays more slowly and $o_{\mathbb P}(n^{-1/3})$ more slowly still.
 
+A final note is that a similar notation is often used to describe *deterministic* sequences. If $r_n a_n \to 0$, you will sometimes see that written as $a_n = o(r_n^{-1})$. 
+
+::: {#exm-little-oh-derivative}
+If a function $f(z)$ is differentiable at $z=0$ with derivative $\dot f$ it means that
+
+$$
+\lim_{t \to 0} \frac{f(t) - f(0)}{t} = \dot f
+$$
+
+Another way to write this is that 
+$$
+\frac{f(t) - f(0)}{t} - \dot f \overset{t\to 0}\to 0,
+$$
+or, using the little o notation,
+$$
+\frac{f(t) - f(0)}{t} - \dot f = o(1).
+$$
+
+Multiplying by $t$ we get another way to write differentiability:
+$$
+(f(t) - f(0)) - \dot f t = o(t).
+$$
+
+This way of writing the definition more clearly illustrates that $\dot f$ is the slope of a linear function $g(t) = \dot f t$ which approximates the difference $f(t) - f(0)$ well-enough that the remainder of the approximation disappears at a better-than-linear rate $o(t)$ (recall $t\to 0$). This is really the key to differentiability: you can construct a linear approximation to any function at a point, but for the function to be *differentiable*, that approximation error has to improve linearly or better as you zoom in at a steady rate to the approximation point.
+:::
+
 ### Big $O_{\mathbb P}$ {#sec-app-conv-bigO}
 
 The last thing to know about is the "big oh-p" notation. If $U_n = O_{\mathbb P}(1/r_n)$, then it means that $r_n U_n$ is *stochastically bounded* (also called *asymptotically tight*). Essentially, a sequence that is stochastically bounded does not diverge. For a sequence of random variables to "not diverge" we mean that its probability mass mostly concentrates in some region $[-b,b]$ (but doesn't necessarily accumulate at a single point). We'll formalize this in a minute.
@@ -510,7 +577,7 @@ ggplot(dens_df, aes(x = x, y = factor(n), height = density, group = n)) +
 The sequence of random variables $\norm(\sin(n), \sin(n) + 2)$ does not converge in distribution yet is still stochastically bounded.
 :::
 
-Saying a sequence is stochastically bounded is only *slightly* weaker than saying it converges to zero. If we multiply a stochastically bounded sequence by any sequence that converges to zero, however slowly, the resulting sequence will converge to zero. On the other hand, if we multiply it by any sequence that diverges, however slowly, then the resulting sequence also diverges. A stochastically bounded sequence that does not converge to zero is therefore on the knife's edge between convergence (to zero) and divergence. Another way to think of it is that $U_n = O_{\mathbb P}(1/r_n)$ means that $U_n \le C/r_n$ with high probability (for a constant $C$ and large enough $n$). Notice that for big $O$ it's less than *or equal to* whereas for little $o$ it's a strict inequality.
+Saying a sequence is stochastically bounded is only *slightly* weaker than saying it converges to zero. If we multiply a stochastically bounded sequence by any sequence that converges to zero, however slowly, the resulting sequence will converge to zero. On the other hand, if we multiply it by any sequence that diverges, however slowly, then the resulting sequence also diverges. A stochastically bounded sequence that does not converge to zero is therefore on the knife's edge between convergence and divergence. Another way to think of it is that $U_n = O_{\mathbb P}(1/r_n)$ means that $U_n \le C/r_n$ with high probability (for a constant $C$ and large enough $n$). Notice that for big $O$ it's less than *or equal to* whereas for little $o$ it's a strict inequality.
 
 Any sequence of random variables that converges in distribution is stochastically bounded. This makes sense if we're thinking of stochastic boundedness as "almost" convergence to zero: if the sequence converges to a (nonzero) stable limit distribution, any additional shrinking will collapse it to zero.
 
@@ -519,10 +586,10 @@ The CLT says that under a variety of conditions $$
 \sqrt{n}\underbrace{\left(\frac{1}{n}\sum Z_i - \mathbb E[Z] \right)}_{X_n} \rightsquigarrow \norm(0, \sigma^2)
 $$
 
-Since the demeaned sample average $X_n$ converges to a stable distribution when scaled by $\sqrt{n}$, it does not diverge. Therefore we can say $X_n = O_{\mathbb P}(n^{-1/2})$. However, notice that this limit is not zero. Therefore $X_n \ne o_{\mathbb P}(n^{-1/2})$.
+Since the demeaned sample average $X_n$ converges to a stable distribution when scaled by $\sqrt{n}$, it does not diverge. Therefore we can say $X_n = O_{\mathbb P}(n^{-1/2})$. However, the limit distribution is not deterministically zero. Therefore $X_n \ne o_{\mathbb P}(n^{-1/2})$.
 :::
 
-Often the big $O$ is used to indicate that $r_n$ is *exactly* the rate that "stabilizes" the asymptotic distribution of $U_n$ so that is neither converging to zero nor diverging. Any rate that is slightly slower (like $n^{1/2 - \epsilon}$) and $r_n U_n$ would go to zero. Anything slightly faster (like $n^{1/2 + \epsilon}$) and it would blow up.
+Often the big $O$ is used to indicate that $r_n$ is *exactly* the rate that "stabilizes" the asymptotic distribution of $U_n$ so that is neither converging to zero nor diverging. Any rate that is slightly slower (like $n^{1/2 - \epsilon}$) and $r_n U_n$ would collapse to a point. Anything slightly faster (like $n^{1/2 + \epsilon}$) and it would blow up.
 
 ::: {#exm-Op-vs-op}
 Recall the example above where $Z_n = \norm(0, \sigma_n^2)$ where $\sigma_n = n^{-1/2}$. In this case we saw that $n^{1/2}Z_n$ does *not* converge to zero in probability. However, $n^{1/2}Z_n$ *is* stochastically bounded because it converges to a stable limit distribution (in this case $N(0,1)$). Therefore while we cannot write $Z_n = o_{\mathbb P}(n^{-1/2})$, we *can* write $Z_n = O_{\mathbb P}(n^{-1/2})$ with the big $O$.
@@ -530,4 +597,21 @@ Recall the example above where $Z_n = \norm(0, \sigma_n^2)$ where $\sigma_n = n^
 
 Technically something that is $O_{\mathbb P}(1/r_n)$ might also be $o_{\mathbb P}(1/r_n)$ (big $O$ means less than or equal to, which *could* be strictly less). But usually for given rates $1/a_n < 1/b_n$ (e.g. $n^{-1/2} < n^{-1/3}$) you should roughly understand that $o_{\mathbb P}(1/a_n) < O_{\mathbb P}(1/a_n) < o_{\mathbb P}(1/b_n)$.
 
-You can learn more about this notation in a number of online resources (google "little oP" or "little oh p") or in Chapter 2 of @vdv. A thorough understanding requires a grasp of convergence in probability.
+### Convergence Algebra
+
+Once you've understood the definitions of the symbols, the O notation lets you do some quick "algebraic" manipulations of asymptotic statements. Some of the following are copied from Chapter 2 of @vdv:
+
+::: callout-note
+# $\op$ Algebra
+::: {#thm-op-algebra}
+| statement | intuition |
+| --- | --- |
+| $\op(1) + \op(1) = \op(1)$ | the sum of two convergent sequences converges |
+| $\Op(1) + \op(1) = \Op(1)$ | a stochastically bounded sequence plus a convergent seqeunce remains stochastically bounded |
+| $\Op(1)  \op(1) = \op(1)$ | multiplying a stochastically bounded sequence by a convergent sequence is enough to tip it over the edge and make it converge |
+| $(c + \op(1))^{-1} = \Op(1)$ | the reciprocal of a nonzero constant plus a convergent term will be stochastically bounded (because the denominator will eventually be close to $c \ne 0$) |
+| if $r_n \to \infty$ then $\Op(r_n^{-1}) = \op(1)$ | any sequence that is still stochastically bounded when "blown up" by $r_n$ must by itself converge |
+:::
+:::
+
+As per the abuse of notation, these are really implications rather than equalities. For example, the first statment is an abbreviation for $X_n = \op(1) + \op(1) \implies X_n = \op(1)$ which itself is an abbreviation for $X_n \to 0, Y_n \to 0 \implies X_n + Y_n \to 0$.
