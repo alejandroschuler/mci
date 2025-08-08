@@ -2,11 +2,14 @@
 \newcommand{\eltwopz}[1][\mathbb{P}]{\mathcal{L}_2^0\left(#1\right)}
 \newcommand{\eltwo}{\mathcal{L}_2}
 \newcommand{\p}{{\mathbb{P}}}
+\newcommand{\q}{\mathbb{Q}}
+
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\V}{\mathbb{V}}
 \newcommand{\C}{\mathbb{C}}
-\newcommand{\model}{\mathcal{P}}
-\newcommand{\tset}{\mathcal{S}}
+\newcommand{\model}{{\mathcal{P}}}
+
+\newcommand{\tset}{{\dot{\model}}}
 
 \newcommand{\dto}{\rightsquigarrow}
 \newcommand{\pto}{\overset{\mathbb P}\to}

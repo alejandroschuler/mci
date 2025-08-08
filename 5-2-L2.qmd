@@ -610,7 +610,7 @@ We even know that the bound is *sharp* (we can't do any better without knowing m
 ::: {#exm-cont-inner-prod}
 # Continuity of Inner Product
 
-Recall @def-continuity. Our plan is to show that the inner product is continuous in either argument. To do so, the definition of continuity says that we need to show that $\langle v_n, u \rangle \to \langle v, u \rangle$ for any sequence $v_n \overset{\mathcal V} v$ where we use the $\mathcal V$-norm to define the required distance metric $d_{\mathcal V}(v,u) = \|v-u\|_{\mathcal V}$. The inner products converge if $|\langle v_n, u \rangle - \langle v, u \rangle| = |\langle v_n - v, u \rangle| \to 0$ for all sequences such that $\|v_n - v\| \to 0$. By Cauchy-Schwarz, $$
+Let's say we want to show that the inner product is continuous in either argument. @def-continuity says that for the inner product to be continuous it must be that $\langle v_n, u \rangle \to \langle v, u \rangle$ for any sequence $v_n \overset{\mathcal V}\to v$ where we use the $\mathcal V$-norm to define the required distance metric $d_{\mathcal V}(v,u) = \|v-u\|_{\mathcal V}$. The inner products converge if $|\langle v_n, u \rangle - \langle v, u \rangle| = |\langle v_n - v, u \rangle| \to 0$ for all sequences such that $\|v_n - v\| \to 0$. By Cauchy-Schwarz, $$
 |\langle v_n - v, u \rangle| \le \|v_n - v\| \|u\|.
 $$ Since the right-hand side converges to zero for any convergent sequence $v_n$, the left hand side does too and thus the inner product is continuous in the first argument. Symmetry of the inner product means this is also true of the second argument.
 :::
@@ -705,7 +705,7 @@ $$
 |x_n y_n - xy| \le |x_n| |y_n - y| + |y| |x_n  - x|.
 $$
 
-We're almost there but we have the term $|x_n|$ which is neither a constant like $|y|$ nor converging to zero. Here again we can use the triangle inequality on $|x_n|$ and take a detour to $x$ to expand $|x_n| = |x_n -0| = |x_n -x| + |x|$, leaving us with
+We're almost there but we have the term $|x_n|$ which is neither a constant like $|y|$ nor converging to zero. Here again we can use the triangle inequality on $|x_n|$ and take a detour to $x$ to expand $|x_n| = |x_n -0| = |x_n -x| + |x-0|$, leaving us with
 
 $$
 |x_n y_n - xy| \le |x||y_n - y| + |x_n-x | |y_n - y| + |y| |x_n  - x|.

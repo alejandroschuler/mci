@@ -247,7 +247,10 @@ window.Quarto = {
    
   <ul>
   <li><a href="#characterizing-influence-functions" id="toc-characterizing-influence-functions" class="nav-link active" data-scroll-target="#characterizing-influence-functions"><span class="header-section-number">3.1</span> Characterizing Influence Functions</a></li>
-  <li><a href="#tangent-spaces" id="toc-tangent-spaces" class="nav-link" data-scroll-target="#tangent-spaces"><span class="header-section-number">3.2</span> Tangent Spaces</a></li>
+  <li><a href="#tangent-sets" id="toc-tangent-sets" class="nav-link" data-scroll-target="#tangent-sets"><span class="header-section-number">3.2</span> Tangent Sets</a>
+  <ul class="collapse">
+  <li><a href="#factoring" id="toc-factoring" class="nav-link" data-scroll-target="#factoring"><span class="header-section-number">3.2.1</span> Factoring</a></li>
+  </ul></li>
   <li><a href="#pathwise-differentiability" id="toc-pathwise-differentiability" class="nav-link" data-scroll-target="#pathwise-differentiability"><span class="header-section-number">3.3</span> Pathwise Differentiability</a></li>
   </ul>
 </nav>
@@ -274,7 +277,7 @@ window.Quarto = {
 </header>
 
 
-<p>In <a href="3-1-AL.html" class="quarto-xref"><span>Chapter 1</span></a> we defined <em>asymptotic linearity</em> (AL) and discussed why AL estimators are nice: they are asymptotically unbiased, are easy to do inference for, and can be (asymptotically) compared by looking at their influence functions. In <a href="3-2-regularity.html" class="quarto-xref"><span>Chapter 2</span></a> we argued that we should further restrict the class of desireable estimators to those that are <em>regular</em> so that bad finite-sample behavior can’t be hidden in the asymptotic comparisons. In this chapter we will establish the central result of efficiency theory: in any model where the estimand varies smoothly enough over the different distributions, there is a best-possible regular asymptotically linear (RAL) estimator.</p>
+<p>In <a href="3-1-AL.html" class="quarto-xref"><span>Chapter 1</span></a> we defined <em>asymptotic linearity</em> (AL) and discussed why AL estimators are nice: they are asymptotically unbiased, are easy to do inference for, and can be (asymptotically) compared by looking at their influence functions. In <a href="3-2-regularity.html" class="quarto-xref"><span>Chapter 2</span></a> we argued that we should further restrict the class of desirable estimators to those that are <em>regular</em> so that bad finite-sample behavior can’t be hidden in the asymptotic comparisons. In this chapter we will establish the central result of efficiency theory: in any model where the estimand varies smoothly enough over the different distributions, there is a best-possible regular asymptotically linear (RAL) estimator.</p>
 <p>Really what we’ll prove is that there is a best-possible <em>influence function</em>: multiple estimators may have that influence function but by virtue of that fact they will behave similarly in large-enough samples. We call the best-possible influence function the <em>efficient</em> influence function (EIF). The EIF sets a limit on how good any RAL estimator can be at estimating some estimand in a some model. If you have a RAL estimator with that influence function, you can rest assured that it is the best you can do (asymptotically).</p>
 <p>In this chapter we will prove our central result and discuss some important implications. In the next chapter we’ll show how to derive the EIF in the most common scenarios. After that, in the last part of the book, we will demonstrate how to use knowledge of the EIF to <em>construct</em> efficient estimators.</p>
 <section id="characterizing-influence-functions" class="level2" data-number="3.1">
@@ -292,7 +295,7 @@ Asymptotic linearity along differentiable paths
 </div>
 <div class="callout-body-container callout-body">
 <div id="thm-LAN" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 3.1</strong></span> Let <span class="math inline">\(\mathcal{P}_\epsilon\subseteq \mathcal{P}\)</span> be any differentiable path with score function <span class="math inline">\(s\)</span> and let <span class="math inline">\({\mathbb{P}}^{(\epsilon_n)}\)</span> be a sequence of distributions along this path with <span class="math inline">\(\epsilon_n = c_n n^{-1/2}\)</span> for any converging sequence of real numbers <span class="math inline">\(c_n \to c\)</span> . Let <span class="math inline">\({\mathbb{P}}= {\mathbb{P}}^{(0)}\)</span> denote the true data-generating distribution.</p>
+<p><span class="theorem-title"><strong>Theorem 3.1</strong></span> Let <span class="math inline">\({\mathcal{P}}_\epsilon\subseteq {\mathcal{P}}\)</span> be any differentiable path with score function <span class="math inline">\(s\)</span> and let <span class="math inline">\({\mathbb{P}}^{(\epsilon_n)}\)</span> be a sequence of distributions along this path with <span class="math inline">\(\epsilon_n = c_n n^{-1/2}\)</span> for any converging sequence of real numbers <span class="math inline">\(c_n \to c\)</span> . Let <span class="math inline">\({\mathbb{P}}= {\mathbb{P}}^{(0)}\)</span> denote the true data-generating distribution.</p>
 <p>If an estimator <span class="math inline">\(\hat\Psi\)</span> is asymptotically linear with influence function <span class="math inline">\(\phi\)</span>, then</p>
 <p><span class="math display">\[
 \sqrt{n}\left( \hat\Psi({\mathbb{P}}^{(\epsilon_n)}_n) - \Psi({\mathbb{P}}) \right) \rightsquigarrow \mathsf{N}({\mathbb{P}}[s\phi], {\mathbb{P}}\phi^2)
@@ -360,7 +363,7 @@ Influence Functions of RAL Estimators
 <p><span class="theorem-title"><strong>Theorem 3.2</strong></span> If <span class="math inline">\(\phi\)</span> is an influence function of an estimator that is RAL at <span class="math inline">\({\mathbb{P}}\in \mathcal P\)</span>, then <span class="math display">\[
 \lim_{\epsilon\to 0} \frac{\Psi({\mathbb{P}}^{(\epsilon)}) - \Psi({\mathbb{P}}^{(0)})}{\epsilon} = {\mathbb{P}}s\phi
 \]</span></p>
-<p>for any differentiable path <span class="math inline">\(\mathcal{P}_\epsilon= \{{\mathbb{P}}^{(\epsilon)}: \epsilon\in \mathbb{R}\}\)</span> with score function <span class="math inline">\(s\)</span>.</p>
+<p>for any differentiable path <span class="math inline">\({\mathcal{P}}_\epsilon= \{{\mathbb{P}}^{(\epsilon)}: \epsilon\in \mathbb{R}\}\)</span> with score function <span class="math inline">\(s\)</span>.</p>
 <p>We often abbreviate the left-hand side of the above with the notation <span class="math inline">\(\dot\Psi(s)\)</span> to indicate that it is a derivative of <span class="math inline">\(\Psi\)</span> at <span class="math inline">\({\mathbb{P}}\)</span> in the “direction” <span class="math inline">\(s\)</span> in which case the identity is written cleanly as <span class="math display">\[
 \dot\Psi_{{\mathbb{P}}}(s) = {\mathbb{P}}s\phi.
 \]</span></p>
@@ -417,15 +420,15 @@ c_n \epsilon_n^{-1} [f(\epsilon_n) - f(0)] \to \dot f.
 <p>We have therefore established that any sequence <span class="math inline">\(\eta_m \to 0\)</span> can be represented as a sequence <span class="math inline">\(c_m / \sqrt{n_m}\)</span> where <span class="math inline">\(|c_m| \to 1\)</span> and <span class="math inline">\(n_m\)</span> are integers diverging to infinity. This is almost of the form we need except for the fact that 1) <span class="math inline">\(n_m\)</span> is an arbitrary diverging sequence of integers rather than the counting sequence <span class="math inline">\(\{1,2,3 \dots \}\)</span> and 2) we have <span class="math inline">\(|c_m| \to 1\)</span> instead of <span class="math inline">\(c_m \to 1\)</span>. To resolve this we will first assume <span class="math inline">\(c_m \to 1\)</span> and show that the convergence of the difference quotient along sequences <span class="math inline">\(c_n / \sqrt{n}\)</span> actually implies convergence along sequences <span class="math inline">\(c_{m} / \sqrt{n_m}\)</span> first with <span class="math inline">\(n_m\)</span> strictly increasing and then with <span class="math inline">\(n_m\)</span> an arbitrary diverging sequence of integers. After that is done we will address the issue of the absolute value on <span class="math inline">\(c_m\)</span>.</p>
 <p>For any increasing sequence <span class="math inline">\(n_m\)</span> and sequence <span class="math inline">\(c_{m} \to 1\)</span>, build the “supersequence” <span class="math inline">\(\tilde c_n = c_m\)</span> for all <span class="math inline">\(n_m \le n &lt; n_{m+1}\)</span> so that <span class="math inline">\(c_m = \tilde c_{n_m}\)</span> by construction and <span class="math inline">\(\tilde c_{n} \to 1\)</span> since <span class="math inline">\(c_m \to 1\)</span>. Again by construction, <span class="math inline">\(\tilde\eta_m =  \tilde c_{n_m}/\sqrt {n_m}\)</span> is a subsequence of <span class="math inline">\(\epsilon_n = c_n / \sqrt{n}\)</span> which is of the desired form. Because of that, <span class="math inline">\(\tilde\eta_m^{-1} [f(\tilde\eta_m) - f(0)]\)</span> is a subsequence of <span class="math inline">\(\epsilon_n^{-1} [f(\epsilon_n) - f(0)]\)</span> and thus must converge to the same limit <span class="math inline">\(\dot f\)</span>.</p>
 <p>Now let <span class="math inline">\(n_m\)</span> be an arbitrary, diverging, positive sequence of integers and <span class="math inline">\(c_m \to 1\)</span>. Since <span class="math inline">\(n_m\)</span> is diverging, any subsequence <span class="math inline">\(n_{m_k}\)</span> is also diverging. From any diverging subsequence we can take a strictly increasing subsequence <span class="math inline">\(n_{m_{k_j}} &lt; n_{m_{k_{j+1}}}\)</span>. Along this sub-subsequence, <span class="math inline">\(c_{m_{k_j}} \to 1\)</span>. Therefore, letting <span class="math inline">\(\bar\eta_j = c_{m_{k_j}} / \sqrt{n_{m_{k_j}}}\)</span>, we know that <span class="math inline">\(\bar\eta_j^{-1} [f(\bar\eta_j) - f(0)] \to \dot f\)</span> because <span class="math inline">\(\bar\eta_j\)</span> satisfies the conditions required from the paragraph above. Since every subsequence <span class="math inline">\(\left( \frac{c_{m_k}}{\sqrt{n_{m_k}}} \right)^{-1} \left[f\left( \frac{c_{m_k}}{\sqrt{n_{m_k}}} \right) - f(0)\right]\)</span> has a further subsequence that converges to a common limit <span class="math inline">\(\dot f\)</span>, that means the original sequence <span class="math inline">\(\left( \frac{c_{m}}{\sqrt{n_{m}}} \right)^{-1} \left[f\left( \frac{c_{m}}{\sqrt{n_{m}}} \right) - f(0)\right]\)</span> also converges to that common limit. This is a consequence of the fact that a sequence converges if and only if all of its subsequences converge to the same limit.</p>
-<p>Now we deal with the issue of the absolute value on the sequence <span class="math inline">\(c_m\)</span>. To do this we consider a sequence along a path <span class="math inline">\(\mathcal{P}_\epsilon\)</span> indexed by <span class="math inline">\(\epsilon_n = c_n n^{-1/2}\)</span> with <span class="math inline">\(c_n \to -1\)</span> instead of <span class="math inline">\(c_n \to 1\)</span>. This is exactly the same as a sequence with <span class="math inline">\(c_n \to 1\)</span> but along the “reversed” path <span class="math inline">\(\mathcal{P}_{-\epsilon}\)</span> which has score <span class="math inline">\(-s\)</span> (see <a href="3-2-regularity.html#exr-scaled-score" class="quarto-xref">Exercise&nbsp;<span>2.5</span></a>). Therefore along such sequences <span class="math inline">\(c_n \epsilon_n^{-1}[f(\epsilon_n) - f(0)] \to -\dot f\)</span> by our starting proposition. Multiplying both sides by <span class="math inline">\(-1\)</span> we obtain that <span class="math inline">\((-c_n) \epsilon_n^{-1}[f(\epsilon_n) - f(0)] \to \dot f\)</span> for any sequence <span class="math inline">\(c_n \to -1\)</span> and <span class="math inline">\(\epsilon_n = c_n n^{-1/2}\)</span>. Since <span class="math inline">\(-c_n \to 1\)</span>, by the argument at the beginning of this proof we know that <span class="math inline">\(\epsilon_n^{-1}[f(\epsilon_n) - f(0)] \to \dot f\)</span> for any sequence <span class="math inline">\(\epsilon_n = c_n n^{-1/2}\)</span> now for either <span class="math inline">\(c_n \to 1\)</span> <em>or</em> <span class="math inline">\(c_n \to -1\)</span>.</p>
-<p>We may now return to our original sequence <span class="math inline">\(c_m = \eta_m n_m\)</span> whose absolute value converges to 1. In a mild abuse of notation let <span class="math inline">\(c_m^+\)</span> be the subsequence of the nonnegative entries of <span class="math inline">\(c_m\)</span> and let <span class="math inline">\(c_m^-\)</span> be the negative entries (with corresponding subsequences <span class="math inline">\(n_m^+\)</span> and <span class="math inline">\(n_m^-\)</span> which are both diverging sequences of integers). If <span class="math inline">\(c_m^+\)</span> has a finite number of elements then <span class="math inline">\(c_m \to -1\)</span> and otherwise if <span class="math inline">\(c_m^-\)</span> has a finite number of elements then <span class="math inline">\(c_m \to 1\)</span>. Either way <span class="math inline">\(\eta_m^{-1}[f(\eta_m) - f(0)] \to \dot f\)</span> by the argument of the paragraph above. In the case that both <span class="math inline">\(c_m^+\)</span> and <span class="math inline">\(c_m^-\)</span> are infinite sequences, <span class="math inline">\(|c_m| \to 1\)</span> implies that <span class="math inline">\(c_m^+ \to 1\)</span> and <span class="math inline">\(c_m^- \to -1\)</span>. Therefore we may divide <span class="math inline">\(eta_m\)</span> into the two corresponding sequences <span class="math inline">\(\eta_m^+\)</span> and <span class="math inline">\(\eta_m^-\)</span> and since <span class="math inline">\((\eta_m^{\pm})^{-1}[f(\eta_m^{\pm}) - f(0)] \to \dot f\)</span> for either part of the sequence it must be that <span class="math inline">\(\eta_m^{-1}[f(\eta_m) - f(0)] \to \dot f\)</span> for the entire sequence.</p>
+<p>Now we deal with the issue of the absolute value on the sequence <span class="math inline">\(c_m\)</span>. To do this we consider a sequence along a path <span class="math inline">\({\mathcal{P}}_\epsilon\)</span> indexed by <span class="math inline">\(\epsilon_n = c_n n^{-1/2}\)</span> with <span class="math inline">\(c_n \to -1\)</span> instead of <span class="math inline">\(c_n \to 1\)</span>. This is exactly the same as a sequence with <span class="math inline">\(c_n \to 1\)</span> but along the “reversed” path <span class="math inline">\({\mathcal{P}}_{-\epsilon}\)</span> which has score <span class="math inline">\(-s\)</span> (see <a href="3-2-regularity.html#exr-scaled-score" class="quarto-xref">Exercise&nbsp;<span>2.5</span></a>). Therefore along such sequences <span class="math inline">\(c_n \epsilon_n^{-1}[f(\epsilon_n) - f(0)] \to -\dot f\)</span> by our starting proposition. Multiplying both sides by <span class="math inline">\(-1\)</span> we obtain that <span class="math inline">\((-c_n) \epsilon_n^{-1}[f(\epsilon_n) - f(0)] \to \dot f\)</span> for any sequence <span class="math inline">\(c_n \to -1\)</span> and <span class="math inline">\(\epsilon_n = c_n n^{-1/2}\)</span>. Since <span class="math inline">\(-c_n \to 1\)</span>, by the argument at the beginning of this proof we know that <span class="math inline">\(\epsilon_n^{-1}[f(\epsilon_n) - f(0)] \to \dot f\)</span> for any sequence <span class="math inline">\(\epsilon_n = c_n n^{-1/2}\)</span> now for either <span class="math inline">\(c_n \to 1\)</span> <em>or</em> <span class="math inline">\(c_n \to -1\)</span>.</p>
+<p>We may now return to our original sequence <span class="math inline">\(c_m = \eta_m n_m\)</span> whose absolute value converges to 1. In a mild abuse of notation let <span class="math inline">\(c_m^+\)</span> be the subsequence of the non-negative entries of <span class="math inline">\(c_m\)</span> and let <span class="math inline">\(c_m^-\)</span> be the negative entries (with corresponding subsequences <span class="math inline">\(n_m^+\)</span> and <span class="math inline">\(n_m^-\)</span> which are both diverging sequences of integers). If <span class="math inline">\(c_m^+\)</span> has a finite number of elements then <span class="math inline">\(c_m \to -1\)</span> and otherwise if <span class="math inline">\(c_m^-\)</span> has a finite number of elements then <span class="math inline">\(c_m \to 1\)</span>. Either way <span class="math inline">\(\eta_m^{-1}[f(\eta_m) - f(0)] \to \dot f\)</span> by the argument of the paragraph above. In the case that both <span class="math inline">\(c_m^+\)</span> and <span class="math inline">\(c_m^-\)</span> are infinite sequences, <span class="math inline">\(|c_m| \to 1\)</span> implies that <span class="math inline">\(c_m^+ \to 1\)</span> and <span class="math inline">\(c_m^- \to -1\)</span>. Therefore we may divide <span class="math inline">\(eta_m\)</span> into the two corresponding sequences <span class="math inline">\(\eta_m^+\)</span> and <span class="math inline">\(\eta_m^-\)</span> and since <span class="math inline">\((\eta_m^{\pm})^{-1}[f(\eta_m^{\pm}) - f(0)] \to \dot f\)</span> for either part of the sequence it must be that <span class="math inline">\(\eta_m^{-1}[f(\eta_m) - f(0)] \to \dot f\)</span> for the entire sequence.</p>
 </div>
 </div>
 </div>
 <p>This is an astounding result because it connects two seemingly unrelated things: the left-hand side is the rate of change in the estimand as we move the underlying distribution along a path. That has nothing to do with any estimator. The right-hand side is some measure of the “angle” between the influence function of an estimator and the direction of the path. By assuming regularity and asymptotic normality we have managed to connect these two seemingly unrelated quantities. What this means about the set of possible influence functions may still be unclear, but for the moment I hope you can appreciate the result as a very interesting connection nonetheless!</p>
 </section>
-<section id="tangent-spaces" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="tangent-spaces"><span class="header-section-number">3.2</span> Tangent Spaces</h2>
+<section id="tangent-sets" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="tangent-sets"><span class="header-section-number">3.2</span> Tangent Sets</h2>
 <p><a href="#thm-RAL-IFs" class="quarto-xref">Theorem&nbsp;<span>3.2</span></a> holds simultaneously for <em>all</em> differentiable paths in the model through <span class="math inline">\({\mathbb{P}}\)</span> (and all their induced scores). To unlock the important insights from the theorem we therefore need to be able to refer to that set of scores.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -433,67 +436,284 @@ c_n \epsilon_n^{-1} [f(\epsilon_n) - f(0)] \to \dot f.
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tangent Set and Space
+Tangent Set
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <div id="def-tangent-set" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.1</strong></span> The <em>tangent set</em> <span class="math inline">\(\mathcal S_{{\mathbb{P}}\in \mathcal{P}}\)</span> at a point <span class="math inline">\({\mathbb{P}}\in \mathcal{P}\)</span> is the set of all scores of all differentiable paths through that point. The <em>tangent space</em> is the linear closure of the tangent set (all linear combinations of scores and their <span class="math inline">\(\mathcal{L}_2\)</span>-limits). When the point of interest <span class="math inline">\({\mathbb{P}}\)</span> and model <span class="math inline">\(\mathcal{P}\)</span> are clear from context we leave the subscript off and just write <span class="math inline">\(\mathcal S\)</span> for the tangent set.</p>
-<p><span class="math inline">\(\mathcal{S}_{{\mathbb{P}}} \subseteq \{f \in \mathcal{L}_2\left(\mathbb{P}\right): {\mathbb{P}}f = 0\} \equiv \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> since any score <span class="math inline">\(s\)</span> of a differentiable path through <span class="math inline">\({\mathbb{P}}\)</span> is in <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> and has mean zero by <a href="3-2-regularity.html#def-score" class="quarto-xref">Definition&nbsp;<span>2.3</span></a>.</p>
+<p><span class="theorem-title"><strong>Definition 3.1</strong></span> The <em>tangent set</em> <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span> at a point <span class="math inline">\({\mathbb{P}}\in {\mathcal{P}}\)</span> is the set of all scores of all differentiable paths through that point. When the point of interest <span class="math inline">\({\mathbb{P}}\)</span> is clear from context we leave the subscript off and just write <span class="math inline">\({\dot{{\mathcal{P}}}}\)</span> for the tangent set.</p>
+<p><span class="math inline">\({\dot{{\mathcal{P}}}}_{{\mathbb{P}}} \subseteq \{f \in \mathcal{L}_2\left(\mathbb{P}\right): {\mathbb{P}}f = 0\} \equiv \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> since any score <span class="math inline">\(s\)</span> of a differentiable path through <span class="math inline">\({\mathbb{P}}\)</span> is in <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> and has mean zero by <a href="3-2-regularity.html#def-score" class="quarto-xref">Definition&nbsp;<span>2.3</span></a>.</p>
 </div>
 </div>
 </div>
+<p>Very often the tangent set is a closed vector space (i.e.&nbsp;it is closed under sums, scaling, and limits; see <a href="5-2-L2.html#def-vector-space" class="quarto-xref">Definition&nbsp;<span>B.1</span></a>). When this is the case, some authors refer to the tangent set as the tangent <em>space</em>. If the tangent set is not already a closed vector space, the term “tangent space” usually refers to the linear closure of the tangent set (all linear combinations of scores and their <span class="math inline">\(\mathcal{L}_2\)</span>-limits).</p>
 <div id="fig-tangent-set" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tangent-set-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="3-3-EIF_files/mediabag/efe28af5fac1e0d9afa1515a08d26244ed1d0861.svg" class="img-fluid figure-img">
+<img src="3-3-EIF_files/mediabag/19287c98c2d26deba6b40c97d5e0639e8c4830fe.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tangent-set-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.1: A visual representation of the tangent set <span class="math inline">\(\mathcal S\)</span> along with the model <span class="math inline">\(\sqrt{\mathcal{P}}\)</span>, two differentiable paths, and two scores (times <span class="math inline">\(\sqrt p\)</span>). The set <span class="math inline">\(\mathcal S \sqrt{p}\)</span> denotes the set of all scores times the root density: <span class="math inline">\(\{s \sqrt{p}: s \in \mathcal S\}\)</span>.
+Figure&nbsp;3.1: A visual representation of the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}\)</span> along with the model <span class="math inline">\(\sqrt{{\mathcal{P}}}\)</span>, two differentiable paths, and two scores (times <span class="math inline">\(\sqrt p\)</span>). The set <span class="math inline">\({\dot{{\mathcal{P}}}}\sqrt{p}\)</span> denotes the set of all scores times the root density: <span class="math inline">\(\{s \sqrt{p}: s \in {\dot{{\mathcal{P}}}}\}\)</span>.
 </figcaption>
 </figure>
 </div>
-<p>Looking at <a href="#fig-tangent-set" class="quarto-xref">Figure&nbsp;<span>3.1</span></a>, it’s clear why we call this the the “tangent” set: the plane <span class="math inline">\(\mathcal{S}\sqrt p\)</span> is tangent to the surface of the root-model <span class="math inline">\(\sqrt{\mathcal{P}}\)</span> at the density <span class="math inline">\(\sqrt p\)</span>. Although the picture in fact shows the root-model and tangent set times the root density, we often say informally that the tangent set <span class="math inline">\(\mathcal{S}_{{\mathbb{P}}}\)</span> itself is “tangent” to the model <span class="math inline">\(\mathcal{P}\)</span> at the distribution <span class="math inline">\({\mathbb{P}}\)</span>.</p>
+<p>Looking at <a href="#fig-tangent-set" class="quarto-xref">Figure&nbsp;<span>3.1</span></a>, it’s clear why we call this the the “tangent” set: the plane <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\sqrt p\)</span> is tangent to the surface of the root-model <span class="math inline">\(\sqrt{{\mathcal{P}}}\)</span> at the density <span class="math inline">\(\sqrt p\)</span>. That is also why we use the evocative dot notation for the tangent set: <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\sqrt p\)</span> contains all of the derivatives <span class="math inline">\(\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}}\)</span>. Although the picture in fact shows the root-model and tangent set times the root density, we often say informally that the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}_{{\mathbb{P}}}\)</span> itself is “tangent” to the model <span class="math inline">\({\mathcal{P}}\)</span> at the distribution <span class="math inline">\({\mathbb{P}}\)</span>.</p>
 <p>Since it’s useful to think of scores as directions we can move away from <span class="math inline">\({\mathbb{P}}\)</span> in the model, the tangent set is simply the set of all such directions. If a model is “large” in a neighborhood of <span class="math inline">\({\mathbb{P}}\)</span> in the sense that there are many directions you can go in and stay in the model, then the tangent set will be large. If a model is “small” around <span class="math inline">\({\mathbb{P}}\)</span> then the tangent set will be small.</p>
 <div id="exm-tangent-set-normal" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.1</strong></span> Consider the model <span class="math inline">\(\mathcal{P}= \{\mathsf{N}(\mu,\sigma^2): \mu \in \mathbb{R}, \sigma^2 &gt; 0\}\)</span> with densities <span class="math inline">\(p_{\mu,\sigma^2}(z)\)</span> and the point <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span> with density <span class="math inline">\(p(z) = (2\pi)^{-1/2} e^{-{z^2}/{2}}\)</span> of the standard normal. Since this is a two-dimensional parametric model, the tangent set at <span class="math inline">\(p\)</span> is all linear combinations of</p>
+<p><span class="theorem-title"><strong>Example 3.1</strong></span> Consider the model <span class="math inline">\({\mathcal{P}}= \{\mathsf{N}(\mu,\sigma^2): \mu \in \mathbb{R}, \sigma^2 &gt; 0\}\)</span> with densities <span class="math inline">\(p_{\mu,\sigma^2}(z)\)</span> and the point <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span> with density <span class="math inline">\(p(z) = (2\pi)^{-1/2} e^{-{z^2}/{2}}\)</span> of the standard normal. Since this is a two-dimensional parametric model, the tangent set at <span class="math inline">\(p\)</span> is all linear combinations of</p>
 <p><span class="math display">\[
 \begin{aligned}
-s_\mu(z) &amp;= \frac{\mathop{}\!\mathrm{d}p_{\mu,\sigma^2}(z)}{\mathop{}\!\mathrm{d}\mu} \bigg|_{\mu=0, \sigma^2=1} = z \\
-s_{\sigma^2}(z)  &amp;= \frac{\mathop{}\!\mathrm{d}p_{\mu,\sigma^2}(z)}{\mathop{}\!\mathrm{d}\sigma^2} \bigg|_{\mu=0, \sigma^2 =1} = \frac{z^2 -1}{2} \\
+s_\mu(z) &amp;= \left. \frac{\partial p_{\mu,\sigma^2}(z)}{\partial \mu} \right|_{\mu=0, \sigma^2=1} = z \\
+s_{\sigma^2}(z)  &amp;= \left. \frac{\partial p_{\mu,\sigma^2}(z)}{\partial \sigma^2} \right|_{\mu=0, \sigma^2 =1} = \frac{z^2 -1}{2} \\
 \end{aligned}
 \]</span></p>
-<p>Thus in this case <span class="math inline">\(\mathcal{S}_{{\mathbb{P}}\in \mathcal{P}}\)</span> is a two-dimensional set of functions.</p>
-<p>If we instead restricted the model to be <span class="math inline">\(\mathcal{P}_\mu = \{\mathsf{N}(\mu,1): \mu \in \mathbb{R}\}\)</span> by fixing <span class="math inline">\(\sigma^2 =1\)</span> (presume we knew this a-priori), then the tangent set would be all linear combinations of <span class="math inline">\(s_\mu\)</span> alone, i,e, <span class="math inline">\(\{cs_\mu: c \in \mathbb{R}\}\)</span>, a one-dimensional subset of the tangent set for the larger model.</p>
-<p>Lastly, if we considered the even smaller model <span class="math inline">\(\mathcal{P}_{\mu,+} = \{\mathsf{N}(\mu,1): \mu \ge 0\}\)</span>, then the point <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span> would be on the “edge” of this model. Consequently there is no differentiable path that goes in the “negative <span class="math inline">\(\mu\)</span>” direction from <span class="math inline">\({\mathbb{P}}\)</span> and therefore the tangent set would be restricted to <span class="math inline">\(\{cs_\mu: c \ge 0\}\)</span>, again a subset of the tangent space in the larger parent model. On the other hand, if we considered the point <span class="math inline">\({\mathbb{P}}= \mathsf{N}(1,1)\)</span> in this same model, the tangent space set would be <span class="math inline">\(\{cs_\mu: c \in \mathbb{R}\}\)</span>, the same as in the larger model where <span class="math inline">\(\mu\)</span> is allowed to be negative. This is because <span class="math inline">\(\mathsf{N}(1,1)\)</span> is in the “interior” of the restricted model, so the mean can be decreased without any problem.</p>
+<p>Thus in this case <span class="math inline">\({\dot{{\mathcal{P}}}}\)</span> is a two-dimensional set of functions.</p>
+<div>
+<img src="3-3-EIF_files/mediabag/ddd45ebb755f6de80aa5d76d8a14dc4e0d0b2fda.svg" class="img-fluid">
+<p>A cartoon representation of the models <span class="math inline">\(\mathcal P\)</span> and <span class="math inline">\(\mathcal P_{\mu +}\)</span> discussed in this example. The arrows emanating from <span class="math inline">\(\mathsf{N}(0,1)\)</span> indicate scores of paths in <span class="math inline">\(\mathcal P\)</span>, but only the orange arrow is a score of a path in <span class="math inline">\(\mathcal P_{\mu +}\)</span>.</p>
 </div>
-<p>This example demonstrates why we should index the tangent set by the model as well as the point of interest, like <span class="math inline">\(\mathcal{S}_{{\mathbb{P}}\in \mathcal{P}}\)</span>. The tangent set depends crucially on where the point is within the model because that affects what directions it is legal to move in while remaining in the model (recall that paths are strict subsets of the model). The shape and size of the tangent set is determined entirely by the <em>local</em> character of the model at <span class="math inline">\({\mathbb{P}}\)</span>. We saw in the example above that the tangent set at <span class="math inline">\(\mathsf{N}(0,1)\)</span> became smaller if we restricted the mean in the normal model to be nonnegative, but at <span class="math inline">\(\mathsf{N}(1,1)\)</span> the tangent set was unaffected by that restriction.</p>
-<p>In <a href="#def-tangent-set" class="quarto-xref">Definition&nbsp;<span>3.1</span></a> we saw that <span class="math inline">\(\mathcal{S}_{{\mathbb{P}}} \subseteq \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> (recall we defined this as the set of <span class="math inline">\(\mathcal{L}_2\)</span> functions with <span class="math inline">\({\mathbb{P}}\)</span>-mean zero). Some models are so “large”, however, that the inclusion is actually an equality. If the model is big enough (locally), you can move in “any” direction.</p>
+<p>If we instead restricted the model to be <span class="math inline">\({\mathcal{P}}_\mu = \{\mathsf{N}(\mu,1): \mu \in \mathbb{R}\}\)</span> by fixing <span class="math inline">\(\sigma^2 =1\)</span> (presume we knew this a-priori), then the tangent set would be all linear combinations of <span class="math inline">\(s_\mu\)</span> alone, i,e, <span class="math inline">\(\{cs_\mu: c \in \mathbb{R}\}\)</span>, a one-dimensional subset of the tangent set for the larger model.</p>
+<p>Lastly, if we considered the even smaller model <span class="math inline">\({\mathcal{P}}_{\mu+} = \{\mathsf{N}(\mu,1): \mu \ge 0\}\)</span>, then the point <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span> would be on the “edge” of this model. Consequently there is no differentiable path that goes in the “negative <span class="math inline">\(\mu\)</span>” direction from <span class="math inline">\({\mathbb{P}}\)</span> and therefore the tangent set would be restricted to <span class="math inline">\(\{cs_\mu: c \ge 0\}\)</span>, again a subset of the tangent space in the larger parent model. On the other hand, if we considered the point <span class="math inline">\({\mathbb{P}}= \mathsf{N}(1,1)\)</span> in this same model, the tangent space set would be <span class="math inline">\(\{cs_\mu: c \in \mathbb{R}\}\)</span>, the same as in the larger model where <span class="math inline">\(\mu\)</span> is allowed to be negative. This is because <span class="math inline">\(\mathsf{N}(1,1)\)</span> is in the “interior” of the restricted model, so the mean can be decreased without any problem.</p>
+</div>
+<p>This example demonstrates why the tangent set is specific to a particular point in a particular model. The notation <span class="math inline">\({\dot{{\mathcal{P}}}}_{{\mathbb{P}}}\)</span> makes the model dependence very explicit and that is why I prefer it to something more cumbersome like <span class="math inline">\(\mathcal S_{{\mathcal{P}}, {\mathbb{P}}}\)</span>. The tangent set depends crucially on where the point is within the model because that affects what directions it is legal to move in while remaining in the model (recall that paths are subsets of the model). The shape and size of the tangent set is determined entirely by the <em>local</em> character of the model at <span class="math inline">\({\mathbb{P}}\)</span>. We saw in the example above that the tangent set at <span class="math inline">\(\mathsf{N}(0,1)\)</span> became smaller if we restricted the mean in the normal model to be non-negative, but at <span class="math inline">\(\mathsf{N}(1,1)\)</span> the tangent set was unaffected by that restriction. There are many more examples of specific tangent sets in Chapters 3 and 4 of <span class="citation" data-cites="bkrw">Bickel et al. (<a href="6-references.html#ref-bkrw" role="doc-biblioref">1993</a>)</span> but for now we can proceed with the intuition we have without getting bogged down in details.</p>
+<p>In <a href="#def-tangent-set" class="quarto-xref">Definition&nbsp;<span>3.1</span></a> we noted that <span class="math inline">\({\dot{{\mathcal{P}}}}_{{\mathbb{P}}} \subseteq \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> (recall we defined this as the set of <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> functions with <span class="math inline">\({\mathbb{P}}\)</span>-mean zero). Some models are so “large”, however, that the inclusion is actually an equality. If the model is big enough (locally), you can move in any direction.</p>
 <div id="exm-tangent-set-nonparam" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.2</strong></span> Let <span class="math inline">\(\mathcal p\)</span> be the set of all distributions of continuous random variables (i.e.&nbsp;distributions with standard densities) and pick some point <span class="math inline">\({\mathbb{P}}\in \mathcal{P}\)</span>. For any bounded function <span class="math inline">\(s \in \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> we can construct the convex path <span class="math inline">\({\mathbb{P}}_\epsilon= (1+ \epsilon s) p_0\)</span> (bounding <span class="math inline">\(s\)</span> is required so that <span class="math inline">\({\mathbb{P}}_\epsilon\)</span> remains a density and the mean-square and pointwise scores coincide). As we saw in <a href="3-2-regularity.html#exm-convex-path-score" class="quarto-xref">Example&nbsp;<span>2.5</span></a>, <span class="math inline">\(s\)</span> is the score for such a path at <span class="math inline">\({\mathbb{P}}\)</span> and thus the tangent set at that point includes at least all bounded functions <span class="math inline">\(s \in \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>.</p>
-<p>This is good enough for intuition, but to formally extend to all <span class="math inline">\(\mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> we can instead use the paths <span class="math inline">\(p_\epsilon= \frac{e^{\lambda(\epsilon s)}}{\int e^{\lambda(\epsilon s(z))} p_0(z) \mathop{}\!\mathrm{d}z} p_0\)</span> with <span class="math inline">\(\lambda(t) = 2(1+e^{-2t})^{-1}\)</span>. These paths also have scores <span class="math inline">\(s\)</span> and generate valid densities for any <span class="math inline">\(s \in \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>. For details see Example 1 in Chapter 3 of <span class="citation" data-cites="bkrw">Bickel et al. (<a href="6-references.html#ref-bkrw" role="doc-biblioref">1993</a>)</span>.</p>
+<p><span class="theorem-title"><strong>Example 3.2</strong></span> Let <span class="math inline">\(\mathcal p\)</span> be the set of all distributions of continuous random variables (i.e.&nbsp;distributions with standard densities) and pick some point <span class="math inline">\({\mathbb{P}}\in {\mathcal{P}}\)</span>. For any bounded function <span class="math inline">\(s \in \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> we can construct the convex path <span class="math inline">\(p_\epsilon= (1+ \epsilon s) p_0\)</span> (bounding <span class="math inline">\(s\)</span> is required so that <span class="math inline">\(p_\epsilon\)</span> remains a density and the mean-square and pointwise scores coincide). As we saw in <a href="3-2-regularity.html#exm-convex-path-score" class="quarto-xref">Example&nbsp;<span>2.5</span></a>, <span class="math inline">\(s\)</span> is the score for such a path at <span class="math inline">\({\mathbb{P}}\)</span> and thus the tangent set at that point includes at least all bounded functions <span class="math inline">\(s \in \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>.</p>
+<p>This is good enough for intuition, but to remove the boundedness condition on the scores and formally extend to all <span class="math inline">\(\mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> we can instead use the paths <span class="math inline">\(p_\epsilon= \frac{e^{\lambda(\epsilon s)}}{\int e^{\lambda(\epsilon s(z))} p_0(z) \mathop{}\!\mathrm{d}z} p_0\)</span> with <span class="math inline">\(\lambda(t) = 2(1+e^{-2t})^{-1}\)</span>. These paths also have scores <span class="math inline">\(s\)</span> and generate valid densities for any <span class="math inline">\(s \in \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>. For details see Example 1 in Chapter 3 of <span class="citation" data-cites="bkrw">Bickel et al. (<a href="6-references.html#ref-bkrw" role="doc-biblioref">1993</a>)</span>.</p>
 </div>
+<p>We give this kind of model its own name.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Locally Nonparametric Model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-nonparam-model" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3.2</strong></span> A model <span class="math inline">\({\mathcal{P}}\)</span> is <em>locally nonparametric</em> at <span class="math inline">\({\mathbb{P}}\in {\mathcal{P}}\)</span> if <span class="math inline">\({\dot{{\mathcal{P}}}}_{{\mathbb{P}}} = \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>.</p>
+</div>
+</div>
+</div>
+<p>This is the kind of model we will work with most often for the remainder of this book. Locally nonparametric models are popular in practice because they enforce essentially no assumptions on the data-generating distribution. In fields like medicine, economics, or business, we often cannot say much about the world with great confidence (the distribution of variables, the functional form of their relationships, etc.). We will see shortly that the larger the model is, usually the more uncertainty we get in the final estimate. This makes sense: the more assumptions you’re willing to make, the more confident you can be of an estimate. But if you use a model that is too small (i.e.&nbsp;assume things that are not actually true) then the estimate may be biased and confidence intervals will typically underestimate the true sampling uncertainty. Working with a locally nonparametric model is therefore a maximally robust approach, or at worst conservative.</p>
+<section id="factoring" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="factoring"><span class="header-section-number">3.2.1</span> Factoring</h3>
+<p>There are, of course, many practical situations where we <em>do</em> know something. For example, in our familiar covariate-treatment-outcome <span class="math inline">\((X,A,Y)\)</span> setup, if the treatment is allocated randomly by coin flip, then we know for a fact that <span class="math inline">\({\mathbb{P}}(A=1|X) = 1/2\)</span>. This is an important restriction on the model. Due to the ability to experimentally control treatment assignments, there are many cases in causal inference where one or more factors of a probability distribution are known exactly, but nothing is certain about the others. Thankfully, it’s not hard to figure out the tangent set in such models.</p>
+<p>To simplify things, we’ll work in a generic model defined over two variables <span class="math inline">\((Y,Z)\)</span> (you can think of <span class="math inline">\(Z=(A,X)\)</span> if you please). We’ll also presume again that all our distributions have densities and that the pointwise definition of the scores coincides with the mean-square derivative definition to facilitate the explanation. All of the results below also hold in the mean-square sense of scores in models without densities but everything is more cumbersome to prove without adding any intuition. I’ve put sketches of those proofs into boxed-off sections that you can safely ignore.</p>
+<p>Since every distribution <span class="math inline">\({\mathbb{P}}(Y,Z)\)</span> can be factored into <span class="math inline">\({\mathbb{P}}(Y,Z) = {\mathbb{P}}(Y|Z) {\mathbb{P}}(Z)\)</span>, every differentiable path of distributions <span class="math inline">\({\mathbb{P}}^{(\epsilon)}(Y,Z)\)</span> induces a path of marginal distributions <span class="math inline">\({\mathbb{P}}^{(\epsilon)}(Z)\)</span> and a path of conditional distributions <span class="math inline">\({\mathbb{P}}^{(\epsilon)}(Y|Z)\)</span>. Let’s pick some arbitrary path with score <span class="math inline">\(s\)</span>. We can take derivatives of the log-likelihoods along the induced conditional and marginal paths to obtain scores (in terms of the pointwise definition):</p>
+<p><span class="math display">\[
+\begin{aligned}
+s_Z(z) &amp;= \partial_0 \log p_\epsilon(z) \\
+s_{Y|Z}(y,z) &amp;= \partial_0 \log p_\epsilon(y|z)
+\end{aligned}
+\]</span></p>
+<p>where I’m abbreviating the operator <span class="math inline">\(\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0} (\cdot)\)</span> with <span class="math inline">\(\partial_0 (\cdot)\)</span>. When the meaning is clear from context I’ll abuse notation a bit and write <span class="math inline">\(s(z)\)</span> for <span class="math inline">\(s_Z(z)\)</span> and similarly <span class="math inline">\(s(y|z)\)</span> for <span class="math inline">\(s_{Y|Z}(y,z)\)</span>, the same way as is usually done for marginal and conditional density functions. If we iterate this over all differentiable paths and collect the resulting scores we generate what I’ll call the marginal and conditional tangent sets <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}(Z)\)</span> and <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}(Y|Z)\)</span>.</p>
+<p>Let’s see how these marginal and conditional scores are related to the joint score for a given path. First off, because</p>
+<p><span class="math display">\[\log p_\epsilon(z,y) = \log (p_\epsilon(y|z) p_\epsilon(z)) = \log p_\epsilon(y|z) + \log p_\epsilon(z),\]</span></p>
+<p>when we apply <span class="math inline">\(\partial_0\)</span> to both sides we get</p>
+<p><span class="math display">\[
+s(y,z) = s(y|z) + s(z)
+\]</span> So the joint score is simply the sum of the marginal and conditional scores. But we can further characterize these scores in terms of the joint score. By the chain rule, <span class="math inline">\(\partial \log p_\epsilon= \frac{\partial p_\epsilon}{p_\epsilon}\)</span>, so evaluating at <span class="math inline">\(\epsilon= 0\)</span> and shifting terms around gives</p>
+<p><span id="eq-score-deriv"><span class="math display">\[
+\partial_0 p_\epsilon= p_0 \partial_0 p_\epsilon= p_0 s
+\tag{3.1}\]</span></span></p>
+<p>This is true for the joint, conditional, and marginal densities/scores. If we start with this equation in terms of the joint density/score and integrate with respect to <span class="math inline">\(y\)</span> on both sides we have</p>
+<p><span class="math display">\[
+\int \partial_0 p_\epsilon(y,z) \mathop{}\!\mathrm{d}y = \int p_0(y,z) s(y,z) \mathop{}\!\mathrm{d}y
+\]</span></p>
+<p>On the left-hand-side, if we are allowed to exchange integration w.r.t <span class="math inline">\(z\)</span> and differentiation w.r.t. <span class="math inline">\(\epsilon\)</span> (formally this is possible under mild restrictions on the model), then we get <span class="math inline">\(\partial_0 \int p_\epsilon(y,z) \mathop{}\!\mathrm{d}y = \partial_0 p_\epsilon(z) = p_0(z) s(z)\)</span> by applying <a href="#eq-score-deriv" class="quarto-xref">Equation&nbsp;<span>3.1</span></a> to the marginal <span class="math inline">\(p_\epsilon(z)\)</span>. Dividing both sides of the above by <span class="math inline">\(p_0(z)\)</span> gives</p>
+<p><span class="math display">\[
+s(z) = \int \frac{p_0(y,z)}{p_0(z)} s(y,z) \mathop{}\!\mathrm{d}y = \int p(y|z) s(y,z) \mathop{}\!\mathrm{d}y = \mathbb{E}[s(Y,Z)|Z=z]
+\]</span></p>
+<p>and therefore <span class="math inline">\(s(y|z) = s(y,z) - \mathbb{E}[s(Y,Z)|Z=z]\)</span> since the conditional and marginal scores sum to the joint.</p>
+<p>We now have explicit formulations of the marginal and conditional scores in terms of the joint score. Besides their relation to the joint score, these scores also have some interesting properties. You may recall from <a href="3-2-regularity.html#def-score" class="quarto-xref">Definition&nbsp;<span>2.3</span></a> that <span class="math inline">\({\mathbb{P}}s = 0\)</span>, i.e.&nbsp;<span class="math inline">\(\mathbb{E}[s(Y,Z)] = 0\)</span>. The conditional and joint score obey similar conditions:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb{E}[s(Z)] &amp;= 0 \\
+\mathbb{E}[s(Y|Z)| Z] &amp;= 0. \\
+\end{aligned}
+\]</span></p>
+<p>The first identity comes from the explicit definition of <span class="math inline">\(s(z)\)</span> because <span class="math inline">\(\mathbb{E}_Z[s(Z)] = \mathbb{E}_Z[\mathbb{E}_Y[s(Y,Z)|Z]] = \mathbb{E}[s(Y,Z)] = 0\)</span> by total expectation and since the joint score is mean zero. The second comes from</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb{E}_Y[s(Y|Z)| Z]
+&amp;= \mathbb{E}_Y[s(Y,Z) - \mathbb{E}_Y[s(Y,Z)|Z] | Z] \\
+&amp;=\mathbb{E}_Y[s(Y,Z)|Z]- \mathbb{E}_Y[s(Y,Z)|Z]
+\end{aligned}
+\]</span></p>
+<p>We can also show that the marginal and conditional score functions are orthogonal to each other in <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span>. Recall that two functions are orthogonal if their inner product is zero and that the <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> inner product of two functions is the expectation of their product (see <a href="5-2-L2.html" class="quarto-xref"><span>Appendix B</span></a>). The expected value of the product of the conditional and marginal scores is</p>
+<p><span class="math display">\[
+\mathbb{E}[s(Z)s(Y|Z)]
+= \mathbb{E}[\mathbb{E}[s(Y,Z)|Z] (s(Y,Z) - \mathbb{E}[s(Y,Z)|Z] )].
+\]</span> Abbreviating <span class="math inline">\(S = s(Y,Z)\)</span>, by total expectation, <span class="math inline">\(\mathbb{E}[\mathbb{E}_S[S|Z] S] = \mathbb{E}_Z[\mathbb{E}_S[\mathbb{E}_S[S|Z] S | Z]] = \mathbb{E}_Z[\mathbb{E}_S[S|Z] \mathbb{E}_S[ S | Z]]\)</span> so the above is zero.</p>
+<p>This is actually a general fact about conditional expectation that is used in many places throughout probability theory: a random variable minus its conditional expectation is orthogonal to that conditional expectation. In fact, the conditional expectation <span class="math inline">\(\mathbb{E}[f(Y,Z)|Z]\)</span> of a random variable <span class="math inline">\(f(Y,Z)\)</span> is precisely its orthogonal projection onto the subspace spanned by all <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> functions of <span class="math inline">\(Z\)</span> alone: the best possible <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> approximation of <span class="math inline">\(f(y,z)\)</span> that can be attained with functions of <span class="math inline">\(z\)</span>. This is illustrated in <a href="#fig-conditional-scores" class="quarto-xref">Figure&nbsp;<span>3.2</span></a>.</p>
+<div id="fig-conditional-scores" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-conditional-scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="3-3-EIF_files/mediabag/42004c4316fe2bb344246e72d3b7c2d089d320db.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-conditional-scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.2: The marginal score is an orthogonal projection of the joint score and the conditional score is the residual.
+</figcaption>
+</figure>
+</div>
+<p>Let’s summarize all these results.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Conditional and Marginal Scores
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="thm-conditional-scores" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3.3</strong></span> Let <span class="math inline">\({\mathcal{P}}= {\mathcal{P}}(Y,Z)\)</span> be a model over joint distributions <span class="math inline">\({\mathbb{P}}(Y,Z)\)</span> of variables <span class="math inline">\((Y,Z)\)</span> and let <span class="math inline">\({\mathcal{P}}_{\epsilon}(Y,Z)\)</span> be a differentiable path with score <span class="math inline">\(s(y,z)\)</span>. This path induces marginal and conditional paths <span class="math inline">\({\mathcal{P}}_{\epsilon}(Z)\)</span> and <span class="math inline">\({\mathcal{P}}_{\epsilon}(Y|Z)\)</span> with scores</p>
+<p><span class="math display">\[
+\begin{aligned}
+s(z) &amp;= \mathbb{E}[s(Y,Z)|Z] \\
+s(y|z) &amp;= s(y,z) - \mathbb{E}[s(Y,Z)|Z] \\
+\end{aligned}
+\]</span></p>
+<p>which sum to <span class="math inline">\(s(y,z)\)</span>. The marginal score <span class="math inline">\(s_Z\)</span> is the orthogonal projection of the joint score <span class="math inline">\(s_{Y,Z}\)</span> onto the span of all <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> functions of <span class="math inline">\(z\)</span> alone, while the conditional score <span class="math inline">\(z_{Y|Z}\)</span> is the residual of this projection. Therefore <span class="math inline">\(s_{Y|Z} \perp s_Z\)</span> in <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span>. Moreover</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb{E}[s(Z)] &amp;= 0 \\
+\mathbb{E}[s(Y|Z)| Z] &amp;= 0, \\
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof Sketch for Mean-Square Scores
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\({\mathcal{P}}_\epsilon\)</span> be a (mean-square) differentiable path over distributions <span class="math inline">\({\mathbb{P}}(Y,Z)\)</span> and let <span class="math inline">\(\epsilon_n \to 0\)</span> and <span class="math inline">\({\mathbb{P}}_n = {\mathbb{P}}_{\epsilon_n}\)</span> be a sequence along the path with <span class="math inline">\({\mathbb{P}}= {\mathbb{P}}_{\epsilon=0}\)</span>. Let <span class="math inline">\(\mathbb{Q}(Y,Z)\)</span> be a dominating measure constructed for the sequence <span class="math inline">\({\mathbb{P}}_n\)</span> and let <span class="math inline">\(p_n(y,z) = \frac{\mathop{}\!\mathrm{d}{\mathbb{P}}_n(Y,Z)}{\mathop{}\!\mathrm{d}\mathbb{Q}(Y,Z)}\)</span> be densities. Let <span class="math inline">\(Q(Z)\)</span> and <span class="math inline">\({\mathbb{P}}(Z)\)</span> be the marginal distributions of <span class="math inline">\(\mathbb{Q}(Y,Z)\)</span> and <span class="math inline">\({\mathbb{P}}(Y,Z)\)</span>, respectively, so that <span class="math inline">\(p_n(z) = \frac{\mathop{}\!\mathrm{d}{\mathbb{P}}_n(Z)}{\mathop{}\!\mathrm{d}\mathbb{Q}(Z)}\)</span> are marginal densities.</p>
+<p>Since the path of joint distributions is differentiable, there is a function <span class="math inline">\(g(y,z)\)</span> such that <span class="math display">\[
+\left\|
+\frac{\sqrt{p_n(y,z)} - \sqrt{p_0(y,z)}}{\epsilon_n} - g(y,z)
+\right\|_{\mathcal{L}_2\left(\mathbb{Q}(Y,Z)\right)} \to 0
+\]</span></p>
+<p>Our goal is to show that the path of marginal distributions is also differentiable, i.e.&nbsp;that there is a function <span class="math inline">\(g(z)\)</span> for which <span class="math display">\[
+\left\|
+\frac{\sqrt{p_n(z)} - \sqrt{p(z)}}{\epsilon_n} - g(z)
+\right\|_{\mathcal{L}_2\left(\mathbb{Q}(Z)\right)} \to 0
+\]</span></p>
+<p>First decompose</p>
+<p><span class="math display">\[
+\sqrt{p_n(z)} - \sqrt{p(z)} = \frac{p_n(z) - p(z)}{\sqrt{p_n(z)} + \sqrt{p(z)}}
+\]</span></p>
+<p>and notice that, by definition, <span class="math display">\[
+\begin{aligned}
+p_n(z) - {\mathbb{P}}(z)
+&amp;=
+\int p_n(y,z) - p(y,z) \mathop{}\!\mathrm{d}\mathbb{Q}(Y|Z) \\
+&amp;=
+\int \left(\sqrt{p_n(y,z)} - \sqrt{p(y,z)}\right) \left(\sqrt{p_n(y,z)} + \sqrt{p(y,z)}\right) \mathop{}\!\mathrm{d}\mathbb{Q}(Y|Z)
+.
+\end{aligned}
+\]</span></p>
+<p>This is the equivalent of the more familiar formula <span class="math inline">\(p(z) = \int p (y,z) \mathop{}\!\mathrm{d}y\)</span> except that in this case we do not assume that <span class="math inline">\(\mathbb{Q}\)</span> is a product measure. In the familiar case we see <span class="math inline">\(\mathop{}\!\mathrm{d}y = \mathop{}\!\mathrm{d}\mu(Y)\)</span> because <span class="math inline">\(\mathop{}\!\mathrm{d}\mu(Y) = \mathop{}\!\mathrm{d}\mu(Y|Z)\)</span>, i.e.&nbsp;Lebesgue measure is a product measure.</p>
+<p>Combining these observations,</p>
+<p><span class="math display">\[
+\frac{\sqrt{p_n(z)} - \sqrt{p(z)}}{\epsilon_n}
+=
+\int \underbrace{\frac{\sqrt{p_n(y,z)} - \sqrt{p(y,z)}}{\epsilon_n}}_{g_n(y,z)}  \underbrace{\frac{\sqrt{p_n(y,z)} + \sqrt{p(y,z)}}{\sqrt{p_n(z)} + \sqrt{p(z)}}}_{h_n(y,z)}  \mathop{}\!\mathrm{d}\mathbb{Q}(Y|Z).
+\]</span></p>
+<p><span class="math inline">\(g_n \overset{\mathcal{L}_2\left(Q(Y,Z)\right)}\to g\)</span> by assumption and since <span class="math inline">\(\sqrt{p_n(y,z)} \overset{\mathcal{L}_2\left(Q(Y,Z)\right)} \to \sqrt{p(y,z)}\)</span>, the second factor <span class="math inline">\(h_n\)</span> can be shown to converge in <span class="math inline">\(\mathcal{L}_2\left(Q(Y,Z)\right)\)</span> to <span class="math inline">\(h(y,z) = \sqrt{p(y,z)/p(z)} = \sqrt{p(y|z)}\)</span> with careful handling of the denominator.</p>
+<p>Therefore one might conjecture that the <span class="math inline">\(\mathcal{L}_2\left(Q(Z)\right)\)</span> limit of the above is <span class="math inline">\(\int g(y,z) h(y,z) \mathop{}\!\mathrm{d}\mathbb{Q}(Y|Z)\)</span> and indeed this is the case because</p>
+<p><span class="math display">\[
+\begin{aligned}
+\int \left(
+\int g_n h_n - gh \mathop{}\!\mathrm{d}\mathbb{Q}(Y|Z)
+\right)^2
+\mathop{}\!\mathrm{d}\mathbb{Q}(Z)
+&amp;\le
+\int
+\int (g_n h_n - gh)^2 \mathop{}\!\mathrm{d}\mathbb{Q}(Y|Z)
+\mathop{}\!\mathrm{d}\mathbb{Q}(Z) \\
+&amp;=
+\int (g_n h_n - gh)^2 \mathop{}\!\mathrm{d}\mathbb{Q}(Y,Z)
+\to 0
+\end{aligned}
+\]</span> by Jensen’s inequality (<span class="math inline">\(0 \le \mathbb{V}[U] = \mathbb{E}[U^2] - \mathbb{E}[U]^2 \implies \mathbb{E}[U]^2 &lt; \mathbb{E}[U^2]\)</span>) and the aforementioned convergences.</p>
+<p>This shows that <span class="math inline">\(g(z) = \int g(y,z) \sqrt{p(y|z)} \mathop{}\!\mathrm{d}Q(Y|Z)\)</span>. Defining <span class="math inline">\(s(z) = 2 g(z) / \sqrt{p(z)}\)</span> and <span class="math inline">\(s(y,z) = 2 g(y,z) / \sqrt{p(y,z)}\)</span> gives</p>
+<p><span class="math display">\[
+s(z) = \int s(y,z) p(y|z) \mathop{}\!\mathrm{d}Q(Y|Z) = \int s(y,z) \mathop{}\!\mathrm{d}P(Y|Z) = \mathbb{E}[s(Y,Z)|Z=z].
+\]</span></p>
+<p>Similar arguments may be used to derive the conditional score <span class="math inline">\(s(y|z)\)</span> and then the other facts follow algebraically.</p>
+</div>
+</div>
+</div>
+<p>Given this characterization, it’s easy to derive the tangent set of a model that has a restricted factor. In a model with a restricted factor, paths can only change the other factors and the scores are the “directions” that change only the non-restricted factors. For example if <span class="math inline">\(p(z)\)</span> is fixed in the model but <span class="math inline">\(p(y|z)\)</span> is free, then the scores are <span class="math inline">\(s(y,z) = s(y|z) + 0\)</span>, i.e.&nbsp;the <span class="math inline">\(z\)</span>-component <span class="math inline">\(s(z)=0\)</span> is fixed at <span class="math inline">\(0\)</span> so as to not change the fixed marginal density <span class="math inline">\(p(z)\)</span>.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tangent Sets in Factored Models
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="thm-factored-tset" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3.4</strong></span> Let <span class="math inline">\({\mathcal{P}}\)</span> be locally nonparametric around some distribution <span class="math inline">\({\mathbb{P}}(Y,Z) = {\mathbb{P}}(Y|Z){\mathbb{P}}(Z)\)</span>.</p>
+<p>Let <span class="math inline">\({\mathcal{P}}^{(Z)} = \{{\mathbb{P}}(Y|Z)\tilde{\mathbb{P}}(Z): \tilde{\mathbb{P}}\in {\mathcal{P}}\}\)</span>, be a restriction of the original model where all the conditional distributions <span class="math inline">\({\mathbb{P}}(Y|Z)\)</span> are replaced with the fixed conditional distribution <span class="math inline">\({\mathbb{P}}(Y|Z)\)</span>, but the marginal distributions of <span class="math inline">\(Z\)</span> are allowed to vary. Then the tangent set at <span class="math inline">\({\mathbb{P}}\)</span> in the restricted model is the set of all <span class="math inline">\(Z\)</span>-marginal scores in the original model, i.e.</p>
+<p><span class="math display">\[
+{\dot{{\mathcal{P}}}}^{(Z)}_{\mathbb{P}}= {\dot{{\mathcal{P}}}}_{\mathbb{P}}(Z),
+\]</span></p>
+<p>which is all <span class="math inline">\(\mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> functions of <span class="math inline">\(z\)</span> alone.</p>
+<p>Similarly, if <span class="math inline">\({\mathcal{P}}^{(Y|Z)} = \{\tilde{\mathbb{P}}(Y|Z){\mathbb{P}}(Z): \tilde{\mathbb{P}}\in {\mathcal{P}}\}\)</span>, a mutation of the original model where all the <em>marginal</em> distributions are fixed, but the <em>conditional</em> distributions can still vary, then</p>
+<p><span class="math display">\[
+{\dot{{\mathcal{P}}}}^{(Y|Z)}_{\mathbb{P}}= {\dot{{\mathcal{P}}}}_{\mathbb{P}}(Y|Z),
+\]</span></p>
+<p>which is all <span class="math inline">\(\mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> functions of <span class="math inline">\((y,z)\)</span> with <span class="math inline">\(z\)</span>-conditional mean zero.</p>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="pathwise-differentiability" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="pathwise-differentiability"><span class="header-section-number">3.3</span> Pathwise Differentiability</h2>
-<p>Let’s dig into the left-hand side term</p>
+<p>Now that we understand a bit more about the set of all scores we can return to the central identity above (definition <a href="#thm-RAL-IFs" class="quarto-xref">Theorem&nbsp;<span>3.2</span></a>). By comparing the asymptotic behavior while moving quickly along differentiable paths implied by regularity to the behavior implied by asymptotic linearity, we deduced that any RAL estimator (with influence function <span class="math inline">\(\phi\)</span>) satisfies</p>
+<p><span class="math display">\[
+\dot\Psi_{\mathbb{P}}s = {\mathbb{P}}s\phi
+\]</span></p>
+<p>for any differentiable path through <span class="math inline">\({\mathbb{P}}\)</span> with score <span class="math inline">\(s\)</span>. In other words, that equality is satisfied for all scores <span class="math inline">\(s \in {\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span>, the tangent set of the model <span class="math inline">\({\mathcal{P}}\)</span> at the distribution <span class="math inline">\({\mathbb{P}}\)</span>.</p>
+<p>Let’s dig into the left-hand term:</p>
 <p><span class="math display">\[
 \dot\Psi_{{\mathbb{P}}} (s) \overset{\mathrm{def}}
 = \lim_{\epsilon\to 0} \frac{\Psi({\mathbb{P}}^{(\epsilon)}) - \Psi({\mathbb{P}}^{(0)})}{\epsilon}
-= \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \Psi({\mathbb{P}}^{(\epsilon)}) \bigg|_{\epsilon=0}
+= \left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0} \Psi({\mathbb{P}}^{(\epsilon)})
+.
 \]</span></p>
-<p>The first thing to notice is that for any fixed path, this is a standard derivative of a one-dimensional function of <span class="math inline">\(\epsilon\)</span>. What we’re measuring is the (instantaneous) rate of change of the estimand as we shift the underlying distribution along the path away from <span class="math inline">\(\epsilon=0\)</span>. This is illustrated in <a href="#fig-pathwise-derivative" class="quarto-xref">Figure&nbsp;<span>3.2</span></a>.</p>
+<p>For any fixed path this is a standard, vanilla derivative of a one-dimensional function of <span class="math inline">\(\epsilon\)</span>. It measures the (instantaneous) rate of change of the estimand as we shift the underlying distribution along the path away from <span class="math inline">\(\epsilon=0\)</span>. This is illustrated in <a href="#fig-pathwise-derivative" class="quarto-xref">Figure&nbsp;<span>3.3</span></a>.</p>
 <div id="fig-pathwise-derivative" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pathwise-derivative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="3-3-EIF_files/mediabag/8ef8310c2a2859584ca97287e70e67b1747ca43e.svg" class="img-fluid figure-img">
+<img src="3-3-EIF_files/mediabag/4bd9f6ba1a477518cc4454f018c4f416e5e95169.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pathwise-derivative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.2: The pathwise derivative evaluated at a particular score <span class="math inline">\(s\)</span> gives the rate of change of the estimand if we move the underlying distribution in the direction of the score.
+Figure&nbsp;3.3: The pathwise derivative evaluated at a particular score <span class="math inline">\(s\)</span> gives the rate of change of the estimand if we move the underlying distribution in the direction of the score.
 </figcaption>
 </figure>
 </div>
-<p>We can conceptualize the “slope in the direction <span class="math inline">\(s\)</span>” <span class="math inline">\(\dot\Psi_{{\mathbb{P}}}(s)\)</span> as a function mapping from scores <span class="math inline">\(s \in \mathcal{L}_2\left(\mathbb{P}\right)\)</span> (recall <a href="3-2-regularity.html#def-score" class="quarto-xref">Definition&nbsp;<span>2.3</span></a>) to numbers. What’s interesting is that we can find that slope <span class="math inline">\(\dot\Psi_{{\mathbb{P}}}(s)\)</span> by taking the inner product of <span class="math inline">\(s\)</span> with <em>any</em> influence function <span class="math inline">\(\phi\)</span> of a RAL estimator (it doesn’t matter which, the result must be the same!). But that’s assuming there <em>is</em> a RAL estimator- in the proof above we simply presupposed that existence! We should say that <em>if</em> there is any RAL estimator of the estimand in the model, then <span class="math inline">\(\dot\Psi_{{\mathbb{P}}}(s) = {\mathbb{P}}s\phi\)</span>. Since <span class="math inline">\({\mathbb{P}}s \phi\)</span> is an inner product, <span class="math inline">\(s \mapsto {\mathbb{P}}s\phi\)</span> is a bounded (continuous) linear functional acting on <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> (review <a href="5-2-L2.html#sec-app-riesz" class="quarto-xref"><span>Section B.4</span></a> for details and definitions). That, in turn, implies <span class="math inline">\(\dot\Psi_{{\mathbb{P}}}\)</span> is also a bounded linear functional.</p>
+<p>However, that slope is generally different depending on the path one chooses. There may be paths along with the estimand is increasing rapidly, paths along which it is decreasing, and paths along which it is constant. That is why we write <span class="math inline">\(\dot\Psi_{{\mathbb{P}}}(s)\)</span> as a function of <span class="math inline">\(s\)</span>, the “direction” (and “speed”) of the path. Since the slope is taken at <span class="math inline">\(\epsilon=0\)</span>, the only thing that matters is the immediate direction of the path at <span class="math inline">\({\mathbb{P}}\)</span>, i.e.&nbsp;the score <span class="math inline">\(s\)</span>. The instantaneous rate of change of the estimand along two different paths with the same score will be the same. Because it is a derivative along a path, we aptly call the function <span class="math inline">\(s \mapsto \dot\Psi_{\mathbb{P}}(s)\)</span> mapping from <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span> to <span class="math inline">\(\mathbb{R}\)</span> the <em>pathwise derivative</em> of the estimand <span class="math inline">\(\Psi\)</span> at the distribution <span class="math inline">\({\mathbb{P}}\)</span> in the model <span class="math inline">\({\mathcal{P}}\)</span><em>.</em></p>
+<p>The identity <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}s\phi\)</span> says that the slope <span class="math inline">\(\dot\Psi_{{\mathbb{P}}}(s)\)</span> may be found by taking the inner product of <span class="math inline">\(s\)</span> with <em>any</em> influence function <span class="math inline">\(\phi\)</span> of a RAL estimator. In fact, it doesn’t matter <em>which</em> RAL estimator, if there are multiple: the result must be the same. We’ll return to this point in the next section but we are actually getting ahead of ourselves because we are assuming there <em>is</em> a RAL estimator. The argument for <a href="#thm-RAL-IFs" class="quarto-xref">Theorem&nbsp;<span>3.2</span></a> only established a condition that must be met by any RAL estimator, not that such an estimator exists. In fact, the result implies something about when RAL estimators <em>can</em> exist.</p>
+<p>Notice that on the right-hand side, <span class="math inline">\({\mathbb{P}}s \phi\)</span> is an inner product. Seen as a function <span class="math inline">\(s \mapsto {\mathbb{P}}s\phi\)</span> acting on the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span>, the inner product is a bounded (i.e.&nbsp;continuous) linear functional (see <a href="5-2-L2.html#def-bounded-functional" class="quarto-xref">Definition&nbsp;<span>B.6</span></a> and <a href="5-2-L2.html#exm-cont-inner-prod" class="quarto-xref">Example&nbsp;<span>B.7</span></a>). Informally, a small change in the input score must always translate to a small change in the inner product with the fixed function <span class="math inline">\(\phi\)</span>. Since this inner product is equal to the pathwise derivative, that implies that the pathwise derivative must <em>also</em> be linear and continuous in the same sense: if we look at two paths that go in similar directions, the rate of change of the estimand must be similar on those paths.</p>
+<p>The interesting thing is that the pathwise derivative has nothing to do with the estimator: it is defined purely by the model <span class="math inline">\({\mathcal{P}}\)</span>, the distribution <span class="math inline">\({\mathbb{P}}\)</span> of interest within it, and the estimand <span class="math inline">\(\Psi\)</span>. The pathwise derivative either exists and is linear and continuous across scores or it isn’t. If it isn’t a continuous linear functional, then it’s not possible for it to be equal to any inner product. But since that equality must hold for any RAL estimator, if the pathwise derivative is not a continuous linear functional, then there cannot be any RAL estimator for that estimand in that model in the first place.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -505,10 +725,52 @@ Pathwise Differentiability
 </div>
 <div class="callout-body-container callout-body">
 <div id="def-pathwise-differentiability" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.2</strong></span> If</p>
+<p><span class="theorem-title"><strong>Definition 3.3</strong></span> An estimand <span class="math inline">\(\Psi\)</span> is <em>pathwise differentiable</em> at <span class="math inline">\({\mathbb{P}}\in {\mathcal{P}}\)</span> if the pathwise derivative <span class="math inline">\(\dot\Psi_{\mathbb{P}}\)</span> exists and is linear and continuous across the tangent set <span class="math inline">\(\mathcal P_{\mathbb{P}}\)</span>.</p>
+<p>If an estimand is not pathwise differentiable, there is no asymptotically linear estimator that is regular in that model.</p>
 </div>
 </div>
 </div>
+<p>Since continuity is equivalent to boundedness (in the sense of functionals; see <a href="5-2-L2.html#def-bounded-functional" class="quarto-xref">Definition&nbsp;<span>B.6</span></a>), an estimand is pathwise differentiable if and only if there is a “direction of maximum slope”. This is, in my opinion, the best intuitive definition of pathwise differentiability. There cannot be some direction you can move in away from <span class="math inline">\({\mathbb{P}}\)</span> along which <span class="math inline">\(\Psi\)</span> changes arbitrarily quickly.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Review <a href="5-1-rv-convergence.html#def-continuity" class="quarto-xref">Definition&nbsp;<span>A.5</span></a> for the definition of continuity and <a href="5-2-L2.html#sec-app-riesz" class="quarto-xref"><span>Section B.4</span></a> for details and definitions relating to Hilbert spaces and Riesz representation. Understanding the details is not nearly as important as understanding the big-picture implications here so it’s ok if you skip the mathematical details for now and come back to them on a second pass later.</p>
+</div>
+</div>
+<div id="exm-unbounded-estimand" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.3</strong></span> Let <span class="math inline">\(\mathcal P\)</span> be all distributions of a continuous variable <span class="math inline">\(Z\)</span>. Let’s say that our goal is to estimate the value of the density function of <span class="math inline">\(z\)</span> at the point <span class="math inline">\(z=0\)</span>.</p>
+<p>We’ll show that there is no RAL estimator of this quantity by establishing that the pathwise derivative is not bounded over the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span> (at any <span class="math inline">\({\mathbb{P}}\)</span>). The intuition is that we can find a path that comes very, very close to modifying the density <em>only</em> at the point <span class="math inline">\(z=0\)</span>. In other words, we can modify the estimand by arbitrary amounts essentially without changing the overall density.</p>
+<p>Fix a distribution <span class="math inline">\({\mathbb{P}}\)</span>. Since the model is nonparametric, the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span> is all of <span class="math inline">\(\mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>. Since that’s the case, any zero-mean <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> function can be a score.</p>
+<p>Define the sequence of probabilities <span class="math inline">\(t_n = {\mathbb{P}}\{-1/n \le Z \le 1/n\}\)</span>. Since these are probabilities of smaller and smaller sets over a continuous random variable they must shrink to zero.</p>
+<p>We’ll consider a sequence of scores</p>
+<p><span class="math display">\[
+s_n(z) = \frac{1\left(-\frac{1}{n} \le z \le \frac{1}{n}\right) - t_n}{\sqrt{t_n(1-t_n)}}
+\]</span></p>
+<p>The random variable <span class="math inline">\(1(-1/n \le Z \le 1/n)\)</span> is <span class="math inline">\(1\)</span> with probability <span class="math inline">\(t_n\)</span> and <span class="math inline">\(0\)</span> with probability <span class="math inline">\(1-t_n\)</span>, i.e.&nbsp;it is <span class="math inline">\(\mathsf{Bern}(t_n)\)</span>. Therefore it has mean <span class="math inline">\(t_n\)</span> and standard deviation <span class="math inline">\(\sqrt{t_n(1-t_n)}\)</span>. Consequently, the mean of <span class="math inline">\(s_n(Z)\)</span> is zero and its standard deviation (<span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> norm) is <span class="math inline">\(1\)</span>. Thus <span class="math inline">\(s_n\)</span> are all <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> functions with mean zero as desired, i.e.&nbsp;these are scores in the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span>. Moreover these are unit-norm scores.</p>
+<p>To find the pathwise derivatives <span class="math inline">\(\dot\Psi(s_n)\)</span>, let’s consider a sequence of paths <span class="math inline">\({\mathcal{P}}_\epsilon^{(n)}\)</span> that have the desired scores. For this we can use the convex paths <span class="math inline">\(p_\epsilon^{(n)} = (1+\epsilon s_n)p\)</span> that we previously used in <a href="3-2-regularity.html#exm-path-convex" class="quarto-xref">Example&nbsp;<span>2.2</span></a> and <a href="3-2-regularity.html#exm-convex-path-score" class="quarto-xref">Example&nbsp;<span>2.5</span></a>. Now we can evaluate the pathwise derivative directly:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\dot\Psi(s_n)
+&amp;= \left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0} \Psi({\mathbb{P}}^{(\epsilon)}) \\
+&amp;= \left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0} (1+\epsilon s_n(0))p(0) \\
+&amp;= s_n(0) p(0) \\
+&amp;= \frac{1 - t_n}{\sqrt{t_n(1-t_n)}} p(0) \\
+\end{aligned}
+\]</span></p>
+<p>Since <span class="math inline">\(t_n\)</span> converges to zero, the denominator blows up. Since we only considered unit scores, we proved that there is no pure direction of maximum increase: no matter what direction we look, there is always another direction for which the pathwise derivative is bigger. Therefore the pathwise derivative is unbounded (not continuous). As a consequence, there can be no RAL estimator for the density at a point when the model is all continuous densities.</p>
+</div>
+<!-- 
+Exercise: prove that the density at a point CAN have a RAL estimator in a normal localtion model?
+
+Before getting to that let's address a minor technicality. In what follows I'll sometimes refer to $\bar\tset_\p$, the linear closure of $\tset_\p$. For the most part you can just think of this as identical to $\tset_\p$ because pretty much all of the tangent sets we'll work with in this book are already tangent spaces. The reason we need to include linear combinations and limits of scores if they're not already there is so that we can define the pathwise derivative function on a full vector space and thus use Riesz representation. 
+-->
 <!-- 
 Implications:
 - If a RAL estimator exists, model is smooth: pathwise dfff = if the distribution varies smoothly, the estimand should vary smoothly as well (very smoothly, and locally uniformly even). If estimand is smooth, that guarantees the possibility of a RAL estimator (usually modulo regression rate stuff, see next part) See Proposition 1 in Chapter 3 of @bkrw

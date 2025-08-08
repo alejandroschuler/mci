@@ -448,7 +448,7 @@ A path $\model_\eps$ is *differentiable in quadratic mean* (or just *differentia
 \right\|_{\eltwo}
 \overset{\eps \to 0}{\to} 0.
 $$ We define $s = 2\frac{\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}}}{\sqrt{p_0}}$ to be the *score function* of the path $\model_\eps$ at the point $\eps=0$. Often the score can be written as the derivative of the log-likelihood evaluated at zero: $$
-s(z) = \frac{\dd}{\dd \eps} \log p_\eps(z) \bigg|_{\eps=0}.
+s(z) = \left. \frac{\dd}{\dd \eps} \right|_{\eps=0} \log p_\eps(z).
 $$ The score function for a path is always in $\eltwo(\p_0)$ and always mean-zero at $\p_0$ in the sense that $\p_0 s = \int s(z)\ p_0(z) \dd z = 0$.
 :::
 ::::

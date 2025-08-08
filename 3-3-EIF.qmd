@@ -9,7 +9,7 @@ library(tidyverse)
 
 # The Efficient Influence Function
 
-In @sec-3-AL we defined *asymptotic linearity* (AL) and discussed why AL estimators are nice: they are asymptotically unbiased, are easy to do inference for, and can be (asymptotically) compared by looking at their influence functions. In @sec-3-regularity we argued that we should further restrict the class of desireable estimators to those that are *regular* so that bad finite-sample behavior can't be hidden in the asymptotic comparisons. In this chapter we will establish the central result of efficiency theory: in any model where the estimand varies smoothly enough over the different distributions, there is a best-possible regular asymptotically linear (RAL) estimator.
+In @sec-3-AL we defined *asymptotic linearity* (AL) and discussed why AL estimators are nice: they are asymptotically unbiased, are easy to do inference for, and can be (asymptotically) compared by looking at their influence functions. In @sec-3-regularity we argued that we should further restrict the class of desirable estimators to those that are *regular* so that bad finite-sample behavior can't be hidden in the asymptotic comparisons. In this chapter we will establish the central result of efficiency theory: in any model where the estimand varies smoothly enough over the different distributions, there is a best-possible regular asymptotically linear (RAL) estimator.
 
 Really what we'll prove is that there is a best-possible *influence function*: multiple estimators may have that influence function but by virtue of that fact they will behave similarly in large-enough samples. We call the best-possible influence function the *efficient* influence function (EIF). The EIF sets a limit on how good any RAL estimator can be at estimating some estimand in a some model. If you have a RAL estimator with that influence function, you can rest assured that it is the best you can do (asymptotically).
 
@@ -162,23 +162,26 @@ Now let $n_m$ be an arbitrary, diverging, positive sequence of integers and $c_m
 
 Now we deal with the issue of the absolute value on the sequence $c_m$. To do this we consider a sequence along a path $\model_\eps$ indexed by $\eps_n = c_n n^{-1/2}$ with $c_n \to -1$ instead of $c_n \to 1$. This is exactly the same as a sequence with $c_n \to 1$ but along the "reversed" path $\model_{-\eps}$ which has score $-s$ (see @exr-scaled-score). Therefore along such sequences $c_n \eps_n^{-1}[f(\eps_n) - f(0)] \to -\dot f$ by our starting proposition. Multiplying both sides by $-1$ we obtain that $(-c_n) \eps_n^{-1}[f(\eps_n) - f(0)] \to \dot f$ for any sequence $c_n \to -1$ and $\eps_n = c_n n^{-1/2}$. Since $-c_n \to 1$, by the argument at the beginning of this proof we know that $\eps_n^{-1}[f(\eps_n) - f(0)] \to \dot f$ for any sequence $\eps_n = c_n n^{-1/2}$ now for either $c_n \to 1$ *or* $c_n \to -1$.
 
-We may now return to our original sequence $c_m = \eta_m n_m$ whose absolute value converges to 1. In a mild abuse of notation let $c_m^+$ be the subsequence of the nonnegative entries of $c_m$ and let $c_m^-$ be the negative entries (with corresponding subsequences $n_m^+$ and $n_m^-$ which are both diverging sequences of integers). If $c_m^+$ has a finite number of elements then $c_m \to -1$ and otherwise if $c_m^-$ has a finite number of elements then $c_m \to 1$. Either way $\eta_m^{-1}[f(\eta_m) - f(0)] \to \dot f$ by the argument of the paragraph above. In the case that both $c_m^+$ and $c_m^-$ are infinite sequences, $|c_m| \to 1$ implies that $c_m^+ \to 1$ and $c_m^- \to -1$. Therefore we may divide $eta_m$ into the two corresponding sequences $\eta_m^+$ and $\eta_m^-$ and since $(\eta_m^{\pm})^{-1}[f(\eta_m^{\pm}) - f(0)] \to \dot f$ for either part of the sequence it must be that $\eta_m^{-1}[f(\eta_m) - f(0)] \to \dot f$ for the entire sequence.
+We may now return to our original sequence $c_m = \eta_m n_m$ whose absolute value converges to 1. In a mild abuse of notation let $c_m^+$ be the subsequence of the non-negative entries of $c_m$ and let $c_m^-$ be the negative entries (with corresponding subsequences $n_m^+$ and $n_m^-$ which are both diverging sequences of integers). If $c_m^+$ has a finite number of elements then $c_m \to -1$ and otherwise if $c_m^-$ has a finite number of elements then $c_m \to 1$. Either way $\eta_m^{-1}[f(\eta_m) - f(0)] \to \dot f$ by the argument of the paragraph above. In the case that both $c_m^+$ and $c_m^-$ are infinite sequences, $|c_m| \to 1$ implies that $c_m^+ \to 1$ and $c_m^- \to -1$. Therefore we may divide $eta_m$ into the two corresponding sequences $\eta_m^+$ and $\eta_m^-$ and since $(\eta_m^{\pm})^{-1}[f(\eta_m^{\pm}) - f(0)] \to \dot f$ for either part of the sequence it must be that $\eta_m^{-1}[f(\eta_m) - f(0)] \to \dot f$ for the entire sequence.
 :::
 
 This is an astounding result because it connects two seemingly unrelated things: the left-hand side is the rate of change in the estimand as we move the underlying distribution along a path. That has nothing to do with any estimator. The right-hand side is some measure of the "angle" between the influence function of an estimator and the direction of the path. By assuming regularity and asymptotic normality we have managed to connect these two seemingly unrelated quantities. What this means about the set of possible influence functions may still be unclear, but for the moment I hope you can appreciate the result as a very interesting connection nonetheless!
 
-## Tangent Spaces
+## Tangent Sets
 
 @thm-RAL-IFs holds simultaneously for *all* differentiable paths in the model through $\p$ (and all their induced scores). To unlock the important insights from the theorem we therefore need to be able to refer to that set of scores.
 
 :::: callout-note
-# Tangent Set and Space
+# Tangent Set
+
 ::: {#def-tangent-set}
-The *tangent set* $\mathcal S_{\p \in \model}$ at a point $\p \in \model$ is the set of all scores of all differentiable paths through that point. The *tangent space* is the linear closure of the tangent set (all linear combinations of scores and their $\eltwo$-limits). When the point of interest $\p$ and model $\model$ are clear from context we leave the subscript off and just write $\mathcal S$ for the tangent set.
+The *tangent set* $\tset_\p$ at a point $\p \in \model$ is the set of all scores of all differentiable paths through that point. When the point of interest $\p$ is clear from context we leave the subscript off and just write $\tset$ for the tangent set.
 
 $\tset_{\p} \subseteq \{f \in \eltwop: \p f = 0\} \equiv \eltwopz$ since any score $s$ of a differentiable path through $\p$ is in $\eltwop$ and has mean zero by @def-score.
 :::
 ::::
+
+Very often the tangent set is a closed vector space (i.e. it is closed under sums, scaling, and limits; see @def-vector-space). When this is the case, some authors refer to the tangent set as the tangent *space*. If the tangent set is not already a closed vector space, the term "tangent space" usually refers to the linear closure of the tangent set (all linear combinations of scores and their $\eltwo$-limits).
 
 ::: {#fig-tangent-set}
 ``` tikz
@@ -323,58 +326,369 @@ $\tset_{\p} \subseteq \{f \in \eltwop: \p f = 0\} \equiv \eltwopz$ since any sco
       {y},                        % y‐coordinate
       {(1 - 0.5*x - 0.5*y)/(sqrt(2)/2)} % z = (1 - x0*x - y0*y)/z0
     );
-    \node at (axis cs:0.7,0.6,0.7071) [anchor=west, color=violet] {$\mathcal S \sqrt{p}$};
+    \node at (axis cs:0.7,0.6,0.7071) [anchor=west, color=violet] {$\dot{\mathcal{P}} \sqrt{p}$};
 
   \end{axis}
 \end{tikzpicture}
 }
 ```
-A visual representation of the tangent set $\mathcal S$ along with the model $\sqrt{\model}$, two differentiable paths, and two scores (times $\sqrt p$). The set $\mathcal S \sqrt{p}$ denotes the set of all scores times the root density: $\{s \sqrt{p}: s \in \mathcal S\}$.
+
+A visual representation of the tangent set $\tset$ along with the model $\sqrt{\model}$, two differentiable paths, and two scores (times $\sqrt p$). The set $\tset \sqrt{p}$ denotes the set of all scores times the root density: $\{s \sqrt{p}: s \in \tset\}$.
 :::
 
-Looking at @fig-tangent-set, it's clear why we call this the the "tangent" set: the plane $\tset \sqrt p$ is tangent to the surface of the root-model $\sqrt{\model}$ at the density $\sqrt p$. Although the picture in fact shows the root-model and tangent set times the root density, we often say informally that the tangent set $\tset_{\p}$ itself is "tangent" to the model $\model$ at the distribution $\p$.
+Looking at @fig-tangent-set, it's clear why we call this the the "tangent" set: the plane $\tset_\p \sqrt p$ is tangent to the surface of the root-model $\sqrt{\model}$ at the density $\sqrt p$. That is also why we use the evocative dot notation for the tangent set: $\tset_\p \sqrt p$ contains all of the derivatives $\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}}$. Although the picture in fact shows the root-model and tangent set times the root density, we often say informally that the tangent set $\tset_{\p}$ itself is "tangent" to the model $\model$ at the distribution $\p$.
 
-Since it's useful to think of scores as directions we can move away from $\p$ in the model, the tangent set is simply the set of all such directions. If a model is "large" in a neighborhood of $\p$ in the sense that there are many directions you can go in and stay in the model, then the tangent set will be large. If a model is "small" around $\p$ then the tangent set will be small. 
+Since it's useful to think of scores as directions we can move away from $\p$ in the model, the tangent set is simply the set of all such directions. If a model is "large" in a neighborhood of $\p$ in the sense that there are many directions you can go in and stay in the model, then the tangent set will be large. If a model is "small" around $\p$ then the tangent set will be small.
 
-::: {#exm-tangent-set-normal}
+:::: {#exm-tangent-set-normal}
 Consider the model $\model = \{\norm(\mu,\sigma^2): \mu \in \reals, \sigma^2 > 0\}$ with densities $p_{\mu,\sigma^2}(z)$ and the point $\p = \norm(0,1)$ with density $p(z) = (2\pi)^{-1/2} e^{-{z^2}/{2}}$ of the standard normal. Since this is a two-dimensional parametric model, the tangent set at $p$ is all linear combinations of
 
 $$
 \begin{aligned}
-s_\mu(z) &= \frac{\dd p_{\mu,\sigma^2}(z)}{\dd \mu} \bigg|_{\mu=0, \sigma^2=1} = z \\
-s_{\sigma^2}(z)  &= \frac{\dd p_{\mu,\sigma^2}(z)}{\dd \sigma^2} \bigg|_{\mu=0, \sigma^2 =1} = \frac{z^2 -1}{2} \\
+s_\mu(z) &= \left. \frac{\partial p_{\mu,\sigma^2}(z)}{\partial \mu} \right|_{\mu=0, \sigma^2=1} = z \\
+s_{\sigma^2}(z)  &= \left. \frac{\partial p_{\mu,\sigma^2}(z)}{\partial \sigma^2} \right|_{\mu=0, \sigma^2 =1} = \frac{z^2 -1}{2} \\
 \end{aligned}
 $$
 
-Thus in this case $\tset_{\p \in \model}$ is a two-dimensional set of functions.
+Thus in this case $\tset$ is a two-dimensional set of functions.
 
-If we instead restricted the model to be $\model_\mu = \{\norm(\mu,1): \mu \in \reals\}$ by fixing $\sigma^2 =1$ (presume we knew this a-priori), then the tangent set would be all linear combinations of $s_\mu$ alone, i,e, $\{cs_\mu: c \in \reals\}$, a one-dimensional subset of the tangent set for the larger model. 
+<div>
 
-Lastly, if we considered the even smaller model $\model_{\mu,+} = \{\norm(\mu,1): \mu \ge 0\}$, then the point $\p = \norm(0,1)$ would be on the "edge" of this model. Consequently there is no differentiable path that goes in the "negative $\mu$" direction from $\p$ and therefore the tangent set would be restricted to $\{cs_\mu: c \ge 0\}$, again a subset of the tangent space in the larger parent model. On the other hand, if we considered the point $\p = \norm(1,1)$ in this same model, the tangent space set would be $\{cs_\mu: c \in \reals\}$, the same as in the larger model where $\mu$ is allowed to be negative. This is because $\norm(1,1)$ is in the "interior" of the restricted model, so the mean can be decreased without any problem.
-:::
+``` tikz
+\resizebox{7cm}{!}{
+\begin{tikzpicture}
+  \pgfdeclareverticalshading{fast}{3cm}{%
+    color(0cm)=(gray!30);
+    color(1.65cm)=(white);
+    color(3cm)=(white)
+  }
 
-This example demonstrates why we should index the tangent set by the model as well as the point of interest, like $\tset_{\p \in \model}$. The tangent set depends crucially on where the point is within the model because that affects what directions it is legal to move in while remaining in the model (recall that paths are strict subsets of the model). The shape and size of the tangent set is determined entirely by the *local* character of the model at $\p$. We saw in the example above that the tangent set at $\norm(0,1)$ became smaller if we restricted the mean in the normal model to be nonnegative, but at $\norm(1,1)$ the tangent set was unaffected by that restriction.
+  \coordinate (topright) at (2,1.3);
+  \coordinate (bottomright) at (2,-0.8);
+  \coordinate (bottomleft) at (0,-0.8);
+  \coordinate (topleft) at (0,1.3);
 
-In @def-tangent-set we saw that $\tset_{\p} \subseteq \eltwopz$ (recall we defined this as the set of $\eltwo$ functions with $\p$-mean zero). Some models are so "large", however, that the inclusion is actually an equality. If the model is big enough (locally), you can move in "any" direction.
+  % background rectangle with base fill and shading parts
+  \fill[gray!30] (bottomleft) rectangle (topright);
+  \draw[gray!30] (bottomleft) rectangle (topright);
+  \shade[bottom color=gray!30, top color=white] (topleft) rectangle ($(topright)+(0,0.5)$);
+  \shade[top color=gray!30, bottom color=white] (bottomleft) rectangle ($(bottomright)-(0,0.5)$);
+  \shade[left color=gray!30, right color=white] (bottomright) rectangle ($(topright)+(0.5,0)$);
+  \shade[shading=fast, shading angle=-45]  ($(topright)-(0.01,0.01)$) rectangle ($(topright)+(0.5,0.5)$);
+  \shade[shading=fast, shading angle=-135] ($(bottomright)+(-0.01,0.01)$) rectangle ($(bottomright)+(0.5,-0.5)$);
+  \node[gray, below right, font=\Large] at ($(bottomright)+(-0.2,0.2)$) {$\mathcal P$};
+
+  % small coordinate axis at left-middle of rectangle
+  \begin{scope}[shift={(0,0)}]
+    \draw[->, thick] (0,0) -- (0,0.6) node[right,font=\small] {$\mu$};
+    \draw[->, thick] (0,0) -- (0.6,0) node[below,font=\small] {$\sigma^2$};
+    \fill (0,0) circle (1pt);
+  \end{scope}
+
+  \begin{scope}[shift={(1.3,0)}]
+     \draw[->, gray, very thick] (0,0) -- ++(-0,1.7) node[below right] {$\mathcal P_{\mu+}$};
+      % three small arrows emanating from that point
+      \draw[->, blue] (0,0) -- ++(0.3,0.05);
+      \draw[->, blue] (0,0) -- ++(-0.2,0.3);
+      \draw[->, blue] (0,0) -- ++(-0.1,-0.25);
+      \draw[->, orange, thick] (0,0) -- ++(0,+0.4);
+
+    \filldraw[black] (0,0) circle (2pt) node[above right,font=\small] {$\mathcal N(0,1)$};
+  \end{scope}
+  
+  % black dotted line along left side of the whole figure
+  \draw[black,dashed,very thin] (0,-0.9) -- (0,1.5);
+\end{tikzpicture}
+}
+```
+
+A cartoon representation of the models $\mathcal P$ and $\mathcal P_{\mu +}$ discussed in this example. The arrows emanating from $\norm(0,1)$ indicate scores of paths in $\mathcal P$, but only the orange arrow is a score of a path in $\mathcal P_{\mu +}$.
+
+</div>
+
+If we instead restricted the model to be $\model_\mu = \{\norm(\mu,1): \mu \in \reals\}$ by fixing $\sigma^2 =1$ (presume we knew this a-priori), then the tangent set would be all linear combinations of $s_\mu$ alone, i,e, $\{cs_\mu: c \in \reals\}$, a one-dimensional subset of the tangent set for the larger model.
+
+Lastly, if we considered the even smaller model $\model_{\mu+} = \{\norm(\mu,1): \mu \ge 0\}$, then the point $\p = \norm(0,1)$ would be on the "edge" of this model. Consequently there is no differentiable path that goes in the "negative $\mu$" direction from $\p$ and therefore the tangent set would be restricted to $\{cs_\mu: c \ge 0\}$, again a subset of the tangent space in the larger parent model. On the other hand, if we considered the point $\p = \norm(1,1)$ in this same model, the tangent space set would be $\{cs_\mu: c \in \reals\}$, the same as in the larger model where $\mu$ is allowed to be negative. This is because $\norm(1,1)$ is in the "interior" of the restricted model, so the mean can be decreased without any problem.
+::::
+
+This example demonstrates why the tangent set is specific to a particular point in a particular model. The notation $\tset_{\p}$ makes the model dependence very explicit and that is why I prefer it to something more cumbersome like $\mathcal S_{\model, \p}$. The tangent set depends crucially on where the point is within the model because that affects what directions it is legal to move in while remaining in the model (recall that paths are subsets of the model). The shape and size of the tangent set is determined entirely by the *local* character of the model at $\p$. We saw in the example above that the tangent set at $\norm(0,1)$ became smaller if we restricted the mean in the normal model to be non-negative, but at $\norm(1,1)$ the tangent set was unaffected by that restriction. There are many more examples of specific tangent sets in Chapters 3 and 4 of @bkrw but for now we can proceed with the intuition we have without getting bogged down in details.
+
+In @def-tangent-set we noted that $\tset_{\p} \subseteq \eltwopz$ (recall we defined this as the set of $\eltwop$ functions with $\p$-mean zero). Some models are so "large", however, that the inclusion is actually an equality. If the model is big enough (locally), you can move in any direction.
 
 ::: {#exm-tangent-set-nonparam}
-Let $\mathcal p$ be the set of all distributions of continuous random variables (i.e. distributions with standard densities) and pick some point $\p \in \model$. For any bounded function $s \in \eltwopz$ we can construct the convex path $\p_\eps = (1+ \eps s) p_0$ (bounding $s$ is required so that $\p_\eps$ remains a density and the mean-square and pointwise scores coincide). As we saw in @exm-convex-path-score, $s$ is the score for such a path at $\p$ and thus the tangent set at that point includes at least all bounded functions $s \in \eltwopz$. 
+Let $\mathcal p$ be the set of all distributions of continuous random variables (i.e. distributions with standard densities) and pick some point $\p \in \model$. For any bounded function $s \in \eltwopz$ we can construct the convex path $p_\eps = (1+ \eps s) p_0$ (bounding $s$ is required so that $p_\eps$ remains a density and the mean-square and pointwise scores coincide). As we saw in @exm-convex-path-score, $s$ is the score for such a path at $\p$ and thus the tangent set at that point includes at least all bounded functions $s \in \eltwopz$.
 
-This is good enough for intuition, but to formally extend to all $\eltwopz$ we can instead use the paths $p_\eps = \frac{e^{\lambda(\eps s)}}{\int e^{\lambda(\eps s(z))} p_0(z) \dd z} p_0$ with $\lambda(t) = 2(1+e^{-2t})^{-1}$. These paths also have scores $s$ and generate valid densities for any $s \in \eltwopz$. For details see Example 1 in Chapter 3 of @bkrw.
+This is good enough for intuition, but to remove the boundedness condition on the scores and formally extend to all $\eltwopz$ we can instead use the paths $p_\eps = \frac{e^{\lambda(\eps s)}}{\int e^{\lambda(\eps s(z))} p_0(z) \dd z} p_0$ with $\lambda(t) = 2(1+e^{-2t})^{-1}$. These paths also have scores $s$ and generate valid densities for any $s \in \eltwopz$. For details see Example 1 in Chapter 3 of @bkrw.
 :::
 
+We give this kind of model its own name.
+
+:::: callout-note
+# Locally Nonparametric Model
+
+::: {#def-nonparam-model}
+A model $\model$ is *locally nonparametric* at $\p \in \model$ if $\tset_{\p} = \eltwopz$.
+:::
+::::
+
+This is the kind of model we will work with most often for the remainder of this book. Locally nonparametric models are popular in practice because they enforce essentially no assumptions on the data-generating distribution. In fields like medicine, economics, or business, we often cannot say much about the world with great confidence (the distribution of variables, the functional form of their relationships, etc.). We will see shortly that the larger the model is, usually the more uncertainty we get in the final estimate. This makes sense: the more assumptions you're willing to make, the more confident you can be of an estimate. But if you use a model that is too small (i.e. assume things that are not actually true) then the estimate may be biased and confidence intervals will typically underestimate the true sampling uncertainty. Working with a locally nonparametric model is therefore a maximally robust approach, or at worst conservative.
+
+### Factoring
+
+There are, of course, many practical situations where we *do* know something. For example, in our familiar covariate-treatment-outcome $(X,A,Y)$ setup, if the treatment is allocated randomly by coin flip, then we know for a fact that $\p(A=1|X) = 1/2$. This is an important restriction on the model. Due to the ability to experimentally control treatment assignments, there are many cases in causal inference where one or more factors of a probability distribution are known exactly, but nothing is certain about the others. Thankfully, it's not hard to figure out the tangent set in such models.
+
+To simplify things, we'll work in a generic model defined over two variables $(Y,Z)$ (you can think of $Z=(A,X)$ if you please). We'll also presume again that all our distributions have densities and that the pointwise definition of the scores coincides with the mean-square derivative definition to facilitate the explanation. All of the results below also hold in the mean-square sense of scores in models without densities but everything is more cumbersome to prove without adding any intuition. I've put sketches of those proofs into boxed-off sections that you can safely ignore.
+
+Since every distribution $\p(Y,Z)$ can be factored into $\p(Y,Z) = \p(Y|Z) \p(Z)$, every differentiable path of distributions $\p^{(\eps)}(Y,Z)$ induces a path of marginal distributions $\p^{(\eps)}(Z)$ and a path of conditional distributions $\p^{(\eps)}(Y|Z)$. Let's pick some arbitrary path with score $s$. We can take derivatives of the log-likelihoods along the induced conditional and marginal paths to obtain scores (in terms of the pointwise definition):
+
+$$
+\begin{aligned}
+s_Z(z) &= \partial_0 \log p_\eps(z) \\
+s_{Y|Z}(y,z) &= \partial_0 \log p_\eps(y|z)
+\end{aligned}
+$$
+
+where I'm abbreviating the operator $\left. \frac{\dd}{\dd \eps} \right|_{\eps=0} (\cdot)$ with $\partial_0 (\cdot)$. When the meaning is clear from context I'll abuse notation a bit and write $s(z)$ for $s_Z(z)$ and similarly $s(y|z)$ for $s_{Y|Z}(y,z)$, the same way as is usually done for marginal and conditional density functions. If we iterate this over all differentiable paths and collect the resulting scores we generate what I'll call the marginal and conditional tangent sets $\tset_\p(Z)$ and $\tset_\p(Y|Z)$.
+
+Let's see how these marginal and conditional scores are related to the joint score for a given path. First off, because
+
+$$\log p_\eps(z,y) = \log (p_\eps(y|z) p_\eps(z)) = \log p_\eps(y|z) + \log p_\eps(z),$$
+
+when we apply $\partial_0$ to both sides we get
+
+$$
+s(y,z) = s(y|z) + s(z)
+$$ So the joint score is simply the sum of the marginal and conditional scores. But we can further characterize these scores in terms of the joint score. By the chain rule, $\partial \log p_\eps = \frac{\partial p_\eps}{p_\eps}$, so evaluating at $\eps = 0$ and shifting terms around gives
+
+$$
+\partial_0 p_\eps = p_0 \partial_0 p_\eps = p_0 s
+$$ {#eq-score-deriv}
+
+This is true for the joint, conditional, and marginal densities/scores. If we start with this equation in terms of the joint density/score and integrate with respect to $y$ on both sides we have
+
+$$
+\int \partial_0 p_\eps(y,z) \dd y = \int p_0(y,z) s(y,z) \dd y
+$$
+
+On the left-hand-side, if we are allowed to exchange integration w.r.t $z$ and differentiation w.r.t. $\epsilon$ (formally this is possible under mild restrictions on the model), then we get $\partial_0 \int p_\eps(y,z) \dd y = \partial_0 p_\eps(z) = p_0(z) s(z)$ by applying @eq-score-deriv to the marginal $p_\eps(z)$. Dividing both sides of the above by $p_0(z)$ gives
+
+$$
+s(z) = \int \frac{p_0(y,z)}{p_0(z)} s(y,z) \dd y = \int p(y|z) s(y,z) \dd y = \E[s(Y,Z)|Z=z]
+$$
+
+and therefore $s(y|z) = s(y,z) - \E[s(Y,Z)|Z=z]$ since the conditional and marginal scores sum to the joint.
+
+We now have explicit formulations of the marginal and conditional scores in terms of the joint score. Besides their relation to the joint score, these scores also have some interesting properties. You may recall from @def-score that $\p s = 0$, i.e. $\E[s(Y,Z)] = 0$. The conditional and joint score obey similar conditions:
+
+$$
+\begin{aligned}
+\E[s(Z)] &= 0 \\
+\E[s(Y|Z)| Z] &= 0. \\
+\end{aligned}
+$$
+
+The first identity comes from the explicit definition of $s(z)$ because $\E_Z[s(Z)] = \E_Z[\E_Y[s(Y,Z)|Z]] = \E[s(Y,Z)] = 0$ by total expectation and since the joint score is mean zero. The second comes from
+
+$$
+\begin{aligned}
+\E_Y[s(Y|Z)| Z] 
+&= \E_Y[s(Y,Z) - \E_Y[s(Y,Z)|Z] | Z] \\
+&=\E_Y[s(Y,Z)|Z]- \E_Y[s(Y,Z)|Z]
+\end{aligned}
+$$
+
+We can also show that the marginal and conditional score functions are orthogonal to each other in $\eltwop$. Recall that two functions are orthogonal if their inner product is zero and that the $\eltwop$ inner product of two functions is the expectation of their product (see @sec-app-L2). The expected value of the product of the conditional and marginal scores is
+
+$$
+\E[s(Z)s(Y|Z)] 
+= \E[\E[s(Y,Z)|Z] (s(Y,Z) - \E[s(Y,Z)|Z] )].
+$$ Abbreviating $S = s(Y,Z)$, by total expectation, $\E[\E_S[S|Z] S] = \E_Z[\E_S[\E_S[S|Z] S | Z]] = \E_Z[\E_S[S|Z] \E_S[ S | Z]]$ so the above is zero.
+
+This is actually a general fact about conditional expectation that is used in many places throughout probability theory: a random variable minus its conditional expectation is orthogonal to that conditional expectation. In fact, the conditional expectation $\E[f(Y,Z)|Z]$ of a random variable $f(Y,Z)$ is precisely its orthogonal projection onto the subspace spanned by all $\eltwop$ functions of $Z$ alone: the best possible $\eltwop$ approximation of $f(y,z)$ that can be attained with functions of $z$. This is illustrated in @fig-conditional-scores.
+
+::: {#fig-conditional-scores}
+``` tikz
+\tdplotsetmaincoords{60}{60}
+\resizebox{12cm}{!}{
+\begin{tikzpicture}[scale=3,tdplot_main_coords]
+
+  % Draw small 3D axes
+  \draw[->] (0,0,0) -- (1,0,0) node[anchor=north east]{};
+  \draw[->] (0,0,0) -- (0,1,0) node[anchor=north west]{};
+  \draw[->] (0,0,0) -- (0,0,1) node[anchor=south]{};
+
+  % Shaded plane: functions of Z alone (the xy-plane)
+  \filldraw[fill=blue!10,draw=blue!50,opacity=0.4]
+    (-0.5,-0.5,0) -- (1,-0.5,0) -- (1,1,0) -- (-0.5,1,0) -- cycle;
+  \node at (0.5,-0.6,0) [blue!50, anchor=south]{$\{\text{functions of z alone}\}$};
+
+  % Define vector s_{Y,Z}
+  \coordinate (v) at (0.7,0.5,0.8);
+  \draw[->,thick] (0,0,0) -- (v) node[midway,above]{$s_{Y,Z}$};
+
+  % Orthogonal projection onto plane (drop z-coordinate)
+  \coordinate (p) at (0.7,0.5,0);
+  \draw[->, thick, densely dashed, blue] (0,0,0) -- (p) node[blue, midway,below]{$s_Z$};
+  % Dashed line from vector tip down to projection
+  \draw[dotted] (v) -- (p);
+
+  % Residual vector from projection to original vector
+  \draw[->,thick, orange, dash pattern=on 3pt off 1pt] (p) -- (v) node[midway,right]{$s_{Y\mid Z}$};
+
+    % Origin label
+  \node at (0,0,0.5) [anchor=north east]{$\mathcal L_2^0(\mathbb{P}(Y,Z))$};
+\end{tikzpicture}
+}
+```
+
+The marginal score is an orthogonal projection of the joint score and the conditional score is the residual.
+:::
+
+Let's summarize all these results.
+
+:::: callout-note
+# Conditional and Marginal Scores
+
+::: {#thm-conditional-scores}
+Let $\model = \model(Y,Z)$ be a model over joint distributions $\p(Y,Z)$ of variables $(Y,Z)$ and let $\model_{\eps}(Y,Z)$ be a differentiable path with score $s(y,z)$. This path induces marginal and conditional paths $\model_{\eps}(Z)$ and $\model_{\eps}(Y|Z)$ with scores
+
+$$
+\begin{aligned}
+s(z) &= \E[s(Y,Z)|Z] \\
+s(y|z) &= s(y,z) - \E[s(Y,Z)|Z] \\
+\end{aligned}
+$$
+
+which sum to $s(y,z)$. The marginal score $s_Z$ is the orthogonal projection of the joint score $s_{Y,Z}$ onto the span of all $\eltwop$ functions of $z$ alone, while the conditional score $z_{Y|Z}$ is the residual of this projection. Therefore $s_{Y|Z} \perp s_Z$ in $\eltwop$. Moreover
+
+$$
+\begin{aligned}
+\E[s(Z)] &= 0 \\
+\E[s(Y|Z)| Z] &= 0, \\
+\end{aligned}
+$$
+:::
+::::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+# Proof Sketch for Mean-Square Scores
+
+Let $\model_\eps$ be a (mean-square) differentiable path over distributions $\p(Y,Z)$ and let $\eps_n \to 0$ and $\p_n = \p_{\eps_n}$ be a sequence along the path with $\p = \p_{\eps=0}$. Let $\q(Y,Z)$ be a dominating measure constructed for the sequence $\p_n$ and let $p_n(y,z) = \frac{\dd \p_n(Y,Z)}{\dd \q(Y,Z)}$ be densities. Let $Q(Z)$ and $\p(Z)$ be the marginal distributions of $\q(Y,Z)$ and $\p(Y,Z)$, respectively, so that $p_n(z) = \frac{\dd \p_n(Z)}{\dd \q(Z)}$ are marginal densities.
+
+Since the path of joint distributions is differentiable, there is a function $g(y,z)$ such that $$
+\left\|
+\frac{\sqrt{p_n(y,z)} - \sqrt{p_0(y,z)}}{\eps_n} - g(y,z)
+\right\|_{\eltwop[\q(Y,Z)]} \to 0
+$$
+
+Our goal is to show that the path of marginal distributions is also differentiable, i.e. that there is a function $g(z)$ for which $$
+\left\|
+\frac{\sqrt{p_n(z)} - \sqrt{p(z)}}{\eps_n} - g(z)
+\right\|_{\eltwop[\q(Z)]} \to 0
+$$
+
+First decompose
+
+$$
+\sqrt{p_n(z)} - \sqrt{p(z)} = \frac{p_n(z) - p(z)}{\sqrt{p_n(z)} + \sqrt{p(z)}}
+$$
+
+and notice that, by definition, $$
+\begin{aligned}
+p_n(z) - \p(z)
+&=
+\int p_n(y,z) - p(y,z) \dd \q(Y|Z) \\
+&= 
+\int \left(\sqrt{p_n(y,z)} - \sqrt{p(y,z)}\right) \left(\sqrt{p_n(y,z)} + \sqrt{p(y,z)}\right) \dd \q(Y|Z)
+.
+\end{aligned}
+$$
+
+This is the equivalent of the more familiar formula $p(z) = \int p (y,z) \dd y$ except that in this case we do not assume that $\q$ is a product measure. In the familiar case we see $\dd y = \dd \mu(Y)$ because $\dd \mu(Y) = \dd \mu(Y|Z)$, i.e. Lebesgue measure is a product measure.
+
+Combining these observations,
+
+$$
+\frac{\sqrt{p_n(z)} - \sqrt{p(z)}}{\eps_n}
+= 
+\int \underbrace{\frac{\sqrt{p_n(y,z)} - \sqrt{p(y,z)}}{\eps_n}}_{g_n(y,z)}  \underbrace{\frac{\sqrt{p_n(y,z)} + \sqrt{p(y,z)}}{\sqrt{p_n(z)} + \sqrt{p(z)}}}_{h_n(y,z)}  \dd \q(Y|Z).
+$$
+
+$g_n \overset{\eltwop[Q(Y,Z)]}\to g$ by assumption and since $\sqrt{p_n(y,z)} \overset{\eltwop[Q(Y,Z)]} \to \sqrt{p(y,z)}$, the second factor $h_n$ can be shown to converge in $\eltwop[Q(Y,Z)]$ to $h(y,z) = \sqrt{p(y,z)/p(z)} = \sqrt{p(y|z)}$ with careful handling of the denominator.
+
+Therefore one might conjecture that the $\eltwop[Q(Z)]$ limit of the above is $\int g(y,z) h(y,z) \dd \q(Y|Z)$ and indeed this is the case because
+
+$$
+\begin{aligned}
+\int \left(
+\int g_n h_n - gh \dd \q(Y|Z)
+\right)^2 
+\dd \q(Z) 
+&\le 
+\int 
+\int (g_n h_n - gh)^2 \dd \q(Y|Z)
+\dd \q(Z) \\
+&=
+\int (g_n h_n - gh)^2 \dd \q(Y,Z)
+\to 0
+\end{aligned}
+$$ by Jensen's inequality ($0 \le \V[U] = \E[U^2] - \E[U]^2 \implies \E[U]^2 < \E[U^2]$) and the aforementioned convergences.
+
+This shows that $g(z) = \int g(y,z) \sqrt{p(y|z)} \dd Q(Y|Z)$. Defining $s(z) = 2 g(z) / \sqrt{p(z)}$ and $s(y,z) = 2 g(y,z) / \sqrt{p(y,z)}$ gives
+
+$$
+s(z) = \int s(y,z) p(y|z) \dd Q(Y|Z) = \int s(y,z) \dd P(Y|Z) = \E[s(Y,Z)|Z=z].
+$$
+
+Similar arguments may be used to derive the conditional score $s(y|z)$ and then the other facts follow algebraically.
+:::
+
+Given this characterization, it's easy to derive the tangent set of a model that has a restricted factor. In a model with a restricted factor, paths can only change the other factors and the scores are the "directions" that change only the non-restricted factors. For example if $p(z)$ is fixed in the model but $p(y|z)$ is free, then the scores are $s(y,z) = s(y|z) + 0$, i.e. the $z$-component $s(z)=0$ is fixed at $0$ so as to not change the fixed marginal density $p(z)$.
+
+:::: callout-note
+# Tangent Sets in Factored Models
+
+::: {#thm-factored-tset}
+Let $\model$ be locally nonparametric around some distribution $\p(Y,Z) = \p(Y|Z)\p(Z)$.
+
+Let $\model^{(Z)} = \{\p(Y|Z)\tilde\p(Z): \tilde\p \in \model\}$, be a restriction of the original model where all the conditional distributions $\p(Y|Z)$ are replaced with the fixed conditional distribution $\p(Y|Z)$, but the marginal distributions of $Z$ are allowed to vary. Then the tangent set at $\p$ in the restricted model is the set of all $Z$-marginal scores in the original model, i.e.
+
+$$
+\tset^{(Z)}_\p = \tset_\p (Z),
+$$
+
+which is all $\eltwopz$ functions of $z$ alone.
+
+Similarly, if $\model^{(Y|Z)} = \{\tilde\p(Y|Z)\p(Z): \tilde\p \in \model\}$, a mutation of the original model where all the *marginal* distributions are fixed, but the *conditional* distributions can still vary, then
+
+$$
+\tset^{(Y|Z)}_\p = \tset_\p (Y|Z),
+$$
+
+which is all $\eltwopz$ functions of $(y,z)$ with $z$-conditional mean zero.
+:::
+::::
 
 ## Pathwise Differentiability
 
-Let's dig into the left-hand side term 
+Now that we understand a bit more about the set of all scores we can return to the central identity above (definition @thm-RAL-IFs). By comparing the asymptotic behavior while moving quickly along differentiable paths implied by regularity to the behavior implied by asymptotic linearity, we deduced that any RAL estimator (with influence function $\phi$) satisfies
+
+$$
+\dot\Psi_\p s = \p s\phi
+$$
+
+for any differentiable path through $\p$ with score $s$. In other words, that equality is satisfied for all scores $s \in \tset_\p$, the tangent set of the model $\model$ at the distribution $\p$.
+
+Let's dig into the left-hand term:
 
 $$
 \dot\Psi_{\p} (s) \overset{\mathrm{def}} 
 = \lim_{\eps \to 0} \frac{\Psi(\p^{(\eps)}) - \Psi(\p^{(0)})}{\eps}
-= \frac{\dd}{\dd \eps} \Psi(\p^{(\eps)}) \bigg|_{\eps=0}
-$$ 
+= \left. \frac{\dd}{\dd \eps} \right|_{\eps=0} \Psi(\p^{(\eps)}) 
+.
+$$
 
-The first thing to notice is that for any fixed path, this is a standard derivative of a one-dimensional function of $\epsilon$. What we're measuring is the (instantaneous) rate of change of the estimand as we shift the underlying distribution along the path away from $\eps=0$. This is illustrated in @fig-pathwise-derivative. 
+For any fixed path this is a standard, vanilla derivative of a one-dimensional function of $\epsilon$. It measures the (instantaneous) rate of change of the estimand as we shift the underlying distribution along the path away from $\eps=0$. This is illustrated in @fig-pathwise-derivative.
 
 ::: {#fig-pathwise-derivative}
 ``` tikz
@@ -460,7 +774,7 @@ The first thing to notice is that for any fixed path, this is a standard derivat
   \draw[black, line width=0.5pt, ->] (xAxisStart) -- (xAxisEnd) node[below right=2pt] {$\epsilon$};
 
   % Draw the y-axis with numeric ticks -0.1, 0, 1
-  \draw[black, line width=0.5pt, ->] (yAxisStart) -- (yAxisEnd);
+  \draw[black, line width=0.5pt, ->] (yAxisStart) -- (yAxisEnd) node[right] {$\Psi$};
 
   %--- Smooth curve \Psi(\mathbb{P}^{(\epsilon)}) and its label ---
   \draw[magenta, dashed, line width=0.8pt] plot[smooth] coordinates {
@@ -507,14 +821,68 @@ The first thing to notice is that for any fixed path, this is a standard derivat
 The pathwise derivative evaluated at a particular score $s$ gives the rate of change of the estimand if we move the underlying distribution in the direction of the score.
 :::
 
-We can conceptualize the "slope in the direction $s$" $\dot\Psi_{\p}(s)$ as a function mapping from scores $s \in \eltwop$ (recall @def-score) to numbers. What's interesting is that we can find that slope $\dot\Psi_{\p}(s)$ by taking the inner product of $s$ with *any* influence function $\phi$ of a RAL estimator (it doesn't matter which, the result must be the same!). But that's assuming there *is* a RAL estimator- in the proof above we simply presupposed that existence! We should say that *if* there is any RAL estimator of the estimand in the model, then $\dot\Psi_{\p}(s) = \p s\phi$. Since $\p s \phi$ is an inner product, $s \mapsto \p s\phi$ is a bounded (continuous) linear functional acting on $\eltwop$ (review @sec-app-riesz for details and definitions). That, in turn, implies $\dot\Psi_{\p}$ is also a bounded linear functional. 
+However, that slope is generally different depending on the path one chooses. There may be paths along with the estimand is increasing rapidly, paths along which it is decreasing, and paths along which it is constant. That is why we write $\dot\Psi_{\p}(s)$ as a function of $s$, the "direction" (and "speed") of the path. Since the slope is taken at $\epsilon=0$, the only thing that matters is the immediate direction of the path at $\p$, i.e. the score $s$. The instantaneous rate of change of the estimand along two different paths with the same score will be the same. Because it is a derivative along a path, we aptly call the function $s \mapsto \dot\Psi_\p(s)$ mapping from $\tset_\p$ to $\reals$ the *pathwise derivative* of the estimand $\Psi$ at the distribution $\p$ in the model $\model$*.*
+
+The identity $\dot\Psi_\p (s) = \p s\phi$ says that the slope $\dot\Psi_{\p}(s)$ may be found by taking the inner product of $s$ with *any* influence function $\phi$ of a RAL estimator. In fact, it doesn't matter *which* RAL estimator, if there are multiple: the result must be the same. We'll return to this point in the next section but we are actually getting ahead of ourselves because we are assuming there *is* a RAL estimator. The argument for @thm-RAL-IFs only established a condition that must be met by any RAL estimator, not that such an estimator exists. In fact, the result implies something about when RAL estimators *can* exist.
+
+Notice that on the right-hand side, $\p s \phi$ is an inner product. Seen as a function $s \mapsto \p s\phi$ acting on the tangent set $\tset_\p$, the inner product is a bounded (i.e. continuous) linear functional (see @def-bounded-functional and @exm-cont-inner-prod). Informally, a small change in the input score must always translate to a small change in the inner product with the fixed function $\phi$. Since this inner product is equal to the pathwise derivative, that implies that the pathwise derivative must *also* be linear and continuous in the same sense: if we look at two paths that go in similar directions, the rate of change of the estimand must be similar on those paths.
+
+The interesting thing is that the pathwise derivative has nothing to do with the estimator: it is defined purely by the model $\model$, the distribution $\p$ of interest within it, and the estimand $\Psi$. The pathwise derivative either exists and is linear and continuous across scores or it isn't. If it isn't a continuous linear functional, then it's not possible for it to be equal to any inner product. But since that equality must hold for any RAL estimator, if the pathwise derivative is not a continuous linear functional, then there cannot be any RAL estimator for that estimand in that model in the first place. 
 
 :::: callout-note
 # Pathwise Differentiability
 ::: {#def-pathwise-differentiability}
-If 
+An estimand $\Psi$ is *pathwise differentiable* at $\p \in \model$ if the pathwise derivative $\dot\Psi_\p$ exists and is linear and continuous across the tangent set $\mathcal P_\p$.
+
+If an estimand is not pathwise differentiable, there is no asymptotically linear estimator that is regular in that model.
 :::
 ::::
+
+Since continuity is equivalent to boundedness (in the sense of functionals; see @def-bounded-functional), an estimand is pathwise differentiable if and only if there is a "direction of maximum slope". This is, in my opinion, the best intuitive definition of pathwise differentiability. There cannot be some direction you can move in away from $\p$ along which $\Psi$ changes arbitrarily quickly. 
+
+::: callout-note 
+Review @def-continuity for the definition of continuity and @sec-app-riesz for details and definitions relating to Hilbert spaces and Riesz representation. Understanding the details is not nearly as important as understanding the big-picture implications here so it's ok if you skip the mathematical details for now and come back to them on a second pass later.
+:::
+
+::: {#exm-unbounded-estimand}
+Let $\mathcal P$ be all distributions of a continuous variable $Z$. Let's say that our goal is to estimate the value of the density function of $z$ at the point $z=0$. 
+
+We'll show that there is no RAL estimator of this quantity by establishing that the pathwise derivative is not bounded over the tangent set $\tset_\p$ (at any $\p$). The intuition is that we can find a path that comes very, very close to modifying the density *only* at the point $z=0$. In other words, we can modify the estimand by arbitrary amounts essentially without changing the overall density. 
+
+Fix a distribution $\p$. Since the model is nonparametric, the tangent set $\tset_\p$ is all of $\eltwopz$. Since that's the case, any zero-mean $\eltwop$ function can be a score. 
+
+Define the sequence of probabilities $t_n = \p\{-1/n \le Z \le 1/n\}$. Since these are probabilities of smaller and smaller sets over a continuous random variable they must shrink to zero. 
+
+We'll consider a sequence of scores 
+
+$$
+s_n(z) = \frac{1\left(-\frac{1}{n} \le z \le \frac{1}{n}\right) - t_n}{\sqrt{t_n(1-t_n)}}
+$$ 
+
+The random variable $1(-1/n \le Z \le 1/n)$ is $1$ with probability $t_n$ and $0$ with probability $1-t_n$, i.e. it is $\bern(t_n)$. Therefore it has mean $t_n$ and standard deviation $\sqrt{t_n(1-t_n)}$. Consequently, the mean of $s_n(Z)$ is zero and its standard deviation ($\eltwop$ norm) is $1$. Thus $s_n$ are all $\eltwop$ functions with mean zero as desired, i.e. these are scores in the tangent set $\tset_\p$. Moreover these are unit-norm scores.
+
+To find the pathwise derivatives $\dot\Psi(s_n)$, let's consider a sequence of paths $\model_\eps^{(n)}$ that have the desired scores. For this we can use the convex paths $p_\eps^{(n)} = (1+\eps s_n)p$ that we previously used in @exm-path-convex and @exm-convex-path-score. Now we can evaluate the pathwise derivative directly:
+
+$$
+\begin{aligned}
+\dot\Psi(s_n) 
+&= \left. \frac{\dd}{\dd \eps} \right|_{\eps=0} \Psi(\p^{(\eps)}) \\
+&= \left. \frac{\dd}{\dd \eps} \right|_{\eps=0} (1+\eps s_n(0))p(0) \\
+&= s_n(0) p(0) \\
+&= \frac{1 - t_n}{\sqrt{t_n(1-t_n)}} p(0) \\
+\end{aligned}
+$$
+
+Since $t_n$ converges to zero, the denominator blows up. Since we only considered unit scores, we proved that there is no pure direction of maximum increase: no matter what direction we look, there is always another direction for which the pathwise derivative is bigger. Therefore the pathwise derivative is unbounded (not continuous). As a consequence, there can be no RAL estimator for the density at a point when the model is all continuous densities.
+:::
+
+<!-- 
+Exercise: prove that the density at a point CAN have a RAL estimator in a normal localtion model?
+
+Before getting to that let's address a minor technicality. In what follows I'll sometimes refer to $\bar\tset_\p$, the linear closure of $\tset_\p$. For the most part you can just think of this as identical to $\tset_\p$ because pretty much all of the tangent sets we'll work with in this book are already tangent spaces. The reason we need to include linear combinations and limits of scores if they're not already there is so that we can define the pathwise derivative function on a full vector space and thus use Riesz representation. 
+-->
+
+
 
 ```{=html}
 <!-- 

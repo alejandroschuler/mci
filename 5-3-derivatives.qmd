@@ -1,0 +1,15 @@
+::: content-hidden
+{{< include _macros.qmd >}}
+:::
+
+# Derivatives
+
+## Ordinary Derivative
+
+## Functional Derivative
+
+### Gateaux and Hadamard Derivatives
+
+## Taylor Theorem
+
+### Exact Remainder
