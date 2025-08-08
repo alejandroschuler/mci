@@ -87,15 +87,21 @@ $$ Because $\eps_n \sim 1/\sqrt n$ and the choice of differentiable path was arb
 # Influence Functions of RAL Estimators
 
 ::: {#thm-RAL-IFs}
-If $\phi$ is an influence function of an estimator that is RAL at $\p \in \mathcal P$, then $$
+If $\phi$ is an influence function of an estimator that is RAL at $\p \in \mathcal P$, then
+
+$$
 \lim_{\eps \to 0} \frac{\Psi(\p^{(\eps)}) - \Psi(\p^{(0)})}{\eps} = \p s\phi
 $$
 
 for any differentiable path $\model_\eps = \{\p^{(\eps)}: \eps \in \reals\}$ with score function $s$.
 
-We often abbreviate the left-hand side of the above with the notation $\dot\Psi(s)$ to indicate that it is a derivative of $\Psi$ at $\p$ in the "direction" $s$ in which case the identity is written cleanly as $$
+We often abbreviate the left-hand side of the above with the notation $\dot\Psi(s)$ to indicate that it is a derivative of $\Psi$ at $\p$ in the "direction" $s$ in which case the identity is written cleanly as
+
+$$
 \dot\Psi_{\p}(s) = \p s\phi.
 $$
+
+Any asymptotically linear estimator with influence function $\phi$ that satisfies this identity for all differentiable paths is regular at $\p \in \model$.
 :::
 ::::
 
@@ -163,6 +169,8 @@ Now let $n_m$ be an arbitrary, diverging, positive sequence of integers and $c_m
 Now we deal with the issue of the absolute value on the sequence $c_m$. To do this we consider a sequence along a path $\model_\eps$ indexed by $\eps_n = c_n n^{-1/2}$ with $c_n \to -1$ instead of $c_n \to 1$. This is exactly the same as a sequence with $c_n \to 1$ but along the "reversed" path $\model_{-\eps}$ which has score $-s$ (see @exr-scaled-score). Therefore along such sequences $c_n \eps_n^{-1}[f(\eps_n) - f(0)] \to -\dot f$ by our starting proposition. Multiplying both sides by $-1$ we obtain that $(-c_n) \eps_n^{-1}[f(\eps_n) - f(0)] \to \dot f$ for any sequence $c_n \to -1$ and $\eps_n = c_n n^{-1/2}$. Since $-c_n \to 1$, by the argument at the beginning of this proof we know that $\eps_n^{-1}[f(\eps_n) - f(0)] \to \dot f$ for any sequence $\eps_n = c_n n^{-1/2}$ now for either $c_n \to 1$ *or* $c_n \to -1$.
 
 We may now return to our original sequence $c_m = \eta_m n_m$ whose absolute value converges to 1. In a mild abuse of notation let $c_m^+$ be the subsequence of the non-negative entries of $c_m$ and let $c_m^-$ be the negative entries (with corresponding subsequences $n_m^+$ and $n_m^-$ which are both diverging sequences of integers). If $c_m^+$ has a finite number of elements then $c_m \to -1$ and otherwise if $c_m^-$ has a finite number of elements then $c_m \to 1$. Either way $\eta_m^{-1}[f(\eta_m) - f(0)] \to \dot f$ by the argument of the paragraph above. In the case that both $c_m^+$ and $c_m^-$ are infinite sequences, $|c_m| \to 1$ implies that $c_m^+ \to 1$ and $c_m^- \to -1$. Therefore we may divide $eta_m$ into the two corresponding sequences $\eta_m^+$ and $\eta_m^-$ and since $(\eta_m^{\pm})^{-1}[f(\eta_m^{\pm}) - f(0)] \to \dot f$ for either part of the sequence it must be that $\eta_m^{-1}[f(\eta_m) - f(0)] \to \dot f$ for the entire sequence.
+
+Lastly, the claim that any asymptotically linear estimator with influence function $\phi$ that satisfies $\dot\Psi_\p(s)=\p s\phi$ for all differentiable paths is automatically regular at $\p \in \model$ comes from running the argument above in reverse: if the conclusion holds and asymptotic linearity holds, then regularity must hold or else a contradiction arises (see also Proposition 1 in Chapter 3 or @bkrw).
 :::
 
 This is an astounding result because it connects two seemingly unrelated things: the left-hand side is the rate of change in the estimand as we move the underlying distribution along a path. That has nothing to do with any estimator. The right-hand side is some measure of the "angle" between the influence function of an estimator and the direction of the path. By assuming regularity and asymptotic normality we have managed to connect these two seemingly unrelated quantities. What this means about the set of possible influence functions may still be unclear, but for the moment I hope you can appreciate the result as a very interesting connection nonetheless!
@@ -352,8 +360,7 @@ $$
 
 Thus in this case $\tset$ is a two-dimensional set of functions.
 
-<div>
-
+::: {#fig-parametric-tangent-sets}
 ``` tikz
 \resizebox{7cm}{!}{
 \begin{tikzpicture}
@@ -403,8 +410,7 @@ Thus in this case $\tset$ is a two-dimensional set of functions.
 ```
 
 A cartoon representation of the models $\mathcal P$ and $\mathcal P_{\mu +}$ discussed in this example. The arrows emanating from $\norm(0,1)$ indicate scores of paths in $\mathcal P$, but only the orange arrow is a score of a path in $\mathcal P_{\mu +}$.
-
-</div>
+:::
 
 If we instead restricted the model to be $\model_\mu = \{\norm(\mu,1): \mu \in \reals\}$ by fixing $\sigma^2 =1$ (presume we knew this a-priori), then the tangent set would be all linear combinations of $s_\mu$ alone, i,e, $\{cs_\mu: c \in \reals\}$, a one-dimensional subset of the tangent set for the larger model.
 
@@ -827,10 +833,11 @@ The identity $\dot\Psi_\p (s) = \p s\phi$ says that the slope $\dot\Psi_{\p}(s)$
 
 Notice that on the right-hand side, $\p s \phi$ is an inner product. Seen as a function $s \mapsto \p s\phi$ acting on the tangent set $\tset_\p$, the inner product is a bounded (i.e. continuous) linear functional (see @def-bounded-functional and @exm-cont-inner-prod). Informally, a small change in the input score must always translate to a small change in the inner product with the fixed function $\phi$. Since this inner product is equal to the pathwise derivative, that implies that the pathwise derivative must *also* be linear and continuous in the same sense: if we look at two paths that go in similar directions, the rate of change of the estimand must be similar on those paths.
 
-The interesting thing is that the pathwise derivative has nothing to do with the estimator: it is defined purely by the model $\model$, the distribution $\p$ of interest within it, and the estimand $\Psi$. The pathwise derivative either exists and is linear and continuous across scores or it isn't. If it isn't a continuous linear functional, then it's not possible for it to be equal to any inner product. But since that equality must hold for any RAL estimator, if the pathwise derivative is not a continuous linear functional, then there cannot be any RAL estimator for that estimand in that model in the first place. 
+The interesting thing is that the pathwise derivative has nothing to do with the estimator: it is defined purely by the model $\model$, the distribution $\p$ of interest within it, and the estimand $\Psi$. The pathwise derivative either exists and is linear and continuous across scores or it isn't. If it isn't a continuous linear functional, then it's not possible for it to be equal to any inner product. But since that equality must hold for any RAL estimator, if the pathwise derivative is not a continuous linear functional, then there cannot be any RAL estimator for that estimand in that model in the first place.
 
 :::: callout-note
 # Pathwise Differentiability
+
 ::: {#def-pathwise-differentiability}
 An estimand $\Psi$ is *pathwise differentiable* at $\p \in \model$ if the pathwise derivative $\dot\Psi_\p$ exists and is linear and continuous across the tangent set $\mathcal P_\p$.
 
@@ -838,26 +845,37 @@ If an estimand is not pathwise differentiable, there is no asymptotically linear
 :::
 ::::
 
-Since continuity is equivalent to boundedness (in the sense of functionals; see @def-bounded-functional), an estimand is pathwise differentiable if and only if there is a "direction of maximum slope". This is, in my opinion, the best intuitive definition of pathwise differentiability. There cannot be some direction you can move in away from $\p$ along which $\Psi$ changes arbitrarily quickly. 
-
-::: callout-note 
+::: callout-warning
 Review @def-continuity for the definition of continuity and @sec-app-riesz for details and definitions relating to Hilbert spaces and Riesz representation. Understanding the details is not nearly as important as understanding the big-picture implications here so it's ok if you skip the mathematical details for now and come back to them on a second pass later.
 :::
 
+A pathwise differentiable estimand "varies smoothly" over the model the same way that a ordinary function with a derivative that is continuous has no kinks. At the point of a kink or discontinuity in the estimand, no estimator can be regular.
+
+:::: {.callout-important appearance="minimal"}
+::: {#exr-discontinuous-estimand}
+Let $Z$ be normally distributed with known variance $1$ but unknown mean $\mu$, i.e. $\model = \{\norm(\mu,1):\mu \in \reals\}$. Presume we are interested in estimating the quantity $\Psi(\p) = 1(\E_\p[Z] > 0)$, i.e. whether the mean is positive or not (we are estimating, not testing).
+
+a.  Draw a plot of the function $\mu \mapsto \Psi(\norm(\mu,1))$
+b.  At $\p = \norm(0,1)$, do you think $\Psi$ is pathwise differentiable? If not, is it because the derivative doesn't exist or is it because the derivative is not continuous?
+:::
+::::
+
+The example in @exr-discontinuous-estimand is contrived. More often the types of "kinks" or discontinuities that cause problems are difficult to visualize in lower-dimensions. It's not as if the value of most practically interesting nondifferentiable estimands changes suddenly as we move along a single differentiable path. For the most part, the fact that the path is differentiable means that the densities change smoothly as we walk in that fixed direction and that usually implies smooth behavior of the estimand. The kinks are only visible if you rotate around and consider various different directions. I like to imagine standing at a point $\p$ on the "surface" $\Psi(\p)$ and looking in some direction: whatever direction I look in, I can see how steep the ascent or descent is. The problem with most practially interesting estimands that are not differentiable isn't that there is a discontinuity or kink in any given direction, it's that no matter what direction we look at, there is always another direction where the slope is steeper. In infinite dimensions, kinks can also occur in this "rotational" sense. An estimand is pathwise differentiable at a point in a model only if there is a "direction of maximum slope".
+
 ::: {#exm-unbounded-estimand}
-Let $\mathcal P$ be all distributions of a continuous variable $Z$. Let's say that our goal is to estimate the value of the density function of $z$ at the point $z=0$. 
+Let $\mathcal P$ be all distributions of a continuous variable $Z$. Let's say that our goal is to estimate the value of the density function of $z$ at the point $z=0$. There generally isn't a good motivation for wanting to know this, it's just a simple example that illustrates ideas that apply identically to more complicated estimands.
 
-We'll show that there is no RAL estimator of this quantity by establishing that the pathwise derivative is not bounded over the tangent set $\tset_\p$ (at any $\p$). The intuition is that we can find a path that comes very, very close to modifying the density *only* at the point $z=0$. In other words, we can modify the estimand by arbitrary amounts essentially without changing the overall density. 
+We'll show that there is no RAL estimator of the density at a point by establishing that the pathwise derivative is not bounded over the tangent set $\tset_\p$ (at any $\p$). The intuition is that we can find a path that comes very, very close to modifying the density *only* at the point $z=0$. In other words, we can modify the estimand by arbitrary amounts essentially without changing the overall density.
 
-Fix a distribution $\p$. Since the model is nonparametric, the tangent set $\tset_\p$ is all of $\eltwopz$. Since that's the case, any zero-mean $\eltwop$ function can be a score. 
+Fix a distribution $\p$. Since the model is nonparametric, the tangent set $\tset_\p$ is all of $\eltwopz$. Since that's the case, any zero-mean $\eltwop$ function can be a score.
 
-Define the sequence of probabilities $t_n = \p\{-1/n \le Z \le 1/n\}$. Since these are probabilities of smaller and smaller sets over a continuous random variable they must shrink to zero. 
+Define the sequence of probabilities $t_n = \p\{-1/n \le Z \le 1/n\}$. Since these are probabilities of smaller and smaller sets over a continuous random variable they must shrink to zero.
 
-We'll consider a sequence of scores 
+We'll consider a sequence of scores
 
 $$
 s_n(z) = \frac{1\left(-\frac{1}{n} \le z \le \frac{1}{n}\right) - t_n}{\sqrt{t_n(1-t_n)}}
-$$ 
+$$
 
 The random variable $1(-1/n \le Z \le 1/n)$ is $1$ with probability $t_n$ and $0$ with probability $1-t_n$, i.e. it is $\bern(t_n)$. Therefore it has mean $t_n$ and standard deviation $\sqrt{t_n(1-t_n)}$. Consequently, the mean of $s_n(Z)$ is zero and its standard deviation ($\eltwop$ norm) is $1$. Thus $s_n$ are all $\eltwop$ functions with mean zero as desired, i.e. these are scores in the tangent set $\tset_\p$. Moreover these are unit-norm scores.
 
@@ -874,20 +892,50 @@ $$
 $$
 
 Since $t_n$ converges to zero, the denominator blows up. Since we only considered unit scores, we proved that there is no pure direction of maximum increase: no matter what direction we look, there is always another direction for which the pathwise derivative is bigger. Therefore the pathwise derivative is unbounded (not continuous). As a consequence, there can be no RAL estimator for the density at a point when the model is all continuous densities.
+
+With more setup and more care taken to define tangent sets, etc., very similar arguments apply if we are estimating the value of a prediction function at a point (i.e. $\E[Y|X=x]$) or a conditional average treatment effect ($\E[Y|X=x,A=1] - \E[Y|X=x,A=0]$) in nonparametric models. These are important examples of practically relevant estimands for which there are no RAL estimators! The theory we develop in the rest of this book does not apply to these estimands which is why approaches to estimate them can be more ad-hoc, context dependent, and difficult to build formal inference around.
 :::
 
-<!-- 
-Exercise: prove that the density at a point CAN have a RAL estimator in a normal localtion model?
+:::: {.callout-important appearance="minimal"}
+::: {#exr-density-at-point-normal-location}
+Whether an estimand is pathwise differentiable or not depends on the model. Imagine that we know $Z$ is normally distributed with known variance $1$ but unknown mean $\mu$, i.e. $\model = \{\norm(\mu,1):\mu \in \reals\}$ and we are interested in estimating the value of the density $p(z)$ at the point $z=0$. This is again a contrived example but the point is to illustrate ideas in the simplest setting possible. Recall that the density of a $\norm(\mu,1)$ random variable is $p(z) = (2\pi)^{-1/2} e^{-(z-\mu)^2/2}$.
 
-Before getting to that let's address a minor technicality. In what follows I'll sometimes refer to $\bar\tset_\p$, the linear closure of $\tset_\p$. For the most part you can just think of this as identical to $\tset_\p$ because pretty much all of the tangent sets we'll work with in this book are already tangent spaces. The reason we need to include linear combinations and limits of scores if they're not already there is so that we can define the pathwise derivative function on a full vector space and thus use Riesz representation. 
+a.  What is the tangent set $\tset_\p$ at any point $\p$ in this model? What is the dimension of this tangent set?
+b.  For any score $s \in \tset_\p$, construct the convex path $p_\eps = (1+\eps s)p$ and use it to compute the pathwise derivative $\dot\Psi(s)$.
+c.  What is $\dot\Psi(s)/ \|s\|$? According to @def-bounded-functional and @def-pathwise-differentiability what does this imply about the pathwise differentiability of the estimand in this model?
+d.  Can you guess what a RAL estimator of $p(0)$ might be?
+:::
+::::
+
+Pathwise differentiability does not necessarily imply that there *is* a RAL estimator. It only provides the possibility of one existing. In the next part of this book we will study how to actually build efficient estimators and we will see that we need certain assumptions even to guarantee asymptotic linearity. However, the nature of these problems depends on the precise estimand in question. From a big picture perspective it is safe to say that pathwise differentiability implies that a RAL estimator exists at least in principle.
+
+## Gradients of the Estimand 
+
+<!-- 
+In section above say something in a callout-note relating the pathwise derivative to hadamard derivative. note pathwise deriv is more bespoke
+
+Presume pathwise diff on tset. Extend functional to closrue of tset. Then RRT says there is a *gradient* (in closure of tset). the canonical gradient is the score corresponding to path of steepest increase of the estimand (if you normalize it and comparators). The gradient is the unique element in the tset that satisfies the identity. Thus it is a (possible) IF. 
+
+Add anything in the orth comp of the tnagent space to get another gradient. Define canonical vs other grads. This set of gradients is the only set of fns in eltwopz that satisfy the identity. They are the only possible IFs of RAL estimators. Fewer assumptions => bigger the model, the bigger tangent set is, the fewer orthogonal directionst here are => the fewer possible gradients/ RAL estimators there are. In the nonparametric limit, there is only 1 gradient (canonical) which means that all RAL estimators are asymptotically equivalent (have same IF). No assumptions => all RAL estimators equivalent. More assumptions/restrictions => more possible RAL estimators.
+
+Refinement of earlier statmenet: if estimand is pathwise diff, any asymptotically linear estimand whose IF is a gradient of the estimand is automatically regular!
+
+Recall that efficiency is given by norm of IFs. The smallest-norm IF is the canonical one (in closure of tset) because of pythagorean theorem. Therefore to get an efficient estimator, we need to construct an estimator that has the influence function equal to the canonical gradient. We also call this the "efficient influence function". The var of the EIF is the optimal asymptoic var. 
+
+Optimal variance is related to how quickly estimand can change. The norm of the EIF is exactly the pathwise derivative in the direction of the canonical gradient. data can look compatible with a set of distributions: if estimand can be highly variable across that set (there's a direction of big slope) then we're naturally going to be uncertain of its value.
+
+Everything we've done has led us to this one point. for any estimand in model etc. the EIF is everything we need to know to build an optimnal estimator (caveat estimands that don't ahve one). Sicne so important, next chapter we will see how to derive the EIF for most common models. In next part we will see how to use that to create efficient estimators from scratch for any relevant problem.
 -->
 
-
+```{=html}
+<!-- 
+Before getting to that let's address a minor technicality. In what follows I'll sometimes refer to $\bar\tset_\p$, the linear closure of $\tset_\p$. For the most part you can just think of this as identical to $\tset_\p$ because pretty much all of the tangent sets we'll work with in this book are already tangent spaces. The reason we need to include linear combinations and limits of scores if they're not already there is so that we can define the pathwise derivative function on a full vector space and thus use Riesz representation. 
+-->
+```
 
 ```{=html}
 <!-- 
 Implications:
-- If a RAL estimator exists, model is smooth: pathwise dfff = if the distribution varies smoothly, the estimand should vary smoothly as well (very smoothly, and locally uniformly even). If estimand is smooth, that guarantees the possibility of a RAL estimator (usually modulo regression rate stuff, see next part) See Proposition 1 in Chapter 3 of @bkrw
 - there is a minimum-var RAL estimator: the set of IFs is a linear variety in L2P, there is a unique min var element
 - the more scores there are (tangent set/space), the fewer IFs there are, and vice versa: estimation is easier in smaller models b/c more IFs = more chance for a small one 
 -->

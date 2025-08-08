@@ -252,6 +252,7 @@ window.Quarto = {
   <li><a href="#factoring" id="toc-factoring" class="nav-link" data-scroll-target="#factoring"><span class="header-section-number">3.2.1</span> Factoring</a></li>
   </ul></li>
   <li><a href="#pathwise-differentiability" id="toc-pathwise-differentiability" class="nav-link" data-scroll-target="#pathwise-differentiability"><span class="header-section-number">3.3</span> Pathwise Differentiability</a></li>
+  <li><a href="#gradients-of-the-estimand" id="toc-gradients-of-the-estimand" class="nav-link" data-scroll-target="#gradients-of-the-estimand"><span class="header-section-number">3.4</span> Gradients of the Estimand</a></li>
   </ul>
 </nav>
     </div>
@@ -360,13 +361,16 @@ Influence Functions of RAL Estimators
 </div>
 <div class="callout-body-container callout-body">
 <div id="thm-RAL-IFs" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 3.2</strong></span> If <span class="math inline">\(\phi\)</span> is an influence function of an estimator that is RAL at <span class="math inline">\({\mathbb{P}}\in \mathcal P\)</span>, then <span class="math display">\[
+<p><span class="theorem-title"><strong>Theorem 3.2</strong></span> If <span class="math inline">\(\phi\)</span> is an influence function of an estimator that is RAL at <span class="math inline">\({\mathbb{P}}\in \mathcal P\)</span>, then</p>
+<p><span class="math display">\[
 \lim_{\epsilon\to 0} \frac{\Psi({\mathbb{P}}^{(\epsilon)}) - \Psi({\mathbb{P}}^{(0)})}{\epsilon} = {\mathbb{P}}s\phi
 \]</span></p>
 <p>for any differentiable path <span class="math inline">\({\mathcal{P}}_\epsilon= \{{\mathbb{P}}^{(\epsilon)}: \epsilon\in \mathbb{R}\}\)</span> with score function <span class="math inline">\(s\)</span>.</p>
-<p>We often abbreviate the left-hand side of the above with the notation <span class="math inline">\(\dot\Psi(s)\)</span> to indicate that it is a derivative of <span class="math inline">\(\Psi\)</span> at <span class="math inline">\({\mathbb{P}}\)</span> in the “direction” <span class="math inline">\(s\)</span> in which case the identity is written cleanly as <span class="math display">\[
+<p>We often abbreviate the left-hand side of the above with the notation <span class="math inline">\(\dot\Psi(s)\)</span> to indicate that it is a derivative of <span class="math inline">\(\Psi\)</span> at <span class="math inline">\({\mathbb{P}}\)</span> in the “direction” <span class="math inline">\(s\)</span> in which case the identity is written cleanly as</p>
+<p><span class="math display">\[
 \dot\Psi_{{\mathbb{P}}}(s) = {\mathbb{P}}s\phi.
 \]</span></p>
+<p>Any asymptotically linear estimator with influence function <span class="math inline">\(\phi\)</span> that satisfies this identity for all differentiable paths is regular at <span class="math inline">\({\mathbb{P}}\in {\mathcal{P}}\)</span>.</p>
 </div>
 </div>
 </div>
@@ -422,6 +426,7 @@ c_n \epsilon_n^{-1} [f(\epsilon_n) - f(0)] \to \dot f.
 <p>Now let <span class="math inline">\(n_m\)</span> be an arbitrary, diverging, positive sequence of integers and <span class="math inline">\(c_m \to 1\)</span>. Since <span class="math inline">\(n_m\)</span> is diverging, any subsequence <span class="math inline">\(n_{m_k}\)</span> is also diverging. From any diverging subsequence we can take a strictly increasing subsequence <span class="math inline">\(n_{m_{k_j}} &lt; n_{m_{k_{j+1}}}\)</span>. Along this sub-subsequence, <span class="math inline">\(c_{m_{k_j}} \to 1\)</span>. Therefore, letting <span class="math inline">\(\bar\eta_j = c_{m_{k_j}} / \sqrt{n_{m_{k_j}}}\)</span>, we know that <span class="math inline">\(\bar\eta_j^{-1} [f(\bar\eta_j) - f(0)] \to \dot f\)</span> because <span class="math inline">\(\bar\eta_j\)</span> satisfies the conditions required from the paragraph above. Since every subsequence <span class="math inline">\(\left( \frac{c_{m_k}}{\sqrt{n_{m_k}}} \right)^{-1} \left[f\left( \frac{c_{m_k}}{\sqrt{n_{m_k}}} \right) - f(0)\right]\)</span> has a further subsequence that converges to a common limit <span class="math inline">\(\dot f\)</span>, that means the original sequence <span class="math inline">\(\left( \frac{c_{m}}{\sqrt{n_{m}}} \right)^{-1} \left[f\left( \frac{c_{m}}{\sqrt{n_{m}}} \right) - f(0)\right]\)</span> also converges to that common limit. This is a consequence of the fact that a sequence converges if and only if all of its subsequences converge to the same limit.</p>
 <p>Now we deal with the issue of the absolute value on the sequence <span class="math inline">\(c_m\)</span>. To do this we consider a sequence along a path <span class="math inline">\({\mathcal{P}}_\epsilon\)</span> indexed by <span class="math inline">\(\epsilon_n = c_n n^{-1/2}\)</span> with <span class="math inline">\(c_n \to -1\)</span> instead of <span class="math inline">\(c_n \to 1\)</span>. This is exactly the same as a sequence with <span class="math inline">\(c_n \to 1\)</span> but along the “reversed” path <span class="math inline">\({\mathcal{P}}_{-\epsilon}\)</span> which has score <span class="math inline">\(-s\)</span> (see <a href="3-2-regularity.html#exr-scaled-score" class="quarto-xref">Exercise&nbsp;<span>2.5</span></a>). Therefore along such sequences <span class="math inline">\(c_n \epsilon_n^{-1}[f(\epsilon_n) - f(0)] \to -\dot f\)</span> by our starting proposition. Multiplying both sides by <span class="math inline">\(-1\)</span> we obtain that <span class="math inline">\((-c_n) \epsilon_n^{-1}[f(\epsilon_n) - f(0)] \to \dot f\)</span> for any sequence <span class="math inline">\(c_n \to -1\)</span> and <span class="math inline">\(\epsilon_n = c_n n^{-1/2}\)</span>. Since <span class="math inline">\(-c_n \to 1\)</span>, by the argument at the beginning of this proof we know that <span class="math inline">\(\epsilon_n^{-1}[f(\epsilon_n) - f(0)] \to \dot f\)</span> for any sequence <span class="math inline">\(\epsilon_n = c_n n^{-1/2}\)</span> now for either <span class="math inline">\(c_n \to 1\)</span> <em>or</em> <span class="math inline">\(c_n \to -1\)</span>.</p>
 <p>We may now return to our original sequence <span class="math inline">\(c_m = \eta_m n_m\)</span> whose absolute value converges to 1. In a mild abuse of notation let <span class="math inline">\(c_m^+\)</span> be the subsequence of the non-negative entries of <span class="math inline">\(c_m\)</span> and let <span class="math inline">\(c_m^-\)</span> be the negative entries (with corresponding subsequences <span class="math inline">\(n_m^+\)</span> and <span class="math inline">\(n_m^-\)</span> which are both diverging sequences of integers). If <span class="math inline">\(c_m^+\)</span> has a finite number of elements then <span class="math inline">\(c_m \to -1\)</span> and otherwise if <span class="math inline">\(c_m^-\)</span> has a finite number of elements then <span class="math inline">\(c_m \to 1\)</span>. Either way <span class="math inline">\(\eta_m^{-1}[f(\eta_m) - f(0)] \to \dot f\)</span> by the argument of the paragraph above. In the case that both <span class="math inline">\(c_m^+\)</span> and <span class="math inline">\(c_m^-\)</span> are infinite sequences, <span class="math inline">\(|c_m| \to 1\)</span> implies that <span class="math inline">\(c_m^+ \to 1\)</span> and <span class="math inline">\(c_m^- \to -1\)</span>. Therefore we may divide <span class="math inline">\(eta_m\)</span> into the two corresponding sequences <span class="math inline">\(\eta_m^+\)</span> and <span class="math inline">\(\eta_m^-\)</span> and since <span class="math inline">\((\eta_m^{\pm})^{-1}[f(\eta_m^{\pm}) - f(0)] \to \dot f\)</span> for either part of the sequence it must be that <span class="math inline">\(\eta_m^{-1}[f(\eta_m) - f(0)] \to \dot f\)</span> for the entire sequence.</p>
+<p>Lastly, the claim that any asymptotically linear estimator with influence function <span class="math inline">\(\phi\)</span> that satisfies <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s)={\mathbb{P}}s\phi\)</span> for all differentiable paths is automatically regular at <span class="math inline">\({\mathbb{P}}\in {\mathcal{P}}\)</span> comes from running the argument above in reverse: if the conclusion holds and asymptotic linearity holds, then regularity must hold or else a contradiction arises (see also Proposition 1 in Chapter 3 or <span class="citation" data-cites="bkrw">Bickel et al. (<a href="6-references.html#ref-bkrw" role="doc-biblioref">1993</a>)</span>).</p>
 </div>
 </div>
 </div>
@@ -468,9 +473,15 @@ s_{\sigma^2}(z)  &amp;= \left. \frac{\partial p_{\mu,\sigma^2}(z)}{\partial \sig
 \end{aligned}
 \]</span></p>
 <p>Thus in this case <span class="math inline">\({\dot{{\mathcal{P}}}}\)</span> is a two-dimensional set of functions.</p>
-<div>
-<img src="3-3-EIF_files/mediabag/ddd45ebb755f6de80aa5d76d8a14dc4e0d0b2fda.svg" class="img-fluid">
-<p>A cartoon representation of the models <span class="math inline">\(\mathcal P\)</span> and <span class="math inline">\(\mathcal P_{\mu +}\)</span> discussed in this example. The arrows emanating from <span class="math inline">\(\mathsf{N}(0,1)\)</span> indicate scores of paths in <span class="math inline">\(\mathcal P\)</span>, but only the orange arrow is a score of a path in <span class="math inline">\(\mathcal P_{\mu +}\)</span>.</p>
+<div id="fig-parametric-tangent-sets" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-parametric-tangent-sets-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="3-3-EIF_files/mediabag/ddd45ebb755f6de80aa5d76d8a14dc4e0d0b2fda.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-parametric-tangent-sets-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.2: A cartoon representation of the models <span class="math inline">\(\mathcal P\)</span> and <span class="math inline">\(\mathcal P_{\mu +}\)</span> discussed in this example. The arrows emanating from <span class="math inline">\(\mathsf{N}(0,1)\)</span> indicate scores of paths in <span class="math inline">\(\mathcal P\)</span>, but only the orange arrow is a score of a path in <span class="math inline">\(\mathcal P_{\mu +}\)</span>.
+</figcaption>
+</figure>
 </div>
 <p>If we instead restricted the model to be <span class="math inline">\({\mathcal{P}}_\mu = \{\mathsf{N}(\mu,1): \mu \in \mathbb{R}\}\)</span> by fixing <span class="math inline">\(\sigma^2 =1\)</span> (presume we knew this a-priori), then the tangent set would be all linear combinations of <span class="math inline">\(s_\mu\)</span> alone, i,e, <span class="math inline">\(\{cs_\mu: c \in \mathbb{R}\}\)</span>, a one-dimensional subset of the tangent set for the larger model.</p>
 <p>Lastly, if we considered the even smaller model <span class="math inline">\({\mathcal{P}}_{\mu+} = \{\mathsf{N}(\mu,1): \mu \ge 0\}\)</span>, then the point <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span> would be on the “edge” of this model. Consequently there is no differentiable path that goes in the “negative <span class="math inline">\(\mu\)</span>” direction from <span class="math inline">\({\mathbb{P}}\)</span> and therefore the tangent set would be restricted to <span class="math inline">\(\{cs_\mu: c \ge 0\}\)</span>, again a subset of the tangent space in the larger parent model. On the other hand, if we considered the point <span class="math inline">\({\mathbb{P}}= \mathsf{N}(1,1)\)</span> in this same model, the tangent space set would be <span class="math inline">\(\{cs_\mu: c \in \mathbb{R}\}\)</span>, the same as in the larger model where <span class="math inline">\(\mu\)</span> is allowed to be negative. This is because <span class="math inline">\(\mathsf{N}(1,1)\)</span> is in the “interior” of the restricted model, so the mean can be decreased without any problem.</p>
@@ -548,14 +559,14 @@ s(z) = \int \frac{p_0(y,z)}{p_0(z)} s(y,z) \mathop{}\!\mathrm{d}y = \int p(y|z) 
 \mathbb{E}[s(Z)s(Y|Z)]
 = \mathbb{E}[\mathbb{E}[s(Y,Z)|Z] (s(Y,Z) - \mathbb{E}[s(Y,Z)|Z] )].
 \]</span> Abbreviating <span class="math inline">\(S = s(Y,Z)\)</span>, by total expectation, <span class="math inline">\(\mathbb{E}[\mathbb{E}_S[S|Z] S] = \mathbb{E}_Z[\mathbb{E}_S[\mathbb{E}_S[S|Z] S | Z]] = \mathbb{E}_Z[\mathbb{E}_S[S|Z] \mathbb{E}_S[ S | Z]]\)</span> so the above is zero.</p>
-<p>This is actually a general fact about conditional expectation that is used in many places throughout probability theory: a random variable minus its conditional expectation is orthogonal to that conditional expectation. In fact, the conditional expectation <span class="math inline">\(\mathbb{E}[f(Y,Z)|Z]\)</span> of a random variable <span class="math inline">\(f(Y,Z)\)</span> is precisely its orthogonal projection onto the subspace spanned by all <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> functions of <span class="math inline">\(Z\)</span> alone: the best possible <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> approximation of <span class="math inline">\(f(y,z)\)</span> that can be attained with functions of <span class="math inline">\(z\)</span>. This is illustrated in <a href="#fig-conditional-scores" class="quarto-xref">Figure&nbsp;<span>3.2</span></a>.</p>
+<p>This is actually a general fact about conditional expectation that is used in many places throughout probability theory: a random variable minus its conditional expectation is orthogonal to that conditional expectation. In fact, the conditional expectation <span class="math inline">\(\mathbb{E}[f(Y,Z)|Z]\)</span> of a random variable <span class="math inline">\(f(Y,Z)\)</span> is precisely its orthogonal projection onto the subspace spanned by all <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> functions of <span class="math inline">\(Z\)</span> alone: the best possible <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> approximation of <span class="math inline">\(f(y,z)\)</span> that can be attained with functions of <span class="math inline">\(z\)</span>. This is illustrated in <a href="#fig-conditional-scores" class="quarto-xref">Figure&nbsp;<span>3.3</span></a>.</p>
 <div id="fig-conditional-scores" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-conditional-scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="3-3-EIF_files/mediabag/42004c4316fe2bb344246e72d3b7c2d089d320db.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-conditional-scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.2: The marginal score is an orthogonal projection of the joint score and the conditional score is the residual.
+Figure&nbsp;3.3: The marginal score is an orthogonal projection of the joint score and the conditional score is the residual.
 </figcaption>
 </figure>
 </div>
@@ -699,14 +710,14 @@ Tangent Sets in Factored Models
 = \left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0} \Psi({\mathbb{P}}^{(\epsilon)})
 .
 \]</span></p>
-<p>For any fixed path this is a standard, vanilla derivative of a one-dimensional function of <span class="math inline">\(\epsilon\)</span>. It measures the (instantaneous) rate of change of the estimand as we shift the underlying distribution along the path away from <span class="math inline">\(\epsilon=0\)</span>. This is illustrated in <a href="#fig-pathwise-derivative" class="quarto-xref">Figure&nbsp;<span>3.3</span></a>.</p>
+<p>For any fixed path this is a standard, vanilla derivative of a one-dimensional function of <span class="math inline">\(\epsilon\)</span>. It measures the (instantaneous) rate of change of the estimand as we shift the underlying distribution along the path away from <span class="math inline">\(\epsilon=0\)</span>. This is illustrated in <a href="#fig-pathwise-derivative" class="quarto-xref">Figure&nbsp;<span>3.4</span></a>.</p>
 <div id="fig-pathwise-derivative" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pathwise-derivative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="3-3-EIF_files/mediabag/4bd9f6ba1a477518cc4454f018c4f416e5e95169.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pathwise-derivative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.3: The pathwise derivative evaluated at a particular score <span class="math inline">\(s\)</span> gives the rate of change of the estimand if we move the underlying distribution in the direction of the score.
+Figure&nbsp;3.4: The pathwise derivative evaluated at a particular score <span class="math inline">\(s\)</span> gives the rate of change of the estimand if we move the underlying distribution in the direction of the score.
 </figcaption>
 </figure>
 </div>
@@ -730,23 +741,40 @@ Pathwise Differentiability
 </div>
 </div>
 </div>
-<p>Since continuity is equivalent to boundedness (in the sense of functionals; see <a href="5-2-L2.html#def-bounded-functional" class="quarto-xref">Definition&nbsp;<span>B.6</span></a>), an estimand is pathwise differentiable if and only if there is a “direction of maximum slope”. This is, in my opinion, the best intuitive definition of pathwise differentiability. There cannot be some direction you can move in away from <span class="math inline">\({\mathbb{P}}\)</span> along which <span class="math inline">\(\Psi\)</span> changes arbitrarily quickly.</p>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Review <a href="5-1-rv-convergence.html#def-continuity" class="quarto-xref">Definition&nbsp;<span>A.5</span></a> for the definition of continuity and <a href="5-2-L2.html#sec-app-riesz" class="quarto-xref"><span>Section B.4</span></a> for details and definitions relating to Hilbert spaces and Riesz representation. Understanding the details is not nearly as important as understanding the big-picture implications here so it’s ok if you skip the mathematical details for now and come back to them on a second pass later.</p>
 </div>
 </div>
+<p>A pathwise differentiable estimand “varies smoothly” over the model the same way that a ordinary function with a derivative that is continuous has no kinks. At the point of a kink or discontinuity in the estimand, no estimator can be regular.</p>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-discontinuous-estimand" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.1</strong></span> Let <span class="math inline">\(Z\)</span> be normally distributed with known variance <span class="math inline">\(1\)</span> but unknown mean <span class="math inline">\(\mu\)</span>, i.e.&nbsp;<span class="math inline">\({\mathcal{P}}= \{\mathsf{N}(\mu,1):\mu \in \mathbb{R}\}\)</span>. Presume we are interested in estimating the quantity <span class="math inline">\(\Psi({\mathbb{P}}) = 1(\mathbb{E}_{\mathbb{P}}[Z] &gt; 0)\)</span>, i.e.&nbsp;whether the mean is positive or not (we are estimating, not testing).</p>
+<ol type="a">
+<li>Draw a plot of the function <span class="math inline">\(\mu \mapsto \Psi(\mathsf{N}(\mu,1))\)</span></li>
+<li>At <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span>, do you think <span class="math inline">\(\Psi\)</span> is pathwise differentiable? If not, is it because the derivative doesn’t exist or is it because the derivative is not continuous?</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p>The example in <a href="#exr-discontinuous-estimand" class="quarto-xref">Exercise&nbsp;<span>3.1</span></a> is contrived. More often the types of “kinks” or discontinuities that cause problems are difficult to visualize in lower-dimensions. It’s not as if the value of most practically interesting nondifferentiable estimands changes suddenly as we move along a single differentiable path. For the most part, the fact that the path is differentiable means that the densities change smoothly as we walk in that fixed direction and that usually implies smooth behavior of the estimand. The kinks are only visible if you rotate around and consider various different directions. I like to imagine standing at a point <span class="math inline">\({\mathbb{P}}\)</span> on the “surface” <span class="math inline">\(\Psi({\mathbb{P}})\)</span> and looking in some direction: whatever direction I look in, I can see how steep the ascent or descent is. The problem with most practially interesting estimands that are not differentiable isn’t that there is a discontinuity or kink in any given direction, it’s that no matter what direction we look at, there is always another direction where the slope is steeper. In infinite dimensions, kinks can also occur in this “rotational” sense. An estimand is pathwise differentiable at a point in a model only if there is a “direction of maximum slope”.</p>
 <div id="exm-unbounded-estimand" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.3</strong></span> Let <span class="math inline">\(\mathcal P\)</span> be all distributions of a continuous variable <span class="math inline">\(Z\)</span>. Let’s say that our goal is to estimate the value of the density function of <span class="math inline">\(z\)</span> at the point <span class="math inline">\(z=0\)</span>.</p>
-<p>We’ll show that there is no RAL estimator of this quantity by establishing that the pathwise derivative is not bounded over the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span> (at any <span class="math inline">\({\mathbb{P}}\)</span>). The intuition is that we can find a path that comes very, very close to modifying the density <em>only</em> at the point <span class="math inline">\(z=0\)</span>. In other words, we can modify the estimand by arbitrary amounts essentially without changing the overall density.</p>
+<p><span class="theorem-title"><strong>Example 3.3</strong></span> Let <span class="math inline">\(\mathcal P\)</span> be all distributions of a continuous variable <span class="math inline">\(Z\)</span>. Let’s say that our goal is to estimate the value of the density function of <span class="math inline">\(z\)</span> at the point <span class="math inline">\(z=0\)</span>. There generally isn’t a good motivation for wanting to know this, it’s just a simple example that illustrates ideas that apply identically to more complicated estimands.</p>
+<p>We’ll show that there is no RAL estimator of the density at a point by establishing that the pathwise derivative is not bounded over the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span> (at any <span class="math inline">\({\mathbb{P}}\)</span>). The intuition is that we can find a path that comes very, very close to modifying the density <em>only</em> at the point <span class="math inline">\(z=0\)</span>. In other words, we can modify the estimand by arbitrary amounts essentially without changing the overall density.</p>
 <p>Fix a distribution <span class="math inline">\({\mathbb{P}}\)</span>. Since the model is nonparametric, the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span> is all of <span class="math inline">\(\mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>. Since that’s the case, any zero-mean <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> function can be a score.</p>
 <p>Define the sequence of probabilities <span class="math inline">\(t_n = {\mathbb{P}}\{-1/n \le Z \le 1/n\}\)</span>. Since these are probabilities of smaller and smaller sets over a continuous random variable they must shrink to zero.</p>
 <p>We’ll consider a sequence of scores</p>
@@ -765,15 +793,50 @@ s_n(z) = \frac{1\left(-\frac{1}{n} \le z \le \frac{1}{n}\right) - t_n}{\sqrt{t_n
 \end{aligned}
 \]</span></p>
 <p>Since <span class="math inline">\(t_n\)</span> converges to zero, the denominator blows up. Since we only considered unit scores, we proved that there is no pure direction of maximum increase: no matter what direction we look, there is always another direction for which the pathwise derivative is bigger. Therefore the pathwise derivative is unbounded (not continuous). As a consequence, there can be no RAL estimator for the density at a point when the model is all continuous densities.</p>
+<p>With more setup and more care taken to define tangent sets, etc., very similar arguments apply if we are estimating the value of a prediction function at a point (i.e.&nbsp;<span class="math inline">\(\mathbb{E}[Y|X=x]\)</span>) or a conditional average treatment effect (<span class="math inline">\(\mathbb{E}[Y|X=x,A=1] - \mathbb{E}[Y|X=x,A=0]\)</span>) in nonparametric models. These are important examples of practically relevant estimands for which there are no RAL estimators! The theory we develop in the rest of this book does not apply to these estimands which is why approaches to estimate them can be more ad-hoc, context dependent, and difficult to build formal inference around.</p>
 </div>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-density-at-point-normal-location" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.2</strong></span> Whether an estimand is pathwise differentiable or not depends on the model. Imagine that we know <span class="math inline">\(Z\)</span> is normally distributed with known variance <span class="math inline">\(1\)</span> but unknown mean <span class="math inline">\(\mu\)</span>, i.e.&nbsp;<span class="math inline">\({\mathcal{P}}= \{\mathsf{N}(\mu,1):\mu \in \mathbb{R}\}\)</span> and we are interested in estimating the value of the density <span class="math inline">\(p(z)\)</span> at the point <span class="math inline">\(z=0\)</span>. This is again a contrived example but the point is to illustrate ideas in the simplest setting possible. Recall that the density of a <span class="math inline">\(\mathsf{N}(\mu,1)\)</span> random variable is <span class="math inline">\(p(z) = (2\pi)^{-1/2} e^{-(z-\mu)^2/2}\)</span>.</p>
+<ol type="a">
+<li>What is the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span> at any point <span class="math inline">\({\mathbb{P}}\)</span> in this model? What is the dimension of this tangent set?</li>
+<li>For any score <span class="math inline">\(s \in {\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span>, construct the convex path <span class="math inline">\(p_\epsilon= (1+\epsilon s)p\)</span> and use it to compute the pathwise derivative <span class="math inline">\(\dot\Psi(s)\)</span>.</li>
+<li>What is <span class="math inline">\(\dot\Psi(s)/ \|s\|\)</span>? According to <a href="5-2-L2.html#def-bounded-functional" class="quarto-xref">Definition&nbsp;<span>B.6</span></a> and <a href="#def-pathwise-differentiability" class="quarto-xref">Definition&nbsp;<span>3.3</span></a> what does this imply about the pathwise differentiability of the estimand in this model?</li>
+<li>Can you guess what a RAL estimator of <span class="math inline">\(p(0)\)</span> might be?</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p>Pathwise differentiability does not necessarily imply that there <em>is</em> a RAL estimator. It only provides the possibility of one existing. In the next part of this book we will study how to actually build efficient estimators and we will see that we need certain assumptions even to guarantee asymptotic linearity. However, the nature of these problems depends on the precise estimand in question. From a big picture perspective it is safe to say that pathwise differentiability implies that a RAL estimator exists at least in principle.</p>
+</section>
+<section id="gradients-of-the-estimand" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="gradients-of-the-estimand"><span class="header-section-number">3.4</span> Gradients of the Estimand</h2>
 <!-- 
-Exercise: prove that the density at a point CAN have a RAL estimator in a normal localtion model?
+In section above say something in a callout-note relating the pathwise derivative to hadamard derivative. note pathwise deriv is more bespoke
 
+Presume pathwise diff on tset. Extend functional to closrue of tset. Then RRT says there is a *gradient* (in closure of tset). the canonical gradient is the score corresponding to path of steepest increase of the estimand (if you normalize it and comparators). The gradient is the unique element in the tset that satisfies the identity. Thus it is a (possible) IF. 
+
+Add anything in the orth comp of the tnagent space to get another gradient. Define canonical vs other grads. This set of gradients is the only set of fns in eltwopz that satisfy the identity. They are the only possible IFs of RAL estimators. Fewer assumptions => bigger the model, the bigger tangent set is, the fewer orthogonal directionst here are => the fewer possible gradients/ RAL estimators there are. In the nonparametric limit, there is only 1 gradient (canonical) which means that all RAL estimators are asymptotically equivalent (have same IF). No assumptions => all RAL estimators equivalent. More assumptions/restrictions => more possible RAL estimators.
+
+Refinement of earlier statmenet: if estimand is pathwise diff, any asymptotically linear estimand whose IF is a gradient of the estimand is automatically regular!
+
+Recall that efficiency is given by norm of IFs. The smallest-norm IF is the canonical one (in closure of tset) because of pythagorean theorem. Therefore to get an efficient estimator, we need to construct an estimator that has the influence function equal to the canonical gradient. We also call this the "efficient influence function". The var of the EIF is the optimal asymptoic var. 
+
+Optimal variance is related to how quickly estimand can change. The norm of the EIF is exactly the pathwise derivative in the direction of the canonical gradient. data can look compatible with a set of distributions: if estimand can be highly variable across that set (there's a direction of big slope) then we're naturally going to be uncertain of its value.
+
+Everything we've done has led us to this one point. for any estimand in model etc. the EIF is everything we need to know to build an optimnal estimator (caveat estimands that don't ahve one). Sicne so important, next chapter we will see how to derive the EIF for most common models. In next part we will see how to use that to create efficient estimators from scratch for any relevant problem.
+-->
+<!-- 
 Before getting to that let's address a minor technicality. In what follows I'll sometimes refer to $\bar\tset_\p$, the linear closure of $\tset_\p$. For the most part you can just think of this as identical to $\tset_\p$ because pretty much all of the tangent sets we'll work with in this book are already tangent spaces. The reason we need to include linear combinations and limits of scores if they're not already there is so that we can define the pathwise derivative function on a full vector space and thus use Riesz representation. 
 -->
 <!-- 
 Implications:
-- If a RAL estimator exists, model is smooth: pathwise dfff = if the distribution varies smoothly, the estimand should vary smoothly as well (very smoothly, and locally uniformly even). If estimand is smooth, that guarantees the possibility of a RAL estimator (usually modulo regression rate stuff, see next part) See Proposition 1 in Chapter 3 of @bkrw
 - there is a minimum-var RAL estimator: the set of IFs is a linear variety in L2P, there is a unique min var element
 - the more scores there are (tangent set/space), the fewer IFs there are, and vice versa: estimation is easier in smaller models b/c more IFs = more chance for a small one 
 -->
