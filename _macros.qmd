@@ -10,6 +10,7 @@
 \newcommand{\model}{{\mathcal{P}}}
 
 \newcommand{\tset}{{\dot{\model}}}
+\newcommand{\tspace}{{\mathring{\model}}}
 
 \newcommand{\dto}{\rightsquigarrow}
 \newcommand{\pto}{\overset{\mathbb P}\to}
@@ -27,3 +28,5 @@
 \newcommand{\dd}{\mathop{}\!\mathrm{d}}
 
 \newcommand{\eps}{\epsilon}
+
+\newcommand{\grad}{\nabla\!}

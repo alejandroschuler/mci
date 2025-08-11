@@ -277,7 +277,7 @@ Since the asymptotic distribution of Hodges' estimator is different depending on
 
 The definition we're working with at the moment is specific to the normal model $\model = \{\norm(\psi, 1):\psi \in \reals\}$. We built a very specific sequence of distributions $\p^{(n)} = \norm(\psi_n, 1)$ that get closer and closer to the true distribution. Moreover we required the "distance" to the true distribution to close at the $n^{-1/2}$ rate or faster. Our challenge in the proceeding sections will be figuring out a sensible way to generalize our definition to nonparametric models. But to do that we'll first have to establish some notions of "geometry" in that setting.
 
-## Paths and Scores
+## Structuring Statistical Models
 
 Our goal at our moment is to generalize our definition of regularity by establishing some "geometry" in our model so we can talk about a sequence of distributions converging in some required sense. In our current definition, a model $\model$ is just a set of distributions: there is no sense of direction or distance that is inherent to it. I think of a naked model like that as a big soup of distributions: everything is free to jumble around. We need a little more structure to make sense of regularity in a nonparametric model.
 
@@ -294,7 +294,7 @@ $$
 :::
 
 ::: callout-warning
-We will be drawing on properties of $\eltwo$ substantially from here on out so this is a good time to work through @sec-app-L2-L2 if you haven't already.
+We will be drawing on properties of $\eltwo$ substantially from here on out so this is a good time to work through @sec-app-L2-L2 if you haven't already. At a minimum you should understand the content of @sec-functions-as-vectors so you can understand functions as vectors.
 :::
 
 Thankfully, this is an easy problem to fix! Instead of working with the density functions directly, we can work with the *root densities*. Since $\int p \dd z = 1$, it's clear that $\int (\sqrt p)^2 \dd z = 1$. In other words, the square root of any density function is square-integrable and thus a function in $\eltwo$. Moreover, all of these root densities have unit norm in $\eltwo$! I'll use the symbol $\sqrt{\model} = \{\sqrt p : p \in \model\}$ to denote the collection of square roots of densities in the model. Because $\sqrt{\model}$ contains only positively valued functions with unit norm, we can visualize it as some subset of the unit ball in the "positive orthant" of $\eltwo$. In describing "orthants" I am drawing on the intuition described in @sec-functions-as-vectors where I imagine the "axes" of $\eltwo$ corresponding to the possible arguments of the function.
@@ -363,6 +363,8 @@ Thankfully, this is an easy problem to fix! Instead of working with the density 
 The model $\sqrt{\model}$ embedded in $\eltwo$. In the drawing $\eltwo$ is represented as 3D space but this is not meant to be literal- this is a 3D cartoon representing infinite-dimensional space. The model is represented as the visible quarter section of the unit sphere. That part of the unit sphere represents all densities. If the model were restricted in some way (e.g. all zero-mean distributions), the model could be visualized as some subset of the shown surface.
 :::
 
+### Paths
+
 In addition to the model, in @fig-sqrt-model you can also see what we're going to call a *differentiable path* through the model. A path (also called a one-dimensional submodel) is intuitively what it sounds like: if you were standing at a point $p$ (or $\p$) in the model and you started walking in some direction, you'd be tracing out an example of a path. Formally, a path is a one-dimensional set of distributions in the model, parameterized by some $\epsilon \in \reals$. By "parameterized" I mean that every distribution in this set can be assigned a unique number $\eps$. If you consider $p_0$ (or $\p_0$) to be the "start" of the path, you can think of the parameter $\eps$ as encoding "how far" you are along the path (and perhaps in which direction). The density (or distribution) indexed by the particular number $\eps$ is often written $p_\eps$ (or $\p_\eps$). Paths are going to be very useful tools for us to define what we mean by distributions getting close to each other in a sense that is required for a general definition of regularity. Paths will also come up in many other places so it is worth taking some time to understand them here.
 
 :::: callout-note
@@ -418,6 +420,8 @@ Calculate the Hellinger distance between the standard normal and standard unifor
 <!-- Now that we have distance, we can impose more restrictions on our paths.  -->
 
 For example, we might impose that paths be continuous in the sense that we would want the $\eltwo$ distance between two (root) distributions $\sqrt{p_{0}}$ and $\sqrt{p_{\eps}}$ along the path to go to zero if $\eps \to \eps_0$. That would rule out the path in @exm-non-diff-path. But it turns out that what we need in order to generate a useful theory of efficiency is not just continuity, but also differentiability. That is, we are interested in continuous paths, but specifically those that do not have any "kinks". By that we mean that we're interested in *differentiable* paths. Since we're talking about a path through infinite-dimensional space, let's spend a little time developing our intuition about derivatives before we define a differentiable path.
+
+### Scores
 
 Given a function $f: \reals \to \reals$, recall that its derivative at the point $x=0$ (if it exists) is defined as $\dot f_0 = \underset{x\to 0}{\lim} \frac{f(0) - f(x)}{x}$ . Another way to write this is that there exists a number $\dot f_0$ such that $$
 \left| \frac{f(0) - f(x)}{x} - \dot f_0 \right| \overset{x \to 0}{\to} 0

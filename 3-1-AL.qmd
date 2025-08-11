@@ -72,7 +72,7 @@ It's totally possible for two different estimators to have the same influence fu
 
 At this point you may be worried about how you can take your favorite estimator and derive its influence function. It's often possible to prove an estimator is aymptotically linear, but in this book we actually won't need to do that. We're going to go the other direction: starting from the estimand, we're going to come up with a way to determine the "best" possible influence function and then *construct* an estimator around it.
 
-## Benefits of AL Estimators
+## Benefits of AL Estimators {#sec-AL-benefits}
 
 Given our desiderata, asymptotically linear (AL) estimators are a very sensible class of estimators to restrict ourselves to. For one, AL estimators are guaranteed to be consistent: that is, they converge to the estimand in probability and are thus asymptotically unbiased. This is guaranteed by the fact that any influence function $\phi$ is mean-zero so the associated sample mean converges to 0 by the law of large numbers.
 
@@ -99,6 +99,7 @@ a.  Assuming that $\sqrt{n} (\hat\psi - \psi) \sim \norm(0, \sigma^2)$, prove th
 b.  Assuming asymptotic linearity, how does our actual knowledge of the sampling distribution of $\hat\psi$ compare to what we assumed in part (a)?
 c.  In the real world our confidence interval is $[\hat\psi \pm 2\hat\sigma/\sqrt{n}]$. How does this compare to what we used in part (a)?
 d.  Given (b) and (c), do you think the real-world confidence interval will generally have better-than 95% coverage for all sample sizes?
+
 :::
 ::::
 

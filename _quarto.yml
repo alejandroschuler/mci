@@ -6,7 +6,7 @@ diagram:
   engine:
     tikz:
       header-includes:
-        - '\usepackage{adjustbox, tikz-3dplot, amsmath, amsfonts, pgfplots, accents}'
+        - '\usepackage{tikz, tikz-3dplot, amsmath, amsfonts, pgfplots, accents, adjustbox}'
         - '\usetikzlibrary{arrows, angles, quotes, arrows.meta, shapes, calc}'
 
 project:

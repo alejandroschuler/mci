@@ -228,7 +228,7 @@ window.Quarto = {
   <ul>
   <li><a href="#what-do-we-want-from-estimators" id="toc-what-do-we-want-from-estimators" class="nav-link active" data-scroll-target="#what-do-we-want-from-estimators"><span class="header-section-number">1.1</span> What do we want from estimators?</a></li>
   <li><a href="#asymptotic-linearity" id="toc-asymptotic-linearity" class="nav-link" data-scroll-target="#asymptotic-linearity"><span class="header-section-number">1.2</span> Asymptotic Linearity</a></li>
-  <li><a href="#benefits-of-al-estimators" id="toc-benefits-of-al-estimators" class="nav-link" data-scroll-target="#benefits-of-al-estimators"><span class="header-section-number">1.3</span> Benefits of AL Estimators</a></li>
+  <li><a href="#sec-AL-benefits" id="toc-sec-AL-benefits" class="nav-link" data-scroll-target="#sec-AL-benefits"><span class="header-section-number">1.3</span> Benefits of AL Estimators</a></li>
   </ul>
 </nav>
     </div>
@@ -328,8 +328,8 @@ Warning
 <p>It’s totally possible for two different estimators to have the same influence function (at each distribution). This is because two different algorithms can turn out to behave very similarly as the sample size increases. For example, we could construct a very silly alternative estimator for the mean by adding <span class="math inline">\(1/n\)</span> to our sample mean estimate. This extra term is certainly converging to zero at better than a <span class="math inline">\(\sqrt{n}\)</span> rate so it is negligible and the influence function for our alternative estimator is the same as for the sample mean. We’ll also see the idea of two different estimators sharing an influence function come up later when we discuss different strategies for building optimal estimators: the estimators we get from using each strategy may be different, but they all have the same influence function and therefore all behave similarly in large-enough samples.</p>
 <p>At this point you may be worried about how you can take your favorite estimator and derive its influence function. It’s often possible to prove an estimator is aymptotically linear, but in this book we actually won’t need to do that. We’re going to go the other direction: starting from the estimand, we’re going to come up with a way to determine the “best” possible influence function and then <em>construct</em> an estimator around it.</p>
 </section>
-<section id="benefits-of-al-estimators" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="benefits-of-al-estimators"><span class="header-section-number">1.3</span> Benefits of AL Estimators</h2>
+<section id="sec-AL-benefits" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="sec-AL-benefits"><span class="header-section-number">1.3</span> Benefits of AL Estimators</h2>
 <p>Given our desiderata, asymptotically linear (AL) estimators are a very sensible class of estimators to restrict ourselves to. For one, AL estimators are guaranteed to be consistent: that is, they converge to the estimand in probability and are thus asymptotically unbiased. This is guaranteed by the fact that any influence function <span class="math inline">\(\phi\)</span> is mean-zero so the associated sample mean converges to 0 by the law of large numbers.</p>
 <div class="callout callout-style-simple callout-important no-icon">
 <div class="callout-body d-flex">
