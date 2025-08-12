@@ -255,8 +255,8 @@ window.Quarto = {
   <li><a href="#gradients" id="toc-gradients" class="nav-link" data-scroll-target="#gradients"><span class="header-section-number">3.4</span> Gradients</a>
   <ul class="collapse">
   <li><a href="#other-influence-functions" id="toc-other-influence-functions" class="nav-link" data-scroll-target="#other-influence-functions"><span class="header-section-number">3.4.1</span> Other Influence Functions</a></li>
-  <li><a href="#efficiency" id="toc-efficiency" class="nav-link" data-scroll-target="#efficiency"><span class="header-section-number">3.4.2</span> Efficiency</a></li>
   </ul></li>
+  <li><a href="#efficiency" id="toc-efficiency" class="nav-link" data-scroll-target="#efficiency"><span class="header-section-number">3.5</span> Efficiency</a></li>
   </ul>
 </nav>
     </div>
@@ -800,7 +800,7 @@ Note
 <li>Draw a plot of the function <span class="math inline">\(\mu \mapsto \Psi(\mathsf{N}(\mu,1))\)</span></li>
 <li>At <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span>, do you think <span class="math inline">\(\Psi\)</span> is pathwise differentiable? If not, is it because the derivative doesn’t exist or is it because the derivative isn’t continuous?</li>
 <li>Repeat the above for the new estimand <span class="math inline">\(\Psi({\mathbb{P}}) = |\mathbb{E}_{\mathbb{P}}[Z]|\)</span>.</li>
-<li>Let <span class="math inline">\(\hat\mu =\frac{1}{n} \sum Z_i\)</span>. What are the sampling distributions of <span class="math inline">\(1(\hat\mu &gt; 0)\)</span> and <span class="math inline">\(\left| \hat\mu \right|\)</span> when $Z (0,1)?</li>
+<li>Let <span class="math inline">\(\hat\mu =\frac{1}{n} \sum Z_i\)</span>. What are the sampling distributions of <span class="math inline">\(1(\hat\mu &gt; 0)\)</span> and <span class="math inline">\(\left| \hat\mu \right|\)</span> when <span class="math inline">\(Z \sim \mathsf{N}(0,1)\)</span>?</li>
 </ol>
 <p>This exercise shows that some simple estimands are not pathwise differentiable, although the examples are somewhat contrived because in both cases it would be more natural to estimate <span class="math inline">\(\mu\)</span> and then perform a hypothesis test. On the other hand, it also shows that lacking pathwise differentiability need not be the end of the world: both of the estimands have natural, easily-understood estimators that would be hard to beat in practice even in nonparametric models.</p>
 </div>
@@ -881,6 +881,18 @@ Figure&nbsp;3.5: Cartoon of the relationship between the tangent set <span class
 </figcaption>
 </figure>
 </div>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-tangent-space" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.3</strong></span> For two models <span class="math inline">\(\mathcal Q \subset {\mathcal{P}}\)</span>, what is the relationship between <span class="math inline">\(\mathring{\mathcal Q}_{\mathbb{P}}\)</span> and <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span> at any point <span class="math inline">\({\mathbb{P}}\in \mathcal Q\)</span>?</p>
+</div>
+</div>
+</div>
+</div>
 <p>When the estimand is pathwise differentiable, the pathwise derivative <span class="math inline">\(\dot\Psi\)</span> is a bounded linear functional defined on the full tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span>. Since it is bounded and linear, <span class="math inline">\(\dot\Psi\)</span> has some direction of steepest ascent and moreover the Riesz representation theorem formally guarantees that the application of <span class="math inline">\(\dot\Psi\)</span> to an argument <span class="math inline">\(s\)</span> is equivalent to taking the inner product of <span class="math inline">\(s\)</span> with some unique element of <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span> that points in that direction of steepest ascent. This is completely analogous to the way that the derivative in a direction <span class="math inline">\(v \in \mathbb{R}^d\)</span> of a multivariable function <span class="math inline">\(f(z)\)</span> at <span class="math inline">\(z_0\)</span> can be computed by taking the dot product of that direction vector with the <em>gradient</em> of <span class="math inline">\(f\)</span> at <span class="math inline">\(z_0\)</span>:</p>
 <p><span class="math display">\[
 \dot f_{z_0}(v) = \lim_{\epsilon\to 0} \frac{f(z_0 + \epsilon v) - f(z_0)}{\epsilon} = v \cdot \nabla\!f.
@@ -948,6 +960,18 @@ Figure&nbsp;3.6: Visual representation of the gradient. The value of the pathwis
 <p>The function <span class="math inline">\(z \mapsto z - \psi_{\mathbb{P}}\)</span> <em>is</em> mean zero under <span class="math inline">\({\mathbb{P}}\)</span> so it is in the tangent space. The equality above establishes that this is the gradient of the mean.</p>
 <p>We saw in <a href="3-1-AL.html#exm-AL-sample-mean" class="quarto-xref">Example&nbsp;<span>1.1</span></a> that <span class="math inline">\(\phi(z) = z-\psi_{\mathbb{P}}\)</span> is exactly the influence function of the sample mean <span class="math inline">\(\hat\psi = \frac{1}{n} \sum Z_i\)</span>. We already know the sample mean is regular but the fact that its influence function satisfies <a href="#thm-RAL-IFs" class="quarto-xref">Theorem&nbsp;<span>3.2</span></a> also proves that regularity.</p>
 </div>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-gradient" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.4</strong></span> The gradient generally depends on the model, even though we hide this dependence in the notation. Fix the estimand <span class="math inline">\(\Psi\)</span> and a distribution <span class="math inline">\({\mathbb{P}}\in \mathcal Q \subset {\mathcal{P}}\)</span>. Let <span class="math inline">\(\nabla\!_{{\mathbb{P}}\in \mathcal Q}\Psi\)</span> be the gradient in the smaller model and let <span class="math inline">\(\nabla\!_{{\mathbb{P}}\in \mathcal P}\Psi\)</span> be the gradient in the larger model. Argue for why <span class="math inline">\(\|\nabla\!_{{\mathbb{P}}\in \mathcal Q}\Psi\| \le \|\nabla\!_{{\mathbb{P}}\in \mathcal P}\Psi\|\)</span>. <em>Hint</em>: what is the relationship between the tangent spaces?</p>
+</div>
+</div>
+</div>
+</div>
 <section id="other-influence-functions" class="level3" data-number="3.4.1">
 <h3 data-number="3.4.1" class="anchored" data-anchor-id="other-influence-functions"><span class="header-section-number">3.4.1</span> Other Influence Functions</h3>
 <p>Using Riesz representation, we showed that for any pathwise differentiable estimand there is at least one function that can be the influence function of a RAL estimator (in principle). Now we will understand in what cases there can be RAL estimators with influence functions different than the gradient.</p>
@@ -967,11 +991,11 @@ Warning
 <p>If need be, you should review <a href="5-2-L2.html#sec-app-l2-triangles" class="quarto-xref"><span>Section B.3</span></a> and specifically <a href="5-2-L2.html#def-orth-sum" class="quarto-xref">Definition&nbsp;<span>B.5</span></a> to learn more about orthogonal complements in Hilbert spaces.</p>
 </div>
 </div>
-<p>By definition, any element <span class="math inline">\(v \in {\mathring{{\mathcal{P}}}}^\perp\)</span> is orthogonal to any score <span class="math inline">\(s \in {\mathring{{\mathcal{P}}}}\)</span>. Some elements of the tangent <em>space</em> may not actually be scores but we’ll refer to them as such anyways. Therefore <span class="math inline">\(0 = \langle s, v \rangle_\mathcal{L}_2\left(\mathbb{P}\right)= {\mathbb{P}}sv\)</span> for <em>any</em> <span class="math inline">\(s\)</span>. Starting with our influence function identity with <span class="math inline">\(\phi = \nabla\!\Psi\)</span>, we can therefore add <span class="math inline">\(0={\mathbb{P}}sv\)</span> to the right-hand side without violating the equality:</p>
+<p>By definition, any element <span class="math inline">\(v \in {\mathring{{\mathcal{P}}}}^\perp\)</span> is orthogonal to any score <span class="math inline">\(s \in {\mathring{{\mathcal{P}}}}\)</span>. Some elements of the tangent <em>space</em> may not actually be scores but we’ll refer to them as such anyways. Therefore <span class="math inline">\(0 = \langle s, v \rangle_{\mathcal{L}_2\left(\mathbb{P}\right)} = {\mathbb{P}}sv\)</span> for <em>any</em> <span class="math inline">\(s\)</span>. Starting with our influence function identity with <span class="math inline">\(\phi = \nabla\!\Psi\)</span>, we can therefore add <span class="math inline">\(0={\mathbb{P}}sv\)</span> to the right-hand side without violating the equality:</p>
 <p><span class="math display">\[
 \dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}s (\nabla\!\Psi + v) \quad\text{for all } s \in {\mathring{{\mathcal{P}}}}_{\mathbb{P}}.
 \]</span></p>
-<p>Moreover the functions <span class="math inline">\(v\)</span> in the orthogonal complement of the tangent space are the <em>only</em> functions for which this holds. This fact is formalized in <a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.5</span></a> and illustrated graphically in <a href="#fig-RAL-IF-set" class="quarto-xref">Figure&nbsp;<span>3.7</span></a>.</p>
+<p>Moreover the functions <span class="math inline">\(v\)</span> in the orthogonal complement of the tangent space are the <em>only</em> functions for which this holds. This fact is formalized in <a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.6</span></a> and illustrated graphically in <a href="#fig-RAL-IF-set" class="quarto-xref">Figure&nbsp;<span>3.7</span></a>.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -983,7 +1007,7 @@ Set of Influence Functions
 </div>
 <div class="callout-body-container callout-body">
 <div id="thm-RAL-IF-set" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 3.5</strong></span> Any influence function of a RAL estimator is an element of the set <span class="math inline">\(\Phi_{\mathbb{P}}= \{\nabla\!_{\mathbb{P}}\Psi + v: v\in {\mathring{{\mathcal{P}}}}_{\mathbb{P}}^\perp\}\)</span> where <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}^\perp\)</span> is the orthogonal complement of the tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span> relative to <span class="math inline">\(\mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>. Any element of the set <span class="math inline">\(\Phi\)</span> is, in principle, the influence function of some RAL estimator.</p>
+<p><span class="theorem-title"><strong>Theorem 3.5</strong></span> Any influence function of a RAL estimator of a pathwise differentiable estimand is an element of the set <span class="math inline">\(\Phi_{\mathbb{P}}= \{\nabla\!_{\mathbb{P}}\Psi + v: v\in {\mathring{{\mathcal{P}}}}_{\mathbb{P}}^\perp\}\)</span> where <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}^\perp\)</span> is the orthogonal complement of the tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span> relative to <span class="math inline">\(\mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>. Any element of the set <span class="math inline">\(\Phi\)</span> is, in principle, the influence function of some RAL estimator.</p>
 <p>In a locally nonparametric model, <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}^\perp\)</span> only contains the zero function so <span class="math inline">\(\nabla\!_{\mathbb{P}}\Psi\)</span> is the only possible influence function of a RAL estimator.</p>
 <p>As a corollary of <a href="#thm-RAL-IFs" class="quarto-xref">Theorem&nbsp;<span>3.2</span></a>, any estimator that is asymptotically linear at <span class="math inline">\({\mathbb{P}}\)</span> with an influence function in this set must be regular at <span class="math inline">\({\mathbb{P}}\in {\mathcal{P}}\)</span>.</p>
 </div>
@@ -995,23 +1019,72 @@ Set of Influence Functions
 <img src="3-3-EIF_files/mediabag/06979d4d1aa7291041fad25994f98e77d5728ecc.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-RAL-IF-set-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.7: The set of influence functions <span class="math inline">\(\Phi\)</span> is the orthogonal complement of the tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}^\perp\)</span> translated over to the point <span class="math inline">\(\nabla\!\Phi\)</span>.
+Figure&nbsp;3.7: The set of influence functions <span class="math inline">\(\Phi\)</span> is the orthogonal complement of the tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}^\perp\)</span> translated over to the point <span class="math inline">\(\nabla\!\Phi\)</span>. The canonical gradient <span class="math inline">\(\nabla\!\Psi\)</span> has smaller norm (“length”) than any other influence function <span class="math inline">\(\phi \in \Phi\)</span>.
 </figcaption>
 </figure>
 </div>
-<p>From here on out we’ll call any element of the set <span class="math inline">\(\{\nabla\!\Psi + v: v\in {\mathring{{\mathcal{P}}}}^\perp\}\)</span> a “gradient” of <span class="math inline">\(\Psi\)</span>, reserving the term <em>canonical gradient</em> for <span class="math inline">\(\nabla\!\Psi\)</span>.</p>
+<p>From here on out we’ll call any element of the set <span class="math inline">\(\{\nabla\!\Psi + v: v\in {\mathring{{\mathcal{P}}}}^\perp\}\)</span> a “gradient” of <span class="math inline">\(\Psi\)</span>, reserving the term <em>canonical gradient</em> for <span class="math inline">\(\nabla\!\Psi\)</span>. The term gradient is justified for any element <span class="math inline">\(\phi \in \Phi\)</span> because the defining identity <span class="math inline">\(\dot\Psi(s) = {\mathbb{P}}s\phi\)</span> holds for all <span class="math inline">\(s \in {\mathring{{\mathcal{P}}}}\)</span>. The only difference is that, unlike the canonical gradient, the functions <span class="math inline">\(\phi\)</span> are not necessarily elements of tangent space, the domain of the linear functional <span class="math inline">\(\dot\Psi\)</span>.</p>
 </section>
-<section id="efficiency" class="level3" data-number="3.4.2">
-<h3 data-number="3.4.2" class="anchored" data-anchor-id="efficiency"><span class="header-section-number">3.4.2</span> Efficiency</h3>
-<p><a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.5</span></a> is an extremely powerful result because it succeeds in completely characterizing the set of influence functions of RAL estimators. That was the goal we set out to acheive and now we can reap the reward.</p>
+</section>
+<section id="efficiency" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="efficiency"><span class="header-section-number">3.5</span> Efficiency</h2>
+<p><a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.6</span></a> is an extremely powerful result because it succeeds in completely characterizing the set of influence functions of RAL estimators. That was the goal we set out to acheive and now we can reap the reward.</p>
 <p>The benefit of understanding what all the possible influence functions are is that we can now find the most “efficient” one. In <a href="3-1-AL.html#sec-AL-benefits" class="quarto-xref"><span>Section 1.3</span></a> we saw that the central limit theorem immediately implies that any asymptotically linear estimator with influence function <span class="math inline">\(\phi\)</span> has asymptotic variance equal to <span class="math inline">\(\mathbb{V}[\phi(Z)] = \|\phi\|^2\)</span>. Given a set of possible influence functions <span class="math inline">\(\Phi\)</span>, all we need to do to find the one corresponding to the most efficient RAL estimator is figure out which of them has smallest norm.</p>
-<p><a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.5</span></a> makes this easy. By th</p>
+<p><a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.6</span></a> makes this easy. Pick any influence function <span class="math inline">\(\phi \in \Phi\)</span>. By <a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.6</span></a>, that function can be written as <span class="math inline">\(\phi = \nabla\!\Psi + v\)</span> for some <span class="math inline">\(v \in {\mathring{{\mathcal{P}}}}^\perp\)</span>. Moreover, since <span class="math inline">\(\nabla\!\Psi\)</span> is in the tangent space and <span class="math inline">\(v\)</span> is some vector orthogonal to the tangent space, these two vectors create the sides of a right triangle with <span class="math inline">\(\phi\)</span> as the hypotenuse. Thus by the Pythagorean Theorem (<a href="5-2-L2.html#thm-pythagorean" class="quarto-xref">Theorem&nbsp;<span>B.1</span></a>),</p>
+<p><span class="math display">\[
+\|\phi\|^2 = \|\nabla\!\Psi\|^2 + \|v\|^2 \ge \|\nabla\!\Psi\|^2.
+\]</span></p>
+<p>In other words, the canonical gradient is the influence function with the smallest norm: the <em>efficient influence function</em>. This is visually obvious in <a href="#fig-RAL-IF-set" class="quarto-xref">Figure&nbsp;<span>3.7</span></a>.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Efficient Influence Function
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="thm-RAL-IF-set" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3.6</strong></span> For a pathwise differentiable estimand <span class="math inline">\(\Psi\)</span> in a given model <span class="math inline">\({\mathcal{P}}\)</span>, the influence function of the most efficient RAL estimator is equal to the canonical gradient <span class="math inline">\(\nabla\!_{\mathbb{P}}\Psi\)</span>. We call this the efficient influence function and write it <span class="math inline">\(\phi_{\mathbb{P}}^*\)</span>.</p>
+</div>
+</div>
+</div>
+<p>The efficient influence function and the canonical gradient are the same function. Technically, however, they are defined differently, and just happen to coincide. The canonical gradient encodes the direction and magnitude of steepest increase of the estimand within the model and has nothing to do with any estimator. The efficient influence function encodes the asymptotic error of the most efficient RAL estimator and has nothing to do with any model. The fact that these two different objects are the same function is remarkable. Therefore whether we choose to call this function the canonical gradient or the efficient influence function is a matter of perspective. The former is more appropriate if we are discussing models, the latter if we are discussing estimators.</p>
+<p>Because the canonical gradient depends on the estimand <span class="math inline">\(\Psi\)</span>, the distribution in question <span class="math inline">\({\mathbb{P}}\)</span>, and the model it lives in <span class="math inline">\({\mathcal{P}}\)</span>, the efficient influence function (corresponding to the most efficient RAL estimator) has the same dependencies. The first dependence is obvious: what the best estimator is obviously depends on what is being estimated. The second we have already discussed in <a href="3-1-AL.html" class="quarto-xref"><span>Chapter 1</span></a>: the influence function of any fixed asymptotically linear estimator depends on what distribution the data for that estimator are drawn from.</p>
+<p>The third dependence is also natural. The “size” of the model corresponds to our existing knowledge of the world or the assumptions we’re willing to make. The more we know, the fewer distributions remain in the model. The smaller the model, the smaller the tangent space at any given point within it (it won’t be bigger, at a minimum). The smaller the tangent space, the larger the orthogonal complement, meaning we have more influence functions to choose from in order to find one with the smallest norm. The smaller the norm of the influence function, the smaller the asymptotic variance and the more certain our estimates are. This is the mechanism by which more a-priori knowledge about the world translates to more confident estimates, as one would expect.</p>
+<div id="exm-EIF-mean-restricted" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.5</strong></span> In <a href="#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>3.4</span></a> we showed that the canonical gradient of the mean estimand in the nonparametric model is <span class="math inline">\(\nabla\!_{\mathbb{P}}\Psi(z)  = z - \mathbb{E}_{\mathbb{P}}[Z]\)</span> which has squared norm equal to <span class="math inline">\(\mathbb{V}_{\mathbb{P}}[Z]\)</span>. If <span class="math inline">\(Z \sim \mathsf{N}(0,1)\)</span>, for example, the squared norm of the gradient is 1.</p>
+<p>In this example we’ll describe how the canonical gradient changes and its norm shrinks when the model is further restricted. We’ll pick a somewhat contrived model to illustrate the point.</p>
+<p>Let <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span> and consider the model of densities <span class="math inline">\({\mathcal{P}}= \{(1_\epsilon s)p: \epsilon\in \mathbb{R}\}\)</span> where <span class="math inline">\(s(z) = z-z^3\)</span> which has mean zero. Obviously this is a one-dimensional model (a path with score <span class="math inline">\(s\)</span>) so the canonical gradient at <span class="math inline">\({\mathbb{P}}\)</span> must be a scalar multiple of <span class="math inline">\(s\)</span>, i.e.&nbsp;<span class="math inline">\(\nabla\!_{\mathbb{P}}\Psi = cs\)</span>. We can figure out what the constant <span class="math inline">\(c\)</span> is because the squared norm of the canonical gradient must be equal to the pathwise derivative in the direction of the canonical gradient: <span class="math inline">\(\dot\Psi(cs) = {\mathbb{P}}(cs)(cs)\)</span>. Therefore</p>
+<p><span class="math display">\[
+c = \frac{\dot\Psi(s)}{\|s\|^2}.
+\]</span></p>
+<p>The pathwise derivative is</p>
+<p><span class="math display">\[
+\begin{aligned}
+\dot\Psi_{\mathbb{P}}(s) &amp;= \mathbb{E}_{\mathbb{P}}[Z s(Z)] \\
+&amp;= \mathbb{E}_{\mathbb{P}}[Z^2 - Z^4]
+\end{aligned}
+\]</span></p>
+<p>as shown in <a href="#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>3.4</span></a> and</p>
+<p><span class="math display">\[
+\|s\|^2 = \mathbb{E}_{\mathbb{P}}[(Z - Z^3)^2] = \mathbb{E}_{\mathbb{P}}[Z^2 - 2Z^4 + Z^6].
+\]</span></p>
+<p>Evaluating at <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span> gives</p>
+<p><span class="math display">\[
+c = \frac{1-3}{1-2\times3+15} = \frac{-2}{10} = -\frac{1}{5}
+\]</span></p>
+<p>Therefore the squared norm of the canonical gradient is</p>
+<p><span class="math display">\[
+\|\nabla\!\Psi\|^2 = \|cs\|^2 = \frac{10}{25}
+\]</span></p>
+<p>This is more than half as small as the norm of the canonical gradient for the same estimand in the nonparametric model. Since the canonical gradient in the nonparametric model corresponds to the influence function of the sample mean, the implication is that in this restricted model there is a RAL estimator of the population mean that more than twice as efficient as the sample mean!</p>
+</div>
 <!-- 
-Recall that efficiency is given by norm of IFs. The smallest-norm IF is the canonical one (in closure of tset) because of pythagorean theorem. Therefore to get an efficient estimator, we need to construct an estimator that has the influence function equal to the canonical gradient. We also call this the "efficient influence function". The var of the EIF is the optimal asymptoic var. 
-
 Optimal variance is related to how quickly estimand can change. The norm of the EIF is exactly the pathwise derivative in the direction of the canonical gradient. data can look compatible with a set of distributions: if estimand can be highly variable across that set (there's a direction of big slope) then we're naturally going to be uncertain of its value.
 
-Fewer assumptions => bigger the model, the bigger tangent set is, the fewer orthogonal directionst here are => the fewer possible gradients/ RAL estimators there are. More assumptions/restrictions => more possible RAL estimators => better chance of a small norm one 
+exercise or example for mean in restricted model (intuition: restrict the model so the old EIF is not in the tangent space; it will still be an IF)
 
 Everything we've done has led us to this one point. for any estimand in model etc. the EIF is everything we need to know to build an optimnal estimator (caveat estimands that don't ahve one). Sicne so important, next chapter we will see how to derive the EIF for most common models. In next part we will see how to use that to create efficient estimators from scratch for any relevant problem.
 -->
@@ -1025,7 +1098,6 @@ Bickel, Peter J, Chris A J Klaassen, Ya’acov Ritov, and Jon A Wellner. 1993. <
 Van der Vaart, Aad W. 2000. <em>Asymptotic Statistics</em>. Vol. 3. Cambridge university press.
 </div>
 </div>
-</section>
 </section>
 
 </main> <!-- /main -->
