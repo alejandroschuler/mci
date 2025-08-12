@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; The Efficient Influence Function – Introduction to Modern Causal Inference</title>
+<title>3&nbsp; Efficiency for RAL Estimators – Introduction to Modern Causal Inference</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li><li class="breadcrumb-item"><a href="./3-3-EIF.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The Efficient Influence Function</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li><li class="breadcrumb-item"><a href="./3-3-efficiency.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -184,8 +184,8 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3-3-EIF.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The Efficient Influence Function</span></span></a>
+  <a href="./3-3-efficiency.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
   </div>
 </li>
       </ul>
@@ -263,9 +263,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li><li class="breadcrumb-item"><a href="./3-3-EIF.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The Efficient Influence Function</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li><li class="breadcrumb-item"><a href="./3-3-efficiency.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The Efficient Influence Function</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></h1>
 </div>
 
 
@@ -464,7 +464,7 @@ Tangent Set
 <div id="fig-tangent-set" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tangent-set-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="3-3-EIF_files/mediabag/19287c98c2d26deba6b40c97d5e0639e8c4830fe.svg" class="img-fluid figure-img">
+<img src="3-3-efficiency_files/mediabag/19287c98c2d26deba6b40c97d5e0639e8c4830fe.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tangent-set-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.1: A visual representation of the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}\)</span> along with the model <span class="math inline">\(\sqrt{{\mathcal{P}}}\)</span>, two differentiable paths, and two scores (times <span class="math inline">\(\sqrt p\)</span>). The set <span class="math inline">\({\dot{{\mathcal{P}}}}\sqrt{p}\)</span> denotes the set of all scores times the root density: <span class="math inline">\(\{s \sqrt{p}: s \in {\dot{{\mathcal{P}}}}\}\)</span>.
@@ -485,7 +485,7 @@ s_{\sigma^2}(z)  &amp;= \left. \frac{\partial p_{\mu,\sigma^2}(z)}{\partial \sig
 <div id="fig-parametric-tangent-sets" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-parametric-tangent-sets-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="3-3-EIF_files/mediabag/ddd45ebb755f6de80aa5d76d8a14dc4e0d0b2fda.svg" class="img-fluid figure-img">
+<img src="3-3-efficiency_files/mediabag/ddd45ebb755f6de80aa5d76d8a14dc4e0d0b2fda.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-parametric-tangent-sets-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.2: A cartoon representation of the models <span class="math inline">\(\mathcal P\)</span> and <span class="math inline">\(\mathcal P_{\mu +}\)</span> discussed in this example. The arrows emanating from <span class="math inline">\(\mathsf{N}(0,1)\)</span> indicate scores of paths in <span class="math inline">\(\mathcal P\)</span>, but only the orange arrow is a score of a path in <span class="math inline">\(\mathcal P_{\mu +}\)</span>.
@@ -576,7 +576,7 @@ s(z) = \int \frac{p_0(y,z)}{p_0(z)} s(y,z) \mathop{}\!\mathrm{d}y = \int p(y|z) 
 <div id="fig-conditional-scores" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-conditional-scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="3-3-EIF_files/mediabag/42004c4316fe2bb344246e72d3b7c2d089d320db.svg" class="img-fluid figure-img">
+<img src="3-3-efficiency_files/mediabag/42004c4316fe2bb344246e72d3b7c2d089d320db.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-conditional-scores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.3: The marginal score is an orthogonal projection of the joint score and the conditional score is the residual.
@@ -731,7 +731,7 @@ Tangent Sets in Factored Models
 <div id="fig-pathwise-derivative" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pathwise-derivative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="3-3-EIF_files/mediabag/4bd9f6ba1a477518cc4454f018c4f416e5e95169.svg" class="img-fluid figure-img">
+<img src="3-3-efficiency_files/mediabag/4bd9f6ba1a477518cc4454f018c4f416e5e95169.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pathwise-derivative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.4: The pathwise derivative evaluated at a particular score <span class="math inline">\(s\)</span> gives the rate of change of the estimand if we move the underlying distribution in the direction of (and at the speed of) the score.
@@ -784,7 +784,24 @@ Note
 <div class="callout-body-container callout-body">
 <p>The analogy is somehwat imprecise because for a standard derivative of a function <span class="math inline">\(f(z)\)</span> with vector inputs, the “tangent plane” <span class="math inline">\(\dot f(h) \approx f(z+h) - f(z)\)</span> is defined on the same input vector space as the function itself, i.e.&nbsp;<span class="math inline">\(h\)</span> and <span class="math inline">\(z\)</span> are elements of the same vector space. For the pathwise derivative, the equivalent approximation is <span class="math inline">\(\dot\Psi(s) \approx \Psi({\mathbb{P}}^{(\epsilon)}) - \Psi({\mathbb{P}})\)</span>, but <span class="math inline">\({\mathbb{P}}\)</span> and <span class="math inline">\(s\)</span> are two different kinds of objects. The trouble is that distributions in a model don’t naturally form a vector space: we can embedd them into <span class="math inline">\(\mathcal{L}_2\)</span> as root-densities by assuming they are dominated by some other measure but at a loss of generality.</p>
 <p>If that is done, however, then the pathwise derivative corresponds exactly with something called a Hadamard derivative. This kind of derivative is slightly weaker than the standard (total) derivative (called a Fréchet derivative). Roughly speaking, the usual total derivative tangent plane must approximate the error <span class="math inline">\(\dot f(h) \approx f(z+h)\)</span> for any sequence <span class="math inline">\(h\)</span> approaching in any directions to <span class="math inline">\(0\)</span>, whereas the Hadamard derivative only needs to give the right approximation along sequences <span class="math inline">\(h\)</span> that eventually settle into a single directional approach to zero. Roughly speaking, this corresponds to the pathwise derivative because the latter is only concerned with sequences along differentiable paths, i.e.&nbsp;paths where the difference of subsequent steps is eventually well-approximated by the “direction” function <span class="math inline">\(s\)</span> (the score).</p>
-<p>It is not necessary, however, to make assumptions in order to embedd the model into <span class="math inline">\(\mathcal{L}_2\)</span>. The pathwise derivative as given in <a href="#thm-RAL-IFs" class="quarto-xref">Theorem&nbsp;<span>3.2</span></a> and <a href="#def-pathwise-differentiability" class="quarto-xref">Definition&nbsp;<span>3.3</span></a> works just fine in generic models. While most similar to the Hadamard derivative, it does not precisely correspond to any form of derivative that is defined on vector spaces.</p>
+<p>It is not necessary, however, to make assumptions in order to embed the model into <span class="math inline">\(\mathcal{L}_2\)</span>. The pathwise derivative as given in <a href="#thm-RAL-IFs" class="quarto-xref">Theorem&nbsp;<span>3.2</span></a> and <a href="#def-pathwise-differentiability" class="quarto-xref">Definition&nbsp;<span>3.3</span></a> works just fine in generic models. While most similar to the Hadamard derivative, it does not precisely correspond to any form of derivative that is defined on vector spaces.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-pathwise-deriv-figure" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.1</strong></span> On a piece of paper sketch out a replica of <a href="#fig-tangent-set" class="quarto-xref">Figure&nbsp;<span>3.1</span></a>.</p>
+<ol type="a">
+<li>Draw some curvy, smooth level sets of your choosing over the surface of <span class="math inline">\(\sqrt{{\mathcal{P}}}\)</span> representing the value of <span class="math inline">\(\Psi({\mathbb{P}})\)</span> at each point. One of your level set lines should pass through the point <span class="math inline">\(\sqrt p\)</span>.</li>
+<li>Draw some straight, evenly spaced level-set lines across <span class="math inline">\(\sqrt p {\dot{{\mathcal{P}}}}\)</span> representing the value of <span class="math inline">\(\dot\Psi(s)\)</span> at each point (you can peek at <a href="#fig-gradient" class="quarto-xref">Figure&nbsp;<span>3.6</span></a> to see what I mean). One of the level-set lines should pass through <span class="math inline">\(\sqrt p\)</span> and at that point should be tangent to the level set of <span class="math inline">\(\Psi\)</span> passing through <span class="math inline">\(\sqrt p\)</span> on <span class="math inline">\(\sqrt{{\mathcal{P}}}\)</span>.</li>
+</ol>
+<p>Your drawing represents the sense in which <span class="math inline">\(\dot\Psi\)</span> is a local, linear approximation to <span class="math inline">\(\Psi: {\mathcal{P}}\to \mathbb{R}\)</span>. If you imagine zooming into the point <span class="math inline">\(\sqrt p \in \sqrt{{\mathcal{P}}}\)</span> the surface of the sphere begins to look essentially flat (like the tangent set) and the curves of the contours on the model also flatten out into a regular linear pattern. The flattening of the model is due to the differentiability of the paths whereas the flattening of the level sets are due to pathwise differentiability of the estimand.</p>
+</div>
+</div>
 </div>
 </div>
 <p>A pathwise-differentiable estimand “varies smoothly” over the model the same way that a ordinary function with a continuous derivative has no kinks. At any point of a kink or discontinuity in the estimand, no estimator can be regular.</p>
@@ -795,7 +812,7 @@ Note
 </div>
 <div class="callout-body-container">
 <div id="exr-discontinuous-estimand" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.1</strong></span> Let <span class="math inline">\(Z\)</span> be normally distributed with known variance <span class="math inline">\(1\)</span> but unknown mean <span class="math inline">\(\mu\)</span>, i.e.&nbsp;<span class="math inline">\({\mathcal{P}}= \{\mathsf{N}(\mu,1):\mu \in \mathbb{R}\}\)</span>. Presume we are interested in estimating the quantity <span class="math inline">\(\Psi({\mathbb{P}}) = 1(\mathbb{E}_{\mathbb{P}}[Z] &gt; 0)\)</span>, i.e.&nbsp;whether the mean is positive or not (we are estimating, not testing).</p>
+<p><span class="theorem-title"><strong>Exercise 3.2</strong></span> Let <span class="math inline">\(Z\)</span> be normally distributed with known variance <span class="math inline">\(1\)</span> but unknown mean <span class="math inline">\(\mu\)</span>, i.e.&nbsp;<span class="math inline">\({\mathcal{P}}= \{\mathsf{N}(\mu,1):\mu \in \mathbb{R}\}\)</span>. Presume we are interested in estimating the quantity <span class="math inline">\(\Psi({\mathbb{P}}) = 1(\mathbb{E}_{\mathbb{P}}[Z] &gt; 0)\)</span>, i.e.&nbsp;whether the mean is positive or not (we are estimating, not testing).</p>
 <ol type="a">
 <li>Draw a plot of the function <span class="math inline">\(\mu \mapsto \Psi(\mathsf{N}(\mu,1))\)</span></li>
 <li>At <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span>, do you think <span class="math inline">\(\Psi\)</span> is pathwise differentiable? If not, is it because the derivative doesn’t exist or is it because the derivative isn’t continuous?</li>
@@ -807,7 +824,8 @@ Note
 </div>
 </div>
 </div>
-<p>The examples in <a href="#exr-discontinuous-estimand" class="quarto-xref">Exercise&nbsp;<span>3.1</span></a> are contrived. More often the types of “kinks” or discontinuities that cause problems are difficult to visualize in lower-dimensions. It’s not as if the value of most practically interesting nondifferentiable estimands changes suddenly as we move along a single differentiable path. The fact that the path is differentiable means that the densities change smoothly as we walk in that fixed direction and that usually implies smooth behavior of the estimand along a given path. The kinks are sometimes only visible if you imagine “rotating” around. I like to imagine standing at a point <span class="math inline">\({\mathbb{P}}\)</span> on the “surface” <span class="math inline">\(\Psi({\mathbb{P}})\)</span> and looking in some direction: I imagine seeing how steep the ascent or descent is in whatever direction I look. The problem with most practially interesting estimands that are not differentiable isn’t that there is a discontinuity or kink in any given direction, it’s that no matter what direction you look at, there is always another direction where the slope is steeper. But an estimand is pathwise differentiable at a point in a model only if there is a “direction of maximum slope” away from that point. In infinite dimensions, kinks occur in this “rotational” sense more often than they occur in the more familiar one-dimension sense.</p>
+<p>The examples in <a href="#exr-discontinuous-estimand" class="quarto-xref">Exercise&nbsp;<span>3.2</span></a> are contrived. More often the types of “kinks” or discontinuities that cause problems are difficult to visualize in lower-dimensions. It’s not as if the value of most practically interesting non-differentiable estimands changes suddenly as we move along a single differentiable path. The fact that the path is differentiable means that the densities change smoothly as we walk in that fixed direction and that usually implies smooth behavior of the estimand along a given path.</p>
+<p>The kinks are sometimes only visible “rotationally”. I like to imagine standing at a point <span class="math inline">\({\mathbb{P}}\)</span> on the “surface” <span class="math inline">\(\Psi({\mathbb{P}})\)</span> and looking in some direction: I imagine seeing how steep the ascent or descent is in whatever direction I look. The problem with most practically interesting estimands that are not differentiable isn’t that there is a discontinuity or kink in any given direction, it’s that no matter what direction you look at, there is always another direction where the slope is steeper. But an estimand is pathwise differentiable at a point in a model only if there is a “direction of maximum slope” away from that point. In infinite dimensions, kinks occur in this “rotational” sense more often than they occur in the more familiar one-dimension sense.</p>
 <div id="exm-unbounded-estimand" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3.3</strong></span> Let <span class="math inline">\(\mathcal P\)</span> be all distributions of a continuous variable <span class="math inline">\(Z\)</span>. Let’s say that our goal is to estimate the value of the density function of <span class="math inline">\(z\)</span> at the point <span class="math inline">\(z=0\)</span>. There generally isn’t a good motivation for wanting to know this, it’s just a simple example that illustrates ideas that apply identically to more complicated estimands.</p>
 <p>We’ll show that there is no RAL estimator of the density at a point by establishing that the pathwise derivative is not bounded over the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span> (at any <span class="math inline">\({\mathbb{P}}\)</span>). The intuition is that we can find a path that comes very, very close to modifying the density <em>only</em> at the point <span class="math inline">\(z=0\)</span>. In other words, we can modify the estimand by arbitrary amounts essentially without changing the overall density.</p>
@@ -838,7 +856,7 @@ s_n(z) = \frac{1\left(-\frac{1}{n} \le z \le \frac{1}{n}\right) - t_n}{\sqrt{t_n
 </div>
 <div class="callout-body-container">
 <div id="exr-density-at-point-normal-location" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.2</strong></span> Whether an estimand is pathwise differentiable or not depends on the model. Imagine that we know <span class="math inline">\(Z\)</span> is normally distributed with known variance <span class="math inline">\(1\)</span> but unknown mean <span class="math inline">\(\mu\)</span>, i.e.&nbsp;<span class="math inline">\({\mathcal{P}}= \{\mathsf{N}(\mu,1):\mu \in \mathbb{R}\}\)</span> and we are interested in estimating the value of the density <span class="math inline">\(p(z)\)</span> at the point <span class="math inline">\(z=0\)</span>. This is again a contrived example but the point is to illustrate ideas in the simplest setting possible. Recall that the density of a <span class="math inline">\(\mathsf{N}(\mu,1)\)</span> random variable is <span class="math inline">\(p(z) = (2\pi)^{-1/2} e^{-(z-\mu)^2/2}\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 3.3</strong></span> Whether an estimand is pathwise differentiable or not depends on the model. Imagine that we know <span class="math inline">\(Z\)</span> is normally distributed with known variance <span class="math inline">\(1\)</span> but unknown mean <span class="math inline">\(\mu\)</span>, i.e.&nbsp;<span class="math inline">\({\mathcal{P}}= \{\mathsf{N}(\mu,1):\mu \in \mathbb{R}\}\)</span> and we are interested in estimating the value of the density <span class="math inline">\(p(z)\)</span> at the point <span class="math inline">\(z=0\)</span>. This is again a contrived example but the point is to illustrate ideas in the simplest setting possible. Recall that the density of a <span class="math inline">\(\mathsf{N}(\mu,1)\)</span> random variable is <span class="math inline">\(p(z) = (2\pi)^{-1/2} e^{-(z-\mu)^2/2}\)</span>.</p>
 <ol type="a">
 <li>What is the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span> at any point <span class="math inline">\({\mathbb{P}}\)</span> in this model? What is the dimension of this tangent set?</li>
 <li>For any score <span class="math inline">\(s \in {\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span>, construct the convex path <span class="math inline">\(p_\epsilon= (1+\epsilon s)p\)</span> and use it to compute the pathwise derivative <span class="math inline">\(\dot\Psi(s)\)</span>.</li>
@@ -849,7 +867,7 @@ s_n(z) = \frac{1\left(-\frac{1}{n} \le z \le \frac{1}{n}\right) - t_n}{\sqrt{t_n
 </div>
 </div>
 </div>
-<p>Pathwise differentiability does not necessarily imply that there <em>is</em> a RAL estimator. It only provides the possibility of one existing. In the next part of this book we will study how to actually build efficient estimators and we will see that we need certain assumptions even to guarantee asymptotic linearity. Whether or not that can be done and in what context depends on estimand in question.</p>
+<p>Pathwise differentiability does not necessarily imply that there <em>is</em> a RAL estimator. It only allows one to exist. In the next part of this book we will study how to actually build efficient estimators and we will see that we need certain assumptions even to guarantee asymptotic linearity. Whether or not that can be done and in what context depends on estimand in question.</p>
 </section>
 <section id="gradients" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="gradients"><span class="header-section-number">3.4</span> Gradients</h2>
@@ -869,12 +887,12 @@ Warning
 <p>At this point, understanding Riesz representation becomes important. I encourage you to read <a href="5-2-L2.html#sec-app-riesz" class="quarto-xref"><span>Section B.4</span></a> and any other background material in <a href="5-2-L2.html" class="quarto-xref"><span>Appendix B</span></a> you need before proceeding. I promise you will find the material rewarding and immediately useful.</p>
 </div>
 </div>
-<p>All of this starts with pathwise differentiability. For a pathwise differentiable estimand, we know that <span class="math inline">\(\dot\Psi\)</span> is a bounded linear functional defined on the tangent set. In order to use an important result in functional analysis called the Riesz representation theorem we need to extend the pathwise derivative function <span class="math inline">\(\dot\Psi\)</span> so it is defined on an entire vector space. Although the tangent set is a vector space in all of the major examples we consider in this book, there are cases where it is not. I’ll use the symbol <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span> to denote the linear closure of the tanget set, which I’ll call the tangent <em>space</em>.</p>
+<p>All of this starts with pathwise differentiability. For a pathwise differentiable estimand, we know that <span class="math inline">\(\dot\Psi\)</span> is a bounded linear functional defined on the tangent set. In order to use an important result in functional analysis called the Riesz representation theorem we need to extend the pathwise derivative function <span class="math inline">\(\dot\Psi\)</span> so it is defined on an entire vector space. Although the tangent set is a vector space in all of the major examples we consider in this book, there are cases where it is not. I’ll use the symbol <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span> to denote the linear closure of the tangent set, which I’ll call the tangent <em>space</em>.</p>
 <p>Often <span class="math inline">\({\dot{{\mathcal{P}}}}= {\mathring{{\mathcal{P}}}}\)</span> already. A linear closure of a set of vectors is all possible linear combinations of those vectors along with any limits. Since it is linear and continuous, the pathwise derivative is easily defined on <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span>. Any score function in this space is either a) a linear combination <span class="math inline">\(\bar s = \sum c_j s_j\)</span> of scores <span class="math inline">\(s_j \in {\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span>, in which case we define <span class="math inline">\(\dot\Psi (\bar s) = \sum c_j \dot\Psi(s)\)</span> in accordance with linearity; or b) a limit of such combinations <span class="math inline">\(\bar s = \lim_{n\to \infty} s_n\)</span>, in which case we define <span class="math inline">\(\dot\Psi (\bar s) = \lim_{n\to\infty} \dot\Psi(s)\)</span> in accordance with continuity. <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span> is always a subspace of <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> and thus inherits its inner product <span class="math inline">\(\langle f,g\rangle = \int fg \mathop{}\!\mathrm{d}{\mathbb{P}}= {\mathbb{P}}fg\)</span>.</p>
 <div id="fig-tangent-space" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tangent-space-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="3-3-EIF_files/mediabag/560c3f2aa030edbcd2708fa06aea89b28caa243d.svg" class="img-fluid figure-img">
+<img src="3-3-efficiency_files/mediabag/560c3f2aa030edbcd2708fa06aea89b28caa243d.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tangent-space-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.5: Cartoon of the relationship between the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span> and tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span>. The tangent set is not always a subspace but it is always closed under positive scaling (prove it!), which is why it appears as a wedge in the cartoon. The tangent space fills in the rest of the plane that the tangent set sits in, i.e.&nbsp;it is the smallest subspace of <span class="math inline">\(\mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> that contains the tangent set.
@@ -888,7 +906,7 @@ Figure&nbsp;3.5: Cartoon of the relationship between the tangent set <span class
 </div>
 <div class="callout-body-container">
 <div id="exr-tangent-space" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.3</strong></span> For two models <span class="math inline">\(\mathcal Q \subset {\mathcal{P}}\)</span>, what is the relationship between <span class="math inline">\(\mathring{\mathcal Q}_{\mathbb{P}}\)</span> and <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span> at any point <span class="math inline">\({\mathbb{P}}\in \mathcal Q\)</span>?</p>
+<p><span class="theorem-title"><strong>Exercise 3.4</strong></span> For two models <span class="math inline">\(\mathcal Q \subset {\mathcal{P}}\)</span>, what is the relationship between <span class="math inline">\(\mathring{\mathcal Q}_{\mathbb{P}}\)</span> and <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span> at any point <span class="math inline">\({\mathbb{P}}\in \mathcal Q\)</span>?</p>
 </div>
 </div>
 </div>
@@ -911,7 +929,7 @@ Gradient of a Pathwise Differentiable Estimand
 <div id="def-gradient" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 3.4</strong></span> For an estimand <span class="math inline">\(\Psi\)</span> that is pathwise differentiable at <span class="math inline">\({\mathbb{P}}\in {\mathcal{P}}\)</span>, the <em>gradient</em> (or <em>canonical gradient</em>) <span class="math inline">\(\nabla\!_{\mathbb{P}}\Psi\)</span> is the (unique) Riesz representer of the pathwise derivative <span class="math inline">\(\dot\Psi: {\mathring{{\mathcal{P}}}}_{\mathbb{P}}\to \mathbb{R}\)</span>.</p>
 <p>The gradient is always an element of <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\subseteq \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> and is thus square integrable and mean zero under <span class="math inline">\({\mathbb{P}}\)</span> at a minimum.</p>
-<p>The gradient represents the “direction” in which the estimand is increasing most quickly and its squared <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> norm <span class="math inline">\({\mathbb{P}}(\nabla\!_{\mathbb{P}}\Psi)^2 = \dot\Psi(\nabla\!_{\mathbb{P}}\Psi)\)</span> encodes the speed at which it is instantaneously increasing in that direction.</p>
+<p>The gradient represents the “direction” in which the estimand is increasing most quickly and its squared <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> norm <span class="math inline">\(\| \nabla\!_{\mathbb{P}}\Psi \| = \dot\Psi(\frac{\nabla\!_{\mathbb{P}}\Psi}{\|\nabla\!_{\mathbb{P}}\Psi\|})\)</span> encodes the speed at which it is instantaneously increasing in that direction.</p>
 </div>
 </div>
 </div>
@@ -919,7 +937,7 @@ Gradient of a Pathwise Differentiable Estimand
 <div id="fig-gradient" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-gradient-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="3-3-EIF_files/mediabag/5901c549cfc78abf276e9fd6858a7e97f5801ef3.svg" class="img-fluid figure-img">
+<img src="3-3-efficiency_files/mediabag/5901c549cfc78abf276e9fd6858a7e97f5801ef3.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gradient-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.6: Visual representation of the gradient. The value of the pathwise derivative function <span class="math inline">\(\dot\Psi_{\mathbb{P}}\)</span> is depicted on the domain <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span> using the blue shading: darker values indicate higher values of <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s)\)</span> at each point <span class="math inline">\(s \in {\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span>. Thin dotted lines represent the level sets of the pathwise derivative. The gradient <span class="math inline">\(\nabla\!\Psi\)</span> is shown as the dark blue arrow, representing the direction of fastest ascent of the linear function <span class="math inline">\(\dot\Psi_{\mathbb{P}}\)</span> and the speed of that ascent (spacing of the level sets; the closer together, the bigger the gradient). Since <span class="math inline">\(\dot\Psi_{\mathbb{P}}\)</span> is a derivative, larger values correspond to larger rates of increase of the estimand <span class="math inline">\(\Psi\)</span>, meaning that the gradient corresponds to the direction of steepest instantaneous rate of increase of the estimand.
@@ -931,6 +949,18 @@ Figure&nbsp;3.6: Visual representation of the gradient. The value of the pathwis
 \dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}s \nabla\!\Psi \quad\text{for all } s \in {\mathring{{\mathcal{P}}}}_{\mathbb{P}}.
 \]</span></p>
 <p>This looks exactly like our central identity: <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}s \phi\)</span> for all <span class="math inline">\(s \in {\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span>. Since the gradient satisfies the identity for all scores in the tangent space, it certainly satisfies it for the subset of those that are in the tangent <em>set</em>. Therefore the gradient is an influence function for a RAL estimator! Since the gradient always exists (by Riesz representation), we have proven that every pathwise differentiable estimand has at least one RAL estimator. In fact, there may be many RAL estimators with this influence function, but by virtue of having the same influence function they are asymptotically equivalent.</p>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-gradient-norm" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.5</strong></span> Use the identity above to prove the claim in <a href="#def-gradient" class="quarto-xref">Definition&nbsp;<span>3.4</span></a> that <span class="math inline">\(\| \nabla\!_{\mathbb{P}}\Psi \| = \dot\Psi(\frac{\nabla\!_{\mathbb{P}}\Psi}{\|\nabla\!_{\mathbb{P}}\Psi\|})\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
 <div id="exm-gradient-nonparam" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3.4</strong></span> Let <span class="math inline">\({\mathcal{P}}\)</span> be the set of all possible distributions of continuous random variables and presume the estimand of interest is the mean <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[Z] = \int z p(z) \mathop{}\!\mathrm{d}z\)</span>. Let <span class="math inline">\(\psi_{\mathbb{P}}\)</span> abbreviate the mean of <span class="math inline">\(Z\)</span> for a distribution <span class="math inline">\({\mathbb{P}}\)</span>. We’ll see that the gradient for this estimand is easy to find in this model moreover that we can even construct an estimator that has the gradient as its influence function.</p>
 <p>We have already shown that this model is locally nonparametric (see <a href="#exm-tangent-set-nonparam" class="quarto-xref">Example&nbsp;<span>3.2</span></a>) so at any <span class="math inline">\({\mathbb{P}}\)</span> the tangent set is <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}= \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>. For any bounded score <span class="math inline">\(s \in \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> we can construct the usual convex path <span class="math inline">\(p_\epsilon= (1+ \epsilon s)p\)</span> which has score <span class="math inline">\(s\)</span>. For unbounded scores we could construct the more complicated paths described in <a href="#exm-tangent-set-nonparam" class="quarto-xref">Example&nbsp;<span>3.2</span></a> but this adds complexity without adding understanding so we’ll explain using the simpler convex paths.</p>
@@ -967,7 +997,7 @@ Figure&nbsp;3.6: Visual representation of the gradient. The value of the pathwis
 </div>
 <div class="callout-body-container">
 <div id="exr-gradient" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.4</strong></span> The gradient generally depends on the model, even though we hide this dependence in the notation. Fix the estimand <span class="math inline">\(\Psi\)</span> and a distribution <span class="math inline">\({\mathbb{P}}\in \mathcal Q \subset {\mathcal{P}}\)</span>. Let <span class="math inline">\(\nabla\!_{{\mathbb{P}}\in \mathcal Q}\Psi\)</span> be the gradient in the smaller model and let <span class="math inline">\(\nabla\!_{{\mathbb{P}}\in \mathcal P}\Psi\)</span> be the gradient in the larger model. Argue for why <span class="math inline">\(\|\nabla\!_{{\mathbb{P}}\in \mathcal Q}\Psi\| \le \|\nabla\!_{{\mathbb{P}}\in \mathcal P}\Psi\|\)</span>. <em>Hint</em>: what is the relationship between the tangent spaces?</p>
+<p><span class="theorem-title"><strong>Exercise 3.6</strong></span> The gradient generally depends on the model, even though we hide this dependence in the notation. Fix the estimand <span class="math inline">\(\Psi\)</span> and a distribution <span class="math inline">\({\mathbb{P}}\in \mathcal Q \subset {\mathcal{P}}\)</span>. Let <span class="math inline">\(\nabla\!_{{\mathbb{P}}\in \mathcal Q}\Psi\)</span> be the gradient in the smaller model and let <span class="math inline">\(\nabla\!_{{\mathbb{P}}\in \mathcal P}\Psi\)</span> be the gradient in the larger model. Argue for why <span class="math inline">\(\|\nabla\!_{{\mathbb{P}}\in \mathcal Q}\Psi\| \le \|\nabla\!_{{\mathbb{P}}\in \mathcal P}\Psi\|\)</span>. <em>Hint</em>: what is the relationship between the tangent spaces?</p>
 </div>
 </div>
 </div>
@@ -995,7 +1025,7 @@ Warning
 <p><span class="math display">\[
 \dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}s (\nabla\!\Psi + v) \quad\text{for all } s \in {\mathring{{\mathcal{P}}}}_{\mathbb{P}}.
 \]</span></p>
-<p>Moreover the functions <span class="math inline">\(v\)</span> in the orthogonal complement of the tangent space are the <em>only</em> functions for which this holds. This fact is formalized in <a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.6</span></a> and illustrated graphically in <a href="#fig-RAL-IF-set" class="quarto-xref">Figure&nbsp;<span>3.7</span></a>.</p>
+<p>Moreover the functions <span class="math inline">\(v\)</span> in the orthogonal complement of the tangent space are the <em>only</em> functions for which this holds. This fact is formalized in <a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.5</span></a> and illustrated graphically in <a href="#fig-RAL-IF-set" class="quarto-xref">Figure&nbsp;<span>3.7</span></a>.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1016,10 +1046,10 @@ Set of Influence Functions
 <div id="fig-RAL-IF-set" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-RAL-IF-set-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="3-3-EIF_files/mediabag/06979d4d1aa7291041fad25994f98e77d5728ecc.svg" class="img-fluid figure-img">
+<img src="3-3-efficiency_files/mediabag/06979d4d1aa7291041fad25994f98e77d5728ecc.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-RAL-IF-set-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.7: The set of influence functions <span class="math inline">\(\Phi\)</span> is the orthogonal complement of the tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}^\perp\)</span> translated over to the point <span class="math inline">\(\nabla\!\Phi\)</span>. The canonical gradient <span class="math inline">\(\nabla\!\Psi\)</span> has smaller norm (“length”) than any other influence function <span class="math inline">\(\phi \in \Phi\)</span>.
+Figure&nbsp;3.7: The set of influence functions <span class="math inline">\(\Phi\)</span> is the orthogonal complement of the tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}^\perp\)</span> translated over to the point <span class="math inline">\(\nabla\!\Psi\)</span> (a translated subspace is called a <em>linear variety</em>). The canonical gradient <span class="math inline">\(\nabla\!\Psi\)</span> has smaller norm (“length”) than any other influence function <span class="math inline">\(\phi \in \Phi\)</span>.
 </figcaption>
 </figure>
 </div>
@@ -1028,9 +1058,9 @@ Figure&nbsp;3.7: The set of influence functions <span class="math inline">\(\Phi
 </section>
 <section id="efficiency" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="efficiency"><span class="header-section-number">3.5</span> Efficiency</h2>
-<p><a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.6</span></a> is an extremely powerful result because it succeeds in completely characterizing the set of influence functions of RAL estimators. That was the goal we set out to acheive and now we can reap the reward.</p>
+<p><a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.5</span></a> is an extremely powerful result because it succeeds in completely characterizing the set of influence functions of RAL estimators. That was the goal we set out to acheive and now we can reap the reward.</p>
 <p>The benefit of understanding what all the possible influence functions are is that we can now find the most “efficient” one. In <a href="3-1-AL.html#sec-AL-benefits" class="quarto-xref"><span>Section 1.3</span></a> we saw that the central limit theorem immediately implies that any asymptotically linear estimator with influence function <span class="math inline">\(\phi\)</span> has asymptotic variance equal to <span class="math inline">\(\mathbb{V}[\phi(Z)] = \|\phi\|^2\)</span>. Given a set of possible influence functions <span class="math inline">\(\Phi\)</span>, all we need to do to find the one corresponding to the most efficient RAL estimator is figure out which of them has smallest norm.</p>
-<p><a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.6</span></a> makes this easy. Pick any influence function <span class="math inline">\(\phi \in \Phi\)</span>. By <a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.6</span></a>, that function can be written as <span class="math inline">\(\phi = \nabla\!\Psi + v\)</span> for some <span class="math inline">\(v \in {\mathring{{\mathcal{P}}}}^\perp\)</span>. Moreover, since <span class="math inline">\(\nabla\!\Psi\)</span> is in the tangent space and <span class="math inline">\(v\)</span> is some vector orthogonal to the tangent space, these two vectors create the sides of a right triangle with <span class="math inline">\(\phi\)</span> as the hypotenuse. Thus by the Pythagorean Theorem (<a href="5-2-L2.html#thm-pythagorean" class="quarto-xref">Theorem&nbsp;<span>B.1</span></a>),</p>
+<p><a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.5</span></a> makes this easy. Pick any influence function <span class="math inline">\(\phi \in \Phi\)</span>. By <a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.5</span></a>, that function can be written as <span class="math inline">\(\phi = \nabla\!\Psi + v\)</span> for some <span class="math inline">\(v \in {\mathring{{\mathcal{P}}}}^\perp\)</span>. Moreover, since <span class="math inline">\(\nabla\!\Psi\)</span> is in the tangent space and <span class="math inline">\(v\)</span> is some vector orthogonal to the tangent space, these two vectors create the sides of a right triangle with <span class="math inline">\(\phi\)</span> as the hypotenuse. Thus by the Pythagorean Theorem (<a href="5-2-L2.html#thm-pythagorean" class="quarto-xref">Theorem&nbsp;<span>B.1</span></a>),</p>
 <p><span class="math display">\[
 \|\phi\|^2 = \|\nabla\!\Psi\|^2 + \|v\|^2 \ge \|\nabla\!\Psi\|^2.
 \]</span></p>
@@ -1045,12 +1075,12 @@ Efficient Influence Function
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div id="thm-RAL-IF-set" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 3.6</strong></span> For a pathwise differentiable estimand <span class="math inline">\(\Psi\)</span> in a given model <span class="math inline">\({\mathcal{P}}\)</span>, the influence function of the most efficient RAL estimator is equal to the canonical gradient <span class="math inline">\(\nabla\!_{\mathbb{P}}\Psi\)</span>. We call this the efficient influence function and write it <span class="math inline">\(\phi_{\mathbb{P}}^*\)</span>.</p>
+<div>
+<p>For a pathwise differentiable estimand <span class="math inline">\(\Psi\)</span> in a given model <span class="math inline">\({\mathcal{P}}\)</span>, the influence function of the most efficient RAL estimator is equal to the canonical gradient <span class="math inline">\(\nabla\!_{\mathbb{P}}\Psi\)</span>. We call this the efficient influence function and write it <span class="math inline">\(\phi_{\mathbb{P}}^*\)</span>.</p>
 </div>
 </div>
 </div>
-<p>The efficient influence function and the canonical gradient are the same function. Technically, however, they are defined differently, and just happen to coincide. The canonical gradient encodes the direction and magnitude of steepest increase of the estimand within the model and has nothing to do with any estimator. The efficient influence function encodes the asymptotic error of the most efficient RAL estimator and has nothing to do with any model. The fact that these two different objects are the same function is remarkable. Therefore whether we choose to call this function the canonical gradient or the efficient influence function is a matter of perspective. The former is more appropriate if we are discussing models, the latter if we are discussing estimators.</p>
+<p>The efficient influence function and the canonical gradient are the same function, but they have two different definitions. The canonical gradient encodes the direction and magnitude of steepest increase of the estimand within the model and has nothing to do with any estimator. The efficient influence function encodes the asymptotic error of the most efficient RAL estimator and has nothing to do with any model. The fact that these two different objects are the same function is remarkable. Therefore whether we choose to call this function the canonical gradient or the efficient influence function is a matter of perspective. The former is more appropriate if we are discussing models, the latter if we are discussing estimators.</p>
 <p>Because the canonical gradient depends on the estimand <span class="math inline">\(\Psi\)</span>, the distribution in question <span class="math inline">\({\mathbb{P}}\)</span>, and the model it lives in <span class="math inline">\({\mathcal{P}}\)</span>, the efficient influence function (corresponding to the most efficient RAL estimator) has the same dependencies. The first dependence is obvious: what the best estimator is obviously depends on what is being estimated. The second we have already discussed in <a href="3-1-AL.html" class="quarto-xref"><span>Chapter 1</span></a>: the influence function of any fixed asymptotically linear estimator depends on what distribution the data for that estimator are drawn from.</p>
 <p>The third dependence is also natural. The “size” of the model corresponds to our existing knowledge of the world or the assumptions we’re willing to make. The more we know, the fewer distributions remain in the model. The smaller the model, the smaller the tangent space at any given point within it (it won’t be bigger, at a minimum). The smaller the tangent space, the larger the orthogonal complement, meaning we have more influence functions to choose from in order to find one with the smallest norm. The smaller the norm of the influence function, the smaller the asymptotic variance and the more certain our estimates are. This is the mechanism by which more a-priori knowledge about the world translates to more confident estimates, as one would expect.</p>
 <div id="exm-EIF-mean-restricted" class="theorem example">
@@ -1058,36 +1088,34 @@ Efficient Influence Function
 <p>In this example we’ll describe how the canonical gradient changes and its norm shrinks when the model is further restricted. We’ll pick a somewhat contrived model to illustrate the point.</p>
 <p>Let <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span> and consider the model of densities <span class="math inline">\({\mathcal{P}}= \{(1_\epsilon s)p: \epsilon\in \mathbb{R}\}\)</span> where <span class="math inline">\(s(z) = z-z^3\)</span> which has mean zero. Obviously this is a one-dimensional model (a path with score <span class="math inline">\(s\)</span>) so the canonical gradient at <span class="math inline">\({\mathbb{P}}\)</span> must be a scalar multiple of <span class="math inline">\(s\)</span>, i.e.&nbsp;<span class="math inline">\(\nabla\!_{\mathbb{P}}\Psi = cs\)</span>. We can figure out what the constant <span class="math inline">\(c\)</span> is because the squared norm of the canonical gradient must be equal to the pathwise derivative in the direction of the canonical gradient: <span class="math inline">\(\dot\Psi(cs) = {\mathbb{P}}(cs)(cs)\)</span>. Therefore</p>
 <p><span class="math display">\[
-c = \frac{\dot\Psi(s)}{\|s\|^2}.
+c = \frac{\dot\Psi(s)}{{\mathbb{P}}s^2}
+= \frac{\mathbb{E}_{\mathbb{P}}[Z^2 - Z^4]}{\mathbb{E}_{\mathbb{P}}[Z^2 - 2Z^4 + Z^6]}
 \]</span></p>
-<p>The pathwise derivative is</p>
+<p>because we already showed in <a href="#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>3.4</span></a> that the pathwise derivative for the mean in this type of path is <span class="math inline">\(\mathbb{E}_{\mathbb{P}}[Z s(Z)]\)</span>. Evaluating the above at <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span> gives</p>
 <p><span class="math display">\[
-\begin{aligned}
-\dot\Psi_{\mathbb{P}}(s) &amp;= \mathbb{E}_{\mathbb{P}}[Z s(Z)] \\
-&amp;= \mathbb{E}_{\mathbb{P}}[Z^2 - Z^4]
-\end{aligned}
+c = \frac{1-3}{1-2\times3+15} = -\frac{1}{5}
 \]</span></p>
-<p>as shown in <a href="#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>3.4</span></a> and</p>
-<p><span class="math display">\[
-\|s\|^2 = \mathbb{E}_{\mathbb{P}}[(Z - Z^3)^2] = \mathbb{E}_{\mathbb{P}}[Z^2 - 2Z^4 + Z^6].
-\]</span></p>
-<p>Evaluating at <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span> gives</p>
-<p><span class="math display">\[
-c = \frac{1-3}{1-2\times3+15} = \frac{-2}{10} = -\frac{1}{5}
-\]</span></p>
-<p>Therefore the squared norm of the canonical gradient is</p>
-<p><span class="math display">\[
-\|\nabla\!\Psi\|^2 = \|cs\|^2 = \frac{10}{25}
-\]</span></p>
-<p>This is more than half as small as the norm of the canonical gradient for the same estimand in the nonparametric model. Since the canonical gradient in the nonparametric model corresponds to the influence function of the sample mean, the implication is that in this restricted model there is a RAL estimator of the population mean that more than twice as efficient as the sample mean!</p>
+<p>Therefore the squared norm of the canonical gradient is <span class="math inline">\(\|\nabla\!\Psi\|^2 = c^2\|s\|^2 = \frac{2}{5}\)</span>.</p>
+<p>This is about half the size of the norm of the canonical gradient for the same estimand in the nonparametric model. Since the canonical gradient in the nonparametric model corresponds to the influence function of the sample mean, the implication is that in this restricted model there is a RAL estimator of the population mean that is about twice as efficient as the sample mean estimator at this distribution!</p>
 </div>
-<!-- 
-Optimal variance is related to how quickly estimand can change. The norm of the EIF is exactly the pathwise derivative in the direction of the canonical gradient. data can look compatible with a set of distributions: if estimand can be highly variable across that set (there's a direction of big slope) then we're naturally going to be uncertain of its value.
-
-exercise or example for mean in restricted model (intuition: restrict the model so the old EIF is not in the tangent space; it will still be an IF)
-
-Everything we've done has led us to this one point. for any estimand in model etc. the EIF is everything we need to know to build an optimnal estimator (caveat estimands that don't ahve one). Sicne so important, next chapter we will see how to derive the EIF for most common models. In next part we will see how to use that to create efficient estimators from scratch for any relevant problem.
--->
+<p>The score I chose for the model in <a href="#exm-EIF-mean-restricted" class="quarto-xref">Example&nbsp;<span>3.5</span></a> was fairly arbitrary. In fact you can repeat the exercise with any score that is not a scalar multiple of <span class="math inline">\(z - \mathbb{E}_{\mathbb{P}}[Z]\)</span> and obtain a similar result. More generally you can choose any model such that its tangent space is smaller and no longer includes the original canonical gradient in the nonparametric model.</p>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-gradient-projection" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.7</strong></span> Fix the estimand <span class="math inline">\(\Psi\)</span> and a distribution <span class="math inline">\({\mathbb{P}}\in \mathcal Q \subset {\mathcal{P}}\)</span>. Let <span class="math inline">\(\nabla\!_{{\mathbb{P}}\in \mathcal Q}\Psi\)</span> be the canonical gradient in the smaller model and let <span class="math inline">\(\nabla\!_{{\mathbb{P}}\in \mathcal P}\Psi\)</span> be the canonical gradient in the larger model and presume that the tangent space for the smaller model does not include <span class="math inline">\(\nabla\!_{{\mathbb{P}}\in \mathcal P}\Psi\)</span>. Prove that <span class="math inline">\(\nabla\!_{{\mathbb{P}}\in \mathcal P}\Psi\)</span> is still <em>a</em> gradient in the smaller model, i.e.&nbsp;</p>
+<p><span class="math display">\[
+\dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}s \nabla\!_{{\mathbb{P}}\in \mathcal P}\Psi \quad \text{for all } s\in \mathring Q_{\mathbb{P}}.
+\]</span></p>
+<p>Why does this imply that the gradient in the smaller model <span class="math inline">\(\nabla\!_{{\mathbb{P}}\in \mathcal Q}\Psi\)</span> is an orthogonal projection of <span class="math inline">\(\nabla\!_{{\mathbb{P}}\in \mathcal P}\Psi\)</span> onto the smaller tangent space <span class="math inline">\(\mathring Q_{\mathbb{P}}\)</span>?</p>
+</div>
+</div>
+</div>
+</div>
+<p>The relationship between the norm of the canonical gradient and the pathwise derivative means that the “speed limit” for asymptotic variance in estimation is directly related to how quickly the estimand can change under small perturbations of the data-generating distribution within the model. That actually makes a lot of sense if you think of the estimation problem as the problem of first telling what distribution a given dataset was drawn from and then reading off the value of the estimand from that distribution. Let’s say that you have enough data to confidently rule out all but a small set of similar distributions. If the value of the estimand varies wildly over those distributions, you still can’t be very confident and should therefore report large uncertainty. Another way to understand the mechanism by which shrinking the model reduces uncertainty is that in smaller models sets of nearby distributions often have more similar values of the estimand.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">

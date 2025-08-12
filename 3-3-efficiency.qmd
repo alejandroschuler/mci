@@ -7,7 +7,7 @@ library(tidyverse)
 ```
 :::
 
-# The Efficient Influence Function
+# Efficiency for RAL Estimators
 
 In @sec-3-AL we defined *asymptotic linearity* (AL) and discussed why AL estimators are nice: they are asymptotically unbiased, are easy to do inference for, and can be (asymptotically) compared by looking at their influence functions. In @sec-3-regularity we argued that we should further restrict the class of desirable estimators to those that are *regular* so that bad finite-sample behavior can't be hidden in the asymptotic comparisons. In this chapter we will establish the central result of efficiency theory: in any model where the estimand varies smoothly enough over the different distributions, there is a best-possible regular asymptotically linear (RAL) estimator.
 
@@ -33,7 +33,6 @@ $$
 \sqrt{n}\left( \hat\Psi(\p^{(\eps_n)}_n) - \Psi(\p) \right) \rightsquigarrow \norm(\p[s\phi], \p \phi^2)
 .
 $$
-
 :::
 ::::
 
@@ -57,7 +56,7 @@ along such sequences. When the above holds for a model along such sequences, we 
 
 The LAN property has nothing to do with any estimator, it is purely a statement about what the densities of nearby distributions $p_{\eps_n}$ look like relative to $p$ as we sample more data from them and move closer to $p$. The log density ratio shown above is actually exactly of the form you get if you instead look at the log density ratio of two normal distributions with the same variance but different means. That's why the property is called local asymptotic normality. So the result says that as you "zoom in" to a point on a differentiable path while sampling more data, the model looks more and more like a set of normal distributions with different means. This happens for any path where the densities vary smoothly (differentiably).
 
-Incredibly, local asymptotic normality tells us enough about what the densities of nearby data-generating distributions look like to infer how any asymptotically linear estimator behaves along these sequences of distributions. The implied pathwise behavior is 
+Incredibly, local asymptotic normality tells us enough about what the densities of nearby data-generating distributions look like to infer how any asymptotically linear estimator behaves along these sequences of distributions. The implied pathwise behavior is
 
 $$
 \sqrt{n}\left( \hat\Psi(\p^{(\eps_n)}_n) - \Psi(\p) \right) \rightsquigarrow \norm(\p[s\phi], \p \phi^2)
@@ -68,7 +67,7 @@ as desired. The technical mechanism for inferring this is called Le Cam's 3rd Le
 
 This is remarkable because asymptotic linearity is a pointwise property: it describes only what happens if the estimator is evaluated with more and more data sampled from the *same* distribution. By itself it says nothing about what would happen if we also *changed* that distribution while letting $n$ grow. But if we take into account differentiability along the path suddenly we can understand that changing pathwise behavior. Moreover the pathwise behavior depends crucially on what the score $s$ is for the path in question: notice that the mean of the limiting distribution is $\p s\phi$.
 
-The benefit of knowing this is that now we can compare to the definition of regularity (@def-regularity-pathwise), which *also* tells us how the estimator behaves along sequences including the kind we considered in @thm-LAN, but this time in a way that does *not* depend on what the score is for the path: 
+The benefit of knowing this is that now we can compare to the definition of regularity (@def-regularity-pathwise), which *also* tells us how the estimator behaves along sequences including the kind we considered in @thm-LAN, but this time in a way that does *not* depend on what the score is for the path:
 
 $$
 \sqrt{n}\left( \hat\Psi(\p^{(\eps_n)}_n) - \Psi(\p^{(\eps_n)}) \right) \rightsquigarrow \mathbb D
@@ -77,7 +76,7 @@ $$
 
 Recall that $\mathbb D$ is some fixed distribution that by definition is not allowed to depend on the sequence or path. If we let $\eps_n = 0$ (a valid choice), the resulting sequence is $\sqrt{n}\left( \hat\Psi(\p_n) - \Psi(\p) \right)$ which converges to $\norm(0,\p \phi^2)$ when the estimator is asymptotically normal (@def-AL). Since the limiting distribution $\mathbb D$ must be the same across all paths for the estimator to be regular at $\p$, it must be that $\mathbb D = \norm(0,\p \phi^2)$.
 
-Therefore, combining this and @thm-LAN, for any estimator that is both regular *and* asymptotically linear, 
+Therefore, combining this and @thm-LAN, for any estimator that is both regular *and* asymptotically linear,
 
 $$
 \begin{aligned}
@@ -86,11 +85,11 @@ $$
 \end{aligned}
 $$
 
-for any sequences $\p^{(\eps_n)}$ along a differentiable path with $\eps_n = c_n n^{-1/2}$ and $c_n \to 1$. Comparing the left- and right-hand sides above, the only way that both asymptotic statements can be true simultaneously is if 
+for any sequences $\p^{(\eps_n)}$ along a differentiable path with $\eps_n = c_n n^{-1/2}$ and $c_n \to 1$. Comparing the left- and right-hand sides above, the only way that both asymptotic statements can be true simultaneously is if
 
 $$
 \sqrt n \left( \Psi(\p^{(\eps_n)}) - \Psi(\p) \right) \to \p[s\phi].
-$$ 
+$$
 
 Because $\eps_n \sim 1/\sqrt n$ and the choice of differentiable path was arbitrary, this implies the following result.
 
@@ -477,7 +476,7 @@ when we apply $\partial_0$ to both sides we get
 
 $$
 s(y,z) = s(y|z) + s(z)
-$$ 
+$$
 
 so the joint score is simply the sum of the marginal and conditional scores. But we can further characterize these scores in terms of the joint score. By the chain rule, $\partial \log p_\eps = \frac{\partial p_\eps}{p_\eps}$, so evaluating at $\eps = 0$ and shifting terms around gives
 
@@ -523,7 +522,7 @@ We can also show that the marginal and conditional score functions are orthogona
 $$
 \E[s(Z)s(Y|Z)] 
 = \E[\E[s(Y,Z)|Z] (s(Y,Z) - \E[s(Y,Z)|Z] )].
-$$ 
+$$
 
 Abbreviating $S = s(Y,Z)$, by total expectation, $\E[\E_S[S|Z] S] = \E_Z[\E_S[\E_S[S|Z] S | Z]] = \E_Z[\E_S[S|Z] \E_S[ S | Z]]$ so the above is zero.
 
@@ -590,7 +589,6 @@ $$
 \E[s(Y|Z)| Z] &= 0, \\
 \end{aligned}
 $$
-
 :::
 ::::
 
@@ -599,7 +597,7 @@ $$
 
 Let $\model_\eps$ be a (mean-square) differentiable path over distributions $\p(Y,Z)$ and let $\eps_n \to 0$ and $\p_n = \p_{\eps_n}$ be a sequence along the path with $\p = \p_{\eps=0}$. Let $\q(Y,Z)$ be a dominating measure constructed for the sequence $\p_n$ and let $p_n(y,z) = \frac{\dd \p_n(Y,Z)}{\dd \q(Y,Z)}$ be densities. Let $Q(Z)$ and $\p(Z)$ be the marginal distributions of $\q(Y,Z)$ and $\p(Y,Z)$, respectively, so that $p_n(z) = \frac{\dd \p_n(Z)}{\dd \q(Z)}$ are marginal densities.
 
-Since the path of joint distributions is differentiable, there is a function $g(y,z)$ such that 
+Since the path of joint distributions is differentiable, there is a function $g(y,z)$ such that
 
 $$
 \left\|
@@ -607,7 +605,7 @@ $$
 \right\|_{\eltwop[\q(Y,Z)]} \to 0
 $$
 
-Our goal is to show that the path of marginal distributions is also differentiable, i.e. that there is a function $g(z)$ for which 
+Our goal is to show that the path of marginal distributions is also differentiable, i.e. that there is a function $g(z)$ for which
 
 $$
 \left\|
@@ -621,7 +619,7 @@ $$
 \sqrt{p_n(z)} - \sqrt{p(z)} = \frac{p_n(z) - p(z)}{\sqrt{p_n(z)} + \sqrt{p(z)}}
 $$
 
-and notice that, by definition, 
+and notice that, by definition,
 
 $$
 \begin{aligned}
@@ -662,7 +660,7 @@ $$
 \int (g_n h_n - gh)^2 \dd \q(Y,Z)
 \to 0
 \end{aligned}
-$$ 
+$$
 
 by Jensen's inequality ($0 \le \V[U] = \E[U^2] - \E[U]^2 \implies \E[U]^2 < \E[U^2]$) and the aforementioned convergences.
 
@@ -878,30 +876,42 @@ Review @def-continuity for the definition of continuity and @sec-app-riesz for d
 It's sometimes helpful to think of the pathwise derivative as the best continuous, linear approximation to $\Psi(\p)$ at the point $\p$, the same way that a tangent plane locally approximates the surface of a real-valued function of two or more variables. In this analogy, the tangent plane should itself be thought of as a function (a continuous and linear one) defined on the same variables.
 
 ::: callout-note
-The analogy is somehwat imprecise because for a standard derivative of a function $f(z)$ with vector inputs, the "tangent plane" $\dot f(h) \approx f(z+h) - f(z)$ is defined on the same input vector space as the function itself, i.e. $h$ and $z$ are elements of the same vector space. For the pathwise derivative, the equivalent approximation is $\dot\Psi(s) \approx \Psi(\p^{(\eps)}) - \Psi(\p)$, but $\p$ and $s$ are two different kinds of objects. The trouble is that distributions in a model don't naturally form a vector space: we can embedd them into $\eltwo$ as root-densities by assuming they are dominated by some other measure but at a loss of generality. 
+The analogy is somehwat imprecise because for a standard derivative of a function $f(z)$ with vector inputs, the "tangent plane" $\dot f(h) \approx f(z+h) - f(z)$ is defined on the same input vector space as the function itself, i.e. $h$ and $z$ are elements of the same vector space. For the pathwise derivative, the equivalent approximation is $\dot\Psi(s) \approx \Psi(\p^{(\eps)}) - \Psi(\p)$, but $\p$ and $s$ are two different kinds of objects. The trouble is that distributions in a model don't naturally form a vector space: we can embedd them into $\eltwo$ as root-densities by assuming they are dominated by some other measure but at a loss of generality.
 
-If that is done, however, then the pathwise derivative corresponds exactly with something called a Hadamard derivative. This kind of derivative is slightly weaker than the standard (total) derivative (called a Fréchet derivative). Roughly speaking, the usual total derivative tangent plane must approximate the error $\dot f(h) \approx f(z+h)$ for any sequence $h$ approaching in any directions to $0$, whereas the Hadamard derivative only needs to give the right approximation along sequences $h$ that eventually settle into a single directional approach to zero. Roughly speaking, this corresponds to the pathwise derivative because the latter is only concerned with sequences along differentiable paths, i.e. paths where the difference of subsequent steps is eventually well-approximated by the "direction" function $s$ (the score). 
+If that is done, however, then the pathwise derivative corresponds exactly with something called a Hadamard derivative. This kind of derivative is slightly weaker than the standard (total) derivative (called a Fréchet derivative). Roughly speaking, the usual total derivative tangent plane must approximate the error $\dot f(h) \approx f(z+h)$ for any sequence $h$ approaching in any directions to $0$, whereas the Hadamard derivative only needs to give the right approximation along sequences $h$ that eventually settle into a single directional approach to zero. Roughly speaking, this corresponds to the pathwise derivative because the latter is only concerned with sequences along differentiable paths, i.e. paths where the difference of subsequent steps is eventually well-approximated by the "direction" function $s$ (the score).
 
-It is not necessary, however, to make assumptions in order to embedd the model into $\eltwo$. The pathwise derivative as given in @thm-RAL-IFs and @def-pathwise-differentiability works just fine in generic models. While most similar to the Hadamard derivative, it does not precisely correspond to any form of derivative that is defined on vector spaces.
+It is not necessary, however, to make assumptions in order to embed the model into $\eltwo$. The pathwise derivative as given in @thm-RAL-IFs and @def-pathwise-differentiability works just fine in generic models. While most similar to the Hadamard derivative, it does not precisely correspond to any form of derivative that is defined on vector spaces.
 :::
 
-A pathwise-differentiable estimand "varies smoothly" over the model the same way that a ordinary function with a continuous derivative has no kinks. At any point of a kink or discontinuity in the estimand, no estimator can be regular. 
+:::: {.callout-important appearance="minimal"}
+::: {#exr-pathwise-deriv-figure}
+On a piece of paper sketch out a replica of @fig-tangent-set.
+
+a.  Draw some curvy, smooth level sets of your choosing over the surface of $\sqrt{\model}$ representing the value of $\Psi(\p)$ at each point. One of your level set lines should pass through the point $\sqrt p$.
+b.  Draw some straight, evenly spaced level-set lines across $\sqrt p \tset$ representing the value of $\dot\Psi(s)$ at each point (you can peek at @fig-gradient to see what I mean). One of the level-set lines should pass through $\sqrt p$ and at that point should be tangent to the level set of $\Psi$ passing through $\sqrt p$ on $\sqrt{\model}$.
+
+Your drawing represents the sense in which $\dot\Psi$ is a local, linear approximation to $\Psi: \model \to \reals$. If you imagine zooming into the point $\sqrt p \in \sqrt{\model}$ the surface of the sphere begins to look essentially flat (like the tangent set) and the curves of the contours on the model also flatten out into a regular linear pattern. The flattening of the model is due to the differentiability of the paths whereas the flattening of the level sets are due to pathwise differentiability of the estimand.
+:::
+::::
+
+A pathwise-differentiable estimand "varies smoothly" over the model the same way that a ordinary function with a continuous derivative has no kinks. At any point of a kink or discontinuity in the estimand, no estimator can be regular.
 
 :::: {.callout-important appearance="minimal"}
 ::: {#exr-discontinuous-estimand}
 Let $Z$ be normally distributed with known variance $1$ but unknown mean $\mu$, i.e. $\model = \{\norm(\mu,1):\mu \in \reals\}$. Presume we are interested in estimating the quantity $\Psi(\p) = 1(\E_\p[Z] > 0)$, i.e. whether the mean is positive or not (we are estimating, not testing).
 
-a. Draw a plot of the function $\mu \mapsto \Psi(\norm(\mu,1))$
-b. At $\p = \norm(0,1)$, do you think $\Psi$ is pathwise differentiable? If not, is it because the derivative doesn't exist or is it because the derivative isn't continuous?
-c. Repeat the above for the new estimand $\Psi(\p) = |\E_\p[Z]|$.
-d. Let $\hat\mu =\frac{1}{n} \sum Z_i$. What are the sampling distributions of $1(\hat\mu > 0)$ and $\left| \hat\mu \right|$ when $Z \sim \norm(0,1)$? 
+a.  Draw a plot of the function $\mu \mapsto \Psi(\norm(\mu,1))$
+b.  At $\p = \norm(0,1)$, do you think $\Psi$ is pathwise differentiable? If not, is it because the derivative doesn't exist or is it because the derivative isn't continuous?
+c.  Repeat the above for the new estimand $\Psi(\p) = |\E_\p[Z]|$.
+d.  Let $\hat\mu =\frac{1}{n} \sum Z_i$. What are the sampling distributions of $1(\hat\mu > 0)$ and $\left| \hat\mu \right|$ when $Z \sim \norm(0,1)$?
 
 This exercise shows that some simple estimands are not pathwise differentiable, although the examples are somewhat contrived because in both cases it would be more natural to estimate $\mu$ and then perform a hypothesis test. On the other hand, it also shows that lacking pathwise differentiability need not be the end of the world: both of the estimands have natural, easily-understood estimators that would be hard to beat in practice even in nonparametric models.
-
 :::
 ::::
 
-The examples in @exr-discontinuous-estimand are contrived. More often the types of "kinks" or discontinuities that cause problems are difficult to visualize in lower-dimensions. It's not as if the value of most practically interesting nondifferentiable estimands changes suddenly as we move along a single differentiable path. The fact that the path is differentiable means that the densities change smoothly as we walk in that fixed direction and that usually implies smooth behavior of the estimand along a given path. The kinks are sometimes only visible if you imagine "rotating" around. I like to imagine standing at a point $\p$ on the "surface" $\Psi(\p)$ and looking in some direction: I imagine seeing how steep the ascent or descent is in whatever direction I look. The problem with most practially interesting estimands that are not differentiable isn't that there is a discontinuity or kink in any given direction, it's that no matter what direction you look at, there is always another direction where the slope is steeper. But an estimand is pathwise differentiable at a point in a model only if there is a "direction of maximum slope" away from that point. In infinite dimensions, kinks occur in this "rotational" sense more often than they occur in the more familiar one-dimension sense. 
+The examples in @exr-discontinuous-estimand are contrived. More often the types of "kinks" or discontinuities that cause problems are difficult to visualize in lower-dimensions. It's not as if the value of most practically interesting non-differentiable estimands changes suddenly as we move along a single differentiable path. The fact that the path is differentiable means that the densities change smoothly as we walk in that fixed direction and that usually implies smooth behavior of the estimand along a given path. 
+
+The kinks are sometimes only visible "rotationally". I like to imagine standing at a point $\p$ on the "surface" $\Psi(\p)$ and looking in some direction: I imagine seeing how steep the ascent or descent is in whatever direction I look. The problem with most practically interesting estimands that are not differentiable isn't that there is a discontinuity or kink in any given direction, it's that no matter what direction you look at, there is always another direction where the slope is steeper. But an estimand is pathwise differentiable at a point in a model only if there is a "direction of maximum slope" away from that point. In infinite dimensions, kinks occur in this "rotational" sense more often than they occur in the more familiar one-dimension sense.
 
 ::: {#exm-unbounded-estimand}
 Let $\mathcal P$ be all distributions of a continuous variable $Z$. Let's say that our goal is to estimate the value of the density function of $z$ at the point $z=0$. There generally isn't a good motivation for wanting to know this, it's just a simple example that illustrates ideas that apply identically to more complicated estimands.
@@ -948,8 +958,7 @@ d.  Can you guess what a RAL estimator of $p(0)$ might be?
 :::
 ::::
 
-Pathwise differentiability does not necessarily imply that there *is* a RAL estimator. It only provides the possibility of one existing. In the next part of this book we will study how to actually build efficient estimators and we will see that we need certain assumptions even to guarantee asymptotic linearity. Whether or not that can be done and in what context depends on estimand in question. 
-
+Pathwise differentiability does not necessarily imply that there *is* a RAL estimator. It only allows one to exist. In the next part of this book we will study how to actually build efficient estimators and we will see that we need certain assumptions even to guarantee asymptotic linearity. Whether or not that can be done and in what context depends on estimand in question.
 
 ## Gradients
 
@@ -957,13 +966,13 @@ Tangent sets and pathwise derivatives are important tools that have already prov
 
 From here on out we will presume that the estimand is pathwise differentiable so that it is possible for the central identity $\dot\Psi_\p (s) = \p (s \phi)$ for all $s \in \tset_\p$ to hold for some function $\phi$. Our goal is to characterize the set of functions $\phi$ that can be influence functions, i.e. the set of functions that satisfy this identity. Once we know what all the possible options are for influence functions, we can easily compare them and choose the most "efficient" influence function to build an estimator around.
 
-As previously discussed, if a function satisfies the identity it does not immediately mean that a real-world RAL estimator can be constructed, but we will say that it implies that RAL estimator exists "in principle". For that reason, we'll say that any function $\phi$ that satisfies the central identity is an influence function of a RAL estimator, even if such an estimator can't be built in practice without additional assumptions. We will deal with understanding those additional assumptions later. 
+As previously discussed, if a function satisfies the identity it does not immediately mean that a real-world RAL estimator can be constructed, but we will say that it implies that RAL estimator exists "in principle". For that reason, we'll say that any function $\phi$ that satisfies the central identity is an influence function of a RAL estimator, even if such an estimator can't be built in practice without additional assumptions. We will deal with understanding those additional assumptions later.
 
 ::: callout-warning
 At this point, understanding Riesz representation becomes important. I encourage you to read @sec-app-riesz and any other background material in @sec-app-L2 you need before proceeding. I promise you will find the material rewarding and immediately useful.
 :::
 
-All of this starts with pathwise differentiability. For a pathwise differentiable estimand, we know that $\dot\Psi$ is a bounded linear functional defined on the tangent set. In order to use an important result in functional analysis called the Riesz representation theorem we need to extend the pathwise derivative function $\dot\Psi$ so it is defined on an entire vector space. Although the tangent set is a vector space in all of the major examples we consider in this book, there are cases where it is not. I'll use the symbol $\tspace_\p$ to denote the linear closure of the tanget set, which I'll call the tangent *space*.
+All of this starts with pathwise differentiability. For a pathwise differentiable estimand, we know that $\dot\Psi$ is a bounded linear functional defined on the tangent set. In order to use an important result in functional analysis called the Riesz representation theorem we need to extend the pathwise derivative function $\dot\Psi$ so it is defined on an entire vector space. Although the tangent set is a vector space in all of the major examples we consider in this book, there are cases where it is not. I'll use the symbol $\tspace_\p$ to denote the linear closure of the tangent set, which I'll call the tangent *space*.
 
 Often $\tset = \tspace$ already. A linear closure of a set of vectors is all possible linear combinations of those vectors along with any limits. Since it is linear and continuous, the pathwise derivative is easily defined on $\tspace_\p$. Any score function in this space is either a) a linear combination $\bar s = \sum c_j s_j$ of scores $s_j \in \tset_\p$, in which case we define $\dot\Psi (\bar s) = \sum c_j \dot\Psi(s)$ in accordance with linearity; or b) a limit of such combinations $\bar s = \lim_{n\to \infty} s_n$, in which case we define $\dot\Psi (\bar s) = \lim_{n\to\infty} \dot\Psi(s)$ in accordance with continuity. $\tspace_\p$ is always a subspace of $\eltwop$ and thus inherits its inner product $\langle f,g\rangle = \int fg \dd \p = \p fg$.
 
@@ -1059,16 +1068,17 @@ In $\reals^d$, the gradient vector $\grad f$ is precisely the Riesz representer 
 
 :::: callout-note
 # Gradient of a Pathwise Differentiable Estimand
+
 ::: {#def-gradient}
-For an estimand $\Psi$ that is pathwise differentiable at $\p \in \model$, the *gradient* (or *canonical gradient*) $\grad_\p \Psi$ is the (unique) Riesz representer of the pathwise derivative $\dot\Psi: \tspace_\p \to \reals$. 
+For an estimand $\Psi$ that is pathwise differentiable at $\p \in \model$, the *gradient* (or *canonical gradient*) $\grad_\p \Psi$ is the (unique) Riesz representer of the pathwise derivative $\dot\Psi: \tspace_\p \to \reals$.
 
 The gradient is always an element of $\tspace_\p \subseteq \eltwopz$ and is thus square integrable and mean zero under $\p$ at a minimum.
 
-The gradient represents the "direction" in which the estimand is increasing most quickly and its squared $\eltwop$ norm $\p (\grad_\p \Psi)^2 = \dot\Psi(\grad_\p \Psi)$ encodes the speed at which it is instantaneously increasing in that direction.
+The gradient represents the "direction" in which the estimand is increasing most quickly and its squared $\eltwop$ norm $\| \grad_\p \Psi \| = \dot\Psi(\frac{\grad_\p \Psi}{\|\grad_\p \Psi\|})$ encodes the speed at which it is instantaneously increasing in that direction.
 :::
 ::::
 
-For functions defined on $\reals^d$ the gradient is a familiar $d$-dimensional vector. The pathwise derivative is defined on the tangent space $\tspace_\p$, a subspace of the space of functions $\eltwopz$, and therefore the gradient of the estimand is also an $\eltwopz$ function: it must be square integrable and have mean zero under $\p$. The gradient depends on what point $\p$ the pathwise derivative is taken at and in what model $\model$, but these dependencies are often suppressed in the notation. 
+For functions defined on $\reals^d$ the gradient is a familiar $d$-dimensional vector. The pathwise derivative is defined on the tangent space $\tspace_\p$, a subspace of the space of functions $\eltwopz$, and therefore the gradient of the estimand is also an $\eltwopz$ function: it must be square integrable and have mean zero under $\p$. The gradient depends on what point $\p$ the pathwise derivative is taken at and in what model $\model$, but these dependencies are often suppressed in the notation.
 
 ::: {#fig-gradient}
 ``` tikz
@@ -1179,6 +1189,12 @@ $$
 
 This looks exactly like our central identity: $\dot\Psi_\p (s) = \p s \phi$ for all $s \in \tset_\p$. Since the gradient satisfies the identity for all scores in the tangent space, it certainly satisfies it for the subset of those that are in the tangent *set*. Therefore the gradient is an influence function for a RAL estimator! Since the gradient always exists (by Riesz representation), we have proven that every pathwise differentiable estimand has at least one RAL estimator. In fact, there may be many RAL estimators with this influence function, but by virtue of having the same influence function they are asymptotically equivalent.
 
+:::: {.callout-important appearance="minimal"}
+::: {#exr-gradient-norm}
+Use the identity above to prove the claim in @def-gradient that $\| \grad_\p \Psi \| = \dot\Psi(\frac{\grad_\p \Psi}{\|\grad_\p \Psi\|})$.
+:::
+::::
+
 ::: {#exm-gradient-nonparam}
 Let $\model$ be the set of all possible distributions of continuous random variables and presume the estimand of interest is the mean $\Psi(\p) = \E_\p[Z] = \int z p(z) \dd z$. Let $\psi_\p$ abbreviate the mean of $Z$ for a distribution $\p$. We'll see that the gradient for this estimand is easy to find in this model moreover that we can even construct an estimator that has the gradient as its influence function.
 
@@ -1196,9 +1212,9 @@ $$
 \end{aligned}
 $$
 
-This last expression is exactly $\langle z \mapsto z, s \rangle_{\eltwop}$, i.e. an inner product with the score. We might be tempted to say that the gradient is $f(z) = z$ but this isn't right. The Riesz representer must be a function in the domain of the linear functional, which in this case is $\eltwopz$, zero-mean functions. But $f(z) = z$ is not zero-mean under $\p$, i.e. $\E_\p[f(Z)] = \psi_\p \ne 0$ in general, so this cannot be the gradient. 
+This last expression is exactly $\langle z \mapsto z, s \rangle_{\eltwop}$, i.e. an inner product with the score. We might be tempted to say that the gradient is $f(z) = z$ but this isn't right. The Riesz representer must be a function in the domain of the linear functional, which in this case is $\eltwopz$, zero-mean functions. But $f(z) = z$ is not zero-mean under $\p$, i.e. $\E_\p[f(Z)] = \psi_\p \ne 0$ in general, so this cannot be the gradient.
 
-However, the situation is easily remedied. Any score $s$ is also mean-zero under $\p$, so 
+However, the situation is easily remedied. Any score $s$ is also mean-zero under $\p$, so
 
 $$
 0 = \int s(z) p(z) \dd z = \int \psi_\p s(z) p(z) \dd z,
@@ -1245,12 +1261,13 @@ $$
 \dot\Psi_\p(s) = \p s (\grad \Psi + v) \quad\text{for all } s \in \tspace_\p.
 $$
 
-Moreover the functions $v$ in the orthogonal complement of the tangent space are the *only* functions for which this holds. This fact is formalized in @thm-RAL-IF-set and illustrated graphically in @fig-RAL-IF-set. 
+Moreover the functions $v$ in the orthogonal complement of the tangent space are the *only* functions for which this holds. This fact is formalized in @thm-RAL-IF-set and illustrated graphically in @fig-RAL-IF-set.
 
-::::callout-note
+:::: callout-note
 # Set of Influence Functions
-:::{#thm-RAL-IF-set}
-Any influence function of a RAL estimator of a pathwise differentiable estimand is an element of the set $\Phi_\p = \{\grad_\p\Psi + v: v\in \tspace_\p^\perp\}$ where $\tspace_\p^\perp$ is the orthogonal complement of the tangent space $\tspace_\p$ relative to $\eltwopz$. Any element of the set $\Phi$ is, in principle, the influence function of some RAL estimator. 
+
+::: {#thm-RAL-IF-set}
+Any influence function of a RAL estimator of a pathwise differentiable estimand is an element of the set $\Phi_\p = \{\grad_\p\Psi + v: v\in \tspace_\p^\perp\}$ where $\tspace_\p^\perp$ is the orthogonal complement of the tangent space $\tspace_\p$ relative to $\eltwopz$. Any element of the set $\Phi$ is, in principle, the influence function of some RAL estimator.
 
 In a locally nonparametric model, $\tspace_\p^\perp$ only contains the zero function so $\grad_\p\Psi$ is the only possible influence function of a RAL estimator.
 
@@ -1356,85 +1373,76 @@ As a corollary of @thm-RAL-IFs, any estimator that is asymptotically linear at $
 }
 ```
 
-The set of influence functions $\Phi$ is the orthogonal complement of the tangent space $\tspace^\perp$ translated over to the point $\grad\Phi$. The canonical gradient $\grad \Psi$ has smaller norm ("length") than any other influence function $\phi \in \Phi$.
+The set of influence functions $\Phi$ is the orthogonal complement of the tangent space $\tspace^\perp$ translated over to the point $\grad\Psi$ (a translated subspace is called a *linear variety*). The canonical gradient $\grad \Psi$ has smaller norm ("length") than any other influence function $\phi \in \Phi$.
 :::
 
 From here on out we'll call any element of the set $\{\grad\Psi + v: v\in \tspace^\perp\}$ a "gradient" of $\Psi$, reserving the term *canonical gradient* for $\grad\Psi$. The term gradient is justified for any element $\phi \in \Phi$ because the defining identity $\dot\Psi(s) = \p s\phi$ holds for all $s \in \tspace$. The only difference is that, unlike the canonical gradient, the functions $\phi$ are not necessarily elements of tangent space, the domain of the linear functional $\dot\Psi$.
 
 ## Efficiency
 
-@thm-RAL-IF-set is an extremely powerful result because it succeeds in completely characterizing the set of influence functions of RAL estimators. That was the goal we set out to acheive and now we can reap the reward. 
+@thm-RAL-IF-set is an extremely powerful result because it succeeds in completely characterizing the set of influence functions of RAL estimators. That was the goal we set out to acheive and now we can reap the reward.
 
 The benefit of understanding what all the possible influence functions are is that we can now find the most "efficient" one. In @sec-AL-benefits we saw that the central limit theorem immediately implies that any asymptotically linear estimator with influence function $\phi$ has asymptotic variance equal to $\V[\phi(Z)] = \|\phi\|^2$. Given a set of possible influence functions $\Phi$, all we need to do to find the one corresponding to the most efficient RAL estimator is figure out which of them has smallest norm.
 
-@thm-RAL-IF-set makes this easy. Pick any influence function $\phi \in \Phi$. By @thm-RAL-IF-set, that function can be written as $\phi = \grad\Psi + v$ for some $v \in \tspace^\perp$. Moreover, since $\grad\Psi$ is in the tangent space and $v$ is some vector orthogonal to the tangent space, these two vectors create the sides of a right triangle with $\phi$ as the hypotenuse. Thus by the Pythagorean Theorem (@thm-pythagorean), 
+@thm-RAL-IF-set makes this easy. Pick any influence function $\phi \in \Phi$. By @thm-RAL-IF-set, that function can be written as $\phi = \grad\Psi + v$ for some $v \in \tspace^\perp$. Moreover, since $\grad\Psi$ is in the tangent space and $v$ is some vector orthogonal to the tangent space, these two vectors create the sides of a right triangle with $\phi$ as the hypotenuse. Thus by the Pythagorean Theorem (@thm-pythagorean),
 
 $$
 \|\phi\|^2 = \|\grad\Psi\|^2 + \|v\|^2 \ge \|\grad\Psi\|^2.
 $$
 
-In other words, the canonical gradient is the influence function with the smallest norm: the *efficient influence function*. This is visually obvious in @fig-RAL-IF-set. 
+In other words, the canonical gradient is the influence function with the smallest norm: the *efficient influence function*. This is visually obvious in @fig-RAL-IF-set.
 
-::::callout-note
+:::: callout-note
 # Efficient Influence Function
-:::{#thm-RAL-IF-set}
+
+<div>
+
 For a pathwise differentiable estimand $\Psi$ in a given model $\model$, the influence function of the most efficient RAL estimator is equal to the canonical gradient $\grad_\p \Psi$. We call this the efficient influence function and write it $\phi_\p^*$.
-:::
+
+</div>
 ::::
 
-The efficient influence function and the canonical gradient are the same function. Technically, however, they are defined differently, and just happen to coincide. The canonical gradient encodes the direction and magnitude of steepest increase of the estimand within the model and has nothing to do with any estimator. The efficient influence function encodes the asymptotic error of the most efficient RAL estimator and has nothing to do with any model. The fact that these two different objects are the same function is remarkable. Therefore whether we choose to call this function the canonical gradient or the efficient influence function is a matter of perspective. The former is more appropriate if we are discussing models, the latter if we are discussing estimators.
+The efficient influence function and the canonical gradient are the same function, but they have two different definitions. The canonical gradient encodes the direction and magnitude of steepest increase of the estimand within the model and has nothing to do with any estimator. The efficient influence function encodes the asymptotic error of the most efficient RAL estimator and has nothing to do with any model. The fact that these two different objects are the same function is remarkable. Therefore whether we choose to call this function the canonical gradient or the efficient influence function is a matter of perspective. The former is more appropriate if we are discussing models, the latter if we are discussing estimators.
 
-Because the canonical gradient depends on the estimand $\Psi$, the distribution in question $\p$, and the model it lives in $\model$, the efficient influence function (corresponding to the most efficient RAL estimator) has the same dependencies. The first dependence is obvious: what the best estimator is obviously depends on what is being estimated. The second we have already discussed in @sec-3-AL: the influence function of any fixed asymptotically linear estimator depends on what distribution the data for that estimator are drawn from. 
+Because the canonical gradient depends on the estimand $\Psi$, the distribution in question $\p$, and the model it lives in $\model$, the efficient influence function (corresponding to the most efficient RAL estimator) has the same dependencies. The first dependence is obvious: what the best estimator is obviously depends on what is being estimated. The second we have already discussed in @sec-3-AL: the influence function of any fixed asymptotically linear estimator depends on what distribution the data for that estimator are drawn from.
 
 The third dependence is also natural. The "size" of the model corresponds to our existing knowledge of the world or the assumptions we're willing to make. The more we know, the fewer distributions remain in the model. The smaller the model, the smaller the tangent space at any given point within it (it won't be bigger, at a minimum). The smaller the tangent space, the larger the orthogonal complement, meaning we have more influence functions to choose from in order to find one with the smallest norm. The smaller the norm of the influence function, the smaller the asymptotic variance and the more certain our estimates are. This is the mechanism by which more a-priori knowledge about the world translates to more confident estimates, as one would expect.
 
 ::: {#exm-EIF-mean-restricted}
-In @exm-gradient-nonparam we showed that the canonical gradient of the mean estimand in the nonparametric model is $\grad_\p \Psi(z)  = z - \E_\p[Z]$ which has squared norm equal to $\V_\p[Z]$. If $Z \sim \norm(0,1)$, for example, the squared norm of the gradient is 1. 
+In @exm-gradient-nonparam we showed that the canonical gradient of the mean estimand in the nonparametric model is $\grad_\p \Psi(z)  = z - \E_\p[Z]$ which has squared norm equal to $\V_\p[Z]$. If $Z \sim \norm(0,1)$, for example, the squared norm of the gradient is 1.
 
-In this example we'll describe how the canonical gradient changes and its norm shrinks when the model is further restricted. We'll pick a somewhat contrived model to illustrate the point. 
+In this example we'll describe how the canonical gradient changes and its norm shrinks when the model is further restricted. We'll pick a somewhat contrived model to illustrate the point.
 
 Let $\p = \norm(0,1)$ and consider the model of densities $\model = \{(1_\eps s)p: \eps \in \reals\}$ where $s(z) = z-z^3$ which has mean zero. Obviously this is a one-dimensional model (a path with score $s$) so the canonical gradient at $\p$ must be a scalar multiple of $s$, i.e. $\grad_\p\Psi = cs$. We can figure out what the constant $c$ is because the squared norm of the canonical gradient must be equal to the pathwise derivative in the direction of the canonical gradient: $\dot\Psi(cs) = \p (cs)(cs)$. Therefore
 
 $$
-c = \frac{\dot\Psi(s)}{\|s\|^2}.
+c = \frac{\dot\Psi(s)}{\p s^2}
+= \frac{\E_\p[Z^2 - Z^4]}{\E_\p[Z^2 - 2Z^4 + Z^6]}
 $$
 
-The pathwise derivative is 
+because we already showed in @exm-gradient-nonparam that the pathwise derivative for the mean in this type of path is $\E_\p[Z s(Z)]$. Evaluating the above at $\p = \norm(0,1)$ gives
 
 $$
-\begin{aligned}
-\dot\Psi_\p(s) &= \E_\p[Z s(Z)] \\
-&= \E_\p[Z^2 - Z^4]
-\end{aligned}
+c = \frac{1-3}{1-2\times3+15} = -\frac{1}{5}
 $$
 
-as shown in @exm-gradient-nonparam and 
+Therefore the squared norm of the canonical gradient is $\|\grad\Psi\|^2 = c^2\|s\|^2 = \frac{2}{5}$.
 
-$$
-\|s\|^2 = \E_\p[(Z - Z^3)^2] = \E_\p[Z^2 - 2Z^4 + Z^6].
-$$
-
-Evaluating at $\p = \norm(0,1)$ gives
-
-$$
-c = \frac{1-3}{1-2\times3+15} = \frac{-2}{10} = -\frac{1}{5}
-$$
-
-Therefore the squared norm of the canonical gradient is 
-
-$$
-\|\grad\Psi\|^2 = \|cs\|^2 = \frac{10}{25}
-$$
-
-This is more than half as small as the norm of the canonical gradient for the same estimand in the nonparametric model. Since the canonical gradient in the nonparametric model corresponds to the influence function of the sample mean, the implication is that in this restricted model there is a RAL estimator of the population mean that more than twice as efficient as the sample mean!
+This is about half the size of the norm of the canonical gradient for the same estimand in the nonparametric model. Since the canonical gradient in the nonparametric model corresponds to the influence function of the sample mean, the implication is that in this restricted model there is a RAL estimator of the population mean that is about twice as efficient as the sample mean estimator at this distribution!
 :::
 
-<!-- 
+The score I chose for the model in @exm-EIF-mean-restricted was fairly arbitrary. In fact you can repeat the exercise with any score that is not a scalar multiple of $z - \E_\p[Z]$ and obtain a similar result. More generally you can choose any model such that its tangent space is smaller and no longer includes the original canonical gradient in the nonparametric model.
 
-exercise or example for mean in restricted model (intuition: restrict the model so the old EIF is not in the tangent space; it will still be an IF)
+:::: {.callout-important appearance="minimal"}
+::: {#exr-gradient-projection}
+Fix the estimand $\Psi$ and a distribution $\p \in \mathcal Q \subset \model$. Let $\grad_{\p \in \mathcal Q}\Psi$ be the canonical gradient in the smaller model and let $\grad_{\p \in \mathcal P}\Psi$ be the canonical gradient in the larger model and presume that the tangent space for the smaller model does not include $\grad_{\p \in \mathcal P}\Psi$. Prove that $\grad_{\p \in \mathcal P}\Psi$ is still *a* gradient in the smaller model, i.e. 
 
-Optimal variance is related to how quickly estimand can change. The norm of the EIF is exactly the pathwise derivative in the direction of the canonical gradient. data can look compatible with a set of distributions: if estimand can be highly variable across that set (there's a direction of big slope) then we're naturally going to be uncertain of its value.
+$$
+\dot\Psi_\p(s) = \p s \grad_{\p \in \mathcal P}\Psi \quad \text{for all } s\in \mathring Q_\p.
+$$
 
+Why does this imply that the gradient in the smaller model $\grad_{\p \in \mathcal Q}\Psi$ is an orthogonal projection of $\grad_{\p \in \mathcal P}\Psi$ onto the smaller tangent space $\mathring Q_\p$?
+:::
+::::
 
-Everything we've done has led us to this one point. for any estimand in model etc. the EIF is everything we need to know to build an optimnal estimator (caveat estimands that don't ahve one). Sicne so important, next chapter we will see how to derive the EIF for most common models. In next part we will see how to use that to create efficient estimators from scratch for any relevant problem.
--->
+The relationship between the norm of the canonical gradient and the pathwise derivative means that the "speed limit" for asymptotic variance in estimation is directly related to how quickly the estimand can change under small perturbations of the data-generating distribution within the model. That actually makes a lot of sense if you think of the estimation problem as the problem of first telling what distribution a given dataset was drawn from and then reading off the value of the estimand from that distribution. Let's say that you have enough data to confidently rule out all but a small set of similar distributions. If the value of the estimand varies wildly over those distributions, you still can't be very confident and should therefore report large uncertainty. Another way to understand the mechanism by which shrinking the model reduces uncertainty is that in smaller models sets of nearby distributions often have more similar values of the estimand.
