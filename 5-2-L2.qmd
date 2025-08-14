@@ -216,7 +216,7 @@ Let $\mathbb P(Z)$ be such that $Z ~ \text{Unif}(0,10)$. Let $f(z) = 1(0< z<1)$ 
 :::
 ::::
 
-### Projection
+### Projection {#sec-projection}
 
 The Pythagorean theorem often comes up in the context of projection. Recall that in finite-dimensional vector spaces a *subspace* is a smaller vector space that is contained in the original vector space. For example, in 3-dimensional space, the $x$-$y$ plane is a 2-dimensional subspace because any linear combination of vectors in that plane remain in the plane: thus it is a vector space in its own right. Subspaces are often constructed as a span (linear combination) of some set of vectors, e.g. the span of $\{[-2,0,0], [0,5,0]\}$ gives the $x$-$y$ plane in 3D space. In infinite dimensions subspaces are defined in exactly the same way.
 

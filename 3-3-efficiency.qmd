@@ -1074,7 +1074,7 @@ For an estimand $\Psi$ that is pathwise differentiable at $\p \in \model$, the *
 
 The gradient is always an element of $\tspace_\p \subseteq \eltwopz$ and is thus square integrable and mean zero under $\p$ at a minimum.
 
-The gradient represents the "direction" in which the estimand is increasing most quickly and its squared $\eltwop$ norm $\| \grad_\p \Psi \| = \dot\Psi(\frac{\grad_\p \Psi}{\|\grad_\p \Psi\|})$ encodes the speed at which it is instantaneously increasing in that direction.
+The gradient represents the "direction" in which the estimand is increasing most quickly and its $\eltwop$ norm $\| \grad_\p \Psi \| = \dot\Psi(\frac{\grad_\p \Psi}{\|\grad_\p \Psi\|})$ encodes the speed at which it is instantaneously increasing in that direction.
 :::
 ::::
 
@@ -1446,3 +1446,197 @@ Why does this imply that the gradient in the smaller model $\grad_{\p \in \mathc
 ::::
 
 The relationship between the norm of the canonical gradient and the pathwise derivative means that the "speed limit" for asymptotic variance in estimation is directly related to how quickly the estimand can change under small perturbations of the data-generating distribution within the model. That actually makes a lot of sense if you think of the estimation problem as the problem of first telling what distribution a given dataset was drawn from and then reading off the value of the estimand from that distribution. Let's say that you have enough data to confidently rule out all but a small set of similar distributions. If the value of the estimand varies wildly over those distributions, you still can't be very confident and should therefore report large uncertainty. Another way to understand the mechanism by which shrinking the model reduces uncertainty is that in smaller models sets of nearby distributions often have more similar values of the estimand.
+
+## Classical Theory
+
+If you've taken a traditional statistics course you may have learned about Cramer-Rao and Fisher Information. In this section I'll briefly explain how these topics are connected to efficiency theory for RAL estimators. If you're not interested in this you should feel free to skip to the next chapter. None of this material is required to understand the rest of the book and I will try to be brief. More details can be found in @tsiatis; I only bring it up to try and connect the prior knowledge some students have to the nonparametric context.
+
+First we will apply all of the theory we've developed in this chapter to the parametric setting. After this is done we will make the promised connections to classical concepts.
+
+### Applying Nonparametric Results
+
+A parametric model $\model$ is one in which every distribution can be put into one-to-one correspondence with an element $\theta \in \reals^d$. To simplify the presentation we'll assume that every distribution has a density (with respect to Lebesgue measure). We write the density corresponding to the parameter value $\theta$ as $p_\theta$. 
+
+In this context, the score function $s$ is usually defined as the derivative of the log-likelihood with respect to $\theta$: that is, a $d$-dimensional function of $z$. This is a natural extension of the score in a one-dimensional parametric model (i.e. a differentiable path), but the interpretation is a little different. For a one-dimensional model the score neatly encodes the "direction" in $\eltwo$ in which the root density is moving as the single parameter changes. For a $d$-dimensional model, each of the $d$ *elements* of the score encodes the same for each of the $d$ parameters, others held constant. I find it helpful to keep the "path" interpretation and think of these as separate scores $s_1, \dots s_d$ along $d$ paths baked into one vector $s$. The tangent space is the linear span of these $d$ scores, i.e. $\tspace = \{c^\top s: c \in \reals^d\}$. 
+
+In the parametric world we are most often interested in one of the parameters $\psi = \theta_1$ and consider the rest of the parameters $\eta = [\theta_2, \dots \theta_d]$ to be "nuisances". Therefore we write $\Psi(\p_\theta) = \psi$. For example, we might be interested in estimating the mean of a normal distribution but agnostic to the value of the standard deviation. In this context we can partition the elements of the score vector into $s = [s_\psi, s_\eta]$. These scores are typically not orthogonal: two different parameters can change the density in similar ways. 
+
+There are two useful identities that arise from these definitions. Firstly, if we move in the distribution along a path with score $s_\psi$, the pathwise derivative must exactly equal to $1$: a one-unit change in the parameter induces a one-unit change in the parameter! Therefore, for any gradient $\phi$,
+
+$$
+1 = \dot\Psi(s_\psi) = \p s_\psi \phi.
+$$
+
+Secondly, if we move in any direction which does *not* change the parameter of interest $\psi$, the pathwise derivative must equal $0$. These directions are precisely any linear combination of the $d-1$ scores $s_\eta$, i.e. $\{c\top s_\eta: c \in \reals^{d-1}\}$. This set is referred to as the *nuisance tangent space* $\tspace_{\p,\eta}$. The resulting identity is then
+
+$$
+0 = \dot\Psi(s) = \p s \phi \quad \text{for all } s \in \tspace_{\p,\eta}
+$$
+
+In other words, any gradient is in the orthogonal complement of the nuisance tangent space and has inner product equal to one with the estimand score. These two observations completely triangulate the canonical gradient, as we will see. If we project the estimand score onto $\tspace_{\p,\eta}^\perp$ the result will be in the intersection of $\tspace_{\p,\eta}^\perp$ and the full tangent space $\tspace_\p$. That intersection is a one-dimensional space since the nuisance tangent space is $d-1$ dimensional and the tangent space is $d$ dimensional. 
+
+::: {#fig-parametric-tangent-space}
+``` tikz
+\tdplotsetmaincoords{70}{120}
+
+\def\planeAlpha{-45}
+\def\planeBeta{0}
+\def\planeGamma{45}
+
+\def\AxisL{0.3}
+\def\PlaneHalfX{1}
+\def\PlaneHalfY{1}
+
+\def\GradAngle{90}
+\def\NormalLen{0.7}
+\def\RA{0.08} % size of the little squares
+
+% gradient tip coords in rotated plane
+\pgfmathsetmacro{\gx}{0.8*\PlaneHalfX*cos(\GradAngle)}
+\pgfmathsetmacro{\gy}{0.8*\PlaneHalfX*sin(\GradAngle)}
+% gradient direction unit vector in plane coords
+\pgfmathsetmacro{\ux}{cos(\GradAngle)}
+\pgfmathsetmacro{\uy}{sin(\GradAngle)}
+
+\resizebox{11cm}{!}{
+\begin{tikzpicture}[tdplot_main_coords, scale=3.0, line cap=round, line join=round]
+
+  % main axes
+  \draw[->, line width=0.7, red] (0,0,0) -- (0.8,0,0);
+  \draw[<->, line width=1, red] (-1,0,0) -- (1,0,0);
+  \fill[red] (0.8,0,0) circle[radius=0.5pt];
+  \node[anchor=east, red] at (0.6,-0.08,0) {$s_\eta$};
+  \node[anchor=north, red] at (1,0,0) {$\mathring{\mathcal P}_\eta$};
+  
+  \draw[->, line width=0.7, teal] (0,0,0) -- (0.7,0.5,0);
+  \draw[-, dotted, line width=0.7, teal] (0,0.5,0) -- (0.7,0.5,0);
+  \node[anchor=north west, teal] at (0.7,0.5,0) {$s_\psi$};
+  \fill[teal] (0.7,0.5,0) circle[radius=0.5pt];
+  \node[anchor=north, teal] at (0,0.5,0) {$s^*$};
+  \fill[teal] (0,0.5,0) circle[radius=0.5pt];
+
+  \draw[<->, line width=1, blue] (0,-0.5,0) -- (0,1,0);
+  \node[anchor=north west, blue] at (0,1,0) {$\mathring{\mathcal P}_\eta^\perp \cap \mathring{\mathcal P}$};
+  
+  % rotated coords
+  \tdplotsetrotatedcoords{\planeAlpha}{\planeBeta}{\planeGamma}
+
+  % behind-plane segments
+  \begin{scope}[tdplot_rotated_coords]
+    \draw[<-, line width=1pt, orange!85!black, densely dashed, opacity=0.6]
+      (0,0,-\NormalLen) -- (0,0,0);
+    \draw[<-, line width=1pt, purple, densely dashed, opacity=0.6]
+      (\gx,\gy,-\NormalLen) -- (\gx,\gy,0);
+
+          % orange right-angle marker (base along ∇Ψ dir, up along z')
+    \path[fill=orange!50!white, fill opacity=0, draw=gray, line width=0.5pt]
+      (0,0,0)
+      -- ++({\RA*\ux},{\RA*\uy},0)
+      -- ++(0,0,\RA)
+      -- ++({-\RA*\ux},{-\RA*\uy},0)
+      -- cycle;
+
+          % purple right-angle marker (base along ∇Ψ dir, up along z')
+    \path[fill=purple!50!white, fill opacity=0, draw=gray, line width=0.5pt]
+      (\gx,\gy,0)
+      -- ++({-\RA*\ux},{-\RA*\uy},0)
+      -- ++(0,0,\RA)
+      -- ++({\RA*\ux},{\RA*\uy},0)
+      -- cycle;
+  \end{scope}
+
+  % the big plane
+  \begin{scope}[tdplot_rotated_coords, canvas is xy plane at z=0]
+    \begin{scope}[transparency group, opacity=0.30]
+      \shade[shading=axis, left color=white, right color=blue,
+             shading angle=45]
+        (-\PlaneHalfX,-0.5*\PlaneHalfY) rectangle (\PlaneHalfX,\PlaneHalfY);
+    \end{scope}
+    \draw[black, line width=0.4pt]
+      (-\PlaneHalfX,-0.5*\PlaneHalfY) rectangle (\PlaneHalfX,\PlaneHalfY);
+
+    \node[font=\Large, black, anchor=south east] at (0.3,-0.4)
+      {$\mathring{\mathcal P}$};
+    \draw[->, purple,  line width=0.5pt]
+      (0,0) -- (\gx,\gy);
+    \node[anchor=south west, purple] at (\gx,\gy) {$\nabla\!\Psi$};
+  \end{scope}
+
+  % in-front parts + right-angle markers in ∇Ψ–Φ plane
+  \begin{scope}[tdplot_rotated_coords]
+    % orange normal
+    \draw[->, line width=1pt, orange!85!black]
+      (0,0,0) -- (0,0,\NormalLen) node[anchor=west, font=\large] {$\mathring{\mathcal P}^{\perp}$};
+
+    % purple affine line
+    \draw[->, line width=1pt, purple]
+      (\gx,\gy,0) -- (\gx,\gy,\NormalLen) node[anchor=west, font=\large] {$\Phi$};
+
+    \fill[purple] (\gx,\gy,0) circle[radius=0.5pt];
+  \end{scope}
+
+\end{tikzpicture}
+}
+```
+
+Visual representation of the relationship between objects in (semi-)parametric efficiency theory.
+:::
+
+Combining these observations, the geometric meaning of $\p s_\psi \grad\Psi = 1$ is that the length of the projection of the parameter score $s_\psi$ onto the orthogonal complement of the nuisance tangent space $\tspace_{\p,\eta}$ is $\frac{1}{\|\grad\Psi\|}$. (see @sec-projection). That projection $s^* = \tspace_{\p,\eta}^\perp s_\psi$ is typically called the *efficient score*. 
+
+Since we don't already have score vector in the orthogonal complement of the nuisance tangent space, the way to mechanically calculate the projection of $s_\psi$ onto this space is to first project it onto the nuisance tangent space and then take the residual. If $\eta \in \reals$, 
+
+$$
+s^* 
+= s_\psi - \tspace_{\p,\eta} s_\psi 
+= s_\psi - \frac{\p s_\psi s_\eta}{\p s_\eta^2} s_\eta.
+$$
+
+If $\eta$ is multidimensional the process is the same but the estimand score must be residualized against each score $s_{\eta_1}, s_{\eta_2}, \dots s_{\eta_{d-1}}$ in turn. The formula is obviously more complicated so I'll omit it: there is no conceptual difference. In fact this even works if $\eta$ is infinite-dimensional (such models are called *semi-parametric*).
+
+Since the canonical gradient (efficient influence function) is always in the tangent space and we just showed it must also be in the orthogonal complement of the nuisance tangent space, it is also a vector in $\tspace_\p \cap \tspace_{\p,\eta}^\perp$, therefore it is a scalar multiple of the efficient score $s^*$. So by the first of our two identities, $1 = \p (s_\psi) (cs^*)$, giving $c = [\p s_\psi s^*]^{-1} = \|s^*\|^{-2}$ (prove this equality!). Therefore, finally,
+
+$$
+\grad\Psi = \frac{s^*}{\|s^*\|^{2}},
+$$
+
+and thus the minimum asymptotic variance in this model is 
+
+$$
+\|\grad\Psi\|^2 
+= \|s^*\|^{-2}
+= \left[ \p s_\psi^2 - \frac{(\p s_\psi s_\eta)^2}{\p s_\eta^2} \right]^{-1}
+.
+$$ 
+
+One benefit of such (semi-)parametric models is that the canonical gradient can usually be explicitly derived as shown above. 
+
+### Connection to Likelihood Theory
+
+At last we can connect all of this to classical ideas in likelihood theory. The *Fisher information* matrix is defined as 
+
+$$
+I_\p = \p s s^\top = 
+\p \left[\begin{matrix}
+s_\psi^2 & s_\psi s_\eta^\top \\
+s_\psi s_\eta & s_\eta s_\eta^\top \\
+\end{matrix}\right]
+$$
+
+which is nothing other than the variance-covariance matrix of the score vector $s$. I prefer to think of it as the set of norms and inner products of the $d$ individual scores $s_{\theta_j}$ because that makes it clear that it is just a summary of some non-orthogonal basis of the tangent space: how long the different bases are and at what angles they are to each other. In classical theory the Fisher information is usually written with scores defined as derivatives of log-likelihoods, in which case the elements of the Fisher information also correspond to the expected value of the second or mixed derivatives of the log-likelihood under regularity conditions.
+
+The Cramer-Rao theorem is a famous classical result that provides a lower bound for the asymptotic variance of estimators in parametric models. In a one-dimensional model the Cramer-Rao bound states that the asymptotic variance of any unbiased estimator $\hat\psi$ is greater than or equal to $1/I_\p$ ($I_\p$ is a scalar in this case). When $\psi= \theta_1$, as we have been discussing, the Cramer-Rao Theorem says that the asymptotic variance must be greater than or equal to the corner element $(I_\p^{-1})_{1,1}$ of the inverse Fisher information. 
+
+As before, we'll take $\eta \in \reals$ to simplify the presentation. Applying the usual formula for inversion of a $2\times 2$ matrix gives
+
+$$
+(I_\p^{-1})_{1,1} = \frac{\p s_\eta^2}{\p s_\psi^2 \  \p s_\eta^2 - (\p s_\psi s_\eta)^2} 
+= \left[ \p s_\psi^2 - \frac{(\p s_\psi s_\eta)^2}{\p s_\eta^2} \right]^{-1}
+.
+$$
+
+This is precisely the squared norm of the canonical gradient that we previously derived. 
+
+Another way to interpret the optimal asymptotic variance (squared norm of the canonical gradient) is as the supremum of the Cramer-Rao bounds over all differentiable paths. We've been considering estimands that are defined as a single component of the parameter vector $\theta$ but more generally we might consider estimands defined as arbitrary functions of the parameters, i.e. $\psi = f(\theta)$. In this context the Cramer-Rao bound at a distribution $\p_\theta$ is $\dot f_\theta ^\top I_\theta^{-1} \dot f_\theta$ where $\dot f_\theta = \left. \frac{\dd}{\dd \tilde\theta} \right|_{\tilde\theta=\theta} f(\tilde\theta)$ and $I_\theta = I_{\p_\theta}$. In the context of a differentiable path with parameter $\epsilon$ and score $s$, this simplifies to $\frac{\dot\Psi(s)^2}{\P s^2}$ Taking the suprema over differentiable paths (scores in the tangent space) gives exactly the square of the operator norm (see @def-bounded-functional) of the pathwise derivative, which is the squared norm of its the Riesz representer.
+
+I personally find the parametric theory to be much more confusing than the nonparametric theory. To be fair, I have covered it very quickly and without the same level of pedagogical attention given to the other sections. Nonetheless, I do think there is something inherently more difficult about it. Having nuisance and target parameters and scores to keep track of complicates things, as does keeping track of regularity conditions needed for pointwise definitions of the scores. The nonparametric theory generalizes the traditional theory very nicely but in my opinion also makes it easier and more intuitive to understand!

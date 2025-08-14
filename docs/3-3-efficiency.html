@@ -257,6 +257,11 @@ window.Quarto = {
   <li><a href="#other-influence-functions" id="toc-other-influence-functions" class="nav-link" data-scroll-target="#other-influence-functions"><span class="header-section-number">3.4.1</span> Other Influence Functions</a></li>
   </ul></li>
   <li><a href="#efficiency" id="toc-efficiency" class="nav-link" data-scroll-target="#efficiency"><span class="header-section-number">3.5</span> Efficiency</a></li>
+  <li><a href="#classical-theory" id="toc-classical-theory" class="nav-link" data-scroll-target="#classical-theory"><span class="header-section-number">3.6</span> Classical Theory</a>
+  <ul class="collapse">
+  <li><a href="#applying-nonparametric-results" id="toc-applying-nonparametric-results" class="nav-link" data-scroll-target="#applying-nonparametric-results"><span class="header-section-number">3.6.1</span> Applying Nonparametric Results</a></li>
+  <li><a href="#connection-to-likelihood-theory" id="toc-connection-to-likelihood-theory" class="nav-link" data-scroll-target="#connection-to-likelihood-theory"><span class="header-section-number">3.6.2</span> Connection to Likelihood Theory</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -929,7 +934,7 @@ Gradient of a Pathwise Differentiable Estimand
 <div id="def-gradient" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 3.4</strong></span> For an estimand <span class="math inline">\(\Psi\)</span> that is pathwise differentiable at <span class="math inline">\({\mathbb{P}}\in {\mathcal{P}}\)</span>, the <em>gradient</em> (or <em>canonical gradient</em>) <span class="math inline">\(\nabla\!_{\mathbb{P}}\Psi\)</span> is the (unique) Riesz representer of the pathwise derivative <span class="math inline">\(\dot\Psi: {\mathring{{\mathcal{P}}}}_{\mathbb{P}}\to \mathbb{R}\)</span>.</p>
 <p>The gradient is always an element of <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\subseteq \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> and is thus square integrable and mean zero under <span class="math inline">\({\mathbb{P}}\)</span> at a minimum.</p>
-<p>The gradient represents the “direction” in which the estimand is increasing most quickly and its squared <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> norm <span class="math inline">\(\| \nabla\!_{\mathbb{P}}\Psi \| = \dot\Psi(\frac{\nabla\!_{\mathbb{P}}\Psi}{\|\nabla\!_{\mathbb{P}}\Psi\|})\)</span> encodes the speed at which it is instantaneously increasing in that direction.</p>
+<p>The gradient represents the “direction” in which the estimand is increasing most quickly and its <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> norm <span class="math inline">\(\| \nabla\!_{\mathbb{P}}\Psi \| = \dot\Psi(\frac{\nabla\!_{\mathbb{P}}\Psi}{\|\nabla\!_{\mathbb{P}}\Psi\|})\)</span> encodes the speed at which it is instantaneously increasing in that direction.</p>
 </div>
 </div>
 </div>
@@ -1116,16 +1121,91 @@ c = \frac{1-3}{1-2\times3+15} = -\frac{1}{5}
 </div>
 </div>
 <p>The relationship between the norm of the canonical gradient and the pathwise derivative means that the “speed limit” for asymptotic variance in estimation is directly related to how quickly the estimand can change under small perturbations of the data-generating distribution within the model. That actually makes a lot of sense if you think of the estimation problem as the problem of first telling what distribution a given dataset was drawn from and then reading off the value of the estimand from that distribution. Let’s say that you have enough data to confidently rule out all but a small set of similar distributions. If the value of the estimand varies wildly over those distributions, you still can’t be very confident and should therefore report large uncertainty. Another way to understand the mechanism by which shrinking the model reduces uncertainty is that in smaller models sets of nearby distributions often have more similar values of the estimand.</p>
+</section>
+<section id="classical-theory" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="classical-theory"><span class="header-section-number">3.6</span> Classical Theory</h2>
+<p>If you’ve taken a traditional statistics course you may have learned about Cramer-Rao and Fisher Information. In this section I’ll briefly explain how these topics are connected to efficiency theory for RAL estimators. If you’re not interested in this you should feel free to skip to the next chapter. None of this material is required to understand the rest of the book and I will try to be brief. More details can be found in <span class="citation" data-cites="tsiatis">Tsiatis (<a href="6-references.html#ref-tsiatis" role="doc-biblioref">2007</a>)</span>; I only bring it up to try and connect the prior knowledge some students have to the nonparametric context.</p>
+<p>First we will apply all of the theory we’ve developed in this chapter to the parametric setting. After this is done we will make the promised connections to classical concepts.</p>
+<section id="applying-nonparametric-results" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="applying-nonparametric-results"><span class="header-section-number">3.6.1</span> Applying Nonparametric Results</h3>
+<p>A parametric model <span class="math inline">\({\mathcal{P}}\)</span> is one in which every distribution can be put into one-to-one correspondence with an element <span class="math inline">\(\theta \in \mathbb{R}^d\)</span>. To simplify the presentation we’ll assume that every distribution has a density (with respect to Lebesgue measure). We write the density corresponding to the parameter value <span class="math inline">\(\theta\)</span> as <span class="math inline">\(p_\theta\)</span>.</p>
+<p>In this context, the score function <span class="math inline">\(s\)</span> is usually defined as the derivative of the log-likelihood with respect to <span class="math inline">\(\theta\)</span>: that is, a <span class="math inline">\(d\)</span>-dimensional function of <span class="math inline">\(z\)</span>. This is a natural extension of the score in a one-dimensional parametric model (i.e.&nbsp;a differentiable path), but the interpretation is a little different. For a one-dimensional model the score neatly encodes the “direction” in <span class="math inline">\(\mathcal{L}_2\)</span> in which the root density is moving as the single parameter changes. For a <span class="math inline">\(d\)</span>-dimensional model, each of the <span class="math inline">\(d\)</span> <em>elements</em> of the score encodes the same for each of the <span class="math inline">\(d\)</span> parameters, others held constant. I find it helpful to keep the “path” interpretation and think of these as separate scores <span class="math inline">\(s_1, \dots s_d\)</span> along <span class="math inline">\(d\)</span> paths baked into one vector <span class="math inline">\(s\)</span>. The tangent space is the linear span of these <span class="math inline">\(d\)</span> scores, i.e.&nbsp;<span class="math inline">\({\mathring{{\mathcal{P}}}}= \{c^\top s: c \in \mathbb{R}^d\}\)</span>.</p>
+<p>In the parametric world we are most often interested in one of the parameters <span class="math inline">\(\psi = \theta_1\)</span> and consider the rest of the parameters <span class="math inline">\(\eta = [\theta_2, \dots \theta_d]\)</span> to be “nuisances”. Therefore we write <span class="math inline">\(\Psi({\mathbb{P}}_\theta) = \psi\)</span>. For example, we might be interested in estimating the mean of a normal distribution but agnostic to the value of the standard deviation. In this context we can partition the elements of the score vector into <span class="math inline">\(s = [s_\psi, s_\eta]\)</span>. These scores are typically not orthogonal: two different parameters can change the density in similar ways.</p>
+<p>There are two useful identities that arise from these definitions. Firstly, if we move in the distribution along a path with score <span class="math inline">\(s_\psi\)</span>, the pathwise derivative must exactly equal to <span class="math inline">\(1\)</span>: a one-unit change in the parameter induces a one-unit change in the parameter! Therefore, for any gradient <span class="math inline">\(\phi\)</span>,</p>
+<p><span class="math display">\[
+1 = \dot\Psi(s_\psi) = {\mathbb{P}}s_\psi \phi.
+\]</span></p>
+<p>Secondly, if we move in any direction which does <em>not</em> change the parameter of interest <span class="math inline">\(\psi\)</span>, the pathwise derivative must equal <span class="math inline">\(0\)</span>. These directions are precisely any linear combination of the <span class="math inline">\(d-1\)</span> scores <span class="math inline">\(s_\eta\)</span>, i.e.&nbsp;<span class="math inline">\(\{c\top s_\eta: c \in \mathbb{R}^{d-1}\}\)</span>. This set is referred to as the <em>nuisance tangent space</em> <span class="math inline">\({\mathring{{\mathcal{P}}}}_{{\mathbb{P}},\eta}\)</span>. The resulting identity is then</p>
+<p><span class="math display">\[
+0 = \dot\Psi(s) = {\mathbb{P}}s \phi \quad \text{for all } s \in {\mathring{{\mathcal{P}}}}_{{\mathbb{P}},\eta}
+\]</span></p>
+<p>In other words, any gradient is in the orthogonal complement of the nuisance tangent space and has inner product equal to one with the estimand score. These two observations completely triangulate the canonical gradient, as we will see. If we project the estimand score onto <span class="math inline">\({\mathring{{\mathcal{P}}}}_{{\mathbb{P}},\eta}^\perp\)</span> the result will be in the intersection of <span class="math inline">\({\mathring{{\mathcal{P}}}}_{{\mathbb{P}},\eta}^\perp\)</span> and the full tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span>. That intersection is a one-dimensional space since the nuisance tangent space is <span class="math inline">\(d-1\)</span> dimensional and the tangent space is <span class="math inline">\(d\)</span> dimensional.</p>
+<div id="fig-parametric-tangent-space" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-parametric-tangent-space-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="3-3-efficiency_files/mediabag/d3629662f7a902ce0b497f11e06ceaa3f078322b.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-parametric-tangent-space-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.8: Visual representation of the relationship between objects in (semi-)parametric efficiency theory.
+</figcaption>
+</figure>
+</div>
+<p>Combining these observations, the geometric meaning of <span class="math inline">\({\mathbb{P}}s_\psi \nabla\!\Psi = 1\)</span> is that the length of the projection of the parameter score <span class="math inline">\(s_\psi\)</span> onto the orthogonal complement of the nuisance tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}_{{\mathbb{P}},\eta}\)</span> is <span class="math inline">\(\frac{1}{\|\nabla\!\Psi\|}\)</span>. (see <a href="5-2-L2.html#sec-projection" class="quarto-xref"><span>Section B.3.2</span></a>). That projection <span class="math inline">\(s^* = {\mathring{{\mathcal{P}}}}_{{\mathbb{P}},\eta}^\perp s_\psi\)</span> is typically called the <em>efficient score</em>.</p>
+<p>Since we don’t already have score vector in the orthogonal complement of the nuisance tangent space, the way to mechanically calculate the projection of <span class="math inline">\(s_\psi\)</span> onto this space is to first project it onto the nuisance tangent space and then take the residual. If <span class="math inline">\(\eta \in \mathbb{R}\)</span>,</p>
+<p><span class="math display">\[
+s^*
+= s_\psi - {\mathring{{\mathcal{P}}}}_{{\mathbb{P}},\eta} s_\psi
+= s_\psi - \frac{{\mathbb{P}}s_\psi s_\eta}{{\mathbb{P}}s_\eta^2} s_\eta.
+\]</span></p>
+<p>If <span class="math inline">\(\eta\)</span> is multidimensional the process is the same but the estimand score must be residualized against each score <span class="math inline">\(s_{\eta_1}, s_{\eta_2}, \dots s_{\eta_{d-1}}\)</span> in turn. The formula is obviously more complicated so I’ll omit it: there is no conceptual difference. In fact this even works if <span class="math inline">\(\eta\)</span> is infinite-dimensional (such models are called <em>semi-parametric</em>).</p>
+<p>Since the canonical gradient (efficient influence function) is always in the tangent space and we just showed it must also be in the orthogonal complement of the nuisance tangent space, it is also a vector in <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\cap {\mathring{{\mathcal{P}}}}_{{\mathbb{P}},\eta}^\perp\)</span>, therefore it is a scalar multiple of the efficient score <span class="math inline">\(s^*\)</span>. So by the first of our two identities, <span class="math inline">\(1 = {\mathbb{P}}(s_\psi) (cs^*)\)</span>, giving <span class="math inline">\(c = [{\mathbb{P}}s_\psi s^*]^{-1} = \|s^*\|^{-2}\)</span> (prove this equality!). Therefore, finally,</p>
+<p><span class="math display">\[
+\nabla\!\Psi = \frac{s^*}{\|s^*\|^{2}},
+\]</span></p>
+<p>and thus the minimum asymptotic variance in this model is</p>
+<p><span class="math display">\[
+\|\nabla\!\Psi\|^2
+= \|s^*\|^{-2}
+= \left[ {\mathbb{P}}s_\psi^2 - \frac{({\mathbb{P}}s_\psi s_\eta)^2}{{\mathbb{P}}s_\eta^2} \right]^{-1}
+.
+\]</span></p>
+<p>One benefit of such (semi-)parametric models is that the canonical gradient can usually be explicitly derived as shown above.</p>
+</section>
+<section id="connection-to-likelihood-theory" class="level3" data-number="3.6.2">
+<h3 data-number="3.6.2" class="anchored" data-anchor-id="connection-to-likelihood-theory"><span class="header-section-number">3.6.2</span> Connection to Likelihood Theory</h3>
+<p>At last we can connect all of this to classical ideas in likelihood theory. The <em>Fisher information</em> matrix is defined as</p>
+<p><span class="math display">\[
+I_{\mathbb{P}}= {\mathbb{P}}s s^\top =
+{\mathbb{P}}\left[\begin{matrix}
+s_\psi^2 &amp; s_\psi s_\eta^\top \\
+s_\psi s_\eta &amp; s_\eta s_\eta^\top \\
+\end{matrix}\right]
+\]</span></p>
+<p>which is nothing other than the variance-covariance matrix of the score vector <span class="math inline">\(s\)</span>. I prefer to think of it as the set of norms and inner products of the <span class="math inline">\(d\)</span> individual scores <span class="math inline">\(s_{\theta_j}\)</span> because that makes it clear that it is just a summary of some non-orthogonal basis of the tangent space: how long the different bases are and at what angles they are to each other. In classical theory the Fisher information is usually written with scores defined as derivatives of log-likelihoods, in which case the elements of the Fisher information also correspond to the expected value of the second or mixed derivatives of the log-likelihood under regularity conditions.</p>
+<p>The Cramer-Rao theorem is a famous classical result that provides a lower bound for the asymptotic variance of estimators in parametric models. In a one-dimensional model the Cramer-Rao bound states that the asymptotic variance of any unbiased estimator <span class="math inline">\(\hat\psi\)</span> is greater than or equal to <span class="math inline">\(1/I_{\mathbb{P}}\)</span> (<span class="math inline">\(I_{\mathbb{P}}\)</span> is a scalar in this case). When <span class="math inline">\(\psi= \theta_1\)</span>, as we have been discussing, the Cramer-Rao Theorem says that the asymptotic variance must be greater than or equal to the corner element <span class="math inline">\((I_{\mathbb{P}}^{-1})_{1,1}\)</span> of the inverse Fisher information.</p>
+<p>As before, we’ll take <span class="math inline">\(\eta \in \mathbb{R}\)</span> to simplify the presentation. Applying the usual formula for inversion of a <span class="math inline">\(2\times 2\)</span> matrix gives</p>
+<p><span class="math display">\[
+(I_{\mathbb{P}}^{-1})_{1,1} = \frac{{\mathbb{P}}s_\eta^2}{{\mathbb{P}}s_\psi^2 \  {\mathbb{P}}s_\eta^2 - ({\mathbb{P}}s_\psi s_\eta)^2}
+= \left[ {\mathbb{P}}s_\psi^2 - \frac{({\mathbb{P}}s_\psi s_\eta)^2}{{\mathbb{P}}s_\eta^2} \right]^{-1}
+.
+\]</span></p>
+<p>This is precisely the squared norm of the canonical gradient that we previously derived.</p>
+<p>Another way to interpret the optimal asymptotic variance (squared norm of the canonical gradient) is as the supremum of the Cramer-Rao bounds over all differentiable paths. We’ve been considering estimands that are defined as a single component of the parameter vector <span class="math inline">\(\theta\)</span> but more generally we might consider estimands defined as arbitrary functions of the parameters, i.e.&nbsp;<span class="math inline">\(\psi = f(\theta)\)</span>. In this context the Cramer-Rao bound at a distribution <span class="math inline">\({\mathbb{P}}_\theta\)</span> is <span class="math inline">\(\dot f_\theta ^\top I_\theta^{-1} \dot f_\theta\)</span> where <span class="math inline">\(\dot f_\theta = \left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\tilde\theta} \right|_{\tilde\theta=\theta} f(\tilde\theta)\)</span> and <span class="math inline">\(I_\theta = I_{{\mathbb{P}}_\theta}\)</span>. In the context of a differentiable path with parameter <span class="math inline">\(\epsilon\)</span> and score <span class="math inline">\(s\)</span>, this simplifies to <span class="math inline">\(\frac{\dot\Psi(s)^2}{\P s^2}\)</span> Taking the suprema over differentiable paths (scores in the tangent space) gives exactly the square of the operator norm (see <a href="5-2-L2.html#def-bounded-functional" class="quarto-xref">Definition&nbsp;<span>B.6</span></a>) of the pathwise derivative, which is the squared norm of its the Riesz representer.</p>
+<p>I personally find the parametric theory to be much more confusing than the nonparametric theory. To be fair, I have covered it very quickly and without the same level of pedagogical attention given to the other sections. Nonetheless, I do think there is something inherently more difficult about it. Having nuisance and target parameters and scores to keep track of complicates things, as does keeping track of regularity conditions needed for pointwise definitions of the scores. The nonparametric theory generalizes the traditional theory very nicely but in my opinion also makes it easier and more intuitive to understand!</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-bkrw" class="csl-entry" role="listitem">
 Bickel, Peter J, Chris A J Klaassen, Ya’acov Ritov, and Jon A Wellner. 1993. <em>Efficient and Adaptive Estimation for Semiparametric Models</em>. Johns Hopkins Series in the Mathematical Sciences. Baltimore, MD: Johns Hopkins University Press.
 </div>
+<div id="ref-tsiatis" class="csl-entry" role="listitem">
+Tsiatis, A. 2007. <span>“<span class="nocase">Semiparametric theory and missing data</span>.”</span>
+</div>
 <div id="ref-vdv" class="csl-entry" role="listitem">
 Van der Vaart, Aad W. 2000. <em>Asymptotic Statistics</em>. Vol. 3. Cambridge university press.
 </div>
 </div>
+</section>
 </section>
 
 </main> <!-- /main -->
