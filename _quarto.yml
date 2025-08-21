@@ -1,5 +1,6 @@
 filters:
   - diagram
+  - mathbb-to-mathds
 
 diagram:
   cache: true
@@ -56,3 +57,7 @@ format:
   pdf:
     keep-tex: true
     echo: false
+    format:
+    include-in-header:
+      - text: |
+          \usepackage{dsfont}

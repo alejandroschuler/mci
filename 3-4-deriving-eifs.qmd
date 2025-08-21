@@ -23,7 +23,7 @@ The idea of point mass contamination is to find paths in directions that make it
 
 Presume for a moment that we're working in a model where every variable is discrete but otherwise unspecified. When this is the case, the model is actually parametric because any joint distribution is a categorical distribution over a finite number of support points. Another way of putting this is that in a dataset drawn from such a distribution, there are only a finite number of possible "rows" that can appear. The probability distribution assigns a probability $\p\{Z=z_j\} = \p_j$ to each unique row $z_j$ in a discrete set $\mathcal Z$: the probabilities $p_j$ for $j \in \{1\dots J\}$ are the only parameters. 
 
-Let's say we're at a point $p$ (representing either the mass function or the vector of probabilities, they are essentially the same). We can construct a convex path in the parameter space with $p$ as the starting point and as the endpoint the mass function $1^* = 1(z=z^*)$ (with distribution \mathbb $\mathbb 1^*$) that puts all the probability mass at some point $z^* \in \{z_1 \dots z_J\}$. For small values of $\eps$, the convex path
+Let's say we're at a point $p$ (representing either the mass function or the vector of probabilities, they are essentially the same). We can construct a convex path in the parameter space with $p$ as the starting point and as the endpoint the mass function $1^* = 1(z=z^*)$ (with distribution $\mathbb 1^*$) that puts all the probability mass at some point $z^* \in \{z_1 \dots z_J\}$. For small values of $\eps$, the convex path
 
 $$
 \begin{aligned}
@@ -521,7 +521,7 @@ $$
 And, using the result from @exm-point-mass-density, 
 
 $$
-\grad[ p(\tilde x)](x) = 1_\tilde{x}(x) - p(\tilde x).
+\grad[ p(\tilde x)](x) = 1_{\tilde{x}}(x) - p(\tilde x).
 $$
 
 Now we combine these results using the product rule:
@@ -529,27 +529,27 @@ Now we combine these results using the product rule:
 $$
 \begin{aligned}
 \grad \Psi_{\tilde a} &= \grad\left[
-    \sum_\tilde{x} \mu(\tilde a, \tilde x) \ p(\tilde x)
+    \sum_{\tilde{x}} \mu(\tilde a, \tilde x) \ p(\tilde x)
 \right] 
 \\
-&= \sum_\tilde{x} \bigg( 
+&= \sum_{\tilde{x}} \bigg( 
     \grad[\mu(\tilde a,\tilde x)]\ p(\tilde x) 
     + \mu(\tilde a,\tilde x) \ \grad[ p(\tilde x) ]
 \bigg)
 \\
-&= \sum_\tilde{x} \left( 
+&= \sum_{\tilde{x}} \left( 
     \frac{1_{(\tilde a, \tilde x)}(a,x)}{p(\tilde a, \tilde x)}
 \big( y - \mu(\tilde a, \tilde x) \big) p(\tilde x) 
-    + \mu(\tilde a,\tilde x) \big( 1_\tilde{x}(x) - p(\tilde x) \big)
+    + \mu(\tilde a,\tilde x) \big( 1_{\tilde{x}}(x) - p(\tilde x) \big)
 \right)
 \\
-&= \frac{1_\tilde{a}(a)}{p(\tilde a |  x)}
+&= \frac{1_{\tilde{a}}(a)}{p(\tilde a |  x)}
 \big( y - \mu(\tilde a,  x) \big) + \mu(\tilde a,  x) 
-- \underbrace{\sum_\tilde x \mu(\tilde a, \tilde x) \ p(\tilde x)}_{\Psi_\tilde{a}}.
+- \underbrace{\sum_{\tilde x} \mu(\tilde a, \tilde x) \ p(\tilde x)}_{\Psi_{\tilde{a}}}.
 \end{aligned}
 $$
 
-Notice that the tildes dropped off the $\tilde x$s after the last equality due to $1_\tilde x(x) = 1(\tilde x = x)$ picking out just the values corresponding to the value $x$ out of the sum. Finally, using the sum rule,
+Notice that the tildes dropped off the $\tilde x$s after the last equality due to $1_{\tilde x}(x) = 1(\tilde x = x)$ picking out just the values corresponding to the value $x$ out of the sum. Finally, using the sum rule,
 
 $$
 \begin{aligned}
