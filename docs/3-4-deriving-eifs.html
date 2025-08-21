@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; Deriving Canonical Gradients – Introduction to Modern Causal Inference</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./4-0-intro.html" rel="next">
+<link href="./3-3-efficiency.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-cb90a69176a861232a8fe12288a45817.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li><li class="breadcrumb-item"><a href="./3-4-deriving-eifs.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to Modern Causal Inference</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./3-0-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Efficiency Theory</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-1-AL.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Asymptotic Linearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-2-regularity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Regularity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-3-efficiency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-4-deriving-eifs.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./4-0-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Building Efficient Estimators</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./6-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./5-1-rv-convergence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Convergence</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./5-2-L2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title"><span class="math inline">\(\mathcal L_2\)</span> Space</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#point-mass-contamination" id="toc-point-mass-contamination" class="nav-link active" data-scroll-target="#point-mass-contamination"><span class="header-section-number">4.1</span> Point Mass Contamination</a>
+  <ul class="collapse">
+  <li><a href="#discrete-distributions" id="toc-discrete-distributions" class="nav-link" data-scroll-target="#discrete-distributions"><span class="header-section-number">4.1.1</span> Discrete Distributions</a></li>
+  <li><a href="#general-distributions" id="toc-general-distributions" class="nav-link" data-scroll-target="#general-distributions"><span class="header-section-number">4.1.2</span> General Distributions</a></li>
+  </ul></li>
+  <li><a href="#gradient-rules" id="toc-gradient-rules" class="nav-link" data-scroll-target="#gradient-rules"><span class="header-section-number">4.2</span> Gradient Rules</a></li>
+  <li><a href="#projection" id="toc-projection" class="nav-link" data-scroll-target="#projection"><span class="header-section-number">4.3</span> Projection</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li><li class="breadcrumb-item"><a href="./3-4-deriving-eifs.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In the previous chapter we discovered that every pathwise-differentiable estimand has at least one RAL estimator and that any asymptotically optimal RAL estimator has an influence function equal to the canonical gradient (the <em>efficient</em> influence function; EIF). In the next part of the book we’ll tackle the problem of constructing estimators that have this property, but, in order to do that we need to know what the canonical gradient is for any estimand and model of interest. In this chapter we’ll therefore learn techniques to derive the canonical gradient.</p>
+<p>There are many methods to derive canonical gradients that are more or less natural to depending on the kind of model and estimand. In this book we’ll first focus on point mass contamination: a simple technique that works well in locally nonparametric models. In the process of illustrating this technique we’ll cover some handy rules that make it easier to build canonical gradients up out of simpler blocks. Then we will discuss projection methods which are often useful when the model is restricted in some way and in particular for models where some factors of the joint distribution are known.</p>
+<section id="point-mass-contamination" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="point-mass-contamination"><span class="header-section-number">4.1</span> Point Mass Contamination</h2>
+<p>Point mass contamination (also referred to as the “Gateaux derivative” or “Hampel influence function” approach) is a easy-to-use strategy for deriving the gradient in nonparametric models (recall there is only one gradient in a nonparametric model). Nonparametric models are a good starting point becasue often we don’t know anything useful about the data-generating distribution. Even if we do, nonparametric models are a reasonable fallback because we can still produce a good RAL estimator using the nonparametric EIF - it will just be less efficient than the efficient estimator under the restricted model that exploits our prior knowledge.</p>
+<p>The idea of point mass contamination is to find paths in directions that make it easy to compute the value of the gradient at a given point <span class="math inline">\(z\)</span>. We’ll see that it suffices to take convex paths in the direction of distribution that is a point mass at a point <span class="math inline">\(z\)</span>.</p>
+<section id="discrete-distributions" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="discrete-distributions"><span class="header-section-number">4.1.1</span> Discrete Distributions</h3>
+<p>Presume for a moment that we’re working in a model where every variable is discrete but otherwise unspecified. When this is the case, the model is actually parametric because any joint distribution is a categorical distribution over a finite number of support points. Another way of putting this is that in a dataset drawn from such a distribution, there are only a finite number of possible “rows” that can appear. The probability distribution assigns a probability <span class="math inline">\({\mathbb{P}}\{Z=z_j\} = {\mathbb{P}}_j\)</span> to each unique row <span class="math inline">\(z_j\)</span> in a discrete set <span class="math inline">\(\mathcal Z\)</span>: the probabilities <span class="math inline">\(p_j\)</span> for <span class="math inline">\(j \in \{1\dots J\}\)</span> are the only parameters.</p>
+<p>Let’s say we’re at a point <span class="math inline">\(p\)</span> (representing either the mass function or the vector of probabilities, they are essentially the same). We can construct a convex path in the parameter space with <span class="math inline">\(p\)</span> as the starting point and as the endpoint the mass function <span class="math inline">\(1^* = 1(z=z^*)\)</span> (with distribution <span class="math inline">\(\mathbb 1^*\)</span>) that puts all the probability mass at some point <span class="math inline">\(z^* \in \{z_1 \dots z_J\}\)</span>. For small values of <span class="math inline">\(\epsilon\)</span>, the convex path</p>
+<p><span class="math display">\[
+\begin{aligned}
+p_\epsilon
+&amp;= (1-\epsilon)p + \epsilon 1^*  \\
+&amp;= p + \epsilon(1^*- p)
+\end{aligned}
+\]</span></p>
+<p>represents the distribution <span class="math inline">\(p\)</span> “contaminated” with a little bit of extra mass at the point <span class="math inline">\(z^*\)</span>. Clearly all elements of the path are within the model. Moreover, this path is differentiable. Assuming none of the components of <span class="math inline">\(p\)</span> (as a vector) are zero, the score for such a path (see <a href="3-2-regularity.html#exm-convex-path-score" class="quarto-xref">Example&nbsp;<span>2.5</span></a>) is</p>
+<p><span class="math display">\[
+s^* = \left(\frac{1^*}{p} - 1 \right)
+.
+\]</span></p>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-discrete-model-local-nonparam" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 4.1</strong></span> When <span class="math inline">\({\mathbb{P}}\)</span> is a discrete distribution over a set of <span class="math inline">\(J\)</span> points <span class="math inline">\(\mathcal Z = \{z_1 \dots z_J\}\)</span> with mass function <span class="math inline">\(p\)</span>, the space <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> is all functions <span class="math inline">\(f\)</span> such that <span class="math inline">\(\mathbb{E}_{\mathbb{P}}[f(Z)^2] = \sum_j^J f(z_j)^2\ p(z_j)\)</span> is finite (and two functions are considered “equivalent” if they agree on the points <span class="math inline">\(\mathcal Z\)</span>).</p>
+<p>Prove that the discrete model <span class="math inline">\({\mathcal{P}}\)</span> consisting of all distributions <span class="math inline">\({\mathbb{P}}\)</span> supported on the same set <span class="math inline">\(\mathcal Z\)</span> is locally nonparametric (<a href="3-3-efficiency.html#def-nonparam-model" class="quarto-xref">Definition&nbsp;<span>3.2</span></a>) at any point, despite being a parametric model with <span class="math inline">\(J\)</span> parameters!</p>
+</div>
+</div>
+</div>
+</div>
+<p>Consider now the inner product <span class="math inline">\({\mathbb{P}}_\theta s^* \nabla\!\Psi\)</span> where <span class="math inline">\(\nabla\!\Psi\)</span> is taken to be the (unknown) gradient at <span class="math inline">\({\mathbb{P}}\)</span>. Since the distributions in question are discrete, the expected value of any function <span class="math inline">\(f\)</span> is <span class="math inline">\({\mathbb{P}}f = \sum_{z \in \mathcal Z} f(z) p(z)\)</span>. Thus,</p>
+<p><span class="math display">\[
+\begin{aligned}
+{\mathbb{P}}s^* \nabla\!\Psi
+&amp;= {\mathbb{P}}\frac{1^*}{p} \nabla\!\Psi - \underbrace{{\mathbb{P}}\nabla\!\Psi}_0 \\
+&amp;= \sum_z \frac{1^*(z)}{p(z)} \nabla\!\Psi(z) p(z) \\
+&amp;= \nabla\!\Psi(z^*).
+\end{aligned}
+\]</span></p>
+<p>For intuition, recall that one way to think of a function is as a very long “vector” <span class="math inline">\(\nabla\!\Psi = [\dots \nabla\!\Psi(0.1), \dots \nabla\!\Psi(3.4) \dots]\)</span> where the elements correspond to different possible values of the argument (see <a href="5-2-L2.html#sec-app-L2-vectors" class="quarto-xref"><span>Section B.1</span></a>). The scores above look like <span class="math inline">\(1(z=z^*)\)</span> so when we take an inner product of such a score with an arbitrary function, we essentially pick out the element of that function corresponding to position <span class="math inline">\(z^*\)</span>. In other words, the directions corresponding to point masses at each <span class="math inline">\(z^*\)</span> are like the “axes” of the space and we get the value of our unknown function at each point by projecting onto those axes.</p>
+<p>Knowing that <span class="math inline">\({\mathbb{P}}s^* \nabla\!\Psi = \nabla\!\Psi(z^*)\)</span> isn’t immediately helpful because we still have the unknown gradient on both sides of the equation. But by the central identity of influence functions we can now replace the inner product with the pathwside derivative <span class="math inline">\(\dot\Psi(s^*) = {\mathbb{P}}s^* \nabla\!\Psi = \nabla\!\Psi(z^*)\)</span>.</p>
+<p>Read right-to-left, this gives us a way of deriving the gradient <span class="math inline">\(\nabla\!\Psi\)</span>, which we don’t know. All we need to do to obtain the values of <span class="math inline">\(\nabla\!\Psi\)</span> at each point <span class="math inline">\(z^*\)</span> is compute the pathwise derivative along convex paths in the direction of each point mass <span class="math inline">\(1^*\)</span>. Specifically, we must evaluate</p>
+<p><span class="math display">\[
+\dot\Psi(s^*)
+= {\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}\Psi\bigg({\mathbb{P}}+ \epsilon(\mathbb 1^* - {\mathbb{P}}) \bigg)
+.
+\]</span></p>
+<div id="exm-point-mass-mean-EIF" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4.1 (Gradient of mean)</strong></span> Let <span class="math inline">\(Z\)</span> be a one-dimensional discrete random variable with no other restrictions and let <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[Z]\)</span>, the population mean. By the above,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\nabla\!\Psi(z^*)
+&amp;= {\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}\Psi\bigg({\mathbb{P}}+ \epsilon(\mathbb 1^* - {\mathbb{P}}) \bigg) \\
+&amp;= {\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}\sum_z z \bigg( p(z) + \epsilon(1^*(z)- p(z)) \bigg) \\
+&amp;= \sum_k z 1^*(z) - \sum_z z p(z) \\
+&amp;= z^* - \mathbb{E}_{{\mathbb{P}}}[Z]
+\end{aligned}
+\]</span></p>
+<p>Therefore <span class="math inline">\(\nabla\!\Psi(z) =  z - \mathbb{E}_{\mathbb{P}}[Z]\)</span>, which is the influence function for the sample mean and aligns with the equivalent result we proved in <a href="3-3-efficiency.html#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>3.4</span></a>.</p>
+</div>
+<p>Keep in mind that the gradient <span class="math inline">\(\nabla\!\Psi\)</span> depends on the data-generating distribution (and the model but here we have a fixed discrete model in mind), so really we should be writing <span class="math inline">\(\nabla\!_{\mathbb{P}}\Psi\)</span>. In <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>4.1</span></a> this is evident because the result depends on <span class="math inline">\(\mathbb{E}_{\mathbb{P}}[Z]\)</span>.</p>
+<p>The manipulations in <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>4.1</span></a> are characteristic of gradient derivations with point mass contamination. The only challenge is keeping careful track of the point mass <span class="math inline">\(z^*\)</span> vs generic values <span class="math inline">\(z\)</span> and the action of the indicator functions. This is a purely mechanical exercise, no special intuition is requred. Just keep in mind that <span class="math inline">\(\sum_z f(z)\  1^*(z) = f(z^*)\)</span> because the indicator “picks out” the indicated term in the sum. Once you’ve done it once or twice it becomes straightforward.</p>
+<p>Sometimes you also need to keep track of some other fixed point, as the next example shows.</p>
+<div id="exm-point-mass-density" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4.2 (Gradient of a density at a point)</strong></span> Let <span class="math inline">\(Z\)</span> be a one-dimensional discrete random variable with no other restrictions and let <span class="math inline">\(\Psi({\mathbb{P}}) = {\mathbb{P}}\{ Z= \tilde z \}\)</span> for a particular value <span class="math inline">\(\tilde z\)</span>.</p>
+<p>An easy way to derive the canonical gradient is to let <span class="math inline">\(W = 1(Z= \tilde z)\)</span> and use the result from <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>4.1</span></a> since <span class="math inline">\({\mathbb{P}}\{Z= \tilde z\} = \mathbb{E}_{\mathbb{P}}[W]\)</span>. This immediately gives <span class="math inline">\(\nabla\!\Psi(z) =  1_{\tilde z}(z) - p(\tilde z)\)</span>.</p>
+<p>We arrive at the same result if we consider that <span class="math inline">\(\Psi({\mathbb{P}}) =  p(\tilde z)\)</span>. For any <span class="math inline">\(\tilde z\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\nabla\!\Psi(z^*) &amp;= {\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}\Psi\bigg({\mathbb{P}}+ \epsilon(\mathbb 1^* - {\mathbb{P}}) \bigg) \\
+&amp;= {\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}\bigg[\big(p + \epsilon( 1^* - p) \big)(\tilde z)\bigg] \\
+&amp;= 1^*(\tilde z) - p(\tilde z)
+.
+\end{aligned}
+\]</span></p>
+<p>This is the same as above because <span class="math inline">\(1^*(\tilde z) = 1(z^* = \tilde z) = 1_{\tilde z}(z^*)\)</span>.</p>
+</div>
+<p>When <span class="math inline">\(Z\)</span> is multidimensional the same process works but the notation can be more verbose. For example, if <span class="math inline">\(Z = (Y,X)\)</span>, then the <span class="math inline">\(Z\)</span>-domain <span class="math inline">\(\mathcal Z = \{z_1, \dots z_J\}\)</span> is some subset of the cartesian product <span class="math inline">\(\mathcal Y \times \mathcal X\)</span> where these are the (discrete) domains of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. We’ll let <span class="math inline">\(z^* = (y^*, x^*)\)</span> be the point at which mass is concentrated in the mass function <span class="math inline">\(1^*\)</span> with corresponding distribution <span class="math inline">\(\mathbb 1^*\)</span>. In an abuse of notation we’ll also write, e.g., <span class="math inline">\(1^*(x) = 1(x=x^*)\)</span>. This single-variable indicator also picks out terms in a sum, i.e., <span class="math inline">\(\sum_{x,y} f(x,y) 1^*(x) = \sum_y f(x^*, y)\)</span>. We’ll see patterns like this a lot in gradient derivations using point mass contamination.</p>
+<div id="exm-point-mass-cond-mean-EIF" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4.3 (Gradient of a conditional mean)</strong></span> Let <span class="math inline">\((Y,X)\)</span> be discrete random variables with no other restrictions and let <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[Y|X=\tilde x]\)</span>, the conditional mean of <span class="math inline">\(Y\)</span> at a value <span class="math inline">\(X=\tilde x\)</span>. Computing the pathwise derivative on a path from a distribution <span class="math inline">\(p\)</span> towards a point mass at <span class="math inline">\((y^*, x^*)\)</span> gives</p>
+<p><span class="math display">\[
+\begin{aligned}
+\nabla\!\Psi(y^*,x^*)
+&amp;= {\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}\Psi\bigg( p + \epsilon(1^* - p) \bigg) \\
+&amp;= {\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}\sum_y y \bigg( p + \epsilon(1^*- p) \bigg)(y|\tilde x) \\
+&amp;= \sum_y y {\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}\bigg( p + \epsilon(1^*- p) \bigg)(y|\tilde x) \\
+\end{aligned}
+\]</span></p>
+<p>The densities can only be summed as joint densities so to compute the conditional density above we must do some algebra. Applying the identity <span class="math inline">\(p(y|x) = \frac{p(y,x)}{p(x)} = \frac{p(y,x)}{\sum_y p(y,x)}\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\bigg( p + \epsilon(1^*- p) \bigg)(y|\tilde x)
+&amp;=  \frac{\big( p + \epsilon(1^*- p) \big)(y,\tilde x)} { \sum_y \big( p + \epsilon(1^*- p) \big)(y, \tilde x)} \\
+&amp;=  \frac{p(y, \tilde x) + \epsilon(1^*(y, \tilde x)- p(y, \tilde x))}
+    { \sum_y p(y, \tilde x) + \sum_y \epsilon(1^*(y, \tilde x) - p(y, \tilde x))} \\
+&amp;=  \frac{p(y, \tilde x) + \epsilon(1^*(y, \tilde x)- p(y, \tilde x))}
+    { p(\tilde x) + \epsilon(1^*(\tilde x) - p(\tilde x))} .
+\end{aligned}
+\]</span></p>
+<p>Now we plug this into to the display above and use <span class="math inline">\({\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}\frac{a + b\epsilon}{c + d\epsilon} = \frac{b}{c} - \frac{ad}{c^2}\)</span> (by the chain and quotient rules) to obtain</p>
+<p><span class="math display">\[
+\begin{aligned}
+\nabla\!\Psi(y^*, x^*)
+&amp;= \sum_y y {\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}\left(
+    \frac{p(y, \tilde x) + \epsilon(1^*(y, \tilde x)- p(y, \tilde x))}
+    { p(\tilde x) + \epsilon(1^*(\tilde x) - p(\tilde x))}
+  \right)\\
+&amp;= \sum_y y
+    \left(\frac{1^*(y, \tilde x)- p(y, \tilde x)}{p(\tilde x)} -  
+    \frac{(1^*(\tilde x) - p(\tilde x))p(y, \tilde x)}{p(\tilde x)^2}
+    \right)
+    \\
+&amp;= \frac{1}{p(\tilde x)} \sum_y y     
+    \bigg(1^*(y, \tilde x)- p(y, \tilde x) -  
+    (1^*(\tilde x) - p(\tilde x))p(y| \tilde x)
+    \bigg)
+    \\
+&amp;= \frac{1}{p(\tilde x)} \sum y {1^*(y,\tilde x) - 1^*(\tilde x)p(y|\tilde x)}
+\\
+&amp;= \frac{1^*(\tilde x)}{p(\tilde x)}\left(y^* - \mathbb{E}[Y|X=\tilde x] \right)
+\end{aligned}
+\]</span></p>
+<p>Therefore <span class="math inline">\(\nabla\!\Psi(y,x) = \frac{1(x=\tilde x)}{p(\tilde x)}\left(y - \mathbb{E}[Y|X=\tilde x] \right)\)</span>. The conditional mean is generally not pathwise differentiable and thus doesn’t have an gradient (see <a href="3-3-efficiency.html#exm-unbounded-estimand" class="quarto-xref">Example&nbsp;<span>3.3</span></a>), but in discrete data models it is!</p>
+</div>
+<p>As in the one-dimensional model, the difficulty in these calculations is keeping track of what is the fixed point <span class="math inline">\(\tilde x\)</span>, what is the location of the point mass <span class="math inline">\((y^* ,x^*)\)</span>, and what is a generic value <span class="math inline">\((y,x)\)</span>. Go slowly and deliberately at first and you will get the hang of it.</p>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-point-mass-conditional-density" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 4.2 (Gradient of a conditional density)</strong></span> Let <span class="math inline">\((Y,X)\)</span> be discrete random variables with no other restrictions and let <span class="math inline">\(\Psi({\mathbb{P}}) = {\mathbb{P}}\{ Y=\tilde y | X = \tilde x \}\)</span> for particular values <span class="math inline">\(\tilde y, \tilde x\)</span>. What is the canonical gradient for this estimand at a point <span class="math inline">\({\mathbb{P}}\)</span> in this model?</p>
+<p><em>Hint: let <span class="math inline">\(W = 1(Y=\tilde y)\)</span> and use the result from <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>4.1</span></a> since <span class="math inline">\({\mathbb{P}}\{Y=\tilde y|X=\tilde x\} = \mathbb{E}_{\mathbb{P}}[W|X=\tilde x]\)</span>.</em></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-gradient-cov" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 4.3 (Gradient of the covariance)</strong></span> Let <span class="math inline">\((Y,X)\)</span> be discrete random variables with no other restrictions and let <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{C}_{\mathbb{P}}[ Y,X ]\)</span>. What is the canonical gradient for this estimand at a point <span class="math inline">\({\mathbb{P}}\)</span> in this model?</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="general-distributions" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="general-distributions"><span class="header-section-number">4.1.2</span> General Distributions</h3>
+<p>Point mass contamination is easiest to present for discrete models but it also works for general nonparametric models. However, it’s more difficult to understand in the general setting because “point masses” don’t exist for continuous random variables. Nonetheless, in much of the literature you’ll see point masses in continuous densities represented informally using Dirac delta functions. <span class="citation" data-cites="hines-eif">Hines et al. (<a href="6-references.html#ref-hines-eif" role="doc-biblioref">2022</a>)</span> has many good examples.</p>
+<p>The derivation with Dirac deltas can be made rigorous (see <span class="citation" data-cites="ichimura2022influence">Ichimura and Newey (<a href="6-references.html#ref-ichimura2022influence" role="doc-biblioref">2022</a>)</span>), but, following the advice of <span class="citation" data-cites="kennedy-review">Kennedy (<a href="6-references.html#ref-kennedy-review" role="doc-biblioref">2024</a>)</span>, I find it much easier to simply pretend the model is discrete! Perhaps surprisingly, the form of the gradient in an unrestricted discrete model is generally also the form of the gradient in the nonparametric model. If you are worried, it is easy to check that the result holds by verifying the central identify for influence functions, since in a nonparametric model there is only one function (the gradient) for which it will hold.</p>
+<div id="exm-point-mass-mean-check" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4.4</strong></span> In <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>4.1</span></a> we showed that, in discrete data models, the gradient for the mean is <span class="math inline">\(\nabla\!\Psi(z) =  z - \mathbb{E}_{\mathbb{P}}[Z]\)</span>. We now verify that this is also the gradient in the nonparametric model by checking that <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}s \nabla\!\Psi\)</span> for all <span class="math inline">\(s \in \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>.</p>
+<p>In <a href="3-3-efficiency.html#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>3.4</span></a> we already derived that <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s) = \mathbb{E}[Zs(Z)]\)</span> for the mean. On the other hand,</p>
+<p><span class="math display">\[
+{\mathbb{P}}s\nabla\!\Psi = \mathbb{E}[s(Z)(Z - \mathbb{E}[Z])] = \mathbb{E}[s(Z)Z] - \mathbb{E}[Z] \underbrace{\mathbb{E}[s(Z)]}_0
+,
+\]</span></p>
+<p>which establishes the desired equality.</p>
+</div>
+<p>Of course, we already knew the gradient for the mean in the nonparametric model since we derived it in <a href="3-3-efficiency.html#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>3.4</span></a>. But in that proof we had to magically know to add “zero” to the inner product in order to get a zero mean score. In practice, such tricks are not readily apparent. It’s much easier to have a candidate gradient and simply check that it works, as we just did in <a href="#exm-point-mass-mean-check" class="quarto-xref">Example&nbsp;<span>4.4</span></a>.</p>
+<p>Some estimands, however, are pathwise differentiable in discrete models but not in nonparametric models. When this happens you will see a specific kind of failure when you check <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}s \nabla\!\Psi\)</span> for all <span class="math inline">\(s \in \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>.</p>
+<div id="exm-point-mass-cond-mean-check" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4.5</strong></span> In <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>4.1</span></a> we showed that, in discrete data models, the gradient for the conditional mean of <span class="math inline">\(Y\)</span> at a point <span class="math inline">\(X=\tilde x\)</span> is <span class="math inline">\(\nabla\!\Psi(y,x) = \frac{1(x=\tilde x)}{p(\tilde x)}\left(y - \mathbb{E}[Y|X=\tilde x] \right)\)</span>. We now show that it is <em>not</em> the gradient in a nonparametric model. In fact, there is no gradient in a nonparametric model because this estimand is not pathwise differentiable in such models.</p>
+<p>Assuming we did not know about the lack of pathwise differentiability, we might try to check <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}s \nabla\!\Psi\)</span>. On the right-hand side, for any distribution where <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> are continuously-distributed with density <span class="math inline">\(p(y,x)\)</span></p>
+<p><span class="math display">\[
+{\mathbb{P}}s\nabla\!\Psi = \int s(y,x)\frac{1(x=\tilde x)}{p(\tilde x)}\left(y - \mathbb{E}[Y|X=\tilde x] \right) p(y,x) \mathop{}\!\mathrm{d}(y,x)
+\]</span></p>
+<p>which is always zero if <span class="math inline">\(1(x=\tilde x)\)</span> is interpreted as a standard indicator function. This doesn’t make sense because it implies that the pathwise derivative is zero everywhere, meaning that the estimand is constant across the model, which it certainly isn’t.</p>
+<p>Things make a little more sense if you interpret the indicator as a Dirac delta instead. In <span class="citation" data-cites="hines-eif">Hines et al. (<a href="6-references.html#ref-hines-eif" role="doc-biblioref">2022</a>)</span>, the equivalent derivation of the gradient using Dirac delta functions produces</p>
+<p><span class="math display">\[
+\nabla\!\Psi(y,x) = \frac{\infty(x=\tilde x)}{p(x)}\left(y - \mathbb{E}[Y|X=\tilde x] \right)
+\]</span></p>
+<p>where <span class="math inline">\(\infty(x=\tilde x)\)</span> is the Dirac delta that returns <span class="math inline">\(\infty\)</span> at <span class="math inline">\(x=\tilde x\)</span> and zero elsewhere and which magically picks values out of integrals, i.e., <span class="math inline">\(\int \infty(x=\tilde x) f(x) \mathop{}\!\mathrm{d}x = f(\tilde x)\)</span>.</p>
+<p>However, we know that any gradient must be in <span class="math inline">\(\mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>, i.e.&nbsp;it must be square-integrable. But this function is not:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\| \nabla\!\Psi \|^2
+&amp;= \int \nabla\!\Psi(y,x)^2\  p(y,x) \mathop{}\!\mathrm{d}(y,x) \\
+&amp;= \int \frac{\infty(x=\tilde x)^2}{p(x)^2}\left(y - \mathbb{E}[Y|X=\tilde x] \right)^2 \ p(y,x)\mathop{}\!\mathrm{d}(y,x)  \\
+&amp;= \int \infty(x=\tilde x) \frac{\infty(x=\tilde x)}{p(x)} {\left( \int \left(y - \mathbb{E}[Y|X=\tilde x] \right)^2 \ p(y|x)\mathop{}\!\mathrm{d}y \right)} \mathop{}\!\mathrm{d}x  \\
+&amp;= \frac{\infty(\tilde x = \tilde x)}{p(\tilde x)} \mathbb{V}[Y|X=\tilde x] = \infty
+\\
+\end{aligned}
+\]</span></p>
+</div>
+<p>The failures shown in <a href="#exm-point-mass-cond-mean-check" class="quarto-xref">Example&nbsp;<span>4.5</span></a> above are typical of what happens when you use point mass contamination to try and derive the gradient for an estimand that is not nonparametrically pathwise differentiable. If you end up with an indicator of a possibly continuous value in the gradient, it’s a good sign that the estimand is not nonparametrically pathwise differentiable.</p>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-point-mass-density-nonparam" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 4.4</strong></span> Show that the gradient we derived for <span class="math inline">\(\Psi({\mathbb{P}}) = {\mathbb{P}}\{ Z=\tilde z \}\)</span> in <a href="#exm-point-mass-density" class="quarto-xref">Example&nbsp;<span>4.2</span></a> breaks down if it is treated as the gradient in a nonparametric model.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Although appealing to a discrete data model usually does the trick, there are times when it doesn’t work. This can happen for estimands that are defined implicitly rather than explicitly in terms of expectations or probabilities. The point-mass contamination strategy is still useful, but we need a different approach to evaluate the pathwise derivative. I give an example here to demonstrate this, but it’s not vitally important to understand in detail.</p>
+<div id="exm-quantile-gradient" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4.6 (Gradient of a quantile)</strong></span> Let <span class="math inline">\(\mathcal P\)</span> be all continuous distributions <span class="math inline">\({\mathbb{P}}\)</span> of a single variable <span class="math inline">\(Z\)</span> and let the estimand <span class="math inline">\(\Psi({\mathbb{P}})\)</span> be the <span class="math inline">\(q\)</span>th quantile of <span class="math inline">\(Z\)</span> under <span class="math inline">\({\mathbb{P}}\)</span>. Our aim is to find the canonical gradient of <span class="math inline">\(\Psi\)</span> in this model.</p>
+<p>Abusing notation a bit, let <span class="math inline">\({\mathbb{P}}(z)\)</span> denote the CDF of <span class="math inline">\(Z\)</span> under <span class="math inline">\({\mathbb{P}}\)</span>. The quantile <span class="math inline">\(\psi\)</span> is defined by <span class="math inline">\({\mathbb{P}}(\psi) = q\)</span> so we can write <span class="math inline">\(\Psi({\mathbb{P}}) = {\mathbb{P}}^{-1}(q)\)</span> since the inverse of the CDF of a continuous random variable is well-defined, or</p>
+<p><span class="math display">\[
+\Psi({\mathbb{P}}) = \inf \{ z: {\mathbb{P}}(z) \ge q\}
+\]</span></p>
+<p>for general distributions.</p>
+<p>Along the convex path <span class="math inline">\({\mathbb{P}}^{(\epsilon)} = {\mathbb{P}}+ \epsilon(\mathbb 1^* - {\mathbb{P}})\)</span>, the CDF is</p>
+<p><span class="math display">\[
+[{\mathbb{P}}+ \epsilon(\mathbb 1^* - {\mathbb{P}})](z) = {\mathbb{P}}(z) + \epsilon(\mathbb 1^*(z) - {\mathbb{P}}(z))
+\]</span></p>
+<p>where <span class="math inline">\(\mathbb 1^*(z) = 1(z \ge z^*)\)</span> is the CDF of a point mass at <span class="math inline">\(z^*\)</span>.</p>
+<p>Technically this is not a legitimate path because <span class="math inline">\(\mathbb 1^* \not\in \mathcal P\)</span> and in fact the path is not differentiable, but we can interpret it as the limit of a sequence of differentiable paths. <span class="citation" data-cites="ichimura2022influence">Ichimura and Newey (<a href="6-references.html#ref-ichimura2022influence" role="doc-biblioref">2022</a>)</span> has the details but we don’t need to make a fully-rigorous argument: as with assuming a discrete model in other problems, using this path is just a tool to come up with a candidate gradient.</p>
+<div id="fig-quantile-gradient" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-quantile-gradient-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="3-4-deriving-eifs_files/mediabag/0f75947546ac65a4102acb10ea40c19c44988596.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-quantile-gradient-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.1: CDFs along the convex path between some distribution <span class="math inline">\({\mathbb{P}}\)</span> and the point mass <span class="math inline">\(\mathbb 1^*\)</span> at <span class="math inline">\(z^*\)</span>.
+</figcaption>
+</figure>
+</div>
+<p>Let’s find an explicit expression for <span class="math inline">\(\psi_\epsilon= \Psi({\mathbb{P}}_\epsilon)\)</span>. We’ll break it down into two cases: <span class="math inline">\(z^* \le \psi\)</span> and <span class="math inline">\(\psi &lt; z^*\)</span>.</p>
+<p>First, let’s put the point mass <span class="math inline">\(z^*\)</span> to the left of the quantile <span class="math inline">\(\psi = \Psi({\mathbb{P}})\)</span>, as is shown in <a href="#fig-quantile-gradient" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>. For any value <span class="math inline">\(z &lt; z^*\)</span> to the left of the point mass,</p>
+<p><span class="math display">\[
+{\mathbb{P}}^{(\epsilon)}(z) = {\mathbb{P}}(z)(1-\epsilon) \le {\mathbb{P}}(z) &lt; {\mathbb{P}}(z^*) \le p(\psi) = q
+\]</span></p>
+<p>Therefore the smallest value <span class="math inline">\(z\)</span> for which <span class="math inline">\({\mathbb{P}}^{(\epsilon)}(z)\)</span> is larger than <span class="math inline">\(q\)</span> must be <em>at or to the right</em> of <span class="math inline">\(z^*\)</span>. In other words, the quantile at the perturbed distribution <span class="math inline">\(\psi_\epsilon\)</span> is larger than or equal to the location of the point mass <span class="math inline">\(z^*\)</span>. This is also visible in <a href="#fig-quantile-gradient" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>. Therefore</p>
+<p><span class="math display">\[
+\begin{aligned}
+\Psi({\mathbb{P}}_\epsilon) &amp;= \inf \{ z: {\mathbb{P}}^{(\epsilon)}(z) \ge q \} \\
+&amp;= \inf \{ z: {\mathbb{P}}^{(\epsilon)}(z) \ge q, z^* \le z \} \\
+&amp;= \inf \{ z: (1-\epsilon){\mathbb{P}}(z) + \epsilon 1(z^* \le z) \ge q, z^* \le z \} \\
+&amp;= \inf \{ z: (1-\epsilon){\mathbb{P}}(z) + \epsilon\ge q, z^* \le z \} \\
+&amp;= \max\bigg\{ \inf \{ z: (1-\epsilon){\mathbb{P}}(z) + \epsilon\ge q\},\ z^* \bigg\}\\
+&amp;= \max\left\{ {\mathbb{P}}^{-1}\left(\frac{q-\epsilon}{1-\epsilon}\right),\ z^* \right\}
+\end{aligned}
+\]</span></p>
+<p>The last equality follows because <span class="math inline">\({\mathbb{P}}\)</span> is continuous by assumption so the infimum <span class="math inline">\(\ge q\)</span> is attained at the above inverse.</p>
+<p>Now we can take a pathwise derivative. By assumption <span class="math inline">\(z^* &lt; \psi = {\mathbb{P}}^{-1}(q) = \lim_{\epsilon\to 0} {\mathbb{P}}^{-1}\left(\frac{q-\epsilon}{1-\epsilon}\right)\)</span>. Therefore when <span class="math inline">\(\epsilon\)</span> is small enough, <span class="math inline">\(\Psi({\mathbb{P}}_\epsilon) = {\mathbb{P}}^{-1}\left(\frac{q-\epsilon}{1-\epsilon}\right)\)</span> because this term is always larger than <span class="math inline">\(z^*\)</span> in the maximum above. By the chain rule,</p>
+<p><span class="math display">\[
+{\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}\Psi({\mathbb{P}}^{(\epsilon)}) =
+\left( \left. \frac{\mathop{}\!\mathrm{d}{\mathbb{P}}^{-1}(z)}{\mathop{}\!\mathrm{d}z} \right|_{z=q} \right)
+\left( q - 1 \right)
+= \frac{q-1}{p(q)}
+\]</span></p>
+<p>where <span class="math inline">\(p\)</span> is the density of <span class="math inline">\({\mathbb{P}}\)</span>. You should convince yourself that <span class="math inline">\(\frac{\mathop{}\!\mathrm{d}{\mathbb{P}}^{-1}(z)}{\mathop{}\!\mathrm{d}z} = \frac{1}{p(z)}\)</span>.</p>
+<p>Similar arguments to those above show that when the point mass is to the <em>right</em> of the quantile,</p>
+<p><span class="math display">\[
+\Psi({\mathbb{P}}_\epsilon) = \min\left\{ {\mathbb{P}}^{-1}\left(\frac{q}{1-\epsilon}\right),\ z^* \right\},
+\]</span></p>
+<p>and the pathwise derivative is</p>
+<p><span class="math display">\[
+{\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}\Psi({\mathbb{P}}^{(\epsilon)}) = \frac{q}{p(q)}.
+\]</span></p>
+<p>Combining the two cases gives the gradient</p>
+<p><span class="math display">\[
+\nabla\!\Psi(z) = \frac{q - 1(z \le \psi)}{p(\psi)}
+\]</span></p>
+</div>
+<p>Let’s sum up everything we’ve learned about point mass contamination in one place:</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Point Mass Contamination
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-point-mass-contamination" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4.1</strong></span> To derive the canonical gradient for an estimand <span class="math inline">\(\Psi\)</span> in a nonparametric model via point mass contamination, evaluate <span class="math display">\[
+\nabla\!\Psi(z^*) = {\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}\Psi\bigg({\mathbb{P}}+ \epsilon(\mathbb 1^*- {\mathbb{P}}) \bigg)
+\]</span></p>
+<p>where <span class="math inline">\(\mathbb 1^*\)</span> is a distribution that places all its probability mass at a point <span class="math inline">\(z^*\)</span>. Usually this is easiest to do by temporarily assuming that the variables are all discrete.</p>
+<p>If desired, then verify that <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}s \nabla\!\Psi\)</span> for all <span class="math inline">\(s \in \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>. Convex paths usually suffice to compute the pathwise derivatives. If the check fails due to indicator functions on possibly continous variables, it is likely the estimand is not pathwise differentiable in nonparametric models.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="gradient-rules" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="gradient-rules"><span class="header-section-number">4.2</span> Gradient Rules</h2>
+<p>Point mass contamination is a very useful strategy but the manual calculations required can quickly get out of hand for complex estimands. Even the algebra required to derive the gradient of the conditional mean in <a href="#exm-point-mass-cond-mean-EIF" class="quarto-xref">Example&nbsp;<span>4.3</span></a> was a bit excessive. You can have a look at <span class="citation" data-cites="hines-eif">Hines et al. (<a href="6-references.html#ref-hines-eif" role="doc-biblioref">2022</a>)</span> and <span class="citation" data-cites="kennedy-review">Kennedy (<a href="6-references.html#ref-kennedy-review" role="doc-biblioref">2024</a>)</span> to review examples that are even more involved. Thankfully, the algebra can usually be simplified with the application of a few easy derivative rules.</p>
+<p>To make an analogy to calculus, you probably don’t remember how to derive the fact that the derivative of the log is the inverse function or that the derivative of sine is cosine, etc. Derivatives are tricky to compute from scratch! Nonetheless, you’re probably pretty comfortable computing the derivative of <span class="math inline">\(\sin(\log(x) + x^2)\)</span> because you’ve memorized a few key primitive derivatives and you know how to use the chain, product, and sum rules. Deriving gradients is the same way: coming up with the primitives can be tricky, but once you have them it’s usually just a matter of combining them in the right way to get gradients for more complex estimands.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Gradient Rules
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="thm-gradient-rules" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 4.1</strong></span> Let <span class="math inline">\(\Psi\)</span> and <span class="math inline">\(\Upsilon\)</span> be two pathwise differentiable, scalar estimands defined on the same model and let <span class="math inline">\(g: \mathbb{R}\to \mathbb{R}\)</span> be a differentiable function and <span class="math inline">\(c \in \mathbb{R}\)</span> some constant. Then</p>
+<p><span class="math display">\[
+\begin{aligned}
+\nabla\!(c \Psi + \Upsilon) &amp;= c\nabla\!\Psi + \nabla\!\Upsilon \quad \text{(sum rule)} \\
+\nabla\!(\Psi \Upsilon) &amp;= \Upsilon \nabla\!\Psi + \Psi \nabla\!\Upsilon \quad \text{(product rule)} \\
+\nabla\!g(\Psi) &amp;= \nabla\!_\Psi g\  \nabla\!\Psi  \quad \text{(chain rule)}
+.
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof of Chain Rule
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For any score <span class="math inline">\(s \in {\mathring{{\mathcal{P}}}}\)</span>, <span class="math display">\[
+\dot{[g(\Psi)]}(s) \overset{\text{def}}= {\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}g(\Psi({\mathbb{P}}_\epsilon))
+\]</span></p>
+<p>where <span class="math inline">\({\mathbb{P}}_\epsilon\)</span> is a differentiable path with score <span class="math inline">\(s\)</span>. For any such path <span class="math inline">\(\epsilon\mapsto \Psi({\mathbb{P}}_\epsilon)\)</span> maps reals to reals and moreover is differentiable because we assumed <span class="math inline">\(\Psi\)</span> was pathwise differentiable. Therefore, by the ordinary chain rule <span class="math inline">\(\frac{\mathop{}\!\mathrm{d}g(\psi(\epsilon))}{\mathop{}\!\mathrm{d}\epsilon} = \frac{\mathop{}\!\mathrm{d}g}{\mathop{}\!\mathrm{d}\psi} \frac{\mathop{}\!\mathrm{d}\psi}{\mathop{}\!\mathrm{d}\epsilon}\)</span>,</p>
+<p><span class="math display">\[
+{\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}g(\Psi({\mathbb{P}}_\epsilon)) =
+\left( \left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\psi} \right|_{\psi = \Psi({\mathbb{P}})} g(\psi)\right)\
+\underbrace{\left( {\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}\Psi({\mathbb{P}}_\epsilon) \right)}_{\dot\Psi(s)},
+\]</span></p>
+<p>meaning that <span class="math inline">\(\dot{[g(\Psi)]} = \nabla\!_\Psi g \ \dot\Psi\)</span> where <span class="math inline">\(\nabla\!_\Psi g = \left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\psi} \right|_{\psi = \Psi({\mathbb{P}})} g(\psi)\)</span> is just the usual derivative of <span class="math inline">\(g\)</span> evaluated at the point <span class="math inline">\(\Psi({\mathbb{P}})\)</span>. Clearly <span class="math inline">\(\dot{[g(\Psi)]}(s)\)</span> exists and is bounded and linear since <span class="math inline">\(\nabla\!_\Psi g\)</span> exists and is a constant and <span class="math inline">\(\dot\Psi(s)\)</span> exists and is bounded and linear. Therefore the estimand <span class="math inline">\(g(\Psi)\)</span> is pathwise differentiable.</p>
+<p>The gradient of <span class="math inline">\(g(\Psi)\)</span> is the unique function <span class="math inline">\(\nabla\!g(\Phi)\)</span> in the tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}\)</span> that satisfies</p>
+<p><span class="math display">\[
+\dot{[g(\Psi)]}(s) = {\mathbb{P}}s \nabla\!g(\Phi).
+\]</span></p>
+<p>But using our expression for the pathwise derivative <span class="math inline">\(\dot{[g(\Psi)]}\)</span> and the definition of the gradient of <span class="math inline">\(\Psi\)</span>, we already know</p>
+<p><span class="math display">\[
+\begin{aligned}
+\dot{[g(\Psi)]}(s)
+&amp;= \nabla\!_\Psi g \ \dot\Psi(s) \\
+&amp;= \nabla\!_\Psi g {\mathbb{P}}s\nabla\!\Psi \\
+&amp;= {\mathbb{P}}s(\nabla\!_\Psi g \nabla\!\Psi),
+\end{aligned}
+\]</span></p>
+<p>proving that <span class="math inline">\(\nabla\!_\Psi g \nabla\!\Psi\)</span> satisfies the condition required to be a gradient. Since <span class="math inline">\(\nabla\!\Psi \in {\mathring{{\mathcal{P}}}}\)</span> and <span class="math inline">\(\nabla\!_\Psi g\)</span> is a constant, this gradient is in the tangent space and is thus the canonical gradient.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-gradient-rules" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 4.5</strong></span> Using insights from the proof of the chain rule, prove the sum and product rules from <a href="#thm-gradient-rules" class="quarto-xref">Theorem&nbsp;<span>4.1</span></a>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>These rules look exactly the same as the usual rules for derivatives because they follow from them. A gradient is simply a way of encoding the “slope” of a function in multiple dimensions.</p>
+<p>The gradient rules make it easy to derive gradients for complicated estimands, including those relevant in causal inference.</p>
+<div id="exm-ATE-gradient" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4.7 (Gradient for the ATE in a nonparametric model)</strong></span> Let <span class="math inline">\(\Psi\)</span> be the observable average treatment effect <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[\mathbb{E}_{\mathbb{P}}[Y|A=1,X] - \mathbb{E}_{\mathbb{P}}[Y|A=0,X]]\)</span>. To derive the nonparametric gradient we’ll use a combination of gradient rules and point mass contamination. First, notice that in a discrete model we can write</p>
+<p><span class="math display">\[
+\Psi = \underbrace{\sum_x \mu(1,x) \ p(x)}_{\Psi_1} - \underbrace{\sum_x \mu(0,x)\ p(x)}_{\Psi_0}  .
+\]</span></p>
+<p>We can treat the values <span class="math inline">\(\mu(a,x)\)</span> and <span class="math inline">\(p(x)\)</span> for all <span class="math inline">\(a,x\)</span> as their own estimands, and in fact we already know their gradients. Using the result from <a href="#exm-point-mass-cond-mean-EIF" class="quarto-xref">Example&nbsp;<span>4.3</span></a> giving the gradient for a conditional mean at a point,</p>
+<p><span class="math display">\[
+\nabla\![\mu(\tilde a, \tilde x)] (y,a,x) = \frac{1_{(\tilde a, \tilde x)}(a,x)}{p(\tilde a, \tilde x)}
+\big( y - \mu(\tilde a, \tilde x) \big).
+\]</span></p>
+<p>And, using the result from <a href="#exm-point-mass-density" class="quarto-xref">Example&nbsp;<span>4.2</span></a>,</p>
+<p><span class="math display">\[
+\nabla\![ p(\tilde x)](x) = 1_\tilde{x}(x) - p(\tilde x).
+\]</span></p>
+<p>Now we combine these results using the product rule:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\nabla\!\Psi_{\tilde a} &amp;= \nabla\!\left[
+    \sum_\tilde{x} \mu(\tilde a, \tilde x) \ p(\tilde x)
+\right]
+\\
+&amp;= \sum_\tilde{x} \bigg(
+    \nabla\![\mu(\tilde a,\tilde x)]\ p(\tilde x)
+    + \mu(\tilde a,\tilde x) \ \nabla\![ p(\tilde x) ]
+\bigg)
+\\
+&amp;= \sum_\tilde{x} \left(
+    \frac{1_{(\tilde a, \tilde x)}(a,x)}{p(\tilde a, \tilde x)}
+\big( y - \mu(\tilde a, \tilde x) \big) p(\tilde x)
+    + \mu(\tilde a,\tilde x) \big( 1_\tilde{x}(x) - p(\tilde x) \big)
+\right)
+\\
+&amp;= \frac{1_\tilde{a}(a)}{p(\tilde a |  x)}
+\big( y - \mu(\tilde a,  x) \big) + \mu(\tilde a,  x)
+- \underbrace{\sum_\tilde x \mu(\tilde a, \tilde x) \ p(\tilde x)}_{\Psi_\tilde{a}}.
+\end{aligned}
+\]</span></p>
+<p>Notice that the tildes dropped off the <span class="math inline">\(\tilde x\)</span>s after the last equality due to <span class="math inline">\(1_\tilde x(x) = 1(\tilde x = x)\)</span> picking out just the values corresponding to the value <span class="math inline">\(x\)</span> out of the sum. Finally, using the sum rule,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\nabla\!\Psi
+&amp;= \nabla\!\Psi_1 - \nabla\!\Psi_0 \\
+&amp;= \left(
+    \frac{1_1(a)}{p(1 |  x)} \big( y - \mu(1,  x) \big)
+    + \mu(1,  x) - \Psi_1
+\right)
+-
+\left(
+    \frac{1_0(a)}{p(0 |  x)} \big( y - \mu(0,  x) \big)
+    + \mu(0,  x) - \Psi_0
+\right).
+\end{aligned}
+\]</span></p>
+<p>With a little bit of algebra, this can also be expressed as</p>
+<p><span class="math display">\[
+\nabla\!\Psi(y,a,x) = \left(\frac{a}{p(1 |  x)} - \frac{1-a}{p(0 |  x)}\right) \big( y - \mu(a,  x) \big)
+    + \big[\mu(1,x) - \mu(0,  x)\big] - \Psi,
+\]</span></p>
+<p>which you may recognize if you’ve read any literature about doubly robust or efficient estimation of the average treament effect.</p>
+<p>In this example we used gradients of primitives like densities and conditional expectations at points that are not pathwise differentiable in general models. However, the ATE estimand <em>is</em> pathwise differentiable in general models. This is farily typical: you can often use gradients from non-differentiable estimands and combine them to derive gradients for differentiable estimands.</p>
+</div>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-att-gradient" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 4.6 (Gradient of the ATT)</strong></span> There are some cases in which the ATE cannot be identified, but the average effect on the <em>treated</em> (ATT) can. The ATT estimand is often identified by</p>
+<p><span class="math display">\[
+\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}\left[\left(\mathbb{E}_{\mathbb{P}}[Y|A=1,X] - \mathbb{E}_{\mathbb{P}}[Y|A=0,X] \right) \big| A=1 \right].
+\]</span></p>
+<p>What is the canonical gradient for this estimand in a nonparametric model?</p>
+<p><em>Hint: assume a discrete model and decompose the estimand similarly to the ATE, then use your result from <a href="#exr-point-mass-conditional-density" class="quarto-xref">Exercise&nbsp;<span>4.2</span></a> on the term <span class="math inline">\(p(x|A=1)\)</span>.</em></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="projection" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="projection"><span class="header-section-number">4.3</span> Projection</h2>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-hines-eif" class="csl-entry" role="listitem">
+Hines, Oliver, Oliver Dukes, Karla Diaz-Ordaz, and Stijn Vansteelandt. 2022. <span>“Demystifying Statistical Learning Based on Efficient Influence Functions.”</span> <em>The American Statistician</em> 76 (3): 292–304.
+</div>
+<div id="ref-ichimura2022influence" class="csl-entry" role="listitem">
+Ichimura, Hidehiko, and Whitney K Newey. 2022. <span>“The Influence Function of Semiparametric Estimators.”</span> <em>Quantitative Economics</em> 13 (1): 29–61.
+</div>
+<div id="ref-kennedy-review" class="csl-entry" role="listitem">
+Kennedy, Edward H. 2024. <span>“Semiparametric Doubly Robust Targeted Double Machine Learning: A Review.”</span> <em>Handbook of Statistical Methods for Precision Medicine</em>, 207–36.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./3-3-efficiency.html" class="pagination-link" aria-label="Efficiency for RAL Estimators">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./4-0-intro.html" class="pagination-link" aria-label="Building Efficient Estimators">
+        <span class="nav-page-text">Building Efficient Estimators</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -11,6 +11,7 @@
 
 \newcommand{\tset}{{\dot{\model}}}
 \newcommand{\tspace}{{\mathring{\model}}}
+\newcommand{\ddeps}{{\left. \frac{\dd}{\dd \eps} \right|_{\eps=0}}}
 
 \newcommand{\dto}{\rightsquigarrow}
 \newcommand{\pto}{\overset{\mathbb P}\to}

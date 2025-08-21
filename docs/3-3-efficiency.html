@@ -50,7 +50,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./4-0-intro.html" rel="next">
+<link href="./3-4-deriving-eifs.html" rel="next">
 <link href="./3-2-regularity.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -188,6 +188,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-4-deriving-eifs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -202,7 +208,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
   </div>
 </li>
       </ul>
@@ -252,7 +258,7 @@ window.Quarto = {
   <li><a href="#factoring" id="toc-factoring" class="nav-link" data-scroll-target="#factoring"><span class="header-section-number">3.2.1</span> Factoring</a></li>
   </ul></li>
   <li><a href="#pathwise-differentiability" id="toc-pathwise-differentiability" class="nav-link" data-scroll-target="#pathwise-differentiability"><span class="header-section-number">3.3</span> Pathwise Differentiability</a></li>
-  <li><a href="#gradients" id="toc-gradients" class="nav-link" data-scroll-target="#gradients"><span class="header-section-number">3.4</span> Gradients</a>
+  <li><a href="#sec-gradients" id="toc-sec-gradients" class="nav-link" data-scroll-target="#sec-gradients"><span class="header-section-number">3.4</span> Gradients</a>
   <ul class="collapse">
   <li><a href="#other-influence-functions" id="toc-other-influence-functions" class="nav-link" data-scroll-target="#other-influence-functions"><span class="header-section-number">3.4.1</span> Other Influence Functions</a></li>
   </ul></li>
@@ -444,7 +450,8 @@ c_n \epsilon_n^{-1} [f(\epsilon_n) - f(0)] \to \dot f.
 </div>
 </div>
 </div>
-<p>This is an astounding result because it connects two seemingly unrelated things: the left-hand side is the rate of change in the estimand as we move the underlying distribution along a path. That has nothing to do with any estimator. The right-hand side is some measure of the “angle” between the influence function of an estimator and the direction of the path. By assuming regularity and asymptotic normality we have managed to connect these two seemingly unrelated quantities. What this means about the set of possible influence functions may still be unclear, but for the moment I hope you can appreciate the result as a very interesting connection nonetheless!</p>
+<p>At a glance it seems like the limit <span class="math inline">\(\lim_{\epsilon\to 0} \frac{\Psi({\mathbb{P}}^{(\epsilon)}) - \Psi({\mathbb{P}}^{(0)})}{\epsilon}\)</span> should depend on the particular path <span class="math inline">\({\mathcal{P}}_\epsilon\)</span>. If this were the case it would be more appropriate to abbreviate it with notation like <span class="math inline">\(\dot\Psi_{\mathbb{P}}({\mathcal{P}}_\epsilon)\)</span>. However, the notation <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s)\)</span> is justified by the fact that the limit must be the same value <span class="math inline">\({\mathbb{P}}s \phi\)</span> for any two paths <span class="math inline">\({\mathcal{P}}_\epsilon\)</span> and <span class="math inline">\({\mathcal{P}}'_\epsilon\)</span> that have the same score <span class="math inline">\(s\)</span>. That is, the limit is not really a function of the particular path <span class="math inline">\({\mathcal{P}}_\epsilon\)</span>, but a function of the score <span class="math inline">\(s\)</span>.</p>
+<p><a href="#thm-RAL-IFs" class="quarto-xref">Theorem&nbsp;<span>3.2</span></a> is an astounding result because it connects two seemingly unrelated things: the left-hand side is the rate of change in the estimand as we move the underlying distribution along a path. That has nothing to do with any estimator. The right-hand side is some measure of the “angle” between the influence function of an estimator and the direction of the path. By assuming regularity and asymptotic normality we have managed to connect these two seemingly unrelated quantities. What this means about the set of possible influence functions may still be unclear, but for the moment I hope you can appreciate the result as a very interesting connection nonetheless!</p>
 </section>
 <section id="tangent-sets" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="tangent-sets"><span class="header-section-number">3.2</span> Tangent Sets</h2>
@@ -874,8 +881,8 @@ s_n(z) = \frac{1\left(-\frac{1}{n} \le z \le \frac{1}{n}\right) - t_n}{\sqrt{t_n
 </div>
 <p>Pathwise differentiability does not necessarily imply that there <em>is</em> a RAL estimator. It only allows one to exist. In the next part of this book we will study how to actually build efficient estimators and we will see that we need certain assumptions even to guarantee asymptotic linearity. Whether or not that can be done and in what context depends on estimand in question.</p>
 </section>
-<section id="gradients" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="gradients"><span class="header-section-number">3.4</span> Gradients</h2>
+<section id="sec-gradients" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="sec-gradients"><span class="header-section-number">3.4</span> Gradients</h2>
 <p>Tangent sets and pathwise derivatives are important tools that have already proven useful to us in characterizing when RAL estimators can even exist, but we can go further. In this section we’ll build on these concepts to fully characterize all possible RAL estimators of any estimand in a pathwise differentiable model.</p>
 <p>From here on out we will presume that the estimand is pathwise differentiable so that it is possible for the central identity <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}(s \phi)\)</span> for all <span class="math inline">\(s \in {\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span> to hold for some function <span class="math inline">\(\phi\)</span>. Our goal is to characterize the set of functions <span class="math inline">\(\phi\)</span> that can be influence functions, i.e.&nbsp;the set of functions that satisfy this identity. Once we know what all the possible options are for influence functions, we can easily compare them and choose the most “efficient” influence function to build an estimator around.</p>
 <p>As previously discussed, if a function satisfies the identity it does not immediately mean that a real-world RAL estimator can be constructed, but we will say that it implies that RAL estimator exists “in principle”. For that reason, we’ll say that any function <span class="math inline">\(\phi\)</span> that satisfies the central identity is an influence function of a RAL estimator, even if such an estimator can’t be built in practice without additional assumptions. We will deal with understanding those additional assumptions later.</p>
@@ -1634,8 +1641,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./4-0-intro.html" class="pagination-link" aria-label="Building Efficient Estimators">
-        <span class="nav-page-text">Building Efficient Estimators</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./3-4-deriving-eifs.html" class="pagination-link" aria-label="Deriving Canonical Gradients">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

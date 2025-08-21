@@ -183,7 +183,9 @@ We may now return to our original sequence $c_m = \eta_m n_m$ whose absolute val
 Lastly, the claim that any asymptotically linear estimator with influence function $\phi$ that satisfies $\dot\Psi_\p(s)=\p s\phi$ for all differentiable paths is automatically regular at $\p \in \model$ comes from running the argument above in reverse: if the conclusion holds and asymptotic linearity holds, then regularity must hold or else a contradiction arises (see also Proposition 1 in Chapter 3 or @bkrw).
 :::
 
-This is an astounding result because it connects two seemingly unrelated things: the left-hand side is the rate of change in the estimand as we move the underlying distribution along a path. That has nothing to do with any estimator. The right-hand side is some measure of the "angle" between the influence function of an estimator and the direction of the path. By assuming regularity and asymptotic normality we have managed to connect these two seemingly unrelated quantities. What this means about the set of possible influence functions may still be unclear, but for the moment I hope you can appreciate the result as a very interesting connection nonetheless!
+At a glance it seems like the limit $\lim_{\eps \to 0} \frac{\Psi(\p^{(\eps)}) - \Psi(\p^{(0)})}{\eps}$ should depend on the particular path $\model_\eps$. If this were the case it would be more appropriate to abbreviate it with notation like $\dot\Psi_\p(\model_\eps)$. However, the notation $\dot\Psi_\p(s)$ is justified by the fact that the limit must be the same value $\p s \phi$ for any two paths $\model_\eps$ and $\model'_\eps$ that have the same score $s$. That is, the limit is not really a function of the particular path $\model_\epsilon$, but a function of the score $s$.
+
+@thm-RAL-IFs is an astounding result because it connects two seemingly unrelated things: the left-hand side is the rate of change in the estimand as we move the underlying distribution along a path. That has nothing to do with any estimator. The right-hand side is some measure of the "angle" between the influence function of an estimator and the direction of the path. By assuming regularity and asymptotic normality we have managed to connect these two seemingly unrelated quantities. What this means about the set of possible influence functions may still be unclear, but for the moment I hope you can appreciate the result as a very interesting connection nonetheless!
 
 ## Tangent Sets
 
@@ -960,7 +962,7 @@ d.  Can you guess what a RAL estimator of $p(0)$ might be?
 
 Pathwise differentiability does not necessarily imply that there *is* a RAL estimator. It only allows one to exist. In the next part of this book we will study how to actually build efficient estimators and we will see that we need certain assumptions even to guarantee asymptotic linearity. Whether or not that can be done and in what context depends on estimand in question.
 
-## Gradients
+## Gradients {#sec-gradients}
 
 Tangent sets and pathwise derivatives are important tools that have already proven useful to us in characterizing when RAL estimators can even exist, but we can go further. In this section we'll build on these concepts to fully characterize all possible RAL estimators of any estimand in a pathwise differentiable model.
 

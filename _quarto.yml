@@ -6,7 +6,7 @@ diagram:
   engine:
     tikz:
       header-includes:
-        - '\usepackage{tikz, tikz-3dplot, amsmath, amsfonts, pgfplots, accents, adjustbox}'
+        - '\usepackage{tikz, tikz-3dplot, amsmath, amsfonts, pgfplots, accents, adjustbox, dsfont}'
         - '\usetikzlibrary{arrows, angles, quotes, arrows.meta, shapes, calc}'
 
 project:
@@ -25,6 +25,7 @@ book:
       - 3-1-AL.qmd
       - 3-2-regularity.qmd
       - 3-3-efficiency.qmd
+      - 3-4-deriving-eifs.qmd
     - part: 4-0-intro.qmd
       chapters:
       - 4-1-plugin-expansion.qmd
@@ -32,6 +33,7 @@ book:
   appendices:
     - 5-1-rv-convergence.qmd
     - 5-2-L2.qmd
+    # - 5-3-derivatives.qmd
 
 execute:
   freeze: auto  # re-render only when source changes

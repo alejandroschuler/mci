@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Plug-In Estimators – Introduction to Modern Causal Inference</title>
+<title>5&nbsp; Plug-In Estimators – Introduction to Modern Causal Inference</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,7 +110,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./4-0-intro.html">Building Efficient Estimators</a></li><li class="breadcrumb-item"><a href="./4-1-plugin-expansion.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./4-0-intro.html">Building Efficient Estimators</a></li><li class="breadcrumb-item"><a href="./4-1-plugin-expansion.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -168,6 +168,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-4-deriving-eifs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -182,7 +188,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
   </div>
 </li>
       </ul>
@@ -226,19 +232,19 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-is-a-plug-in" id="toc-what-is-a-plug-in" class="nav-link active" data-scroll-target="#what-is-a-plug-in"><span class="header-section-number">4.1</span> What is a Plug-In?</a></li>
-  <li><a href="#plug-in-bias" id="toc-plug-in-bias" class="nav-link" data-scroll-target="#plug-in-bias"><span class="header-section-number">4.2</span> Plug-In Bias</a></li>
-  <li><a href="#von-mises-expansion-formalizing-above" id="toc-von-mises-expansion-formalizing-above" class="nav-link" data-scroll-target="#von-mises-expansion-formalizing-above"><span class="header-section-number">4.3</span> Von Mises Expansion (formalizing above)</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">4.4</span> </a></li>
+  <li><a href="#what-is-a-plug-in" id="toc-what-is-a-plug-in" class="nav-link active" data-scroll-target="#what-is-a-plug-in"><span class="header-section-number">5.1</span> What is a Plug-In?</a></li>
+  <li><a href="#plug-in-bias" id="toc-plug-in-bias" class="nav-link" data-scroll-target="#plug-in-bias"><span class="header-section-number">5.2</span> Plug-In Bias</a></li>
+  <li><a href="#von-mises-expansion-formalizing-above" id="toc-von-mises-expansion-formalizing-above" class="nav-link" data-scroll-target="#von-mises-expansion-formalizing-above"><span class="header-section-number">5.3</span> Von Mises Expansion (formalizing above)</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">5.4</span> </a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./4-0-intro.html">Building Efficient Estimators</a></li><li class="breadcrumb-item"><a href="./4-1-plugin-expansion.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./4-0-intro.html">Building Efficient Estimators</a></li><li class="breadcrumb-item"><a href="./4-1-plugin-expansion.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></h1>
 </div>
 
 
@@ -255,12 +261,12 @@ window.Quarto = {
 </header>
 
 
-<section id="what-is-a-plug-in" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="what-is-a-plug-in"><span class="header-section-number">4.1</span> What is a Plug-In?</h2>
+<section id="what-is-a-plug-in" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="what-is-a-plug-in"><span class="header-section-number">5.1</span> What is a Plug-In?</h2>
 <p>…</p>
 </section>
-<section id="plug-in-bias" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="plug-in-bias"><span class="header-section-number">4.2</span> Plug-In Bias</h2>
+<section id="plug-in-bias" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="plug-in-bias"><span class="header-section-number">5.2</span> Plug-In Bias</h2>
 <p>What’s wrong with a plugin <span class="math inline">\(\Psi(\hat{{\mathbb{P}}}_n)\)</span>?</p>
 <p>If <span class="math inline">\(\hat{{\mathbb{P}}}_n\)</span> is fit with ML we always get bias.</p>
 <p>Model selection: bigger and smaller models.</p>
@@ -269,11 +275,11 @@ window.Quarto = {
 <p>The plug-in bias does not disappear quickly enough in the asymptotic expansion to be CLT-negligible</p>
 <p>Thus CIs etc will be wrong, even though estimate may be ok. — ppl need practice for this (or example)</p>
 </section>
-<section id="von-mises-expansion-formalizing-above" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="von-mises-expansion-formalizing-above"><span class="header-section-number">4.3</span> Von Mises Expansion (formalizing above)</h2>
+<section id="von-mises-expansion-formalizing-above" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="von-mises-expansion-formalizing-above"><span class="header-section-number">5.3</span> Von Mises Expansion (formalizing above)</h2>
 </section>
-<section id="section" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="section"><span class="header-section-number">4.4</span> </h2>
+<section id="section" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="section"><span class="header-section-number">5.4</span> </h2>
 
 
 </section>

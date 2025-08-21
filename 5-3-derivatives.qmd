@@ -4,11 +4,151 @@
 
 # Derivatives
 
-## Ordinary Derivative
+Various formulations of the derivative come up in efficiency theory so I provide a brief reference here. Unlike the other appendices, this material is not strictly necessary background, but it does add context and can enrich intuition. 
 
-## Functional Derivative
+::: callout-warning
+A basic understanding of limits, big/little $o$ notation, and functions spaces is necessary to proceed so please review @sec-app-rv-convergence and @sec-app-L2 if you are rusty or aren't familiar with these topics.
+:::
 
-### Gateaux and Hadamard Derivatives
+For functions mapping real numbers to real numbers, the derivative at a point $z_0$ is usually defined as
+
+$$
+\left. \frac{\dd}{\dd z} \right|_{z=z_0} f
+=
+\lim_{z \to z_0} \frac{f(z) - f(z_0)}{z-z_0}.
+$$ {#eq-deriv-limit}
+
+The limit as $z \to z_0$ is understood to mean the limit as $n\to \infty$, replacing $z$ with any sequence $z_n \to z_0$. For the derivative to exist, the limit of the difference quotient above must be the same no matter what sequence $z_n$ is chosen, as long as it converges to $z_0$. 
+
+As discussed in @exm-little-oh-derivative, another way to write this is to say that $f$ is differentiable at a point $z_0$ if there is a linear function $\dot f$ satisfying 
+
+$$
+[f(z_0+\eps) - f(z_0)] - \dot f(\eps) = o(|\eps|)
+$$ {#eq-deriv-approx}
+
+for all sequences $\eps \to 0$. In terms of the first definition, the linear function $\dot f$ is the line with intercept 0 and slope equal to $\left. \frac{\dd}{\dd z} \right|_{z=z_0} f$. This definition makes it clear that the derivative is a local, linear approximation to the difference $f(z_0+\eps) - f(z_0)$. The approximation is local in the specific sense that the error has to be asymptotically less-than-proportional to the perturbation $\eps$. 
+
+In introductory calculus we generally come to think of the derivative as an operation mapping functions to their pointwise derivatives: the derivative of $\sin(z)$ is $\cos(z)$, the derivative of $z^2$ is $2z$, etc. In statistics, it's usually more helpful to think about derivatives as mapping a function and a specific point to the best linear approximation of the function at that point. In this sense, the derivative of $\sin(z)$ at $z=0$ is the function $\dot f(z) = z$, the derivative of $z^2$ at $z=0$ is $\dot f(z) = 0$, etc. In most of asymptotic statistics it's important to keep the idea of a linear approximation to a function at a point stuck in your mind whenever you see the word "derivative", otherwise you are liable to become confused.
+
+## Derivatives in Normed Vector Spaces
+
+When $f$ maps between general vector spaces and not just the reals, the definition in @eq-deriv-limit stops making grammatical sense because, for one, it's not clear what it means to divide by a vector or function. The definition in @eq-deriv-approx, however, generalizes immediately.
+
+:::: callout-note
+# Total (Fréchet) Derivative
+::: {#def-frechet-deriv}
+A function $f$ mapping from a vector space $\mathcal Z$ equipped with norm $\|\cdot\|_{\mathcal Z}$ to a vector space $\mathcal Y$ equipped with norm $\|\cdot\|_{\mathcal Y}$ is differentiable if there is a continuous linear function $\dot f: \mathcal Z \to \mathcal Y$ such that
+
+$$
+\left\|[f(z_0+\eps) - f(z_0)] - \dot f(\eps)\right\|_{\mathcal Y}  = o(\|\eps\|_{\mathcal Z})
+$$
+
+for any sequence $\eps \overset{\mathcal Z}\to 0$. 
+
+When a function admits such a derivative we say it is *Fréchet differentiable*, *totally differentiable*, or just *differentiable* at the point $z_0$. The total derivative of a function is unique.
+
+:::
+::::
+
+The interpretation of this generalized derivative is the same as in the traditional derivative: a linear approximation at a point with error vanishing faster than the perturbation $\eps$. The continuity of $\dot f$ is important: it means that there is no "direction" in which $f$ is increasing arbitrarily quickly (see @sec-app-riesz). If it exists, you should think of the total derivative $\dot f$ as the tangent (hyper)plane to $f$ at the point $z_0$.
+
+::: {#exm-total-deriv-norm}
+Let $z \in \mathcal Z$ where $\mathcal Z$ is any Hilbert space and say that our function of interest is $f(z) = \|z\|^2_{\mathcal Z}$ (from now on omitting the subscript).
+
+Consider a point of interest $z_0$. Since $\|z\|^2 = \langle z,z \rangle$, 
+
+$$
+f(z_0+\eps) - f(z_0) = 2\langle \eps, z_0 \rangle + \| \eps \|^2,
+$$
+
+which is a sum of a bounded linear function of the perturbation $\eps$ and a term that vanishes faster than $\| \eps \|$ as $\|\eps \| \to 0$:
+
+$$
+\frac{\| \eps \|^2}{\|\eps\|} \to 0 \quad \text{when } \|\eps\| \to 0.
+$$ 
+
+Since total derivatives are unique, the derivative of the squared norm at a point $z_0$ is $\dot f(\eps) = 2\langle \eps, z_0 \rangle$. 
+:::
+
+As is the case in ordinary calculus, computing derivatives from scratch is often difficult and tedious. It's much easier to start from some basic building blocks and use the chain, sum, product rules. Thanfully, all three also work for total derivatives, although we will not prove it here. 
+
+We may also define a general-purpose *directional* derivative which generalizes the idea of a partial derivative from vector calculus.
+
+:::: callout-note
+# Directional (Gateaux) Derivative
+::: {#def-frechet-deriv}
+A function $f$ mapping from a vector space $\mathcal Z$ equipped with norm $\|\cdot\|_{\mathcal Z}$ to a vector space $\mathcal Y$ equipped with norm $\|\cdot\|_{\mathcal Y}$ is differentiable in the direction $v \in \mathcal Z$ if there is a function $\dot f$ such that $\dot f(c v) = c \dot f(v)$ for $c \ge 0$ and
+
+$$
+\left\|[f(z_0+\eps) - f(z_0)] - \dot f(\eps)\right\|_{\mathcal Y}  = o(\|\eps\|_{\mathcal Z})
+$$
+
+for any sequence $\eps_n = \eta_n v$ where $\eta_n \ge 0$ and $\eta_n \overset{\reals}\to 0$. 
+
+The directional derivative in the direction of $v$ is the linear function $\eps \mapsto \eps \dot f(v)$. If the directional slope $\dot f(v)$ is defined for all $v \in \mathcal Z$, then we say $f$ is *directionally differentiable* at $z_0$ with directional derivative $\dot f$. If, in addition, $\dot f$ is bounded and linear, we say that $f$ is *Gateaux differentiable* at $z_0$.
+
+:::
+::::
+
+The definitions of the directional derivative in a single direction and the total derivative are identical except for the restriction on the sequence and the domain of the resulting derivative. The directional derivative only cares about pertrubation sequences that lie on a single ray $\{cv: c \ge 0\}$ determined by the direction of interest $v$. As a result, we obtain a one-dimensional linear approximation of the one-dimensional "slice" of the function $f$ restricted to the domain $\{z_0 + cv: c \ge 0\}$. 
+
+Saying a function is directionally differentiable (without qualification) means that we can make those linear approximations in each direction, but not necessarily that those one-dimensional linear approximations can be knit together into a single approximation that's linear on all of $\mathcal V$. If a function is Gateaux differentiable, then all those directional derivatives can be combined into a sort of "tangent plane".
+
+You should know that the naming conventions for directional derivatives vary from field to field and even author to author. In statistics, "Gateaux differentiable" and "directionally differentiable" often mean the same thing: that $\dot f$ exists for all directions $v \in \mathcal Z$ and is linear and bounded. In other fields, a function is "Gateaux differentiable" if $\dot f$ exists but the derivative need not be linear and bounded. I've chosen to use "directionally differentiable" for the case when the derivative exists in all directions and "Gateaux differentiable" to distinguish the case when the derivative is also bounded and linear. Be careful to identify what convention the author is using when you see these terms in the wild.
+
+The directional/Gateaux derivative is much weaker than the total (Fréchet) derivative. There are functions for which the directional derivatives exist and can be combined into one bounded linear operator but are still not totally differentiable. The total derivative requires better-than-linear convergence of the linear approximation error over *all* possible perturbation sequences $\eps \to 0$, whereas the directional/Gateaux derivative only requires convergence over sequences along rays. 
+
+:::: {.callout-important appearance="minimal"}
+::: {#exr-gateaux}
+Prove that any totally-differentiable function is Gateaux differentiable.
+:::
+::::
+
+The directional/Gateaux derivative is substantially weaker than the total derivative. It is easier for it to exist, but it also has fewer nice properties to exploit. The *Hadamard derivative* is an attempt to get the best of both worlds.
+
+
+:::: callout-note
+# Hadamard Directional Derivative
+::: {#def-frechet-deriv}
+A function $f$ mapping from a vector space $\mathcal Z$ equipped with norm $\|\cdot\|_{\mathcal Z}$ to a vector space $\mathcal Y$ equipped with norm $\|\cdot\|_{\mathcal Y}$ is Hadamard differentiable in the direction $v \in \mathcal Z$ if there is a function $\dot f$ such that $\dot f(c v) = c \dot f(v)$ for $c \ge 0$ and
+
+$$
+\left\|[f(z_0+\eps) - f(z_0)] - \dot f(\eps)\right\|_{\mathcal Y}  = o(\|\eps\|_{\mathcal Z})
+$$
+
+for any sequence $\eps_n = \eta_n v_n$ where $\eta_n \ge 0$ and $\eta_n \overset{\reals}\to 0$ and $v_n \overset{\mathcal Z}\to v$. 
+
+The Hadamard derivative in the direction of $v$ is the linear function $\eps \mapsto \eps \dot f(v)$. If the directional slope $\dot f(v)$ is defined for all $v \in \mathcal Z$, then we say $f$ is *Hadamard directionally differentiable* at $z_0$ with directional derivative $\dot f$. If, in addition, $\dot f$ is bounded and linear, we say that $f$ is *Hadamard differentiable* at $z_0$.
+
+:::
+::::
+
+The only difference between the Hadamard directional derivative and the usual directional derivative is that the Hadamard version replaces the direction $v$ with a sequence $v_n$. Therefore the sequence of pertubations no longer needs converge to zero along a ray exactly, but instead asymptotically lies along such a ray.
+
+Like the Gateaux derivative, different naming conventions are used for the Hadamard derivative. In asymptotic statistics, Hadamard differentiability is often taken to mean that the derivative is linear and bounded, but elsewhere that may not be true.
+
+For any derivative that is linear and bounded, the Riesz representation theorem implies that its action on a perturbation $\eps \in \mathcal Z$ can be expressed in terms of an inner product of $\eps$ with an element of $\mathcal Z$ when the space admits an inner product. We call this element the *gradient* of $f$.
+
+:::: callout-note
+# Gradient
+::: {#def-frechet-deriv}
+If $f: \mathcal Z \to \mathcal Y$ has any kind of bounded linear derivative at $z_0$ and $\mathcal Z$ admits an inner product that induces its norm, then there exists an element $\grad f \in \mathcal Z$ such that
+
+$$
+\dot f(z) = \langle z, \grad f \rangle
+$$ 
+
+for all $z \in \mathcal Z$. The element $\grad f$ is called the *gradient* of $f$ at $z_0$.
+
+:::
+::::
+
+
+:::: {.callout-important appearance="minimal"}
+::: {#exr-total-deriv-gradient}
+In @exm-total-deriv-norm we showed that $f(z) = \|z\|^2_{\mathcal Z}$ is totally differentiable with $\dot f(\eps) = 2\langle \eps, z_0 \rangle$ when $\mathcal Z$ is a Hilbert space. What is the gradient of $f$ at $z_0$?
+:::
+::::
 
 ## Taylor Theorem
 
