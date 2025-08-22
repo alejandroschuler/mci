@@ -451,7 +451,7 @@ A model $\model$ is *locally nonparametric* at $\p \in \model$ if $\tset_{\p} = 
 
 This is the kind of model we will work with most often for the remainder of this book. Locally nonparametric models are popular in practice because they enforce essentially no assumptions on the data-generating distribution. In fields like medicine, economics, or business, we often cannot say much about the world with great confidence (the distribution of variables, the functional form of their relationships, etc.). We will see shortly that the larger the model is, usually the more uncertainty we get in the final estimate. This makes sense: the more assumptions you're willing to make, the more confident you can be of an estimate. But if you use a model that is too small (i.e. assume things that are not actually true) then the estimate may be biased and confidence intervals will typically underestimate the true sampling uncertainty. Working with a locally nonparametric model is therefore a maximally robust approach, or at worst conservative.
 
-### Factoring
+### Factoring {#sec-factoring}
 
 There are, of course, many practical situations where we *do* know something. For example, in our familiar covariate-treatment-outcome $(X,A,Y)$ setup, if the treatment is allocated randomly by coin flip, then we know for a fact that $\p(A=1|X) = 1/2$. This is an important restriction on the model. Due to the ability to experimentally control treatment assignments, there are many cases in causal inference where one or more factors of a probability distribution are known exactly, but nothing is certain about the others. Thankfully, it's not hard to figure out the tangent set in such models.
 
@@ -578,8 +578,8 @@ Let $\model = \model(Y,Z)$ be a model over joint distributions $\p(Y,Z)$ of vari
 
 $$
 \begin{aligned}
-s(z) &= \E[s(Y,Z)|Z] \\
-s(y|z) &= s(y,z) - \E[s(Y,Z)|Z] \\
+s(z) &= \E[s(Y,Z)|Z=z] \\
+s(y|z) &= s(y,z) - \E[s(Y,Z)|Z=z] \\
 \end{aligned}
 $$
 
@@ -644,9 +644,9 @@ $$
 \int \underbrace{\frac{\sqrt{p_n(y,z)} - \sqrt{p(y,z)}}{\eps_n}}_{g_n(y,z)}  \underbrace{\frac{\sqrt{p_n(y,z)} + \sqrt{p(y,z)}}{\sqrt{p_n(z)} + \sqrt{p(z)}}}_{h_n(y,z)}  \dd \q(Y|Z).
 $$
 
-$g_n \overset{\eltwop[Q(Y,Z)]}\to g$ by assumption and since $\sqrt{p_n(y,z)} \overset{\eltwop[Q(Y,Z)]} \to \sqrt{p(y,z)}$, the second factor $h_n$ can be shown to converge in $\eltwop[Q(Y,Z)]$ to $h(y,z) = \sqrt{p(y,z)/p(z)} = \sqrt{p(y|z)}$ with careful handling of the denominator.
+$g_n \overset{\eltwop[Q(Y,Z)]}\to g$ by assumption and since $\sqrt{p_n(y,z)} \overset{\eltwop[\mathbb Q(Y,Z)]} \to \sqrt{p(y,z)}$, the second factor $h_n$ can be shown to converge in $\eltwop[\mathbb Q(Y,Z)]$ to $h(y,z) = \sqrt{p(y,z)/p(z)} = \sqrt{p(y|z)}$ with careful handling of the denominator.
 
-Therefore one might conjecture that the $\eltwop[Q(Z)]$ limit of the above is $\int g(y,z) h(y,z) \dd \q(Y|Z)$ and indeed this is the case because
+Therefore one might conjecture that the $\eltwop[\mathbb Q(Z)]$ limit of the above is $\int g(y,z) h(y,z) \dd \q(Y|Z)$ and indeed this is the case because
 
 $$
 \begin{aligned}
@@ -666,10 +666,10 @@ $$
 
 by Jensen's inequality ($0 \le \V[U] = \E[U^2] - \E[U]^2 \implies \E[U]^2 < \E[U^2]$) and the aforementioned convergences.
 
-This shows that $g(z) = \int g(y,z) \sqrt{p(y|z)} \dd Q(Y|Z)$. Defining $s(z) = 2 g(z) / \sqrt{p(z)}$ and $s(y,z) = 2 g(y,z) / \sqrt{p(y,z)}$ gives
+This shows that $g(z) = \int g(y,z) \sqrt{p(y|z)} \dd \mathbb Q(Y|Z)$. Defining $s(z) = 2 g(z) / \sqrt{p(z)}$ and $s(y,z) = 2 g(y,z) / \sqrt{p(y,z)}$ gives
 
 $$
-s(z) = \int s(y,z) p(y|z) \dd Q(Y|Z) = \int s(y,z) \dd P(Y|Z) = \E[s(Y,Z)|Z=z].
+s(z) = \int s(y,z) p(y|z) \dd \q (Y|Z) = \int s(y,z) \dd P(Y|Z) = \E[s(Y,Z)|Z=z].
 $$
 
 Similar arguments may be used to derive the conditional score $s(y|z)$ and then the other facts follow algebraically.
@@ -698,8 +698,144 @@ $$
 $$
 
 which is all $\eltwopz$ functions of $(y,z)$ with $z$-conditional mean zero.
+
+If we turn $\tset$ into a full vector space by including the span and limits of the set we get the tangent *space* $\tspace$ (often the set is already a space). By @thm-conditional-scores and the properties of orthogonal decompositions (@def-orth-sum), 
+
+$$
+\tspace_\p = \tspace^{(Y|Z)}_\p \oplus \tspace^{(Z)}_\p,
+$$
+
+that is, every score in $\tspace_\p$ can be uniquely written as the sum of a marginal and a conditional score, which are orthogonal.
+
 :::
 ::::
+
+:::: {#exm-rct-tspace}
+# Tangent space for a randomized trial 
+Let's return to our simple randomized trial example. The variables are $(Y,A,X)$ (outcome, treatment, covariates) and we know nothing about the outcome mechanism $\p(Y|A,X)$ or the distribution of the covariates $\p(X)$, but since the study is randomized we know that $\p(A=1|X) = \p(A=1) = \frac{1}{2}$. Let's call the model of all such distributions $\model$ and let's use $\mathcal Q$ to describe the totally nonparametric model where nothing is known about the treatment distribution so that $\mathring{\mathcal Q}_\p = \eltwopz$
+
+By two applications of @thm-factored-tset, we can split up the tangent set of the nonparametric model at a point $\p$ (omitting subscripts) into 
+
+$$
+\begin{aligned}
+\mathring{\mathcal Q} 
+&= \mathring{\mathcal Q}^{(Y|A,X)} \oplus \mathring{\mathcal Q}^{A,X} \\
+&= \mathring{\mathcal Q}^{(Y|A,X)} \oplus \mathring{\mathcal Q}^{A|X} \oplus \mathring{\mathcal Q}^{X} 
+\end{aligned}
+$$
+
+where the three subspaces are orthogonal to each other. In the randomized trial model $\model$, the $A|X$ distribution is fixed and all scores are changing either the distributions of $Y|A,X$ or $X$, or both. Thus
+
+$$
+\tspace = \mathring{\mathcal Q}^{(Y|A,X)} \oplus \mathring{\mathcal Q}^{(X)} \\
+$$
+
+as shown in @fig-rct-tspace.
+
+::: {#fig-rct-tspace}
+``` tikz
+\tdplotsetmaincoords{70}{120}
+
+\def\AxisL{0.3}
+\def\PlaneHalfX{1}
+\def\PlaneHalfY{1}
+
+\def\GradAngle{55}
+\def\NormalLen{1}
+\def\RA{0.08} % right-angle marker leg length
+
+% gradient tip coords in rotated plane
+\pgfmathsetmacro{\gx}{0.65*\PlaneHalfX*cos(\GradAngle)}
+\pgfmathsetmacro{\gy}{0.65*\PlaneHalfX*sin(\GradAngle)}
+% gradient direction unit vector in plane coords
+\pgfmathsetmacro{\ux}{cos(\GradAngle)}
+\pgfmathsetmacro{\uy}{sin(\GradAngle)}
+
+\resizebox{12cm}{!}{
+\begin{tikzpicture}[tdplot_main_coords, scale=3.0, line cap=round, line join=round]
+
+  \node[font=\huge, black, anchor=south east] at (0,-0.5, 0.5) {$\mathring{\mathcal Q}$};
+
+  % behind-plane segments
+  \draw[<-, line width=1pt, black, densely dashed, opacity=0.6] (0,0,-\NormalLen) -- (0,0,0);
+  
+  % the big plane
+  \begin{scope}[canvas is xy plane at z=0]
+    \begin{scope}[transparency group, opacity=0.30]
+      \draw[fill=blue!20!white] (-\PlaneHalfX,-\PlaneHalfY) rectangle (\PlaneHalfX,\PlaneHalfY);
+    \end{scope}
+    \node[font=\Large, blue, anchor=south east] at (-0.4,-0.5) {$\mathring{\mathcal P}$};
+  \end{scope}
+
+  % axes
+  \draw[->, line width=1pt, black]
+    (0,0,0) -- (0,0,\NormalLen) node[anchor=west, font=\Large] {$\mathring{\mathcal Q}^{(A|X)}$};
+  \draw[<->, line width=1pt, black]
+    (0,-\NormalLen,0) -- (0,\NormalLen,0) node[anchor=west, font=\Large] {$\mathring{\mathcal Q}^{(Y|A,X)}$};
+  \draw[<->, line width=1pt, black]
+    (-\NormalLen,0,0) -- (\NormalLen,0,0) node[anchor=east, font=\Large] {$\mathring{\mathcal Q}^{(X)}$};
+
+  % tip height
+  \pgfmathsetmacro{\PhiZ}{0.7*\NormalLen}
+
+  % main vector s
+  \draw[->, line width=0.8pt, orange]
+    (0,0,0) -- (\gx,\gy,\PhiZ);
+  \node[anchor=west, orange] at (\gx,\gy,\PhiZ) {$s$};
+
+  % projections onto axes
+  \draw[->, line width=0.8pt, orange] (0,0,0) -- (\gx,0,0);
+  \node[orange, anchor=south east, font=\small] at (\gx,0,0) {$s_{X}$};
+
+  \draw[->, line width=0.8pt, orange] (0,0,0) -- (0,\gy,0);
+  \node[orange, anchor=south west, font=\small] at (0,\gy,0) {$s_{Y|A,X}$};
+
+  \draw[->, line width=0.8pt, orange] (0,0,0) -- (0,0,\PhiZ);
+  \node[orange, anchor=west, font=\small] at (0,0,\PhiZ) {$s_{A|X}$};
+
+  % thin gray dotted connectors from s to projection tips
+  \draw[gray, densely dotted, very thin] (\gx,\gy,\PhiZ) -- (\gx,0,0);
+  \draw[gray, densely dotted, very thin] (\gx,\gy,\PhiZ) -- (0,\gy,0);
+  \draw[gray, densely dotted, very thin] (\gx,\gy,\PhiZ) -- (0,0,\PhiZ);
+
+  % -------- Right-angle markers (inside the wedge) --------
+  % Helper norms for residual directions
+  \pgfmathsetmacro{\Lx}{sqrt((\gy)^2+(\PhiZ)^2)}   % ||(0,gy,PhiZ)||
+  \pgfmathsetmacro{\Ly}{sqrt((\gx)^2+(\PhiZ)^2)}   % ||(gx,0,PhiZ)||
+  \pgfmathsetmacro{\Lz}{sqrt((\gx)^2+(\gy)^2)}     % ||(gx,gy,0)||
+
+  % Unit residual directions from each projection tip toward s
+  \pgfmathsetmacro{\rxX}{0}            \pgfmathsetmacro{\ryX}{\gy/\Lx}    \pgfmathsetmacro{\rzX}{\PhiZ/\Lx}
+  \pgfmathsetmacro{\rxY}{\gx/\Ly}      \pgfmathsetmacro{\ryY}{0}          \pgfmathsetmacro{\rzY}{\PhiZ/\Ly}
+  \pgfmathsetmacro{\rxZ}{\gx/\Lz}      \pgfmathsetmacro{\ryZ}{\gy/\Lz}    \pgfmathsetmacro{\rzZ}{0}
+
+  % Corner points: projection - axis_leg + residual_leg  (puts the square INSIDE)
+  \coordinate (CX) at ($(\gx,0,0) + (-\RA,0,0) + (\RA*\rxX,\RA*\ryX,\RA*\rzX)$);
+  \coordinate (CY) at ($(0,\gy,0) + (0,-\RA,0) + (\RA*\rxY,\RA*\ryY,\RA*\rzY)$);
+  \coordinate (CZ) at ($(0,0,\PhiZ) + (0,0,-\RA) + (\RA*\rxZ,\RA*\ryZ,\RA*\rzZ)$);
+
+  % From the corner, draw equal legs: +axis (toward projection) and -residual (toward projection)
+  % X-projection corner
+  \draw[gray, very thin] (CX) -- ($ (CX) + (\RA,0,0) $);                          % along +X
+  \draw[gray, very thin] (CX) -- ($ (CX) - (\RA*\rxX,\RA*\ryX,\RA*\rzX) $);       % along -residual
+
+  % Y-projection corner
+  \draw[gray, very thin] (CY) -- ($ (CY) + (0,\RA,0) $);                          % along +Y
+  \draw[gray, very thin] (CY) -- ($ (CY) - (\RA*\rxY,\RA*\ryY,\RA*\rzY) $);       % along -residual
+
+  % Z-projection corner
+  \draw[gray, very thin] (CZ) -- ($ (CZ) + (0,0,\RA) $);                          % along +Z
+  \draw[gray, very thin] (CZ) -- ($ (CZ) - (\RA*\rxZ,\RA*\ryZ,\RA*\rzZ) $);       % along -residual
+
+\end{tikzpicture}
+}
+```
+
+The tangent space for a randomized trial shown with the tangent space for a general nonparametric model ($\mathring{\mathcal Q}_\p = \eltwopz$). The nonparametric tangent space decomposes into the orthogonal sum of the tangent spaces corresponding to each factor of the distribution. These are shown as one-dimensional in the picture, but keep in mind that each of these spaces is actually also infinite-dimensional. Also shown is a generic score in the nonparametric tangent space and its decomposition into the sub-tangent spaces for each factor. The tangent space for a randomized trial limits restricts "motion" in the $A|X$ direction, meaning that scores in the RCT tangent space $\tspace$ can have no $s_{A|X}$ component.
+:::
+
+::::
+
 
 ## Pathwise Differentiability
 
@@ -1449,7 +1585,7 @@ Why does this imply that the gradient in the smaller model $\grad_{\p \in \mathc
 
 The relationship between the norm of the canonical gradient and the pathwise derivative means that the "speed limit" for asymptotic variance in estimation is directly related to how quickly the estimand can change under small perturbations of the data-generating distribution within the model. That actually makes a lot of sense if you think of the estimation problem as the problem of first telling what distribution a given dataset was drawn from and then reading off the value of the estimand from that distribution. Let's say that you have enough data to confidently rule out all but a small set of similar distributions. If the value of the estimand varies wildly over those distributions, you still can't be very confident and should therefore report large uncertainty. Another way to understand the mechanism by which shrinking the model reduces uncertainty is that in smaller models sets of nearby distributions often have more similar values of the estimand.
 
-## Classical Theory
+## Classical Theory {#sec-classical-efficiency}
 
 If you've taken a traditional statistics course you may have learned about Cramer-Rao and Fisher Information. In this section I'll briefly explain how these topics are connected to efficiency theory for RAL estimators. If you're not interested in this you should feel free to skip to the next chapter. None of this material is required to understand the rest of the book and I will try to be brief. More details can be found in @tsiatis; I only bring it up to try and connect the prior knowledge some students have to the nonparametric context.
 

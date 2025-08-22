@@ -255,7 +255,7 @@ window.Quarto = {
   <li><a href="#characterizing-influence-functions" id="toc-characterizing-influence-functions" class="nav-link active" data-scroll-target="#characterizing-influence-functions"><span class="header-section-number">3.1</span> Characterizing Influence Functions</a></li>
   <li><a href="#tangent-sets" id="toc-tangent-sets" class="nav-link" data-scroll-target="#tangent-sets"><span class="header-section-number">3.2</span> Tangent Sets</a>
   <ul class="collapse">
-  <li><a href="#factoring" id="toc-factoring" class="nav-link" data-scroll-target="#factoring"><span class="header-section-number">3.2.1</span> Factoring</a></li>
+  <li><a href="#sec-factoring" id="toc-sec-factoring" class="nav-link" data-scroll-target="#sec-factoring"><span class="header-section-number">3.2.1</span> Factoring</a></li>
   </ul></li>
   <li><a href="#pathwise-differentiability" id="toc-pathwise-differentiability" class="nav-link" data-scroll-target="#pathwise-differentiability"><span class="header-section-number">3.3</span> Pathwise Differentiability</a></li>
   <li><a href="#sec-gradients" id="toc-sec-gradients" class="nav-link" data-scroll-target="#sec-gradients"><span class="header-section-number">3.4</span> Gradients</a>
@@ -263,7 +263,7 @@ window.Quarto = {
   <li><a href="#other-influence-functions" id="toc-other-influence-functions" class="nav-link" data-scroll-target="#other-influence-functions"><span class="header-section-number">3.4.1</span> Other Influence Functions</a></li>
   </ul></li>
   <li><a href="#efficiency" id="toc-efficiency" class="nav-link" data-scroll-target="#efficiency"><span class="header-section-number">3.5</span> Efficiency</a></li>
-  <li><a href="#classical-theory" id="toc-classical-theory" class="nav-link" data-scroll-target="#classical-theory"><span class="header-section-number">3.6</span> Classical Theory</a>
+  <li><a href="#sec-classical-efficiency" id="toc-sec-classical-efficiency" class="nav-link" data-scroll-target="#sec-classical-efficiency"><span class="header-section-number">3.6</span> Classical Theory</a>
   <ul class="collapse">
   <li><a href="#applying-nonparametric-results" id="toc-applying-nonparametric-results" class="nav-link" data-scroll-target="#applying-nonparametric-results"><span class="header-section-number">3.6.1</span> Applying Nonparametric Results</a></li>
   <li><a href="#connection-to-likelihood-theory" id="toc-connection-to-likelihood-theory" class="nav-link" data-scroll-target="#connection-to-likelihood-theory"><span class="header-section-number">3.6.2</span> Connection to Likelihood Theory</a></li>
@@ -530,8 +530,8 @@ Locally Nonparametric Model
 </div>
 </div>
 <p>This is the kind of model we will work with most often for the remainder of this book. Locally nonparametric models are popular in practice because they enforce essentially no assumptions on the data-generating distribution. In fields like medicine, economics, or business, we often cannot say much about the world with great confidence (the distribution of variables, the functional form of their relationships, etc.). We will see shortly that the larger the model is, usually the more uncertainty we get in the final estimate. This makes sense: the more assumptions you’re willing to make, the more confident you can be of an estimate. But if you use a model that is too small (i.e.&nbsp;assume things that are not actually true) then the estimate may be biased and confidence intervals will typically underestimate the true sampling uncertainty. Working with a locally nonparametric model is therefore a maximally robust approach, or at worst conservative.</p>
-<section id="factoring" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="factoring"><span class="header-section-number">3.2.1</span> Factoring</h3>
+<section id="sec-factoring" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="sec-factoring"><span class="header-section-number">3.2.1</span> Factoring</h3>
 <p>There are, of course, many practical situations where we <em>do</em> know something. For example, in our familiar covariate-treatment-outcome <span class="math inline">\((X,A,Y)\)</span> setup, if the treatment is allocated randomly by coin flip, then we know for a fact that <span class="math inline">\({\mathbb{P}}(A=1|X) = 1/2\)</span>. This is an important restriction on the model. Due to the ability to experimentally control treatment assignments, there are many cases in causal inference where one or more factors of a probability distribution are known exactly, but nothing is certain about the others. Thankfully, it’s not hard to figure out the tangent set in such models.</p>
 <p>To simplify things, we’ll work in a generic model defined over two variables <span class="math inline">\((Y,Z)\)</span> (you can think of <span class="math inline">\(Z=(A,X)\)</span> if you please). We’ll also presume again that all our distributions have densities and that the pointwise definition of the scores coincides with the mean-square derivative definition to facilitate the explanation. All of the results below also hold in the mean-square sense of scores in models without densities but everything is more cumbersome to prove without adding any intuition. I’ve put sketches of those proofs into boxed-off sections that you can safely ignore.</p>
 <p>Since every distribution <span class="math inline">\({\mathbb{P}}(Y,Z)\)</span> can be factored into <span class="math inline">\({\mathbb{P}}(Y,Z) = {\mathbb{P}}(Y|Z) {\mathbb{P}}(Z)\)</span>, every differentiable path of distributions <span class="math inline">\({\mathbb{P}}^{(\epsilon)}(Y,Z)\)</span> induces a path of marginal distributions <span class="math inline">\({\mathbb{P}}^{(\epsilon)}(Z)\)</span> and a path of conditional distributions <span class="math inline">\({\mathbb{P}}^{(\epsilon)}(Y|Z)\)</span>. Let’s pick some arbitrary path with score <span class="math inline">\(s\)</span>. We can take derivatives of the log-likelihoods along the induced conditional and marginal paths to obtain scores (in terms of the pointwise definition):</p>
@@ -610,8 +610,8 @@ Conditional and Marginal Scores
 <p><span class="theorem-title"><strong>Theorem 3.3</strong></span> Let <span class="math inline">\({\mathcal{P}}= {\mathcal{P}}(Y,Z)\)</span> be a model over joint distributions <span class="math inline">\({\mathbb{P}}(Y,Z)\)</span> of variables <span class="math inline">\((Y,Z)\)</span> and let <span class="math inline">\({\mathcal{P}}_{\epsilon}(Y,Z)\)</span> be a differentiable path with score <span class="math inline">\(s(y,z)\)</span>. This path induces marginal and conditional paths <span class="math inline">\({\mathcal{P}}_{\epsilon}(Z)\)</span> and <span class="math inline">\({\mathcal{P}}_{\epsilon}(Y|Z)\)</span> with scores</p>
 <p><span class="math display">\[
 \begin{aligned}
-s(z) &amp;= \mathbb{E}[s(Y,Z)|Z] \\
-s(y|z) &amp;= s(y,z) - \mathbb{E}[s(Y,Z)|Z] \\
+s(z) &amp;= \mathbb{E}[s(Y,Z)|Z=z] \\
+s(y|z) &amp;= s(y,z) - \mathbb{E}[s(Y,Z)|Z=z] \\
 \end{aligned}
 \]</span></p>
 <p>which sum to <span class="math inline">\(s(y,z)\)</span>. The marginal score <span class="math inline">\(s_Z\)</span> is the orthogonal projection of the joint score <span class="math inline">\(s_{Y,Z}\)</span> onto the span of all <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> functions of <span class="math inline">\(z\)</span> alone, while the conditional score <span class="math inline">\(z_{Y|Z}\)</span> is the residual of this projection. Therefore <span class="math inline">\(s_{Y|Z} \perp s_Z\)</span> in <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span>. Moreover</p>
@@ -671,8 +671,8 @@ p_n(z) - {\mathbb{P}}(z)
 =
 \int \underbrace{\frac{\sqrt{p_n(y,z)} - \sqrt{p(y,z)}}{\epsilon_n}}_{g_n(y,z)}  \underbrace{\frac{\sqrt{p_n(y,z)} + \sqrt{p(y,z)}}{\sqrt{p_n(z)} + \sqrt{p(z)}}}_{h_n(y,z)}  \mathop{}\!\mathrm{d}\mathbb{Q}(Y|Z).
 \]</span></p>
-<p><span class="math inline">\(g_n \overset{\mathcal{L}_2\left(Q(Y,Z)\right)}\to g\)</span> by assumption and since <span class="math inline">\(\sqrt{p_n(y,z)} \overset{\mathcal{L}_2\left(Q(Y,Z)\right)} \to \sqrt{p(y,z)}\)</span>, the second factor <span class="math inline">\(h_n\)</span> can be shown to converge in <span class="math inline">\(\mathcal{L}_2\left(Q(Y,Z)\right)\)</span> to <span class="math inline">\(h(y,z) = \sqrt{p(y,z)/p(z)} = \sqrt{p(y|z)}\)</span> with careful handling of the denominator.</p>
-<p>Therefore one might conjecture that the <span class="math inline">\(\mathcal{L}_2\left(Q(Z)\right)\)</span> limit of the above is <span class="math inline">\(\int g(y,z) h(y,z) \mathop{}\!\mathrm{d}\mathbb{Q}(Y|Z)\)</span> and indeed this is the case because</p>
+<p><span class="math inline">\(g_n \overset{\mathcal{L}_2\left(Q(Y,Z)\right)}\to g\)</span> by assumption and since <span class="math inline">\(\sqrt{p_n(y,z)} \overset{\mathcal{L}_2\left(\mathbb Q(Y,Z)\right)} \to \sqrt{p(y,z)}\)</span>, the second factor <span class="math inline">\(h_n\)</span> can be shown to converge in <span class="math inline">\(\mathcal{L}_2\left(\mathbb Q(Y,Z)\right)\)</span> to <span class="math inline">\(h(y,z) = \sqrt{p(y,z)/p(z)} = \sqrt{p(y|z)}\)</span> with careful handling of the denominator.</p>
+<p>Therefore one might conjecture that the <span class="math inline">\(\mathcal{L}_2\left(\mathbb Q(Z)\right)\)</span> limit of the above is <span class="math inline">\(\int g(y,z) h(y,z) \mathop{}\!\mathrm{d}\mathbb{Q}(Y|Z)\)</span> and indeed this is the case because</p>
 <p><span class="math display">\[
 \begin{aligned}
 \int \left(
@@ -689,9 +689,9 @@ p_n(z) - {\mathbb{P}}(z)
 \end{aligned}
 \]</span></p>
 <p>by Jensen’s inequality (<span class="math inline">\(0 \le \mathbb{V}[U] = \mathbb{E}[U^2] - \mathbb{E}[U]^2 \implies \mathbb{E}[U]^2 &lt; \mathbb{E}[U^2]\)</span>) and the aforementioned convergences.</p>
-<p>This shows that <span class="math inline">\(g(z) = \int g(y,z) \sqrt{p(y|z)} \mathop{}\!\mathrm{d}Q(Y|Z)\)</span>. Defining <span class="math inline">\(s(z) = 2 g(z) / \sqrt{p(z)}\)</span> and <span class="math inline">\(s(y,z) = 2 g(y,z) / \sqrt{p(y,z)}\)</span> gives</p>
+<p>This shows that <span class="math inline">\(g(z) = \int g(y,z) \sqrt{p(y|z)} \mathop{}\!\mathrm{d}\mathbb Q(Y|Z)\)</span>. Defining <span class="math inline">\(s(z) = 2 g(z) / \sqrt{p(z)}\)</span> and <span class="math inline">\(s(y,z) = 2 g(y,z) / \sqrt{p(y,z)}\)</span> gives</p>
 <p><span class="math display">\[
-s(z) = \int s(y,z) p(y|z) \mathop{}\!\mathrm{d}Q(Y|Z) = \int s(y,z) \mathop{}\!\mathrm{d}P(Y|Z) = \mathbb{E}[s(Y,Z)|Z=z].
+s(z) = \int s(y,z) p(y|z) \mathop{}\!\mathrm{d}\mathbb{Q}(Y|Z) = \int s(y,z) \mathop{}\!\mathrm{d}P(Y|Z) = \mathbb{E}[s(Y,Z)|Z=z].
 \]</span></p>
 <p>Similar arguments may be used to derive the conditional score <span class="math inline">\(s(y|z)\)</span> and then the other facts follow algebraically.</p>
 </div>
@@ -720,7 +720,38 @@ Tangent Sets in Factored Models
 {\dot{{\mathcal{P}}}}^{(Y|Z)}_{\mathbb{P}}= {\dot{{\mathcal{P}}}}_{\mathbb{P}}(Y|Z),
 \]</span></p>
 <p>which is all <span class="math inline">\(\mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> functions of <span class="math inline">\((y,z)\)</span> with <span class="math inline">\(z\)</span>-conditional mean zero.</p>
+<p>If we turn <span class="math inline">\({\dot{{\mathcal{P}}}}\)</span> into a full vector space by including the span and limits of the set we get the tangent <em>space</em> <span class="math inline">\({\mathring{{\mathcal{P}}}}\)</span> (often the set is already a space). By <a href="#thm-conditional-scores" class="quarto-xref">Theorem&nbsp;<span>3.3</span></a> and the properties of orthogonal decompositions (<a href="5-2-L2.html#def-orth-sum" class="quarto-xref">Definition&nbsp;<span>B.5</span></a>),</p>
+<p><span class="math display">\[
+{\mathring{{\mathcal{P}}}}_{\mathbb{P}}= {\mathring{{\mathcal{P}}}}^{(Y|Z)}_{\mathbb{P}}\oplus {\mathring{{\mathcal{P}}}}^{(Z)}_{\mathbb{P}},
+\]</span></p>
+<p>that is, every score in <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span> can be uniquely written as the sum of a marginal and a conditional score, which are orthogonal.</p>
 </div>
+</div>
+</div>
+<div id="exm-rct-tspace" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.3 (Tangent space for a randomized trial)</strong></span> Let’s return to our simple randomized trial example. The variables are <span class="math inline">\((Y,A,X)\)</span> (outcome, treatment, covariates) and we know nothing about the outcome mechanism <span class="math inline">\({\mathbb{P}}(Y|A,X)\)</span> or the distribution of the covariates <span class="math inline">\({\mathbb{P}}(X)\)</span>, but since the study is randomized we know that <span class="math inline">\({\mathbb{P}}(A=1|X) = {\mathbb{P}}(A=1) = \frac{1}{2}\)</span>. Let’s call the model of all such distributions <span class="math inline">\({\mathcal{P}}\)</span> and let’s use <span class="math inline">\(\mathcal Q\)</span> to describe the totally nonparametric model where nothing is known about the treatment distribution so that <span class="math inline">\(\mathring{\mathcal Q}_{\mathbb{P}}= \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span></p>
+<p>By two applications of <a href="#thm-factored-tset" class="quarto-xref">Theorem&nbsp;<span>3.4</span></a>, we can split up the tangent set of the nonparametric model at a point <span class="math inline">\({\mathbb{P}}\)</span> (omitting subscripts) into</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathring{\mathcal Q}
+&amp;= \mathring{\mathcal Q}^{(Y|A,X)} \oplus \mathring{\mathcal Q}^{A,X} \\
+&amp;= \mathring{\mathcal Q}^{(Y|A,X)} \oplus \mathring{\mathcal Q}^{A|X} \oplus \mathring{\mathcal Q}^{X}
+\end{aligned}
+\]</span></p>
+<p>where the three subspaces are orthogonal to each other. In the randomized trial model <span class="math inline">\({\mathcal{P}}\)</span>, the <span class="math inline">\(A|X\)</span> distribution is fixed and all scores are changing either the distributions of <span class="math inline">\(Y|A,X\)</span> or <span class="math inline">\(X\)</span>, or both. Thus</p>
+<p><span class="math display">\[
+{\mathring{{\mathcal{P}}}}= \mathring{\mathcal Q}^{(Y|A,X)} \oplus \mathring{\mathcal Q}^{(X)} \\
+\]</span></p>
+<p>as shown in <a href="#fig-rct-tspace" class="quarto-xref">Figure&nbsp;<span>3.4</span></a>.</p>
+<div id="fig-rct-tspace" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rct-tspace-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="3-3-efficiency_files/mediabag/efb4a67fa69c84fe40c4880e38938cc1f83bd9d0.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rct-tspace-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.4: The tangent space for a randomized trial shown with the tangent space for a general nonparametric model (<span class="math inline">\(\mathring{\mathcal Q}_{\mathbb{P}}= \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>). The nonparametric tangent space decomposes into the orthogonal sum of the tangent spaces corresponding to each factor of the distribution. These are shown as one-dimensional in the picture, but keep in mind that each of these spaces is actually also infinite-dimensional. Also shown is a generic score in the nonparametric tangent space and its decomposition into the sub-tangent spaces for each factor. The tangent space for a randomized trial limits restricts “motion” in the <span class="math inline">\(A|X\)</span> direction, meaning that scores in the RCT tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}\)</span> can have no <span class="math inline">\(s_{A|X}\)</span> component.
+</figcaption>
+</figure>
 </div>
 </div>
 </section>
@@ -739,14 +770,14 @@ Tangent Sets in Factored Models
 = \left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0} \Psi({\mathbb{P}}^{(\epsilon)})
 .
 \]</span></p>
-<p>For any fixed path this is a standard, vanilla derivative of a one-dimensional function of <span class="math inline">\(\epsilon\)</span>. It measures the (instantaneous) rate of change of the estimand as we shift the underlying distribution along the path away from <span class="math inline">\(\epsilon=0\)</span>. This is illustrated in <a href="#fig-pathwise-derivative" class="quarto-xref">Figure&nbsp;<span>3.4</span></a>.</p>
+<p>For any fixed path this is a standard, vanilla derivative of a one-dimensional function of <span class="math inline">\(\epsilon\)</span>. It measures the (instantaneous) rate of change of the estimand as we shift the underlying distribution along the path away from <span class="math inline">\(\epsilon=0\)</span>. This is illustrated in <a href="#fig-pathwise-derivative" class="quarto-xref">Figure&nbsp;<span>3.5</span></a>.</p>
 <div id="fig-pathwise-derivative" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pathwise-derivative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="3-3-efficiency_files/mediabag/4bd9f6ba1a477518cc4454f018c4f416e5e95169.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pathwise-derivative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.4: The pathwise derivative evaluated at a particular score <span class="math inline">\(s\)</span> gives the rate of change of the estimand if we move the underlying distribution in the direction of (and at the speed of) the score.
+Figure&nbsp;3.5: The pathwise derivative evaluated at a particular score <span class="math inline">\(s\)</span> gives the rate of change of the estimand if we move the underlying distribution in the direction of (and at the speed of) the score.
 </figcaption>
 </figure>
 </div>
@@ -809,7 +840,7 @@ Note
 <p><span class="theorem-title"><strong>Exercise 3.1</strong></span> On a piece of paper sketch out a replica of <a href="#fig-tangent-set" class="quarto-xref">Figure&nbsp;<span>3.1</span></a>.</p>
 <ol type="a">
 <li>Draw some curvy, smooth level sets of your choosing over the surface of <span class="math inline">\(\sqrt{{\mathcal{P}}}\)</span> representing the value of <span class="math inline">\(\Psi({\mathbb{P}})\)</span> at each point. One of your level set lines should pass through the point <span class="math inline">\(\sqrt p\)</span>.</li>
-<li>Draw some straight, evenly spaced level-set lines across <span class="math inline">\(\sqrt p {\dot{{\mathcal{P}}}}\)</span> representing the value of <span class="math inline">\(\dot\Psi(s)\)</span> at each point (you can peek at <a href="#fig-gradient" class="quarto-xref">Figure&nbsp;<span>3.6</span></a> to see what I mean). One of the level-set lines should pass through <span class="math inline">\(\sqrt p\)</span> and at that point should be tangent to the level set of <span class="math inline">\(\Psi\)</span> passing through <span class="math inline">\(\sqrt p\)</span> on <span class="math inline">\(\sqrt{{\mathcal{P}}}\)</span>.</li>
+<li>Draw some straight, evenly spaced level-set lines across <span class="math inline">\(\sqrt p {\dot{{\mathcal{P}}}}\)</span> representing the value of <span class="math inline">\(\dot\Psi(s)\)</span> at each point (you can peek at <a href="#fig-gradient" class="quarto-xref">Figure&nbsp;<span>3.7</span></a> to see what I mean). One of the level-set lines should pass through <span class="math inline">\(\sqrt p\)</span> and at that point should be tangent to the level set of <span class="math inline">\(\Psi\)</span> passing through <span class="math inline">\(\sqrt p\)</span> on <span class="math inline">\(\sqrt{{\mathcal{P}}}\)</span>.</li>
 </ol>
 <p>Your drawing represents the sense in which <span class="math inline">\(\dot\Psi\)</span> is a local, linear approximation to <span class="math inline">\(\Psi: {\mathcal{P}}\to \mathbb{R}\)</span>. If you imagine zooming into the point <span class="math inline">\(\sqrt p \in \sqrt{{\mathcal{P}}}\)</span> the surface of the sphere begins to look essentially flat (like the tangent set) and the curves of the contours on the model also flatten out into a regular linear pattern. The flattening of the model is due to the differentiability of the paths whereas the flattening of the level sets are due to pathwise differentiability of the estimand.</p>
 </div>
@@ -839,7 +870,7 @@ Note
 <p>The examples in <a href="#exr-discontinuous-estimand" class="quarto-xref">Exercise&nbsp;<span>3.2</span></a> are contrived. More often the types of “kinks” or discontinuities that cause problems are difficult to visualize in lower-dimensions. It’s not as if the value of most practically interesting non-differentiable estimands changes suddenly as we move along a single differentiable path. The fact that the path is differentiable means that the densities change smoothly as we walk in that fixed direction and that usually implies smooth behavior of the estimand along a given path.</p>
 <p>The kinks are sometimes only visible “rotationally”. I like to imagine standing at a point <span class="math inline">\({\mathbb{P}}\)</span> on the “surface” <span class="math inline">\(\Psi({\mathbb{P}})\)</span> and looking in some direction: I imagine seeing how steep the ascent or descent is in whatever direction I look. The problem with most practically interesting estimands that are not differentiable isn’t that there is a discontinuity or kink in any given direction, it’s that no matter what direction you look at, there is always another direction where the slope is steeper. But an estimand is pathwise differentiable at a point in a model only if there is a “direction of maximum slope” away from that point. In infinite dimensions, kinks occur in this “rotational” sense more often than they occur in the more familiar one-dimension sense.</p>
 <div id="exm-unbounded-estimand" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.3</strong></span> Let <span class="math inline">\(\mathcal P\)</span> be all distributions of a continuous variable <span class="math inline">\(Z\)</span>. Let’s say that our goal is to estimate the value of the density function of <span class="math inline">\(z\)</span> at the point <span class="math inline">\(z=0\)</span>. There generally isn’t a good motivation for wanting to know this, it’s just a simple example that illustrates ideas that apply identically to more complicated estimands.</p>
+<p><span class="theorem-title"><strong>Example 3.4</strong></span> Let <span class="math inline">\(\mathcal P\)</span> be all distributions of a continuous variable <span class="math inline">\(Z\)</span>. Let’s say that our goal is to estimate the value of the density function of <span class="math inline">\(z\)</span> at the point <span class="math inline">\(z=0\)</span>. There generally isn’t a good motivation for wanting to know this, it’s just a simple example that illustrates ideas that apply identically to more complicated estimands.</p>
 <p>We’ll show that there is no RAL estimator of the density at a point by establishing that the pathwise derivative is not bounded over the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span> (at any <span class="math inline">\({\mathbb{P}}\)</span>). The intuition is that we can find a path that comes very, very close to modifying the density <em>only</em> at the point <span class="math inline">\(z=0\)</span>. In other words, we can modify the estimand by arbitrary amounts essentially without changing the overall density.</p>
 <p>Fix a distribution <span class="math inline">\({\mathbb{P}}\)</span>. Since the model is nonparametric, the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span> is all of <span class="math inline">\(\mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>. Since that’s the case, any zero-mean <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> function can be a score.</p>
 <p>Define the sequence of probabilities <span class="math inline">\(t_n = {\mathbb{P}}\{-1/n \le Z \le 1/n\}\)</span>. Since these are probabilities of smaller and smaller sets over a continuous random variable they must shrink to zero.</p>
@@ -907,7 +938,7 @@ Warning
 <img src="3-3-efficiency_files/mediabag/560c3f2aa030edbcd2708fa06aea89b28caa243d.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tangent-space-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.5: Cartoon of the relationship between the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span> and tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span>. The tangent set is not always a subspace but it is always closed under positive scaling (prove it!), which is why it appears as a wedge in the cartoon. The tangent space fills in the rest of the plane that the tangent set sits in, i.e.&nbsp;it is the smallest subspace of <span class="math inline">\(\mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> that contains the tangent set.
+Figure&nbsp;3.6: Cartoon of the relationship between the tangent set <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}\)</span> and tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span>. The tangent set is not always a subspace but it is always closed under positive scaling (prove it!), which is why it appears as a wedge in the cartoon. The tangent space fills in the rest of the plane that the tangent set sits in, i.e.&nbsp;it is the smallest subspace of <span class="math inline">\(\mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> that contains the tangent set.
 </figcaption>
 </figure>
 </div>
@@ -952,7 +983,7 @@ Gradient of a Pathwise Differentiable Estimand
 <img src="3-3-efficiency_files/mediabag/5901c549cfc78abf276e9fd6858a7e97f5801ef3.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gradient-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.6: Visual representation of the gradient. The value of the pathwise derivative function <span class="math inline">\(\dot\Psi_{\mathbb{P}}\)</span> is depicted on the domain <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span> using the blue shading: darker values indicate higher values of <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s)\)</span> at each point <span class="math inline">\(s \in {\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span>. Thin dotted lines represent the level sets of the pathwise derivative. The gradient <span class="math inline">\(\nabla\!\Psi\)</span> is shown as the dark blue arrow, representing the direction of fastest ascent of the linear function <span class="math inline">\(\dot\Psi_{\mathbb{P}}\)</span> and the speed of that ascent (spacing of the level sets; the closer together, the bigger the gradient). Since <span class="math inline">\(\dot\Psi_{\mathbb{P}}\)</span> is a derivative, larger values correspond to larger rates of increase of the estimand <span class="math inline">\(\Psi\)</span>, meaning that the gradient corresponds to the direction of steepest instantaneous rate of increase of the estimand.
+Figure&nbsp;3.7: Visual representation of the gradient. The value of the pathwise derivative function <span class="math inline">\(\dot\Psi_{\mathbb{P}}\)</span> is depicted on the domain <span class="math inline">\({\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span> using the blue shading: darker values indicate higher values of <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s)\)</span> at each point <span class="math inline">\(s \in {\mathring{{\mathcal{P}}}}_{\mathbb{P}}\)</span>. Thin dotted lines represent the level sets of the pathwise derivative. The gradient <span class="math inline">\(\nabla\!\Psi\)</span> is shown as the dark blue arrow, representing the direction of fastest ascent of the linear function <span class="math inline">\(\dot\Psi_{\mathbb{P}}\)</span> and the speed of that ascent (spacing of the level sets; the closer together, the bigger the gradient). Since <span class="math inline">\(\dot\Psi_{\mathbb{P}}\)</span> is a derivative, larger values correspond to larger rates of increase of the estimand <span class="math inline">\(\Psi\)</span>, meaning that the gradient corresponds to the direction of steepest instantaneous rate of increase of the estimand.
 </figcaption>
 </figure>
 </div>
@@ -974,7 +1005,7 @@ Figure&nbsp;3.6: Visual representation of the gradient. The value of the pathwis
 </div>
 </div>
 <div id="exm-gradient-nonparam" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.4</strong></span> Let <span class="math inline">\({\mathcal{P}}\)</span> be the set of all possible distributions of continuous random variables and presume the estimand of interest is the mean <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[Z] = \int z p(z) \mathop{}\!\mathrm{d}z\)</span>. Let <span class="math inline">\(\psi_{\mathbb{P}}\)</span> abbreviate the mean of <span class="math inline">\(Z\)</span> for a distribution <span class="math inline">\({\mathbb{P}}\)</span>. We’ll see that the gradient for this estimand is easy to find in this model moreover that we can even construct an estimator that has the gradient as its influence function.</p>
+<p><span class="theorem-title"><strong>Example 3.5</strong></span> Let <span class="math inline">\({\mathcal{P}}\)</span> be the set of all possible distributions of continuous random variables and presume the estimand of interest is the mean <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[Z] = \int z p(z) \mathop{}\!\mathrm{d}z\)</span>. Let <span class="math inline">\(\psi_{\mathbb{P}}\)</span> abbreviate the mean of <span class="math inline">\(Z\)</span> for a distribution <span class="math inline">\({\mathbb{P}}\)</span>. We’ll see that the gradient for this estimand is easy to find in this model moreover that we can even construct an estimator that has the gradient as its influence function.</p>
 <p>We have already shown that this model is locally nonparametric (see <a href="#exm-tangent-set-nonparam" class="quarto-xref">Example&nbsp;<span>3.2</span></a>) so at any <span class="math inline">\({\mathbb{P}}\)</span> the tangent set is <span class="math inline">\({\dot{{\mathcal{P}}}}_{\mathbb{P}}= \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>. For any bounded score <span class="math inline">\(s \in \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> we can construct the usual convex path <span class="math inline">\(p_\epsilon= (1+ \epsilon s)p\)</span> which has score <span class="math inline">\(s\)</span>. For unbounded scores we could construct the more complicated paths described in <a href="#exm-tangent-set-nonparam" class="quarto-xref">Example&nbsp;<span>3.2</span></a> but this adds complexity without adding understanding so we’ll explain using the simpler convex paths.</p>
 <p>For a convex path the pathwise derivative can be evaluated explicitly assuming enough regularity to pass the derivative through the integral:</p>
 <p><span class="math display">\[
@@ -1037,7 +1068,7 @@ Warning
 <p><span class="math display">\[
 \dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}s (\nabla\!\Psi + v) \quad\text{for all } s \in {\mathring{{\mathcal{P}}}}_{\mathbb{P}}.
 \]</span></p>
-<p>Moreover the functions <span class="math inline">\(v\)</span> in the orthogonal complement of the tangent space are the <em>only</em> functions for which this holds. This fact is formalized in <a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.5</span></a> and illustrated graphically in <a href="#fig-RAL-IF-set" class="quarto-xref">Figure&nbsp;<span>3.7</span></a>.</p>
+<p>Moreover the functions <span class="math inline">\(v\)</span> in the orthogonal complement of the tangent space are the <em>only</em> functions for which this holds. This fact is formalized in <a href="#thm-RAL-IF-set" class="quarto-xref">Theorem&nbsp;<span>3.5</span></a> and illustrated graphically in <a href="3-4-deriving-eifs.html#fig-RAL-IF-set" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1061,7 +1092,7 @@ Set of Influence Functions
 <img src="3-3-efficiency_files/mediabag/06979d4d1aa7291041fad25994f98e77d5728ecc.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-RAL-IF-set-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.7: The set of influence functions <span class="math inline">\(\Phi\)</span> is the orthogonal complement of the tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}^\perp\)</span> translated over to the point <span class="math inline">\(\nabla\!\Psi\)</span> (a translated subspace is called a <em>linear variety</em>). The canonical gradient <span class="math inline">\(\nabla\!\Psi\)</span> has smaller norm (“length”) than any other influence function <span class="math inline">\(\phi \in \Phi\)</span>.
+Figure&nbsp;3.8: The set of influence functions <span class="math inline">\(\Phi\)</span> is the orthogonal complement of the tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}^\perp\)</span> translated over to the point <span class="math inline">\(\nabla\!\Psi\)</span> (a translated subspace is called a <em>linear variety</em>). The canonical gradient <span class="math inline">\(\nabla\!\Psi\)</span> has smaller norm (“length”) than any other influence function <span class="math inline">\(\phi \in \Phi\)</span>.
 </figcaption>
 </figure>
 </div>
@@ -1076,7 +1107,7 @@ Figure&nbsp;3.7: The set of influence functions <span class="math inline">\(\Phi
 <p><span class="math display">\[
 \|\phi\|^2 = \|\nabla\!\Psi\|^2 + \|v\|^2 \ge \|\nabla\!\Psi\|^2.
 \]</span></p>
-<p>In other words, the canonical gradient is the influence function with the smallest norm: the <em>efficient influence function</em>. This is visually obvious in <a href="#fig-RAL-IF-set" class="quarto-xref">Figure&nbsp;<span>3.7</span></a>.</p>
+<p>In other words, the canonical gradient is the influence function with the smallest norm: the <em>efficient influence function</em>. This is visually obvious in <a href="3-4-deriving-eifs.html#fig-RAL-IF-set" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1096,21 +1127,21 @@ Efficient Influence Function
 <p>Because the canonical gradient depends on the estimand <span class="math inline">\(\Psi\)</span>, the distribution in question <span class="math inline">\({\mathbb{P}}\)</span>, and the model it lives in <span class="math inline">\({\mathcal{P}}\)</span>, the efficient influence function (corresponding to the most efficient RAL estimator) has the same dependencies. The first dependence is obvious: what the best estimator is obviously depends on what is being estimated. The second we have already discussed in <a href="3-1-AL.html" class="quarto-xref"><span>Chapter 1</span></a>: the influence function of any fixed asymptotically linear estimator depends on what distribution the data for that estimator are drawn from.</p>
 <p>The third dependence is also natural. The “size” of the model corresponds to our existing knowledge of the world or the assumptions we’re willing to make. The more we know, the fewer distributions remain in the model. The smaller the model, the smaller the tangent space at any given point within it (it won’t be bigger, at a minimum). The smaller the tangent space, the larger the orthogonal complement, meaning we have more influence functions to choose from in order to find one with the smallest norm. The smaller the norm of the influence function, the smaller the asymptotic variance and the more certain our estimates are. This is the mechanism by which more a-priori knowledge about the world translates to more confident estimates, as one would expect.</p>
 <div id="exm-EIF-mean-restricted" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.5</strong></span> In <a href="#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>3.4</span></a> we showed that the canonical gradient of the mean estimand in the nonparametric model is <span class="math inline">\(\nabla\!_{\mathbb{P}}\Psi(z)  = z - \mathbb{E}_{\mathbb{P}}[Z]\)</span> which has squared norm equal to <span class="math inline">\(\mathbb{V}_{\mathbb{P}}[Z]\)</span>. If <span class="math inline">\(Z \sim \mathsf{N}(0,1)\)</span>, for example, the squared norm of the gradient is 1.</p>
+<p><span class="theorem-title"><strong>Example 3.6</strong></span> In <a href="#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>3.5</span></a> we showed that the canonical gradient of the mean estimand in the nonparametric model is <span class="math inline">\(\nabla\!_{\mathbb{P}}\Psi(z)  = z - \mathbb{E}_{\mathbb{P}}[Z]\)</span> which has squared norm equal to <span class="math inline">\(\mathbb{V}_{\mathbb{P}}[Z]\)</span>. If <span class="math inline">\(Z \sim \mathsf{N}(0,1)\)</span>, for example, the squared norm of the gradient is 1.</p>
 <p>In this example we’ll describe how the canonical gradient changes and its norm shrinks when the model is further restricted. We’ll pick a somewhat contrived model to illustrate the point.</p>
 <p>Let <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span> and consider the model of densities <span class="math inline">\({\mathcal{P}}= \{(1_\epsilon s)p: \epsilon\in \mathbb{R}\}\)</span> where <span class="math inline">\(s(z) = z-z^3\)</span> which has mean zero. Obviously this is a one-dimensional model (a path with score <span class="math inline">\(s\)</span>) so the canonical gradient at <span class="math inline">\({\mathbb{P}}\)</span> must be a scalar multiple of <span class="math inline">\(s\)</span>, i.e.&nbsp;<span class="math inline">\(\nabla\!_{\mathbb{P}}\Psi = cs\)</span>. We can figure out what the constant <span class="math inline">\(c\)</span> is because the squared norm of the canonical gradient must be equal to the pathwise derivative in the direction of the canonical gradient: <span class="math inline">\(\dot\Psi(cs) = {\mathbb{P}}(cs)(cs)\)</span>. Therefore</p>
 <p><span class="math display">\[
 c = \frac{\dot\Psi(s)}{{\mathbb{P}}s^2}
 = \frac{\mathbb{E}_{\mathbb{P}}[Z^2 - Z^4]}{\mathbb{E}_{\mathbb{P}}[Z^2 - 2Z^4 + Z^6]}
 \]</span></p>
-<p>because we already showed in <a href="#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>3.4</span></a> that the pathwise derivative for the mean in this type of path is <span class="math inline">\(\mathbb{E}_{\mathbb{P}}[Z s(Z)]\)</span>. Evaluating the above at <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span> gives</p>
+<p>because we already showed in <a href="#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>3.5</span></a> that the pathwise derivative for the mean in this type of path is <span class="math inline">\(\mathbb{E}_{\mathbb{P}}[Z s(Z)]\)</span>. Evaluating the above at <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span> gives</p>
 <p><span class="math display">\[
 c = \frac{1-3}{1-2\times3+15} = -\frac{1}{5}
 \]</span></p>
 <p>Therefore the squared norm of the canonical gradient is <span class="math inline">\(\|\nabla\!\Psi\|^2 = c^2\|s\|^2 = \frac{2}{5}\)</span>.</p>
 <p>This is about half the size of the norm of the canonical gradient for the same estimand in the nonparametric model. Since the canonical gradient in the nonparametric model corresponds to the influence function of the sample mean, the implication is that in this restricted model there is a RAL estimator of the population mean that is about twice as efficient as the sample mean estimator at this distribution!</p>
 </div>
-<p>The score I chose for the model in <a href="#exm-EIF-mean-restricted" class="quarto-xref">Example&nbsp;<span>3.5</span></a> was fairly arbitrary. In fact you can repeat the exercise with any score that is not a scalar multiple of <span class="math inline">\(z - \mathbb{E}_{\mathbb{P}}[Z]\)</span> and obtain a similar result. More generally you can choose any model such that its tangent space is smaller and no longer includes the original canonical gradient in the nonparametric model.</p>
+<p>The score I chose for the model in <a href="#exm-EIF-mean-restricted" class="quarto-xref">Example&nbsp;<span>3.6</span></a> was fairly arbitrary. In fact you can repeat the exercise with any score that is not a scalar multiple of <span class="math inline">\(z - \mathbb{E}_{\mathbb{P}}[Z]\)</span> and obtain a similar result. More generally you can choose any model such that its tangent space is smaller and no longer includes the original canonical gradient in the nonparametric model.</p>
 <div class="callout callout-style-simple callout-important no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1129,8 +1160,8 @@ c = \frac{1-3}{1-2\times3+15} = -\frac{1}{5}
 </div>
 <p>The relationship between the norm of the canonical gradient and the pathwise derivative means that the “speed limit” for asymptotic variance in estimation is directly related to how quickly the estimand can change under small perturbations of the data-generating distribution within the model. That actually makes a lot of sense if you think of the estimation problem as the problem of first telling what distribution a given dataset was drawn from and then reading off the value of the estimand from that distribution. Let’s say that you have enough data to confidently rule out all but a small set of similar distributions. If the value of the estimand varies wildly over those distributions, you still can’t be very confident and should therefore report large uncertainty. Another way to understand the mechanism by which shrinking the model reduces uncertainty is that in smaller models sets of nearby distributions often have more similar values of the estimand.</p>
 </section>
-<section id="classical-theory" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="classical-theory"><span class="header-section-number">3.6</span> Classical Theory</h2>
+<section id="sec-classical-efficiency" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="sec-classical-efficiency"><span class="header-section-number">3.6</span> Classical Theory</h2>
 <p>If you’ve taken a traditional statistics course you may have learned about Cramer-Rao and Fisher Information. In this section I’ll briefly explain how these topics are connected to efficiency theory for RAL estimators. If you’re not interested in this you should feel free to skip to the next chapter. None of this material is required to understand the rest of the book and I will try to be brief. More details can be found in <span class="citation" data-cites="tsiatis">Tsiatis (<a href="6-references.html#ref-tsiatis" role="doc-biblioref">2007</a>)</span>; I only bring it up to try and connect the prior knowledge some students have to the nonparametric context.</p>
 <p>First we will apply all of the theory we’ve developed in this chapter to the parametric setting. After this is done we will make the promised connections to classical concepts.</p>
 <section id="applying-nonparametric-results" class="level3" data-number="3.6.1">
@@ -1153,7 +1184,7 @@ c = \frac{1-3}{1-2\times3+15} = -\frac{1}{5}
 <img src="3-3-efficiency_files/mediabag/d3629662f7a902ce0b497f11e06ceaa3f078322b.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-parametric-tangent-space-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.8: Visual representation of the relationship between objects in (semi-)parametric efficiency theory.
+Figure&nbsp;3.9: Visual representation of the relationship between objects in (semi-)parametric efficiency theory.
 </figcaption>
 </figure>
 </div>

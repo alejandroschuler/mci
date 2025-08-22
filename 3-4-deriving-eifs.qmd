@@ -9,19 +9,19 @@ library(tidyverse)
 
 # Deriving Canonical Gradients
 
-In the previous chapter we discovered that every pathwise-differentiable estimand has at least one RAL estimator and that any asymptotically optimal RAL estimator has an influence function equal to the canonical gradient (the *efficient* influence function; EIF). In the next part of the book we'll tackle the problem of constructing estimators that have this property, but, in order to do that we need to know what the canonical gradient is for any estimand and model of interest. In this chapter we'll therefore learn techniques to derive the canonical gradient. 
+In the previous chapter we discovered that every pathwise-differentiable estimand has at least one RAL estimator and that any asymptotically optimal RAL estimator has an influence function equal to the canonical gradient (the *efficient* influence function; EIF). In the next part of the book we'll tackle the problem of constructing estimators that have this property, but, in order to do that we need to know what the canonical gradient is for any estimand and model of interest. In this chapter we'll therefore learn techniques to derive the canonical gradient.
 
 There are many methods to derive canonical gradients that are more or less natural to depending on the kind of model and estimand. In this book we'll first focus on point mass contamination: a simple technique that works well in locally nonparametric models. In the process of illustrating this technique we'll cover some handy rules that make it easier to build canonical gradients up out of simpler blocks. Then we will discuss projection methods which are often useful when the model is restricted in some way and in particular for models where some factors of the joint distribution are known.
 
 ## Point Mass Contamination
 
-Point mass contamination (also referred to as the "Gateaux derivative" or "Hampel influence function" approach) is a easy-to-use strategy for deriving the gradient in nonparametric models (recall there is only one gradient in a nonparametric model). Nonparametric models are a good starting point becasue often we don't know anything useful about the data-generating distribution. Even if we do, nonparametric models are a reasonable fallback because we can still produce a good RAL estimator using the nonparametric EIF - it will just be less efficient than the efficient estimator under the restricted model that exploits our prior knowledge.
+Point mass contamination (also referred to as the "Gateaux derivative" or "Hampel influence function" approach) is a easy-to-use strategy for deriving the gradient in nonparametric models (recall there is only one gradient in a nonparametric model). Nonparametric models are a good starting point becasue often we don't know anything useful about the data-generating distribution. Even if we do, nonparametric models are a reasonable fallback because we can still produce a good RAL estimator using the nonparametric EIF - it will just be less efficient than the efficient estimator under the restricted model that exploits our prior knowledge. We will also see in a few sections that knowing the nonparametric canonical gradient is useful when deriving the canonical gradient in restricted models.
 
 The idea of point mass contamination is to find paths in directions that make it easy to compute the value of the gradient at a given point $z$. We'll see that it suffices to take convex paths in the direction of distribution that is a point mass at a point $z$.
 
 ### Discrete Distributions
 
-Presume for a moment that we're working in a model where every variable is discrete but otherwise unspecified. When this is the case, the model is actually parametric because any joint distribution is a categorical distribution over a finite number of support points. Another way of putting this is that in a dataset drawn from such a distribution, there are only a finite number of possible "rows" that can appear. The probability distribution assigns a probability $\p\{Z=z_j\} = \p_j$ to each unique row $z_j$ in a discrete set $\mathcal Z$: the probabilities $p_j$ for $j \in \{1\dots J\}$ are the only parameters. 
+Presume for a moment that we're working in a model where every variable is discrete but otherwise unspecified. When this is the case, the model is actually parametric because any joint distribution is a categorical distribution over a finite number of support points. Another way of putting this is that in a dataset drawn from such a distribution, there are only a finite number of possible "rows" that can appear. The probability distribution assigns a probability $\p\{Z=z_j\} = \p_j$ to each unique row $z_j$ in a discrete set $\mathcal Z$: the probabilities $p_j$ for $j \in \{1\dots J\}$ are the only parameters.
 
 Let's say we're at a point $p$ (representing either the mass function or the vector of probabilities, they are essentially the same). We can construct a convex path in the parameter space with $p$ as the starting point and as the endpoint the mass function $1^* = 1(z=z^*)$ (with distribution $\mathbb 1^*$) that puts all the probability mass at some point $z^* \in \{z_1 \dots z_J\}$. For small values of $\eps$, the convex path
 
@@ -42,11 +42,11 @@ $$
 
 :::: {.callout-important appearance="minimal"}
 ::: {#exr-discrete-model-local-nonparam}
-When $\p$ is a discrete distribution over a set of $J$ points $\mathcal Z = \{z_1 \dots z_J\}$ with mass function $p$, the space $\eltwop$ is all functions $f$ such that $\E_\p[f(Z)^2] = \sum_j^J f(z_j)^2\ p(z_j)$ is finite (and two functions are considered "equivalent" if they agree on the points $\mathcal Z$). 
+When $\p$ is a discrete distribution over a set of $J$ points $\mathcal Z = \{z_1 \dots z_J\}$ with mass function $p$, the space $\eltwop$ is all functions $f$ such that $\E_\p[f(Z)^2] = \sum_j^J f(z_j)^2\ p(z_j)$ is finite (and two functions are considered "equivalent" if they agree on the points $\mathcal Z$).
 
 Prove that the discrete model $\model$ consisting of all distributions $\p$ supported on the same set $\mathcal Z$ is locally nonparametric (@def-nonparam-model) at any point, despite being a parametric model with $J$ parameters!
 :::
-:::: 
+::::
 
 Consider now the inner product $\p_\theta s^* \grad\Psi$ where $\grad\Psi$ is taken to be the (unknown) gradient at $\p$. Since the distributions in question are discrete, the expected value of any function $f$ is $\p f = \sum_{z \in \mathcal Z} f(z) p(z)$. Thus,
 
@@ -61,7 +61,7 @@ $$
 
 For intuition, recall that one way to think of a function is as a very long "vector" $\grad\Psi = [\dots \grad\Psi(0.1), \dots \grad\Psi(3.4) \dots]$ where the elements correspond to different possible values of the argument (see @sec-app-L2-vectors). The scores above look like $1(z=z^*)$ so when we take an inner product of such a score with an arbitrary function, we essentially pick out the element of that function corresponding to position $z^*$. In other words, the directions corresponding to point masses at each $z^*$ are like the "axes" of the space and we get the value of our unknown function at each point by projecting onto those axes.
 
-Knowing that $\p s^* \grad\Psi = \grad\Psi(z^*)$ isn't immediately helpful because we still have the unknown gradient on both sides of the equation. But by the central identity of influence functions we can now replace the inner product with the pathwside derivative $\dot\Psi(s^*) = \p s^* \grad\Psi = \grad\Psi(z^*)$. 
+Knowing that $\p s^* \grad\Psi = \grad\Psi(z^*)$ isn't immediately helpful because we still have the unknown gradient on both sides of the equation. But by the central identity of influence functions we can now replace the inner product with the pathwise derivative $\dot\Psi(s^*) = \p s^* \grad\Psi = \grad\Psi(z^*)$.
 
 Read right-to-left, this gives us a way of deriving the gradient $\grad\Psi$, which we don't know. All we need to do to obtain the values of $\grad\Psi$ at each point $z^*$ is compute the pathwise derivative along convex paths in the direction of each point mass $1^*$. Specifically, we must evaluate
 
@@ -73,7 +73,8 @@ $$
 
 ::: {#exm-point-mass-mean-EIF}
 # Gradient of mean
-Let $Z$ be a one-dimensional discrete random variable with no other restrictions and let $\Psi(\p) = \E_\p[Z]$, the population mean. By the above, 
+
+Let $Z$ be a one-dimensional discrete random variable with no other restrictions and let $\Psi(\p) = \E_\p[Z]$, the population mean. By the above,
 
 $$
 \begin{aligned}
@@ -90,13 +91,14 @@ Therefore $\grad\Psi(z) =  z - \E_\p[Z]$, which is the influence function for th
 
 Keep in mind that the gradient $\grad\Psi$ depends on the data-generating distribution (and the model but here we have a fixed discrete model in mind), so really we should be writing $\grad_\p \Psi$. In @exm-point-mass-mean-EIF this is evident because the result depends on $\E_\p[Z]$.
 
-The manipulations in @exm-point-mass-mean-EIF are characteristic of gradient derivations with point mass contamination. The only challenge is keeping careful track of the point mass $z^*$ vs generic values $z$ and the action of the indicator functions. This is a purely mechanical exercise, no special intuition is requred. Just keep in mind that $\sum_z f(z)\  1^*(z) = f(z^*)$ because the indicator "picks out" the indicated term in the sum. Once you've done it once or twice it becomes straightforward. 
+The manipulations in @exm-point-mass-mean-EIF are characteristic of gradient derivations with point mass contamination. The only challenge is keeping careful track of the point mass $z^*$ vs generic values $z$ and the action of the indicator functions. This is a purely mechanical exercise, no special intuition is requred. Just keep in mind that $\sum_z f(z)\  1^*(z) = f(z^*)$ because the indicator "picks out" the indicated term in the sum. Once you've done it once or twice it becomes straightforward.
 
 Sometimes you also need to keep track of some other fixed point, as the next example shows.
 
 ::: {#exm-point-mass-density}
 # Gradient of a density at a point
-Let $Z$ be a one-dimensional discrete random variable with no other restrictions and let $\Psi(\p) = \p \{ Z= \tilde z \}$ for a particular value $\tilde z$. 
+
+Let $Z$ be a one-dimensional discrete random variable with no other restrictions and let $\Psi(\p) = \p \{ Z= \tilde z \}$ for a particular value $\tilde z$.
 
 An easy way to derive the canonical gradient is to let $W = 1(Z= \tilde z)$ and use the result from @exm-point-mass-mean-EIF since $\p\{Z= \tilde z\} = \E_\p[W]$. This immediately gives $\grad\Psi(z) =  1_{\tilde z}(z) - p(\tilde z)$.
 
@@ -111,14 +113,14 @@ $$
 \end{aligned}
 $$
 
-This is the same as above because $1^*(\tilde z) = 1(z^* = \tilde z) = 1_{\tilde z}(z^*)$. 
-
+This is the same as above because $1^*(\tilde z) = 1(z^* = \tilde z) = 1_{\tilde z}(z^*)$.
 :::
 
 When $Z$ is multidimensional the same process works but the notation can be more verbose. For example, if $Z = (Y,X)$, then the $Z$-domain $\mathcal Z = \{z_1, \dots z_J\}$ is some subset of the cartesian product $\mathcal Y \times \mathcal X$ where these are the (discrete) domains of $X$ and $Y$. We'll let $z^* = (y^*, x^*)$ be the point at which mass is concentrated in the mass function $1^*$ with corresponding distribution $\mathbb 1^*$. In an abuse of notation we'll also write, e.g., $1^*(x) = 1(x=x^*)$. This single-variable indicator also picks out terms in a sum, i.e., $\sum_{x,y} f(x,y) 1^*(x) = \sum_y f(x^*, y)$. We'll see patterns like this a lot in gradient derivations using point mass contamination.
 
 ::: {#exm-point-mass-cond-mean-EIF}
 # Gradient of a conditional mean
+
 Let $(Y,X)$ be discrete random variables with no other restrictions and let $\Psi(\p) = \E_\p[Y|X=\tilde x]$, the conditional mean of $Y$ at a value $X=\tilde x$. Computing the pathwise derivative on a path from a distribution $p$ towards a point mass at $(y^*, x^*)$ gives
 
 $$
@@ -168,23 +170,25 @@ $$
 \end{aligned}
 $$
 
-Therefore $\grad\Psi(y,x) = \frac{1(x=\tilde x)}{p(\tilde x)}\left(y - \E[Y|X=\tilde x] \right)$. The conditional mean is generally not pathwise differentiable and thus doesn't have an gradient (see @exm-unbounded-estimand), but in discrete data models it is! 
+Therefore $\grad\Psi(y,x) = \frac{1(x=\tilde x)}{p(\tilde x)}\left(y - \E[Y|X=\tilde x] \right)$. The conditional mean is generally not pathwise differentiable and thus doesn't have an gradient (see @exm-unbounded-estimand), but in discrete data models it is!
 :::
 
 As in the one-dimensional model, the difficulty in these calculations is keeping track of what is the fixed point $\tilde x$, what is the location of the point mass $(y^* ,x^*)$, and what is a generic value $(y,x)$. Go slowly and deliberately at first and you will get the hang of it.
 
-:::: {.callout-important appearance="minimal"} 
+:::: {.callout-important appearance="minimal"}
 ::: {#exr-point-mass-conditional-density}
 # Gradient of a conditional density
+
 Let $(Y,X)$ be discrete random variables with no other restrictions and let $\Psi(\p) = \p \{ Y=\tilde y | X = \tilde x \}$ for particular values $\tilde y, \tilde x$. What is the canonical gradient for this estimand at a point $\p$ in this model?
 
-*Hint: let $W = 1(Y=\tilde y)$ and use the result from @exm-point-mass-mean-EIF since $\p\{Y=\tilde y|X=\tilde x\} = \E_\p[W|X=\tilde x]$.*
+*Hint: let* $W = 1(Y=\tilde y)$ and use the result from @exm-point-mass-mean-EIF since $\p\{Y=\tilde y|X=\tilde x\} = \E_\p[W|X=\tilde x]$.
 :::
 ::::
 
 :::: {.callout-important appearance="minimal"}
 ::: {#exr-gradient-cov}
 # Gradient of the covariance
+
 Let $(Y,X)$ be discrete random variables with no other restrictions and let $\Psi(\p) = \C_\p [ Y,X ]$. What is the canonical gradient for this estimand at a point $\p$ in this model?
 :::
 ::::
@@ -196,9 +200,9 @@ Point mass contamination is easiest to present for discrete models but it also w
 The derivation with Dirac deltas can be made rigorous (see @ichimura2022influence), but, following the advice of @kennedy-review, I find it much easier to simply pretend the model is discrete! Perhaps surprisingly, the form of the gradient in an unrestricted discrete model is generally also the form of the gradient in the nonparametric model. If you are worried, it is easy to check that the result holds by verifying the central identify for influence functions, since in a nonparametric model there is only one function (the gradient) for which it will hold.
 
 ::: {#exm-point-mass-mean-check}
-In @exm-point-mass-mean-EIF we showed that, in discrete data models, the gradient for the mean is $\grad\Psi(z) =  z - \E_\p[Z]$. We now verify that this is also the gradient in the nonparametric model by checking that $\dot\Psi_\p(s) = \p s \grad\Psi$ for all $s \in \eltwopz$. 
+In @exm-point-mass-mean-EIF we showed that, in discrete data models, the gradient for the mean is $\grad\Psi(z) =  z - \E_\p[Z]$. We now verify that this is also the gradient in the nonparametric model by checking that $\dot\Psi_\p(s) = \p s \grad\Psi$ for all $s \in \eltwopz$.
 
-In @exm-gradient-nonparam we already derived that $\dot\Psi_\p(s) = \E[Zs(Z)]$ for the mean. On the other hand, 
+In @exm-gradient-nonparam we already derived that $\dot\Psi_\p(s) = \E[Zs(Z)]$ for the mean. On the other hand,
 
 $$
 \p s\grad\Psi = \E [s(Z)(Z - \E[Z])] = \E [s(Z)Z] - \E[Z] \underbrace{\E[s(Z)]}_0
@@ -210,7 +214,7 @@ which establishes the desired equality.
 
 Of course, we already knew the gradient for the mean in the nonparametric model since we derived it in @exm-gradient-nonparam. But in that proof we had to magically know to add "zero" to the inner product in order to get a zero mean score. In practice, such tricks are not readily apparent. It's much easier to have a candidate gradient and simply check that it works, as we just did in @exm-point-mass-mean-check.
 
-Some estimands, however, are pathwise differentiable in discrete models but not in nonparametric models. When this happens you will see a specific kind of failure when you check $\dot\Psi_\p(s) = \p s \grad\Psi$ for all $s \in \eltwopz$. 
+Some estimands, however, are pathwise differentiable in discrete models but not in nonparametric models. When this happens you will see a specific kind of failure when you check $\dot\Psi_\p(s) = \p s \grad\Psi$ for all $s \in \eltwopz$.
 
 ::: {#exm-point-mass-cond-mean-check}
 In @exm-point-mass-mean-EIF we showed that, in discrete data models, the gradient for the conditional mean of $Y$ at a point $X=\tilde x$ is $\grad\Psi(y,x) = \frac{1(x=\tilde x)}{p(\tilde x)}\left(y - \E[Y|X=\tilde x] \right)$. We now show that it is *not* the gradient in a nonparametric model. In fact, there is no gradient in a nonparametric model because this estimand is not pathwise differentiable in such models.
@@ -221,7 +225,7 @@ $$
 \p s\grad\Psi = \int s(y,x)\frac{1(x=\tilde x)}{p(\tilde x)}\left(y - \E[Y|X=\tilde x] \right) p(y,x) \dd (y,x)
 $$
 
-which is always zero if $1(x=\tilde x)$ is interpreted as a standard indicator function. This doesn't make sense because it implies that the pathwise derivative is zero everywhere, meaning that the estimand is constant across the model, which it certainly isn't. 
+which is always zero if $1(x=\tilde x)$ is interpreted as a standard indicator function. This doesn't make sense because it implies that the pathwise derivative is zero everywhere, meaning that the estimand is constant across the model, which it certainly isn't.
 
 Things make a little more sense if you interpret the indicator as a Dirac delta instead. In @hines-eif, the equivalent derivation of the gradient using Dirac delta functions produces
 
@@ -243,12 +247,11 @@ $$
 \\
 \end{aligned}
 $$
-
 :::
 
 The failures shown in @exm-point-mass-cond-mean-check above are typical of what happens when you use point mass contamination to try and derive the gradient for an estimand that is not nonparametrically pathwise differentiable. If you end up with an indicator of a possibly continuous value in the gradient, it's a good sign that the estimand is not nonparametrically pathwise differentiable.
 
-:::: {.callout-important appearance="minimal"} 
+:::: {.callout-important appearance="minimal"}
 ::: {#exr-point-mass-density-nonparam}
 Show that the gradient we derived for $\Psi(\p) = \p \{ Z=\tilde z \}$ in @exm-point-mass-density breaks down if it is treated as the gradient in a nonparametric model.
 :::
@@ -256,30 +259,30 @@ Show that the gradient we derived for $\Psi(\p) = \p \{ Z=\tilde z \}$ in @exm-p
 
 Although appealing to a discrete data model usually does the trick, there are times when it doesn't work. This can happen for estimands that are defined implicitly rather than explicitly in terms of expectations or probabilities. The point-mass contamination strategy is still useful, but we need a different approach to evaluate the pathwise derivative. I give an example here to demonstrate this, but it's not vitally important to understand in detail.
 
-::: {#exm-quantile-gradient}
+:::: {#exm-quantile-gradient}
 # Gradient of a quantile
+
 Let $\mathcal P$ be all continuous distributions $\p$ of a single variable $Z$ and let the estimand $\Psi(\p)$ be the $q$th quantile of $Z$ under $\p$. Our aim is to find the canonical gradient of $\Psi$ in this model.
 
-Abusing notation a bit, let $\p(z)$ denote the CDF of $Z$ under $\p$. The quantile $\psi$ is defined by $\p(\psi) = q$ so we can write $\Psi(\p) = \p^{-1}(q)$ since the inverse of the CDF of a continuous random variable is well-defined, or 
+Abusing notation a bit, let $\p(z)$ denote the CDF of $Z$ under $\p$. The quantile $\psi$ is defined by $\p(\psi) = q$ so we can write $\Psi(\p) = \p^{-1}(q)$ since the inverse of the CDF of a continuous random variable is well-defined, or
 
 $$
 \Psi(\p) = \inf \{ z: \p(z) \ge q\}
-$$ 
+$$
 
-for general distributions. 
+for general distributions.
 
 Along the convex path $\p^{(\eps)} = \p + \eps(\mathbb 1^* - \p)$, the CDF is
 
 $$
 [\p + \eps(\mathbb 1^* - \p)](z) = \p(z) + \eps(\mathbb 1^*(z) - \p(z))
-$$ 
+$$
 
-where $\mathbb 1^*(z) = 1(z \ge z^*)$ is the CDF of a point mass at $z^*$. 
+where $\mathbb 1^*(z) = 1(z \ge z^*)$ is the CDF of a point mass at $z^*$.
 
 Technically this is not a legitimate path because $\mathbb 1^* \not\in \mathcal P$ and in fact the path is not differentiable, but we can interpret it as the limit of a sequence of differentiable paths. @ichimura2022influence has the details but we don't need to make a fully-rigorous argument: as with assuming a discrete model in other problems, using this path is just a tool to come up with a candidate gradient.
 
-
-:::{#fig-quantile-gradient}
+::: {#fig-quantile-gradient}
 ``` tikz
 \pgfplotsset{compat=1.18}
 
@@ -358,18 +361,19 @@ Technically this is not a legitimate path because $\mathbb 1^* \not\in \mathcal 
 \end{axis}
 \end{tikzpicture}
 ```
+
 CDFs along the convex path between some distribution $\p$ and the point mass $\mathbb 1^*$ at $z^*$.
 :::
 
 Let's find an explicit expression for $\psi_\eps = \Psi(\p_\eps)$. We'll break it down into two cases: $z^* \le \psi$ and $\psi < z^*$.
 
-First, let's put the point mass $z^*$ to the left of the quantile $\psi = \Psi(\p)$, as is shown in @fig-quantile-gradient. For any value $z < z^*$ to the left of the point mass, 
+First, let's put the point mass $z^*$ to the left of the quantile $\psi = \Psi(\p)$, as is shown in @fig-quantile-gradient. For any value $z < z^*$ to the left of the point mass,
 
 $$
 \p^{(\eps)}(z) = \p(z)(1-\eps) \le \p(z) < \p(z^*) \le p(\psi) = q
 $$
 
-Therefore the smallest value $z$ for which $\p^{(\eps)}(z)$ is larger than $q$ must be *at or to the right* of $z^*$. In other words, the quantile at the perturbed distribution $\psi_\eps$ is larger than or equal to the location of the point mass $z^*$. This is also visible in @fig-quantile-gradient. Therefore 
+Therefore the smallest value $z$ for which $\p^{(\eps)}(z)$ is larger than $q$ must be *at or to the right* of $z^*$. In other words, the quantile at the perturbed distribution $\psi_\eps$ is larger than or equal to the location of the point mass $z^*$. This is also visible in @fig-quantile-gradient. Therefore
 
 $$
 \begin{aligned}
@@ -382,7 +386,7 @@ $$
 \end{aligned}
 $$
 
-The last equality follows because $\p$ is continuous by assumption so the infimum $\ge q$ is attained at the above inverse. 
+The last equality follows because $\p$ is continuous by assumption so the infimum $\ge q$ is attained at the above inverse.
 
 Now we can take a pathwise derivative. By assumption $z^* < \psi = \p^{-1}(q) = \lim_{\eps \to 0} \p^{-1}\left(\frac{q-\eps}{1-\eps}\right)$. Therefore when $\eps$ is small enough, $\Psi(\p_\eps) = \p^{-1}\left(\frac{q-\eps}{1-\eps}\right)$ because this term is always larger than $z^*$ in the maximum above. By the chain rule,
 
@@ -395,13 +399,13 @@ $$
 
 where $p$ is the density of $\p$. You should convince yourself that $\frac{\dd \p^{-1}(z)}{\dd z} = \frac{1}{p(z)}$.
 
-Similar arguments to those above show that when the point mass is to the *right* of the quantile, 
+Similar arguments to those above show that when the point mass is to the *right* of the quantile,
 
 $$
 \Psi(\p_\eps) = \min\left\{ \p^{-1}\left(\frac{q}{1-\eps}\right),\ z^* \right\},
 $$
 
-and the pathwise derivative is 
+and the pathwise derivative is
 
 $$
 \ddeps \Psi(\p^{(\eps)}) = \frac{q}{p(q)}.
@@ -412,36 +416,35 @@ Combining the two cases gives the gradient
 $$
 \grad\Psi(z) = \frac{q - 1(z \le \psi)}{p(\psi)}
 $$
-
-:::
-
+::::
 
 Let's sum up everything we've learned about point mass contamination in one place:
 
 :::: callout-note
 # Point Mass Contamination
+
 ::: {#def-point-mass-contamination}
-To derive the canonical gradient for an estimand $\Psi$ in a nonparametric model via point mass contamination, evaluate
-$$
+To derive the canonical gradient for an estimand $\Psi$ in a nonparametric model via point mass contamination, evaluate $$
 \grad\Psi(z^*) = \ddeps \Psi\bigg(\p + \eps (\mathbb 1^*- \p) \bigg)
 $$
 
-where $\mathbb 1^*$ is a distribution that places all its probability mass at a point $z^*$. Usually this is easiest to do by temporarily assuming that the variables are all discrete. 
+where $\mathbb 1^*$ is a distribution that places all its probability mass at a point $z^*$. Usually this is easiest to do by temporarily assuming that the variables are all discrete.
 
-If desired, then verify that $\dot\Psi_\p(s) = \p s \grad\Psi$ for all $s \in \eltwopz$. Convex paths usually suffice to compute the pathwise derivatives. If the check fails due to indicator functions on possibly continous variables, it is likely the estimand is not pathwise differentiable in nonparametric models.
+If desired, then verify that $\dot\Psi_\p(s) = \p s \grad\Psi$ for all $s \in \eltwopz$. Convex paths usually suffice to compute the pathwise derivatives. If the check fails due to indicator functions on possibly continuous variables, it is likely the estimand is not pathwise differentiable in nonparametric models.
 :::
 ::::
 
 ## Gradient Rules
 
-Point mass contamination is a very useful strategy but the manual calculations required can quickly get out of hand for complex estimands. Even the algebra required to derive the gradient of the conditional mean in @exm-point-mass-cond-mean-EIF was a bit excessive. You can have a look at @hines-eif and @kennedy-review to review examples that are even more involved. Thankfully, the algebra can usually be simplified with the application of a few easy derivative rules. 
+Point mass contamination is a very useful strategy but the manual calculations required can quickly get out of hand for complex estimands. Even the algebra required to derive the gradient of the conditional mean in @exm-point-mass-cond-mean-EIF was a bit excessive. You can have a look at @hines-eif and @kennedy-review to review examples that are even more involved. Thankfully, the algebra can usually be simplified with the application of a few easy derivative rules.
 
 To make an analogy to calculus, you probably don't remember how to derive the fact that the derivative of the log is the inverse function or that the derivative of sine is cosine, etc. Derivatives are tricky to compute from scratch! Nonetheless, you're probably pretty comfortable computing the derivative of $\sin(\log(x) + x^2)$ because you've memorized a few key primitive derivatives and you know how to use the chain, product, and sum rules. Deriving gradients is the same way: coming up with the primitives can be tricky, but once you have them it's usually just a matter of combining them in the right way to get gradients for more complex estimands.
 
 :::: callout-note
 # Gradient Rules
+
 ::: {#thm-gradient-rules}
-Let $\Psi$ and $\Upsilon$ be two pathwise differentiable, scalar estimands defined on the same model and let $g: \reals \to \reals$ be a differentiable function and $c \in \reals$ some constant. Then 
+Let $\Psi$ and $\Upsilon$ be two pathwise differentiable, scalar estimands defined on the same model and let $g: \reals \to \reals$ be a differentiable function and $c \in \reals$ some constant. Then
 
 $$
 \begin{aligned}
@@ -451,14 +454,13 @@ $$
 .
 \end{aligned}
 $$
-
 :::
 ::::
 
 ::: {.callout-note appearance="minimal" collapse="true"}
 # Proof of Chain Rule
-For any score $s \in \tspace$, 
-$$
+
+For any score $s \in \tspace$, $$
 \dot{[g(\Psi)]}(s) \overset{\text{def}}= \ddeps g(\Psi(\p_\eps))
 $$
 
@@ -472,7 +474,7 @@ $$
 
 meaning that $\dot{[g(\Psi)]} = \grad_\Psi g \ \dot\Psi$ where $\grad_\Psi g = \left. \frac{\dd}{\dd \psi} \right|_{\psi = \Psi(\p)} g(\psi)$ is just the usual derivative of $g$ evaluated at the point $\Psi(\p)$. Clearly $\dot{[g(\Psi)]}(s)$ exists and is bounded and linear since $\grad_\Psi g$ exists and is a constant and $\dot\Psi(s)$ exists and is bounded and linear. Therefore the estimand $g(\Psi)$ is pathwise differentiable.
 
-The gradient of $g(\Psi)$ is the unique function $\grad g(\Phi)$ in the tangent space $\tspace$ that satisfies 
+The gradient of $g(\Psi)$ is the unique function $\grad g(\Phi)$ in the tangent space $\tspace$ that satisfies
 
 $$
 \dot{[g(\Psi)]}(s) = \p s \grad g(\Phi).
@@ -490,22 +492,28 @@ $$
 $$
 
 proving that $\grad_\Psi g \grad\Psi$ satisfies the condition required to be a gradient. Since $\grad\Psi \in \tspace$ and $\grad_\Psi g$ is a constant, this gradient is in the tangent space and is thus the canonical gradient.
-
 :::
 
-:::: {.callout-important appearance="minimal"} 
+:::: {.callout-important appearance="minimal"}
 ::: {#exr-gradient-rules}
 Using insights from the proof of the chain rule, prove the sum and product rules from @thm-gradient-rules.
 :::
 ::::
 
-These rules look exactly the same as the usual rules for derivatives because they follow from them. A gradient is simply a way of encoding the "slope" of a function in multiple dimensions. 
+These rules look exactly the same as the usual rules for derivatives because they follow from them. A gradient is simply a way of encoding the "slope" of a function in multiple dimensions.
 
 The gradient rules make it easy to derive gradients for complicated estimands, including those relevant in causal inference.
 
 ::: {#exm-ATE-gradient}
-# Gradient for the ATE in a nonparametric model
-Let $\Psi$ be the observable average treatment effect $\Psi(\p) = \E_\p[\E_\p[Y|A=1,X] - \E_\p[Y|A=0,X]]$. To derive the nonparametric gradient we'll use a combination of gradient rules and point mass contamination. First, notice that in a discrete model we can write 
+# Gradient of the ATE in a nonparametric model
+
+Let $\Psi$ be the observable average treatment effect $\Psi(\p) = \E_\p[\E_\p[Y|A=1,X] - \E_\p[Y|A=0,X]]$. To derive the nonparametric gradient we'll use a combination of gradient rules and point mass contamination. Abbreviate
+
+$$
+\mu(a,x) = \E_\p[Y|A=a,X=x]
+$$
+
+Notice that in a discrete model we can write
 
 $$
 \Psi = \underbrace{\sum_x \mu(1,x) \ p(x)}_{\Psi_1} - \underbrace{\sum_x \mu(0,x)\ p(x)}_{\Psi_0}  .
@@ -518,7 +526,7 @@ $$
 \big( y - \mu(\tilde a, \tilde x) \big).
 $$
 
-And, using the result from @exm-point-mass-density, 
+And, using the result from @exm-point-mass-density,
 
 $$
 \grad[ p(\tilde x)](x) = 1_{\tilde{x}}(x) - p(\tilde x).
@@ -567,31 +575,423 @@ $$
 \end{aligned}
 $$
 
-With a little bit of algebra, this can also be expressed as 
+With a little bit of algebra, this can also be expressed as
 
 $$
 \grad\Psi(y,a,x) = \left(\frac{a}{p(1 |  x)} - \frac{1-a}{p(0 |  x)}\right) \big( y - \mu(a,  x) \big) 
     + \big[\mu(1,x) - \mu(0,  x)\big] - \Psi,
 $$
 
-which you may recognize if you've read any literature about doubly robust or efficient estimation of the average treament effect.
+which you may recognize if you've read any literature about doubly robust or efficient estimation of the average treatment effect.
 
-In this example we used gradients of primitives like densities and conditional expectations at points that are not pathwise differentiable in general models. However, the ATE estimand *is* pathwise differentiable in general models. This is farily typical: you can often use gradients from non-differentiable estimands and combine them to derive gradients for differentiable estimands.
+In this example we used gradients of primitives like densities and conditional expectations at points that are not pathwise differentiable in general models. However, the ATE estimand *is* pathwise differentiable in general models. This is fairly typical: you can often use gradients from non-differentiable estimands and combine them to derive gradients for differentiable estimands.
 :::
 
 :::: {.callout-important appearance="minimal"}
 ::: {#exr-att-gradient}
 # Gradient of the ATT
+
 There are some cases in which the ATE cannot be identified, but the average effect on the *treated* (ATT) can. The ATT estimand is often identified by
 
 $$
 \Psi(\p) = \E_\p\left[\left(\E_\p[Y|A=1,X] - \E_\p[Y|A=0,X] \right) \big| A=1 \right].
 $$
 
-What is the canonical gradient for this estimand in a nonparametric model? 
+What is the canonical gradient for this estimand in a nonparametric model?
 
-*Hint: assume a discrete model and decompose the estimand similarly to the ATE, then use your result from @exr-point-mass-conditional-density on the term $p(x|A=1)$.*
+*Hint: assume a discrete model and decompose the estimand similarly to the ATE, then use your result from @exr-point-mass-conditional-density on the term* $p(x|A=1)$.
 :::
 ::::
 
 ## Projection
+
+Point mass contamination works for nonparametric models, but there are many interesting models that are restricted in some way for which we'd also like to derive the canonical gradient. In general, shrinking the model either reduces the tangent space or leaves it unchanged at each distribution, meaning that a function that was the canonical gradient in a larger model may not even be in the tangent space anymore.
+
+However, we already showed that the nonparametric gradient is still *a* gradient of any restricted model. Let $\model \subset \mathcal Q$ be the restricted model inside of a larger (possibly locally nonparametric) model. The set of directions one can move in from any point $\p \in \model$ to stay within the model is a subset of the directions one can move in to stay within the larger model $\mathcal Q$. In other words, the tangent set in the smaller model is a subset of the tangent set in the larger model. A gradient of an estimand $\Psi$ in $\model$ is any function $\phi$ that satisfies $\dot\Psi_\p(s) = \p s\phi$ for all $s \in \tspace$. The canonical gradient in the larger model, which we will notate $\nabla^{\mathring{\mathcal Q}}_\p \Psi$, satisfies this for all the scores in the larger tangent space $\dot{\mathring Q}$, which includes the smaller tangent space $\tspace$.
+
+Recall that any gradient relative to a tangent space $\tspace$ orthogonally decomposes into the sum of the canonical gradient relative to that tangent space and an element of its orthogonal complement. Therefore $\grad^\tspace_\p \Psi = \nabla^{\mathring{\mathcal Q}}_\p \Psi + v$ where $v \in \tspace^\perp$. This is rephrased in the following theorem, which, in principle, gives us a way to derive an influence function for a smaller model if we know it in a larger model.
+
+:::: callout-note
+# Gradient Projection
+
+::: {#thm-gradient-proj}
+$\model \subseteq \mathcal Q$ be models and let $\Psi$ be a parameter that is pathwise differentiable at $\p$ in the larger model $\mathcal Q$ with canonical gradient $\nabla^{\mathring{\mathcal Q}}_\p \Psi$. The canonical gradient of $\Psi$ at $\p$ in the smaller model $\model$ is the orthogonal projection of the canonical gradient in the larger model onto the tangent space $\tspace$ of the smaller model:
+
+$$
+\grad^{\tspace}_\p \Psi = \tspace\left[ \nabla^{\mathring{\mathcal Q}}_\p \Psi\right].
+$$
+:::
+::::
+
+::: {#fig-RAL-IF-set}
+``` tikz
+\tdplotsetmaincoords{70}{120}
+
+\def\planeAlpha{-45}
+\def\planeBeta{0}
+\def\planeGamma{45}
+
+\def\AxisL{0.3}
+\def\PlaneHalfX{1}
+\def\PlaneHalfY{1}
+
+\def\GradAngle{130}
+\def\NormalLen{0.7}
+\def\RA{0.08} % size of the little squares
+
+% gradient tip coords in rotated plane
+\pgfmathsetmacro{\gx}{0.65*\PlaneHalfX*cos(\GradAngle)}
+\pgfmathsetmacro{\gy}{0.65*\PlaneHalfX*sin(\GradAngle)}
+% gradient direction unit vector in plane coords
+\pgfmathsetmacro{\ux}{cos(\GradAngle)}
+\pgfmathsetmacro{\uy}{sin(\GradAngle)}
+
+\resizebox{13cm}{!}{
+\begin{tikzpicture}[tdplot_main_coords, scale=3.0, line cap=round, line join=round]
+
+  % main axes
+  \draw[->] (0,0,0) -- (\AxisL,0,0);
+  \draw[->] (0,0,0) -- (0,\AxisL,0);
+  \draw[->] (0,0,0) -- (0,0,\AxisL);
+
+  % rotated coords
+  \tdplotsetrotatedcoords{\planeAlpha}{\planeBeta}{\planeGamma}
+
+  % behind-plane segments
+  \begin{scope}[tdplot_rotated_coords]
+    \draw[<-, line width=1pt, orange!85!black, densely dashed, opacity=0.6]
+      (0,0,-\NormalLen) -- (0,0,0);
+    \draw[<-, line width=1pt, orange!85!black, densely dashed, opacity=0.6]
+      (\gx,\gy,-\NormalLen) -- (\gx,\gy,0);
+
+          % orange right-angle marker (base along ∇Ψ dir, up along z')
+    \path[fill=orange!50!white, fill opacity=0, draw=gray, line width=0.5pt]
+      (0,0,0)
+      -- ++({\RA*\ux},{\RA*\uy},0)
+      -- ++(0,0,\RA)
+      -- ++({-\RA*\ux},{-\RA*\uy},0)
+      -- cycle;
+
+          % purple right-angle marker (base along ∇Ψ dir, up along z')
+    \path[fill=purple!50!white, fill opacity=0, draw=gray, line width=0.5pt]
+      (\gx,\gy,0)
+      -- ++({-\RA*\ux},{-\RA*\uy},0)
+      -- ++(0,0,\RA)
+      -- ++({\RA*\ux},{\RA*\uy},0)
+      -- cycle;
+  \end{scope}
+
+\node[font=\huge, red, anchor=south east] at (0,-0.5, 0.3)
+      {$\mathring{\mathcal Q}$};
+
+  % the big plane
+  \begin{scope}[tdplot_rotated_coords, canvas is xy plane at z=0]
+    \begin{scope}[transparency group, opacity=0.30]
+      \shade[shading=axis, left color=white, right color=blue,
+             shading angle=\GradAngle]
+        (-\PlaneHalfX,-0.5*\PlaneHalfY) rectangle (\PlaneHalfX,\PlaneHalfY);
+    \end{scope}
+    \draw[black, line width=0.4pt]
+      (-\PlaneHalfX,-0.5*\PlaneHalfY) rectangle (\PlaneHalfX,\PlaneHalfY);
+
+    \node[font=\Large, blue, anchor=south east] at (0.8,-0.08)
+      {$\mathring{\mathcal P}$};
+    \draw[->, blue,  line width=0.7pt]
+      (0,0) -- (\gx,\gy);
+    \node[anchor=west, blue] at (\gx,\gy) {$\nabla^{\mathring{\mathcal P}}_\mathbb{P} \Psi$};
+  \end{scope}
+
+  % in-front parts + right-angle markers in ∇Ψ–Φ plane
+  \begin{scope}[tdplot_rotated_coords]
+    % orange normal
+    \draw[->, line width=1pt, orange!85!black]
+      (0,0,0) -- (0,0,\NormalLen) node[anchor=west, font=\large] {$\mathring{\mathcal P}^{\perp}$};
+
+    % purple affine line
+    \draw[->, line width=1pt, orange!85!black]
+      (\gx,\gy,0) -- (\gx,\gy,\NormalLen);
+
+    % purple vector from origin to a point on Phi
+    \pgfmathsetmacro{\PhiZ}{0.7*\NormalLen}
+    \draw[->, line width=0.65pt, red]
+      (0,0,0) -- (\gx,\gy,\PhiZ);
+    \fill[red] (\gx,\gy,\PhiZ) circle[radius=0.5pt];
+    \node[anchor=west, red] at (\gx,\gy,\PhiZ) {$\nabla^{\mathring{\mathcal Q}}_\mathbb{P} \Psi$};
+    \fill[blue] (\gx,\gy,0) circle[radius=0.5pt];
+  \end{scope}
+
+\end{tikzpicture}
+}
+```
+
+A visual representation of @thm-gradient-proj. The entirety of the depicted space is the tangent space $\mathring{\mathcal Q}$, with the tangent space $\tspace$ of the smaller model inside of it.
+:::
+
+@thm-gradient-proj illustrates why starting this chapter by discussing nonparametric models was a good idea: we often need the nonparametric gradient to derive the equivalent gradient in a restricted model. Admittedly, it's also possible to start with *any* gradient - the result of the theorem holds if $\nabla^{\mathring{\mathcal Q}}_\p \Psi$ is replaced with an arbitrary gradient of $\Psi$ in $\model$. But, in general, it's hard to know what is a gradient and what isn't: deriving the nonparametric canonical gradient is a surefire way to get a valid starting point.
+
+To use theorem, assuming we have a nonparametric gradient already, we need to figure out the tangent space for the model of interest and derive a method for projecting onto it. Given our results from @thm-conditional-scores and @thm-factored-tset, both steps are easy for models where one or more factors of the distribution is restricted but others are left nonparametrically unspecified.
+
+::: callout-warning
+You may want to go back and re-read @sec-factoring before proceeding.
+:::
+
+:::: {#exm-ate-rct-gradient}
+Let $(Y,A,X) \sim \p$ according to our standard outcome-treatment-covariate setup. Presume that we are working in a randomized trial so that our model $\model$ is distributions where we know $\p\{A=1|X\} = \frac{1}{2}$, but $\p\{Y|A,X\}$ and $\p\{X\}$ are allowed to be anything. Let's derive the canonical gradient of the average treatment effect within this randomized trial model by projecting the nonparametric canonical gradient onto the randomized trial tangent space.
+
+The first step is to find the tangent space. Let $\mathcal Q$ be the fully nonparametric model where none of the factors are known so $\mathring{\mathcal Q} = \eltwopz$. As worked out in @exm-rct-tspace, the tangent space of this model is
+
+$$
+\tspace = \mathring{\mathcal Q}^{(X)} \oplus \mathring{\mathcal Q}^{(Y|A,X)},
+$$
+
+where, according to @thm-factored-tset,
+
+$$
+\begin{aligned}
+\mathring{\mathcal Q}^{(X)} &= \{s \in \eltwopz: s(y,a,x) = s(x) \} \\
+\mathring{\mathcal Q}^{(Y|A,X)} &= \{s \in \eltwopz: \E[s(Y,A,X)|A,X] = 0\}.
+\end{aligned}
+$$
+
+The condition "$s(y,a,x) = s(x)$" is an abusive way of saying "all functions of $y,a,x$ that depend only on $x$".
+
+Now we can figure out how to project onto this tangent space. Because the two components above are orthogonal subspaces, we may project a function onto each subspace and sum the results to obtain the projection onto $\tspace$:
+
+$$
+\tspace s = \mathring{\mathcal Q}^{(X)}s + \mathring{\mathcal Q}^{(Y|A,X)} s,
+$$
+
+as is illustrated in @fig-rct-gradient.
+
+::: {#fig-rct-gradient}
+``` tikz
+\tdplotsetmaincoords{70}{120}
+
+\def\AxisL{0.3}
+\def\PlaneHalfX{1}
+\def\PlaneHalfY{1}
+
+\def\GradAngle{55}
+\def\NormalLen{1}
+\def\RA{0.08} % right-angle marker leg length
+
+% gradient tip coords in rotated plane
+\pgfmathsetmacro{\gx}{0.8*\PlaneHalfX*cos(\GradAngle)}
+\pgfmathsetmacro{\gy}{0.8*\PlaneHalfX*sin(\GradAngle)}
+\pgfmathsetmacro{\PhiZ}{0.8*\NormalLen}
+% gradient direction unit vector in plane coords
+\pgfmathsetmacro{\ux}{cos(\GradAngle)}
+\pgfmathsetmacro{\uy}{sin(\GradAngle)}
+
+\resizebox{12cm}{!}{
+\begin{tikzpicture}[tdplot_main_coords, scale=3.0, line cap=round, line join=round]
+
+  \node[font=\Large, black, anchor=south east] at (0, 1.2, 0.7) {$\mathring{\mathcal Q}$};
+
+  % behind-plane segments
+  \draw[<-, line width=0.5pt, black, densely dashed, opacity=0.6] (0,0,-0.7*\NormalLen) -- (0,0,0);
+  
+  % the big plane
+  \begin{scope}[canvas is xy plane at z=0]
+    \begin{scope}[transparency group, opacity=0.30]
+      \draw[fill=blue!20!white] (-\PlaneHalfX,-0.5*\PlaneHalfY) rectangle (\PlaneHalfX,\PlaneHalfY);
+    \end{scope}
+    \node[font=\Large, blue, anchor=south east] at (-0.45,0.8) {$\mathring{\mathcal P}$};
+  \end{scope}
+
+  % axes
+  \draw[->, line width=0.5pt, black]
+    (0,0,0) -- (0,0,0.7*\NormalLen) node[anchor=west] {$\mathring{\mathcal Q}^{(A|X)}$};
+  \draw[<->, line width=0.5pt, black]
+    (0,-0.5*\NormalLen,0) -- (0,\NormalLen,0) node[anchor=west] {$\mathring{\mathcal Q}^{(Y|A,X)}$};
+  \draw[<->, line width=0.5pt, black]
+    (-\NormalLen,0,0) -- (\NormalLen,0,0) node[anchor=east] {$\mathring{\mathcal Q}^{(X)}$};
+
+  % main vector ∇^Q Ψ
+  \draw[->, line width=1.2pt, orange]
+    (0,0,0) -- (\gx,\gy,\PhiZ);
+  \node[anchor=west, orange, font=\Large] at (\gx,\gy,\PhiZ) {$\nabla^{\mathring{\mathcal Q}}\Psi$};
+
+  % projections onto X and Y|A,X axes
+  \draw[->, line width=0.8pt, blue!60!white] (0,0,0) -- (\gx,0,0);
+  \node[orange, anchor=south east, font=\small] at (\gx,0,0) {};
+  \draw[->, line width=0.8pt, blue!60!white] (0,0,0) -- (0,\gy,0);
+  \node[orange, anchor=south west, font=\small] at (0,\gy,0) {};
+
+  % thin gray dotted connectors from s to axis projection tips
+  \draw[gray, densely dotted, very thin] (\gx,\gy,\PhiZ) -- (\gx,0,0);
+  \draw[gray, densely dotted, very thin] (\gx,\gy,\PhiZ) -- (0,\gy,0);
+
+  % ===== Blue planar projection ∇^P Ψ and its vertical residual =====
+  % planar projection point (onto z=0): (gx, gy, 0)
+  \draw[->, line width=1.2pt, blue]
+    (0,0,0) -- (\gx,\gy,0) node[anchor=north , blue, font=\Large] {$\nabla^{\mathring{\mathcal P}}\Psi$};
+  % vertical dotted drop from ∇^Q Ψ to its planar projection
+  \draw[gray, densely dotted, very thin] (\gx,\gy,\PhiZ) -- (\gx,\gy,0);
+
+  % right-angle marker between planar projection direction and vertical residual
+  \pgfmathsetmacro{\Lxy}{sqrt((\gx)^2+(\gy)^2)} % ||(gx,gy,0)||
+  \pgfmathsetmacro{\ax}{\gx/\Lxy}                % unit along planar projection
+  \pgfmathsetmacro{\ay}{\gy/\Lxy}
+  % residual unit is +Z: (0,0,1)
+  % interior corner: projection - axis_leg + residual_leg
+  \coordinate (CP) at ($(\gx,\gy,0) + (-\RA*\ax,-\RA*\ay,0) + (0,0,\RA)$);
+  % draw equal legs: +axis (toward projection tip) and -residual (toward projection tip)
+  \draw[gray, very thin] (CP) -- ($ (CP) + (\RA*\ax,\RA*\ay,0) $);
+  \draw[gray, very thin] (CP) -- ($ (CP) + (0,0,-\RA) $);
+
+  % ===== In-plane dotted connectors from planar projection to axis projections =====
+  \draw[gray, densely dotted, very thin] (\gx,\gy,0) -- (\gx,0,0);
+  \draw[gray, densely dotted, very thin] (\gx,\gy,0) -- (0,\gy,0);
+
+  % -------- Right-angle markers (inside) for the X and Y axis cases (as before) --------
+  % Helper norms for residual directions from axis projections
+  \pgfmathsetmacro{\Lx}{sqrt((\gy)^2+(\PhiZ)^2)}   % ||(0,gy,PhiZ)||
+  \pgfmathsetmacro{\Ly}{sqrt((\gx)^2+(\PhiZ)^2)}   % ||(gx,0,PhiZ)||
+
+  % Unit residual directions from each axis projection tip toward s
+  \pgfmathsetmacro{\rxX}{0}            \pgfmathsetmacro{\ryX}{\gy/\Lx}    \pgfmathsetmacro{\rzX}{\PhiZ/\Lx}
+  \pgfmathsetmacro{\rxY}{\gx/\Ly}      \pgfmathsetmacro{\ryY}{0}          \pgfmathsetmacro{\rzY}{\PhiZ/\Ly}
+
+  % Corner points: projection - axis_leg + residual_leg  (puts the square INSIDE)
+  \coordinate (CX) at ($(\gx,0,0) + (-\RA,0,0) + (\RA*\rxX,\RA*\ryX,\RA*\rzX)$);
+  \coordinate (CY) at ($(0,\gy,0) + (0,-\RA,0) + (\RA*\rxY,\RA*\ryY,\RA*\rzY)$);
+
+  % From the corner, draw equal legs: +axis (toward projection) and -residual (toward projection)
+  \draw[gray, very thin] (CX) -- ($ (CX) + (\RA,0,0) $);
+  \draw[gray, very thin] (CX) -- ($ (CX) - (\RA*\rxX,\RA*\ryX,\RA*\rzX) $);
+
+  \draw[gray, very thin] (CY) -- ($ (CY) + (0,\RA,0) $);
+  \draw[gray, very thin] (CY) -- ($ (CY) - (\RA*\rxY,\RA*\ryY,\RA*\rzY) $);
+
+\end{tikzpicture}
+}
+```
+
+Visual illustration of the projection of the nonparametric gradient of the average treatment effect onto the tangent space for a randomized trial model. The projection is found by first projecting onto the two orthogonal subspaces of the tangent space and summing the results.
+:::
+
+The formulae from @thm-conditional-scores give us a way to do the projections:
+
+$$
+\begin{aligned}
+\left[\mathring{\mathcal Q}^{(X)} s\right] (x) &= \E[s(Y,A,X)|X=x] \\
+\left[ \mathring{\mathcal Q}^{(Y|A,X)} s \right] (y,a,x) &= s(y,a,x) - \E[s(Y,A,X)|A=a,X=x]
+.
+\end{aligned}
+$$ {#eq-rct-projections}
+
+In @exm-ATE-gradient, we derived that the canonical gradient of the ATE in the nonparametric model is the difference of the gradients of the treatment-specific means
+
+$$
+\nabla^{\mathring{\mathcal Q}} \Psi = \nabla^{\mathring{\mathcal Q}} \Psi_1 - \nabla^{\mathring{\mathcal Q}} \Psi_0,
+$$
+
+where
+
+$$
+\nabla^{\mathring{\mathcal Q}} \Psi_a(Y,A,X) = \frac{1_a(A)}{\pi(a,X)} \big( Y - \mu(A, X) \big) 
+    + \mu(a,X) - \Psi_a
+$$
+
+and $\pi(a,x) = \p\{A=a|X=x\}$ and $\mu(a,x) = \E_\p[Y|A=a,X=x]$. By the linearity of projection (@thm-orth-proj-linear), we may therefore project each of these components and sum the projections, i.e.,
+
+$$
+\nabla^{\mathring{\mathcal P}} \Psi =
+\tspace \left[\nabla^{\mathring{\mathcal Q}} \Psi \right] = 
+\tspace \left[ \nabla^{\mathring{\mathcal Q}} \Psi_1 \right] - 
+\tspace \left[ \nabla^{\mathring{\mathcal Q}} \Psi_0 \right].
+$$
+
+Now we substitute $\nabla^{\mathring{\mathcal Q}} \Phi_a$ for $s$ in @eq-rct-projections and compute the projections. We'll need the conditional expectation
+
+$$
+\begin{aligned}
+\E\left[\nabla^{\mathring{\mathcal Q}} \Psi_a(Y,A,X) \middle| A, X \right]
+&= 
+\E\left[ 
+    \frac{1_a(A)}{\pi(a,X)} \big( Y - \mu(A, X) \big) 
+    + \mu(a,X) - \Psi_a
+\middle| A, X \right] 
+\\
+&=
+\mu(a,X) - \Psi_a
+.
+\end{aligned}
+$$ {#eq-a-x-proj-ate}
+
+We'll also need the equivalent conditional expectation conditioned just on $X$. But since $\E[f(Y,A,X)|X] = \E\big[\E[f(Y,A,X) |A,X] \big| X\big]$ by total expectation we can use the result above and save some work: $$
+\begin{aligned}
+\E\left[\nabla^{\mathring{\mathcal Q}} \Psi_a(Y,A,X) \middle| X \right]
+&= 
+\E\left[ 
+   \mu(a,X) - \Psi_a
+\middle| X \right] 
+\\
+&=
+\mu(a,X) - \Psi_a
+.
+\end{aligned}
+$$
+
+Therefore, plugging into @eq-rct-projections,
+
+$$
+\begin{aligned}
+\left[\mathring{\mathcal Q}^{(X)} \left(\nabla^{\mathring{\mathcal Q}} \Psi_a \right) \right] (x) &=  \mu(a,X) - \Psi_a \\
+\left[ \mathring{\mathcal Q}^{(Y|A,X)} \left(\nabla^{\mathring{\mathcal Q}} \Psi_a \right)\right] (y,a,x) &=  \frac{1_a(A)}{\pi(a,X)} \big( Y - \mu(A, X) \big) 
+,
+\end{aligned}
+$$
+
+These are just the two terms of the nonparametric gradient for the treatment-specific mean. To get the projection onto the sum of these two subspaces, which is the randomized trial tangent space $\tspace$, we sum up the results:
+
+$$
+\nabla^{\mathring{\mathcal P}} \Psi_a = \tspace \left(\nabla^{\mathring{\mathcal Q}} \Psi_a \right) = \nabla^{\mathring{\mathcal Q}} \Psi_a.
+$$
+
+Which of course implies the same for the gradient of the ATE, i.e. $\nabla^{\mathring{\mathcal P}} \Psi = \nabla^{\mathring{\mathcal Q}} \Psi$. This happens because the nonparametric gradient is already in the randomized trial tangent space: the projection does nothing to it.
+
+The implication is that the canonical gradient for the average treatment effect is the *same* in a randomized trial model as it is in a nonparametric model. In turn, this means that the norm of the gradient is the same regardless and thus there is no gain in asymptotic efficiency in estimating the ATE in a randomized trial vs. in an observational study. This is a remarkable fact that runs counter to our intuition: we typically expect that knowing more about the data-generating process should reduce our uncertainty. However, the example illustrates that there are some aspects of any data-generating process that are simply not relevant to particular estimands. To reduce uncertainty, the knowledge or assumptions must restrict the model in a way that is germane to the estimand.
+::::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+# Nonparametric Nuisance Tangent Space
+
+The concept of having aspects of a data-generating distribution that are not germane to a given estimand can be formalized. In @sec-classical-efficiency we introduced the idea of the nuisance tangent set. We can generalize the definition to nonparametric models: the (nonparametric) nuisance tangent set $\tspace_\eta$ of a pathwise differentiable parameter $\Psi$ at $\p$ is the set of all scores $s \in \eltwopz$ for which $\dot\Psi_\p = 0$. This is nothing but the null space of the pathwise derivative. The nuisance tangent set contains the directions in which the distribution can change without affecting the value of the estimand. For the randomized trial model, the nuisance tangent set is precisely $\mathring{\mathcal Q}^{(A|X)}$.
+
+At any $\p$, a model that is restricted only in the the nuisance tangent set will not affect the value of the canonical gradient relative to the nonparametric model.
+:::
+
+:::: {.callout-important appearance="minimal"}
+::: {#exr-rct-gradient-expectations}
+Prove the equality in the second line of @eq-rct-projections using the definitions of $\mu(a,x)$ and $\pi(a,x)$. This is purely a refresher exercise in conditional expectation, no knowledge of efficiency theory is required.
+:::
+::::
+
+:::: {.callout-important appearance="minimal"}
+::: {#exr-att-rct-gradient}
+In our usual $(Y,A,X)$ data structure with $A$ binary, let
+
+$$
+\Psi(\p) = \E_\p\left[\left(\E_\p[Y|A=1,X] - \E_\p[Y|A=0,X] \right) \big| A=1 \right]
+$$
+
+be the average treatment effect on the treated (ATT). In @exr-att-gradient you should have derived that the nonparametric gradient of this estimand is
+
+$$
+\begin{split}
+\grad\Psi(y,a,x)
+= \frac{a}{\p\{A=1\}}
+\left[(y-\mu(1,x))
+  - \frac{1-a}{a}\frac{\pi(1,x)}{\pi(0,x)}(y-\mu(0,x))\right] \\
+\qquad + \frac{a}{\p\{A=1\}}
+\big[\mu(1,x) - \mu(0,x) - \psi\big].
+\end{split}
+$$
+
+leaving off the $\p$ subscripts and letting $\psi = \Psi(\p)$, $\pi(a,x) = \p\{A=a|X=x\}$, and $\mu(a,x) = \E[Y|A=a,X=x]$ as usual.
+
+Let $\mathcal P$ be the randomized trial model we considered in @exm-rct-tspace and @exm-ate-rct-gradient. What is the canonical gradient of the ATT in the randomized trial model? Given your conclusion, does treatment randomization result in a gain of estimation efficiency for the ATT or not?
+:::
+::::
