@@ -17,13 +17,12 @@ project:
 from: markdown+emoji
 
 book:
-  title: "Introduction to Modern Causal Inference"
+  title: "Foundations of Modern Causal Inference"
   author: "Alejandro Schuler, Mark van der Laan"
   chapters:
     - index.qmd
     - part: 3-0-intro.qmd
       chapters:
-      - 3-1-AL.qmd
       - 3-2-regularity.qmd
       - 3-3-efficiency.qmd
       - 3-4-deriving-eifs.qmd

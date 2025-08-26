@@ -15,7 +15,7 @@ There are many methods to derive canonical gradients that are more or less natur
 
 ## Point Mass Contamination
 
-Point mass contamination (also referred to as the "Gateaux derivative" or "Hampel influence function" approach) is a easy-to-use strategy for deriving the gradient in nonparametric models (recall there is only one gradient in a nonparametric model). Nonparametric models are a good starting point becasue often we don't know anything useful about the data-generating distribution. Even if we do, nonparametric models are a reasonable fallback because we can still produce a good RAL estimator using the nonparametric EIF - it will just be less efficient than the efficient estimator under the restricted model that exploits our prior knowledge. We will also see in a few sections that knowing the nonparametric canonical gradient is useful when deriving the canonical gradient in restricted models.
+Point mass contamination (also referred to as the "Gateaux derivative" or "Hampel influence function" approach) is a easy-to-use strategy for deriving the gradient in nonparametric models (recall there is only one gradient in a nonparametric model). Nonparametric models are a good starting point because often we don't know anything useful about the data-generating distribution. Even if we do, nonparametric models are a reasonable fallback because we can still produce a good RAL estimator using the nonparametric EIF - it will just be less efficient than the efficient estimator under the restricted model that exploits our prior knowledge. We will also see in a few sections that knowing the nonparametric canonical gradient is useful when deriving the canonical gradient in restricted models.
 
 The idea of point mass contamination is to find paths in directions that make it easy to compute the value of the gradient at a given point $z$. We'll see that it suffices to take convex paths in the direction of distribution that is a point mass at a point $z$.
 
@@ -433,6 +433,14 @@ where $\mathbb 1^*$ is a distribution that places all its probability mass at a 
 If desired, then verify that $\dot\Psi_\p(s) = \p s \grad\Psi$ for all $s \in \eltwopz$. Convex paths usually suffice to compute the pathwise derivatives. If the check fails due to indicator functions on possibly continuous variables, it is likely the estimand is not pathwise differentiable in nonparametric models.
 :::
 ::::
+
+Point mass contamination is why influence functions are called influence functions. In the last chapter we proved that the efficient influence function $\phi^*$ is equal to the canonical gradient. So instead of writing the point mass contamination strategy with the gradient we can write it with the influence function
+
+$$
+\phi^*(z^*) = \ddeps \Psi(\p + \eps(\mathbb 1^* - \p).
+$$
+
+The pathwise derivative on the right-hand side measures the influence that an infinitesimally small point mass at $z^*$ exerts on the estimand (at $\p$). Thus the term "influence function". Another motivation for the term is that an asymptotically linear estimator is more sensitive to data points for which the value of the influence function is large. Because $\hat\Psi (\p_n) \approx \Psi(\p) + \frac{1}{n} \sum \phi^*(Z)$ in large samples, if we add a single data point $Z_{n+1}$ to a large-enough dataset, it will have the largest effect on the estimate if $\phi^*(Z_{n+1})$ is large. An estimator that has an influence function that takes many large values across its domain may be more sensitive to differences in datasets (e.g. outliers).
 
 ## Gradient Rules
 

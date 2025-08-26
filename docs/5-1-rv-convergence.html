@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Appendix A — Convergence – Introduction to Modern Causal Inference</title>
+<title>Appendix A — Convergence – Foundations of Modern Causal Inference</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -145,7 +145,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Introduction to Modern Causal Inference</a> 
+      <a href="./">Foundations of Modern Causal Inference</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -172,26 +172,20 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3-1-AL.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Asymptotic Linearity</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./3-2-regularity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Regularity</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3-3-efficiency.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3-4-deriving-eifs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
   </div>
 </li>
       </ul>
@@ -208,7 +202,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
   </div>
 </li>
       </ul>
@@ -597,7 +591,7 @@ U_n = o_{\mathbb P}(1) / r_n \equiv o_{\mathbb P}(1/r_n).
 \]</span> The last equality here defines what we mean when we say some variable <span class="math inline">\(U_n\)</span> is <span class="math inline">\(o_{\mathbb P}(1/r_n)\)</span>: namely that <span class="math inline">\(U_n\)</span> times <span class="math inline">\(r_n\)</span> converges in probability to 0. When this is the case we say that “<span class="math inline">\(U_n\)</span> converges at the <em>rate</em> <span class="math inline">\(1/r_n\)</span>”. Sometimes the sequence <span class="math inline">\(r_n\)</span> can also itself be a random variable <span class="math inline">\(R_n\)</span>, but the meaning is the same: if you see <span class="math inline">\(U_n = o_{\mathbb P}(1/R_n)\)</span> it means that <span class="math inline">\(U_n R_n \overset{\mathbb P}{\to} 0\)</span>.</p>
 <p>The intuition for “rates” is that often we’re interested in random variables that go to 0 so quickly that even if they get blown up by some increasing sequence, the product still goes to 0. For example, if some variable <span class="math inline">\(U_n\)</span> is <span class="math inline">\(o_{\mathbb P}(n^{-1/2})\)</span>, that means that <span class="math inline">\(\sqrt n U_n\)</span> still goes to 0, even though <span class="math inline">\(\sqrt n\)</span> is sequence that gets bigger and bigger. The rate <span class="math inline">\(r_n\)</span> (<span class="math inline">\(r_n = n^{1/2}\)</span> in this example) is the factor by which we can afford to “blow up” the sequence of variables <span class="math inline">\(U_n\)</span> and still have it converge to 0. Another way to think of it is that <span class="math inline">\(U_n = o_{\mathbb P}(1/r_n)\)</span> means that <span class="math inline">\(U_n &lt; C/r_n\)</span> with high probability (for some constant <span class="math inline">\(C\)</span> and large enough <span class="math inline">\(n\)</span>). Notice that this is a strict inequality: more on that later.</p>
 <div id="exm-littleo-densities" class="theorem example">
-<p><span class="theorem-title"><strong>Example A.4</strong></span> Let’s say that <span class="math inline">\(Z_n \sim \mathsf{N}(0, \sigma_n^2)\)</span> where <span class="math inline">\(\sigma_n = n^{-1/2}\)</span>. This is what we’d expect the large-sample sampling distribution of <span class="math inline">\(\hat\psi -\psi\)</span> to look like for any asymptotically linear estimator (see <a href="3-1-AL.html#def-AL" class="quarto-xref">Definition&nbsp;<span>1.1</span></a>).</p>
+<p><span class="theorem-title"><strong>Example A.4</strong></span> Let’s say that <span class="math inline">\(Z_n \sim \mathsf{N}(0, \sigma_n^2)\)</span> where <span class="math inline">\(\sigma_n = n^{-1/2}\)</span>. This is what we’d expect the large-sample sampling distribution of <span class="math inline">\(\hat\psi -\psi\)</span> to look like for any asymptotically linear estimator (see <a href="3-2-regularity.html#def-AL" class="quarto-xref">Definition&nbsp;<span>1.2</span></a>).</p>
 <p>Below, you can see some density plots for this sequence and how they change if they are blown up by different sequences. In the top two rows, the scaling factor is 1 (not increasing) or <span class="math inline">\(n^{1/4}\)</span> (increasing very slowly) and you can see that the densities are still narrowing as <span class="math inline">\(n\)</span> increases, albiet a little more slowly when blown up by <span class="math inline">\(n^{1/4}\)</span>. However, in the third row the sequence is blown up by the moderately increasing factor <span class="math inline">\(n^{1/2}\)</span>. You can see this is enough to perfectly “stabilize” the distribution: it neither narrows nor widens as <span class="math inline">\(n\)</span> increases. Lastly, in final row we’ve blown up <span class="math inline">\(Z_n\)</span> by the massive factor <span class="math inline">\(n\)</span> and you can see the distribution widens very quickly as <span class="math inline">\(n\)</span> increases.</p>
 <div id="fig-littleo-densities" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">

@@ -7,15 +7,174 @@ library(tidyverse)
 ```
 :::
 
-# Regularity {#sec-3-regularity}
+# Regularity and Asymptotic Linearity {#sec-3-regularity}
+
+In this chapter we'll think hard about what properties we want a "good" estimator to have. This will be crucial in developing a coherent theory of optimality. For a moment, let's forget about what we know and start from scratch. 
+
+Recall that an estimator $\hat\Psi$ is a function that takes a dataset (which we represent as an empirical distribution) $\p_n$ and returns a number. We use $\hat\psi = \hat\Psi(\p_n)$ to denote the *estimate*, which is a random variable. In practice, however, the term "estimator" is often used to refer to both the function $\hat\Psi$ and the random variable $\hat\psi$ interchangeably.
+
+Any estimator $\hat\Psi$ can be characterized by the distribution of $\hat\psi$ at each sample size $n$ from each distribution $\p \in \model$. What would we want these sampling distributions to look like relative to the true value $\psi = \Psi(\mathbb P)$?
+
+For one, it would be absurd to accept an estimator that, even if given infinite data, could not produce the right answer. To formalize this, we will say that our estimators should be *consistent*.
+
+:::: callout-note
+# Consistency
+::: {#def-consistency}
+An estimator $\hat\Psi$ is *consistent* for an estimand $\Psi$ at a distribution $\p$ if $\hat\Psi(\p_n) \dto \Psi(\p)$. 
+:::
+::::
+
+The sampling distribution of any consistent estimator looks more and more like a point mass at $\Psi(\p)$ as the number of samples increases. Any consistent estimator is also asymptotically unbiased: $\E[\hat\psi] \to \psi$.
+
+Let's go further. Given two (asymptotically) unbiased estimators, we should prefer the estimator with smaller variance. That may seem obvious, but it is also formally justified by expanding the total squared estimation error 
+
+$$
+\mathbb E[(\hat\psi - \psi)^2] = \mathbb (E[\hat\psi]-\psi)^2 + \mathbb V[\hat\psi]
+$$ 
+
+via adding and subtracting $\mathbb E[\hat\psi]$ inside the square. For unbiased estimators, minimizing variance minimizes error. 
+
+Therefore, from a performance standpoint, we want consistent estimators with small asymptotic variance. But from a practical standpoint we may want a little more. When we estimate a quantity we usually report confidence intervals or p-values alongside the point estimate. Those inferential statistics depend on having some estimate of the sampling variance of our estimator, which we usually construct based on a theoretical understanding of what that sampling distribution should be. Many commonly used estimators are known to be asymptotically normal, which greatly facilitates inference. Therefore another desired criterion might be that our estimator should have a theoretically-understood sampling distribution.
+
+Therefore a sensible list of desiderata for an estimator might be:
+
+1.  consistent
+2.  small asymptotic sampling variance
+3.  well-understood sampling distribution
+
+## Asymptotic Linearity {#sec-asymptotic-linearity}
+
+In light of these criteria, we will simplify the problem of finding an optimal estimator to finding an optimal estimator among those that are *asymptotically linear*. I'll lay out what that means, argue for why it's a reasonable restriction given our criteria above, and then explain why this restriction is helpful in characterizing optimality.
+
+:::: callout-note
+# Asymptotic Linearity
+
+::: {#def-AL}
+As before, assume that $Z_i$ are drawn IID from some distribution $\mathbb P$. An *asymptotically linear* estimator $\hat\psi$ is one that can be written like 
+
+$$
+\hat\psi = \psi + \frac{1}{n} \sum_i \phi(Z_i) + o_{\mathbb P}(n^{-1/2})
+$$
+
+for some mean-zero function $\phi$ with mean zero $\mathbb E[\phi(Z)]=0$ and finite variance $\mathbb V[\phi(Z)] < \infty$.
+:::
+::::
+
+::: callout-warning
+If you don't really understand what $o_{\mathbb P}(n^{-1/2})$ means in the definition above or why it implies the sample mean term "dominates" asymptotically, you should work through all of @sec-app-rv-convergence before returning here.
+:::
+
+The function $\phi$ is called the *influence function* of the estimator $\hat\psi$. A better name for it could be the "averaging transformation" of the data for a given estimator because once the data have been transformed by $\phi$, the estimator can be closely approximated by the truth plus a sample average of those transformed variables (which have mean zero). In large samples, sample averages of mean-zero variables behave like Gaussian random noise. It's somewhat remarkable that a huge number of very complicated estimators actually behave this way, as we will see shortly. By definition, every asymptotically linear estimator has an influence function that satisfies the above criteria: having one is what makes the estimator asymptotically linear.
+
+::: {#exm-AL-sample-mean}
+## Sample Mean
+
+The sample mean estimator is one example of an asymptotically linear estimator. To see that, write $\hat\psi = \frac{1}{n} \sum Z_i$ as 
+
+$$
+\hat\psi - \psi = \frac{1}{n} \sum \underbrace{(Z_i - \psi)}_{\phi(Z_i)} + 0.
+$$ 
+
+For this estimator, the remainder term is exactly 0, which clearly satisfies the requirement of being $o_{\mathbb P}(n^{-1/2})$.
+
+:::
+
+The influence function for an estimator also depends on the distribution of the data. For example, in the case of the sample mean we saw that $\phi(z) = z - \psi$ which we should really write as $\phi_{\mathbb P}(z) = z - \Psi(\mathbb P)$ to emphasize that this particular influence function depends on the mean of $Z$ *under the distribution* $\mathbb P$. Often we write something like $\phi_{\mathbb P}(z)$ or even $\phi(\mathbb P)(z)$ to mean the influence function of a given estimator *at a particular distribution* $\mathbb P$. But more often than not we leave the $\mathbb P$ part implicit to minimize notational clutter.
+
+In fact, it's more appropriate to say that an estimator is asymptotically linear *for some set of distributions*, i.e. within some model. But usually the restriction on the set of distributions is not particularly meaningful so we just say the estimator is "asymptotically linear (under regularity conditions)" and leave it at that.
+
+:::: {.callout-important appearance="simple"}
+::: {#exr-not-AL-sample-mean}
+Let's presume that $Z$ are drawn from a distribution $\mathbb P$ such that $\sqrt n \left(\frac{1}{n}\sum Z_i\right)$ diverges as a random variable (see @sec-app-conv-bigO for a definition of divergence of random variables). A "textbook example" of such a distribution is $\text{Pareto}(1,1.5)$, but this happens for many "fat-tailed" distributions. You can ask your favorite large language model if you want to see a proof.
+
+Why does this tell you that the sample mean cannot be asymptotically linear at $\mathbb P$?
+
+The point of this example isn't to convince you that the sample mean isn't asymptotically linear (it is for essentially all distributions we care about), it's just to cement the idea that asymptotic linearity of an estimator technically depends on what distributions you're talking about and to better understand the definition by considering a counterexample.
+:::
+::::
+
+It's totally possible for two different estimators to have the same influence function (at each distribution). This is because two different algorithms can turn out to behave very similarly as the sample size increases. For example, we could construct a very silly alternative estimator for the mean by adding $1/n$ to our sample mean estimate. This extra term is certainly converging to zero at better than a $\sqrt{n}$ rate so it is negligible and the influence function for our alternative estimator is the same as for the sample mean. We'll also see the idea of two different estimators sharing an influence function come up later when we discuss different strategies for building optimal estimators: the estimators we get from using each strategy may be different, but they all have the same influence function and therefore all behave similarly in large-enough samples.
+
+At this point you may be worried about how you can take your favorite estimator and derive its influence function. It's often possible to prove an estimator is aymptotically linear, but in this book we actually won't need to do that. We're going to go the other direction: starting from the estimand, we're going to come up with a way to determine the "best" possible influence function and then *construct* an estimator around it.
+
+### Benefits of AL Estimators {#sec-AL-benefits}
+
+Given our desiderata, asymptotically linear (AL) estimators are a very sensible class of estimators to restrict ourselves to. For one, AL estimators are guaranteed to be consistent. This is guaranteed by the fact that any influence function $\phi$ is mean-zero so the associated sample mean converges to 0 by the law of large numbers.
+
+:::: {.callout-important appearance="minimal"}
+::: {#exr-AL-zero-estimator}
+Consider the silly estimator $\hat\psi = 0$ when attempting to estimate the population mean $\mathbb E[Z]$ in a model containing all possible finite-mean distributions of $Z$. Is this estimator asymptotically linear across the entire model? Why or why not?
+:::
+::::
+
+Another related benefit of asymptotically linear estimators is that they satisfy our practical requirement of understanding the sampling distribution. By the central limit theorem, $\psi + \mathbb P_n \phi$ looks more and more like $\psi + \norm(0, \mathbb V[\phi(Z)]/n)$ as the sample size increases. The remaining term $o_{\mathbb P}(n^{-1/2})$ is negligible in comparison (by definition). More often you will see this written formally as 
+$$
+\sqrt{n} (\hat\psi - \psi) \rightsquigarrow \norm(0, \sigma_*^2)
+$$
+
+where $\sigma_*^2 = \mathbb V[\phi(Z)] = \mathbb P \phi^2$ (since $\phi$ has mean zero).
+
+We call $\sigma^2_*$ the *asymptotic variance* of our estimator. You should think of $\hat\psi - \psi$ as a normal distribution that is shrinking towards a spike at $0$: its variance is decreasing at a rate of $n^{-1/2}$ by the central limit theorem (see @exm-stochastic-bounding-clt in @sec-app-conv-bigO). We therefore "stabilize" the shrinking distribution of $\hat\psi - \psi$ by "blowing it up" by a factor of $\sqrt n$. The asymptotic variance $\sigma^2_*$ is the variance of this stable normal distribution (compare rows 1 and 3 of the figure in @fig-littleo-densities). It is *not* the limit of the sampling variance $\mathbb V[\hat\psi]$ as a function of $n$ because that limit is always zero on account of the fact that the estimate is converging to the estimand.
+
+At any finite sample, the standard error of the estimate is roughly given by $\sigma = \frac{\sigma_*}{\sqrt n}$. Since the asymptotic variance is given by the variance of the influence function, understanding the influence function is all we need to understand the sampling distribution.
+
+Constructing asymptotically valid confidence intervals and p-values for any asymptotically linear estimator is therefore as simple as estimating $\sigma^2_* = \mathbb P \phi^2$. If we can construct an estimate $\hat\sigma_*$ that is close to $\sigma_*$ for large-enough $n$ then we can estimate the standard error of our estimate with $\hat\sigma = \frac{\sigma_*}{\sqrt n}$ we will get asymptotic 95% coverage of $\psi$ with an interval of the form $[\hat\psi - 2\hat\sigma/\sqrt{n}, \hat\psi + 2\hat\sigma/\sqrt{n}]$ (this is a "Wald-type" confidence interval).
+
+:::: {.callout-important appearance="minimal"}
+::: {#exr-wald-interval}
+# Wald Interval
+
+a.  Assuming that $\sqrt{n} (\hat\psi - \psi) \sim \norm(0, \sigma^2)$, prove that $\hat{\mathbf C} = [\hat\psi \pm 2\sigma/\sqrt{n}]$ is a 95% confidence interval, i.e. $\mathbb P \{\psi \in \hat{\mathbf C}\} > 0.95$.
+b.  Assuming asymptotic linearity, how does our actual knowledge of the sampling distribution of $\hat\psi$ compare to what we assumed in part (a)?
+c.  In the real world our confidence interval is $[\hat\psi \pm 2\hat\sigma/\sqrt{n}]$. How does this compare to what we used in part (a)?
+d.  Given (b) and (c), do you think the real-world confidence interval will generally have better-than 95% coverage for all sample sizes?
+
+:::
+::::
+
+::: {#exm-sample-mean-var-IF}
+## Variance of the sample mean
+
+In the case of the sample mean estimator $\hat\psi = \frac{1}{n} \sum Z_i$ we previously saw the influence function was $\phi(z) = z - \psi$. A plug-in estiamate of $\mathbb P\phi^2$ is therefore given by $\frac{1}{n} \sum \hat\phi(Z_i)^2 = \frac{1}{n} \sum (Z_i - \hat\phi)^2$
+:::
+
+::: {#exm-ols-var-IF}
+## Variance of ordinary least squares coefficients
+
+Let's say we're trying to estimate the regression coefficients in a linear model. Let $(Y,X) \sim \mathbb P$ with $X \in \mathbb R^d$. Let $\beta_0 = \text{argmin}_\beta \mathbb E\left[(Y - X\beta)^2\right]$ be the coefficients that minimize the population mean squared error. This will be our estimand. We haven't assumed the $Y$ vs. $X$ relationship is truly linear, we're just estimating the best linear approximation. As an estimator we will use the ordinary least squares (OLS) estimate $\hat\beta = \text{argmin}_\beta \frac{1}{n} \sum \left[(Y_i - X_i\beta)^2\right]$.
+
+It is a well-known result that the OLS estimator is asymptotically linear under mild regularity conditions. For one proof of this see chapter 5 of Asymptotic Statistics (but it's not important at the moment). The influence function is 
+
+$$
+\phi(x,y) = \mathbb E[XX^\top]^{-1} x(y - x^\top \beta)
+$$
+
+You may recognize this because it's where the "sandwich" estimator (also known as "Huber-White" or "robust" estimator) of the standard error comes from. The (asymptotic) sandwich standard error is a plug-in estimate for the quantity $\mathbb E[XX^\top]^{-1} \mathbb E[X(Y - X^\top \beta)^2 X^T] \mathbb E[XX^\top]^{-1}$, which is nothing other than $\mathbb P \phi\phi^\top$, i.e. the equivalent of $\mathbb P \phi^2$ when $\phi$ is a vector-valued function (as is the case when the estimand is a vector).
+
+In this example the dependence on $\mathbb P$ is through the expectation $\mathbb E[XX^\top] = \mathbb E_{\mathbb P}[XX^\top]$ and the true best regression coefficients $\beta = \beta_{\mathbb P}$. As usual, I've left off the explicit dependence on $\mathbb P$ in the notation.
+
+The interesting thing about this example is that computing the estimate involves a fairly complex algorithm: either gradient descent or a series of matrix multiplications and inversions. It's not a "simple" estimator like the sample mean. Nonetheless, in large enough samples, the estimator behaves as if if were just a sample mean of a transformation of the data.
+
+OLS is a special case of a huge class of estimators called M-estimators. Others include sample quantiles, robust regressions, and many others. All of these are asymptotically linear under mild regularity conditions.
+:::
+
+In our list of desired characteristics we also wrote that we wanted estimators to have as small a variance as possible. Asymptotic linearity by itself doesn't guarantee small variance, but it does give us a very easy way to compare two estimators. If we have estimators $\hat\psi_1$ and $\hat\psi_2$ which are both asymptotically linear, then all we need to know to decide which one is better (in large-enough samples) is to compare their asymptotic variances which are given by $\mathbb P \phi_1^2$ and $\mathbb P \phi_2^2$.
+
+You may also recognize $\mathbb P \phi^2$ as the squared $\mathcal L_2(\mathbb P)$ norm of $\phi$. Therefore we are comparing $\|\phi_1\|$ to $\|\phi_2\|$. In other words, the better estimator is whichever has the "smaller" influence function! In the following sections this is the key insight we will use to construct optimal estimators.
+
+::: callout-warning
+If you are unfamiliar with $\mathcal L_2$ spaces or don't understand why $\mathbb P \phi^2$ is a norm, you should work through through @sec-app-L2-vectors and @sec-app-L2-L2 now.
+:::
+
+## Asymptotic Linearity Is Not Enough
 
 While restricting ourselves to asymptotically linear estimators is a good start, unfortunately it is not quite enough to develop a sensible theory of optimality. In this section we'll first argue for why a further restriction is not only sensible but useful. Then we will come up with and refine a definition that suits our needs.
 
-## Hodges' Estimator
-
 Let's presume we're interested in estimating the mean $\psi = \Psi(\mathbb P) = \mathbb E_{\mathbb P}[Z]$ from $n$ IID draws of a scalar random variable $Z$ that we know is normally distributed with standard deviation $\sigma=1$. Our statistical model is therefore $\mathcal P = \{\norm(\psi, 1): \psi \in \mathbb R\}$, a one-dimensional parametric model. Obviously this is a contrived example where we know a lot about $Z$, but the point is to show that even in this extremely favorable setting we can be led astray by mathematical arguments that put our attention in the wrong place.
 
-We'll consider two estimators: $$
+We'll consider two estimators: 
+
+$$
 \begin{aligned}
 \hat\psi &= \frac{1}{n}\sum Z_i \\
 \tilde\psi &= 
@@ -28,7 +187,9 @@ $$
 
 The first estimator is just the usual sample mean. The second is what is called *Hodges' estimator*. When the sample is large, Hodges' estimator almost always returns the sample mean. But when the sample is small, Hodges' estimator often ignores the sample mean and returns zero.
 
-Let's compare the asymptotic sampling distributions of the two. Since $Z$ are normal random variables with unit variance and mean $\psi$, we know that the sample mean has the exact distribution $\norm(\psi, 1 / n)$. Thus it follows that $$
+Let's compare the asymptotic sampling distributions of the two. Since $Z$ are normal random variables with unit variance and mean $\psi$, we know that the sample mean has the exact distribution $\norm(\psi, 1 / n)$. Thus it follows that 
+
+$$
 \sqrt{n}(\hat\psi - \psi) \rightsquigarrow \norm(0, 1)
 $$
 
@@ -53,7 +214,9 @@ Let's prove that $\sqrt{n}(\tilde\psi - \psi) \rightsquigarrow \norm(0, 0)$ when
 
 Since convergence in distribution and in probability are equivalent when the limit is a point mass (see @sec-app-rv-convergence), the statement is the same as saying that $\sqrt{n}(\tilde\psi - 0) \overset{\mathbb P}{\to} 0$. That's what we will prove.
 
-We can write Hodges' estimator as $\tilde \psi = 1(|\hat\psi| > n^{-1/4}) \hat\psi$. Then, for any $\epsilon > 0$, $$
+We can write Hodges' estimator as $\tilde \psi = 1(|\hat\psi| > n^{-1/4}) \hat\psi$. Then, for any $\epsilon > 0$, 
+
+$$
 \begin{aligned}
 \mathbb P\left\{|\sqrt n \tilde \psi| > \epsilon\right\} 
 &= \mathbb P\left\{1(|\hat\psi| > n^{-1/4})|\hat\psi| > \epsilon/\sqrt n\right\} \\
@@ -63,7 +226,9 @@ We can write Hodges' estimator as $\tilde \psi = 1(|\hat\psi| > n^{-1/4}) \hat\p
 \end{aligned}
 $$
 
-by definitions and total probability. We can bound the last term by applying Chebyshev's inequality to the distribution of $\hat\psi$ and using the probability threshold $t=n^{-1/2}$: $$
+by definitions and total probability. We can bound the last term by applying Chebyshev's inequality to the distribution of $\hat\psi$ and using the probability threshold $t=n^{-1/2}$: 
+
+$$
 \mathbb P\{|\hat\psi|>n^{-1/4}\} = \mathbb P \left\{ |\hat\psi| - \mathbb E[\hat\psi] > n^{-1/4} \right\} \overset{\text{Cheb.}}\le \frac{\mathbb V[\hat\psi]}{n^{-1/2}} = \frac{1}{\sqrt{n}} \to 0
 $$
 
@@ -215,15 +380,21 @@ We will start with a toy definition of regularity that we will build up to the f
 # Regularity in the Normal Location Model
 
 ::: {#def-regularity-1}
-An estimator $\hat\Psi$ is *regular* at the point $\p = \norm(0,1)$ in the model $\model = \{\norm(\psi, 1):\psi \in \reals\}$ if there is a single, fixed distribution $\mathbb D$ such that $$
+An estimator $\hat\Psi$ is *regular* at the point $\p = \norm(0,1)$ in the model $\model = \{\norm(\psi, 1):\psi \in \reals\}$ if there is a single, fixed distribution $\mathbb D$ such that 
+
+$$
 \sqrt{n}\left( \hat\Psi(\p^{(n)}_n) - \Psi(\p^{(n)}) \right) \rightsquigarrow \mathbb D
-$$ for any sequence of distributions $\p^{(n)} = \norm\left(\psi_n, 1\right)$ such that $\sqrt{n} \psi_n$ is bounded.
+$$ 
+
+for any sequence of distributions $\p^{(n)} = \norm\left(\psi_n, 1\right)$ such that $\sqrt{n} \psi_n$ is bounded.
 :::
 ::::
 
 First, let's clarify the notation. Since $\p_n$ is used to denote the (random) empirical distribution of $n$ draws from a distribution $\p$, I'm using superscripts to denote a sequence of (fixed) distributions $\p^{(1)}, \p^{(2)} \dots \p^{(n)} \dots$. In this convention, $\p^{(m)}_n$ would be the empirical distribution of $n$ draws from distribution $\p^{(m)}$.
 
-Before understanding the definition above, let's break down the following standard asymptotic statement which says that $\hat\psi_n = \hat\Psi(\p^{(n)})$ is a $\sqrt{n}$-asymptotically normal estimate of $\psi = \Psi(\p)$: $$
+Before understanding the definition above, let's break down the following standard asymptotic statement which says that $\hat\psi_n = \hat\Psi(\p^{(n)})$ is a $\sqrt{n}$-asymptotically normal estimate of $\psi = \Psi(\p)$: 
+
+$$
 \sqrt{n}\left( \hat\Psi(\p_n) - \Psi(\p) \right) \rightsquigarrow \norm(0, 1)
 $$
 
@@ -236,13 +407,15 @@ Concretely, we start at $\p^{(1)} = \norm(\psi_1,1)$. We draw many datasets of s
 ![The asymptotics in the definition of regularity.](assets/regularity-1.jpg){#fig-regularity-1}
 
 :::: {.callout-important appearance="minimal"}
-<div>
 
-Draw a figure based on @fig-regularity-1 the depicts the standard asymptotic statement $$
+Draw a figure based on @fig-regularity-1 the depicts the standard asymptotic statement 
+
+$$
 \sqrt{n}\left( \hat\Psi(\p_n) - \Psi(\p) \right) \rightsquigarrow \norm(0, 1).
-$$ What parts of @fig-regularity-1 do you have to modify to accomplish this?
+$$ 
 
-</div>
+What parts of @fig-regularity-1 do you have to modify to accomplish this?
+
 ::::
 
 To summarize: the process in the definition of regularity is the same process as in the standard $\sqrt{n}$ asymptotic convergence statement. The only difference is that we're now allowed to shift the data generating distribution under the estimator and estimand rather than leaving it fixed. In the definition of regularity, however, the right-hand side must always be the same fixed distribution $\mathbb D$. In other words, no matter how we move the data-generating distribution around in a shrinking neighborhood of $\p$ while we increase the sample size, the estimator behaves more and more like it would if we stood still at $\p$. The fact that the limit is the same regardless of whether we're moving the ground truth distribution around (as long as it "converges quickly" to the true distribution) is the key to regularity. Satisfying that property is what forces our estimator to have (locally) uniformly good convergence across distributions and prevents the bad behavior of Hodges' estimator.
@@ -261,11 +434,19 @@ c)  Recall that pointwise convergence of the CDFs is the definition of convergen
 
 :::: {.callout-important appearance="minimal"}
 ::: {#exr-regularity-hodges}
-In a derivation above we proved that Hodges' estimator has excellent asymptotic properties if we stand still at $\p^{(n)} = \norm(0,1)$: $$
+In a derivation above we proved that Hodges' estimator has excellent asymptotic properties if we stand still at $\p^{(n)} = \norm(0,1)$: 
+
+$$
 \sqrt{n}\left( \tilde\Psi(\p_n^{(n)}) - \Psi(\p^{(n)}) \right) \rightsquigarrow \norm(0,0).
-$$ Now we'll prove that Hodges' estimator is *not* a regular estimator according to this definition by showing that $$
+$$ 
+
+Now we'll prove that Hodges' estimator is *not* a regular estimator according to this definition by showing that 
+
+$$
 \sqrt{n}\left( \tilde\Psi(\p_n^{(n)}) - \Psi(\p^{(n)}) \right) \rightsquigarrow \norm(0,1)
-$$ if we move toward the true distribution like $\p^{(n)} = \norm(\frac{1}{n},1)$.
+$$ 
+
+if we move toward the true distribution like $\p^{(n)} = \norm(\frac{1}{n},1)$.
 
 a)  Presume that $\hat\psi \sim \norm(\mu,\sigma^2)$. Given that $\tilde \psi = 1(|\hat\psi| > n^{-1/4}) \hat\psi$, what is the CDF of Hodges' estimate $\tilde\psi$ for any value of $n$? It may help you to draw a picture of the "density function" for Hodges' estimator for some fixed $n$ (relative to the normal it has a spike at 0 comprised of the mass that was in the tails $|z|>n^{-1/4}$).
 b)  Using your answer from part (a), what is the exact distribution of $\sqrt{n}\left( \tilde\Psi(\p_n^{(n)}) - \Psi(\p^{(n)}) \right)$ at any given $n$, assuming $\p^{(n)} = \norm(\frac{1}{n}, 1)$? What is the CDF $F_n(z)$ of this distribution at each $n$?
@@ -286,11 +467,18 @@ For the remainder of this section we'll work within models where every distribut
 The first step to imposing a structure that will be useful to us is to think in terms of density functions rather than distributions (measures). If all the elements of the model have densities, we can think of the model as a collection of densities. Since densities are functions, we might be tempted to say they are elements of $\eltwo$ because then everything is great: we have lengths, we have angles, we have all sorts of useful identities and relationships. But unfortunately that's not immediately possible. Recall @def-L2 that $\eltwo$ only includes functions that are square-integrable (have finite norm). However, there are some density functions for which $\int p(z) \dd z$ may blow up.
 
 ::: {#exm-non-L2-density}
-The function $p(z) = \frac{1(0 < z <1)}{2\sqrt z}$ is a valid density because it is positive and integrates to one: $$
+The function $p(z) = \frac{1(0 < z <1)}{2\sqrt z}$ is a valid density because it is positive and integrates to one: 
+
+$$
 \frac{1}{2}\int_0^1 \frac{\dd z}{\sqrt z} = 1.
-$$ But it is not square-integrable: the integral of its square is $$
+$$ 
+
+But it is not square-integrable: the integral of its square is 
+
+$$
 \frac{1}{4} \int_0^1 \frac{\dd z}{z} = \infty.
 $$
+
 :::
 
 ::: callout-warning
@@ -357,7 +545,6 @@ Thankfully, this is an easy problem to fix! Instead of working with the density 
   \end{axis}
 \end{tikzpicture}
 }
-\end{document}
 ```
 
 The model $\sqrt{\model}$ embedded in $\eltwo$. In the drawing $\eltwo$ is represented as 3D space but this is not meant to be literal- this is a 3D cartoon representing infinite-dimensional space. The model is represented as the visible quarter section of the unit sphere. That part of the unit sphere represents all densities. If the model were restricted in some way (e.g. all zero-mean distributions), the model could be visualized as some subset of the shown surface.
@@ -423,7 +610,9 @@ For example, we might impose that paths be continuous in the sense that we would
 
 ### Scores
 
-Given a function $f: \reals \to \reals$, recall that its derivative at the point $x=0$ (if it exists) is defined as $\dot f_0 = \underset{x\to 0}{\lim} \frac{f(0) - f(x)}{x}$ . Another way to write this is that there exists a number $\dot f_0$ such that $$
+Given a function $f: \reals \to \reals$, recall that its derivative at the point $x=0$ (if it exists) is defined as $\dot f_0 = \underset{x\to 0}{\lim} \frac{f(0) - f(x)}{x}$ . Another way to write this is that there exists a number $\dot f_0$ such that 
+
+$$
 \left| \frac{f(0) - f(x)}{x} - \dot f_0 \right| \overset{x \to 0}{\to} 0
 .
 $$
@@ -445,26 +634,40 @@ Paths, as we have defined them (@def-path), can be thought of as functions mappi
 # Differentiable in Quadratic Mean (DQM), Score Function
 
 ::: {#def-score}
-A path $\model_\eps$ is *differentiable in quadratic mean* (or just *differentiable* for short) at $\eps = 0$ if there is a function $\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}} \in \eltwo$ such that $$
+A path $\model_\eps$ is *differentiable in quadratic mean* (or just *differentiable* for short) at $\eps = 0$ if there is a function $\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}} \in \eltwo$ such that 
+
+$$
 \left\|
   \frac{\sqrt{p_\eps} - \sqrt{p_0}}{\eps}  
   -  \overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}}
 \right\|_{\eltwo}
 \overset{\eps \to 0}{\to} 0.
-$$ We define $s = 2\frac{\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}}}{\sqrt{p_0}}$ to be the *score function* of the path $\model_\eps$ at the point $\eps=0$. Often the score can be written as the derivative of the log-likelihood evaluated at zero: $$
+$$
+
+We define $s = 2\frac{\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}}}{\sqrt{p_0}}$ to be the *score function* of the path $\model_\eps$ at the point $\eps=0$. Often the score can be written as the derivative of the log-likelihood evaluated at zero: 
+
+$$
 s(z) = \left. \frac{\dd}{\dd \eps} \right|_{\eps=0} \log p_\eps(z).
-$$ The score function for a path is always in $\eltwo(\p_0)$ and always mean-zero at $\p_0$ in the sense that $\p_0 s = \int s(z)\ p_0(z) \dd z = 0$.
+$$ 
+
+The score function for a path is always in $\eltwo(\p_0)$ and always mean-zero at $\p_0$ in the sense that $\p_0 s = \int s(z)\ p_0(z) \dd z = 0$.
 :::
 ::::
 
-Sometimes you may also see the DQM condition written out more explicitly and with the score function, e.g. $$
+Sometimes you may also see the DQM condition written out more explicitly and with the score function, e.g. 
+
+$$
 \int \left[ \frac{\sqrt{p_\eps(z)} - \sqrt{p_0(z)}}{\eps}  -  \frac{1}{2} s(z) \sqrt{p_0(z)} \right]^2 \dd z  \overset{\eps \to 0}{\to} 0.
-$$ This is equivalent but in my opinion makes it opaque that $\frac{1}{2} s(z) \sqrt{p_0(z)}$ just represents the $\reals \to \eltwo$ derivative of $\eps \mapsto \sqrt{p_\eps}$.
+$$ 
+
+This is equivalent but in my opinion makes it opaque that $\frac{1}{2} s(z) \sqrt{p_0(z)}$ just represents the $\reals \to \eltwo$ derivative of $\eps \mapsto \sqrt{p_\eps}$.
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 # Proof of Claims about Scores
 
-**Proof that** $s \in \eltwo(\p_0)$: By definition, $\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}} \in \eltwo$ and $\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}} = \frac{1}{2} s \sqrt{p_0}$. Then $$ 
+**Proof that** $s \in \eltwo(\p_0)$: By definition, $\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}} \in \eltwo$ and $\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}} = \frac{1}{2} s \sqrt{p_0}$. Then 
+
+$$ 
 \|s\|^2_{\eltwo(\p_0)} 
 = \int s^2(z) p_0(z) \dd z 
 = \int \left( \overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}}(z) \right)^2 \dd z 
@@ -477,16 +680,24 @@ $$
 
 The definition of DQM is the same as saying that $\eps^{-1}(\sqrt{p_\eps} - \sqrt{p_0}) \overset{\eltwo}\to \frac{1}{2} s\sqrt{p_0}$ as $\eps \to 0$ in the sense of @def-metric-conv. Since $\eps^{-1}$ diverges, there is no way for that series to converge unless $\sqrt{p_\eps} \overset{\eps \to 0}\to \sqrt{p_0}$. This is a rather formal way of saying that if the path $\eps \mapsto \sqrt{p_\eps}$ is differentiable, then it certainly must be continuous since that is a weaker condition.
 
-As a conseqeunce of that continuity, $\sqrt{p_\eps} + \sqrt{p_0} \to 2\sqrt{p_0}$. Now we write $$
+As a conseqeunce of that continuity, $\sqrt{p_\eps} + \sqrt{p_0} \to 2\sqrt{p_0}$. Now we write 
+
+$$
 \p_0 s = \int s(z)\ p_0(z) \dd z 
 = \int \left( \frac{1}{2}s(z) \sqrt{p_0(z)} \right) \left( 2\sqrt{p_0(z)} \right) \dd z,
-$$ i.e. the $\eltwo$ inner product between $\frac{1}{2}s \sqrt{p_0}$ and $2\sqrt{p_0}$. Notice that these two arguments are the limits of $\eps^{-1}(\sqrt{p_\eps} - \sqrt{p_0})$ and $\sqrt{p_\eps} + \sqrt{p_0}$ respectively because of what we showed above. Since the inner product is continuous (see @exm-cont-inner-prod), the inner product at the limits is the same as the limit of the inner products at the sequences, i.e. $$
+$$ 
+
+the $\eltwo$ inner product between $\frac{1}{2}s \sqrt{p_0}$ and $2\sqrt{p_0}$. Notice that these two arguments are the limits of $\eps^{-1}(\sqrt{p_\eps} - \sqrt{p_0})$ and $\sqrt{p_\eps} + \sqrt{p_0}$ respectively because of what we showed above. Since the inner product is continuous (see @exm-cont-inner-prod), the inner product at the limits is the same as the limit of the inner products at the sequences: 
+
+$$
 \begin{aligned}
 \left\langle \frac{1}{2}s \sqrt{p_0}, 2\sqrt{p_0} \right\rangle 
 &= \underset{\eps\to 0}\lim \eps^{-1} \left\langle \sqrt{p_\eps} - \sqrt{p_0}, \sqrt{p_\eps} + \sqrt{p_0} \right\rangle \\
-&= \underset{\eps\to 0}\lim \eps^{-1} \left( \| \sqrt{p_\eps} \| - \| \sqrt{p_0} \| \right) 
+&= \underset{\eps\to 0}\lim \eps^{-1} \left( \| \sqrt{p_\eps} \| - \| \sqrt{p_0} \| \right) .
 \end{aligned}
-$$ For any density $p$, we already showed that $\|\sqrt p\| = 1$, i.e. the root-densities are on the unit ball. Thus the difference of norms on the right-hand side cancels and we get 0 as desired.
+$$ 
+
+For any density $p$, we already showed that $\|\sqrt p\| = 1$, i.e. the root-densities are on the unit ball. Thus the difference of norms on the right-hand side cancels and we get 0 as desired.
 :::
 
 ::: {.callout-note appearance="minimal"}
@@ -579,9 +790,13 @@ where in the last line we used $\frac{\dd}{\dd \eps}  \log p_\eps(z) = \frac{1}{
 The (log-)density at $\epsilon$ for any value $z$ can be approximated by adding the score (times $\epsilon$) to the starting (log-)density.
 :::
 
-I find it most helpful to think of the score function at a point $p_0$ in the path as the "direction" that the path is moving when it passes through that point. You can see this is the case geometrically in @fig-score-path. In the figure I've drawn $s \sqrt{p_0}$ as the *tangent vector* to the path at the point $\sqrt{p_0}$. This is justified by the fact that $\frac{1}{2}s \sqrt{p_0}$ is the derivative of $\eps \mapsto \sqrt{p_\eps}$ and therefore encodes the "direction" that function (path) is going. Another way of seeing it is that $\frac{1}{2} s \sqrt{p_0}$ is the "slope" of the best linear approximation to $\eps \mapsto \sqrt{p_\eps}$ at the point $\sqrt{p_0}$. So, roughly speaking, $$
+I find it most helpful to think of the score function at a point $p_0$ in the path as the "direction" that the path is moving when it passes through that point. You can see this is the case geometrically in @fig-score-path. In the figure I've drawn $s \sqrt{p_0}$ as the *tangent vector* to the path at the point $\sqrt{p_0}$. This is justified by the fact that $\frac{1}{2}s \sqrt{p_0}$ is the derivative of $\eps \mapsto \sqrt{p_\eps}$ and therefore encodes the "direction" that function (path) is going. Another way of seeing it is that $\frac{1}{2} s \sqrt{p_0}$ is the "slope" of the best linear approximation to $\eps \mapsto \sqrt{p_\eps}$ at the point $\sqrt{p_0}$. So, roughly speaking, 
+
+$$
 \sqrt{p_\eps} \approx \sqrt{p_0} + \frac{1}{2} \eps (s \sqrt{p_0}).
-$$ This is exactly what I've drawn in @fig-score-path: the actual path of densities $\sqrt p_\eps$ (the left-hand side of the above display) and what would happen if you followed the current direction $s \sqrt{p}$ starting at $\sqrt p$ (the right-hand side).
+$$ 
+
+This is exactly what I've drawn in @fig-score-path: the actual path of densities $\sqrt p_\eps$ (the left-hand side of the above display) and what would happen if you followed the current direction $s \sqrt{p}$ starting at $\sqrt p$ (the right-hand side).
 
 ::: {#fig-score-path}
 ``` tikz
@@ -774,7 +989,9 @@ A cartoon of the model and a distribution $\p$ within it. Two differentiable pat
 :::
 
 ::: {#exm-convex-path-score}
-Fix an initial point $p_-$ and final point $p_+$ in a model and consider the convex path $\{p_0 + \eps (p_1 - p_0) : \eps \in [0,1]\}$ discussed in @exm-path-convex. For this path, the (pointwise derivative version of the) score at $\epsilon = 0$ is defined and is equal to $$
+Fix an initial point $p_-$ and final point $p_+$ in a model and consider the convex path $\{p_0 + \eps (p_1 - p_0) : \eps \in [0,1]\}$ discussed in @exm-path-convex. For this path, the (pointwise derivative version of the) score at $\epsilon = 0$ is defined and is equal to 
+
+$$
 \begin{aligned}
 s
 &= \frac{\dd}{\dd \eps} \log \big( p_0 + \eps (p_1 - p_0) \big) \bigg|_{\eps=0} \\
@@ -782,7 +999,9 @@ s
 &= \frac{p_1 - p_0}{p_0} \\
 &= \left(\frac{p_1}{p_0} - 1 \right)
 \end{aligned}
-$$ A little algebra shows that this path can also be written as $p_\eps = \left(1+ \eps s \right) p_0$.
+$$ 
+
+A little algebra shows that this path can also be written as $p_\eps = \left(1+ \eps s \right) p_0$.
 :::
 
 :::: {.callout-important appearance="minimal"}
@@ -805,9 +1024,13 @@ First let's generalize the model. In our previous definition we had the normal m
 # Pathwise Regularity
 
 ::: {#def-regularity-pathwise}
-An estimator $\hat\Psi$ is *regular* at $\p_0$ in the differentiable path $\model_\eps$ if there is a single, fixed distribution $\mathbb D$ such that $$
+An estimator $\hat\Psi$ is *regular* at $\p_0$ in the differentiable path $\model_\eps$ if there is a single, fixed distribution $\mathbb D$ such that
+
+$$
 \sqrt{n}\left( \hat\Psi(\p^{(n)}_n) - \Psi(\p^{(n)}) \right) \rightsquigarrow \mathbb D
-$$ for *any* sequence of distributions $\p^{(n)} = \p^{(\eps_n)}$ such that $\sqrt n \eps_n$ remains bounded.
+$$ 
+
+for *any* sequence of distributions $\p^{(n)} = \p^{(\eps_n)}$ such that $\sqrt n \eps_n$ remains bounded.
 :::
 ::::
 
