@@ -358,7 +358,7 @@ A visual representation of the tangent set $\tset$ along with the model $\sqrt{\
 
 Looking at @fig-tangent-set, it's clear why we call this the the "tangent" set: the plane $\tset_\p \sqrt p$ is tangent to the surface of the root-model $\sqrt{\model}$ at the density $\sqrt p$. That is also why we use the evocative dot notation for the tangent set: $\tset_\p \sqrt p$ contains all of the derivatives $\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}}$. Although the picture in fact shows the root-model and tangent set times the root density, we often say informally that the tangent set $\tset_{\p}$ itself is "tangent" to the model $\model$ at the distribution $\p$.
 
-Since it's useful to think of scores as directions we can move away from $\p$ in the model, the tangent set is simply the set of all such directions. If a model is "large" in a neighborhood of $\p$ in the sense that there are many directions you can go in and stay in the model, then the tangent set will be large. If a model is "small" around $\p$ then the tangent set will be small.
+Since it's useful to think of scores as directions we can move away from $\p$ in the model, the tangent set is simply the set of all such directions. If a model is "large" in a neighborhood of $\p$ in the sense that there are many directions you can go in and stay in the model, then the tangent set will be large. If a model is "small" around $\p$ then the tangent set will be small. The tangent set clearly depends on $\p$, as we will see in some examples, which is why we use the notation $\tset_\p$. However, we will often write $\tset$ without the subscript when $\p$ is clear from context or is arbitrary in order to clear up some clutter.
 
 :::: {#exm-tangent-set-normal}
 Consider the model $\model = \{\norm(\mu,\sigma^2): \mu \in \reals, \sigma^2 > 0\}$ with densities $p_{\mu,\sigma^2}(z)$ and the point $\p = \norm(0,1)$ with density $p(z) = (2\pi)^{-1/2} e^{-{z^2}/{2}}$ of the standard normal. Since this is a two-dimensional parametric model, the tangent set at $p$ is all linear combinations of
@@ -991,6 +991,8 @@ The pathwise derivative evaluated at a particular score $s$ gives the rate of ch
 
 However, that slope is generally different depending on the path one chooses. There may be paths along with the estimand is increasing rapidly, paths along which it is decreasing, and paths along which it is constant. Moreover if you "accelerate" the speed at which a path goes by multiplying the score by some value $c >1$, the derivative will also be magnified. That is why we write $\dot\Psi_{\p}(s)$ as a function of $s$, the "direction" (and "speed") of the path. Since the slope is taken at $\epsilon=0$, the only thing that matters is the immediate direction of the path at $\p$, i.e. the score $s$. The instantaneous rate of change of the estimand along two different paths with the same score will be the same. Because it is a derivative along a path, we aptly call the function $s \mapsto \dot\Psi_\p(s)$ mapping from $\tset_\p$ to $\reals$ the *pathwise derivative* of the estimand $\Psi$ at the distribution $\p$ in the model $\model$*.*
 
+The value of the pathwise derivative in any direction also depends on the point $\p$ at which we take the derivative, which is why we write $\dot \Psi_\p$ with the subscript. In what follows we'll often drop that subscript and just write $\dot\Psi$ when $\p$ is clear from context or is arbitrary.
+
 The identity $\dot\Psi_\p (s) = \p s\phi$ says that the slope $\dot\Psi_{\p}(s)$ may be found by taking the inner product of $s$ with *any* influence function $\phi$ of a RAL estimator. In fact, it doesn't matter *which* RAL estimator, if there are multiple: the result must be the same. We'll return to this point in the next section but we are actually getting ahead of ourselves because we are assuming there *is* a RAL estimator. The argument for @thm-RAL-IFs only established a condition that must be met by any RAL estimator, not that such an estimator exists. In fact, the result implies something about when RAL estimators *can* exist.
 
 Notice that on the right-hand side, $\p s \phi$ is an inner product. Seen as a function $s \mapsto \p s\phi$ acting on the tangent set $\tset_\p$, the inner product is a bounded (i.e. continuous) linear functional (see @def-bounded-functional and @exm-cont-inner-prod). Informally, a small change in the input score must always translate to a small change in the inner product with the fixed function $\phi$. Since this inner product is equal to the pathwise derivative, that implies that the pathwise derivative must *also* be linear and continuous in the same sense: if we look at two paths that go in similar directions, the rate of change of the estimand must be similar on those paths.
@@ -1110,9 +1112,7 @@ As previously discussed, if a function satisfies the identity it does not immedi
 At this point, understanding Riesz representation becomes important. I encourage you to read @sec-app-riesz and any other background material in @sec-app-L2 you need before proceeding. I promise you will find the material rewarding and immediately useful.
 :::
 
-All of this starts with pathwise differentiability. For a pathwise differentiable estimand, we know that $\dot\Psi$ is a bounded linear functional defined on the tangent set. In order to use an important result in functional analysis called the Riesz representation theorem we need to extend the pathwise derivative function $\dot\Psi$ so it is defined on an entire vector space. Although the tangent set is a vector space in all of the major examples we consider in this book, there are cases where it is not. I'll use the symbol $\tspace_\p$ to denote the linear closure of the tangent set, which I'll call the tangent *space*.
-
-Often $\tset = \tspace$ already. A linear closure of a set of vectors is all possible linear combinations of those vectors along with any limits. Since it is linear and continuous, the pathwise derivative is easily defined on $\tspace_\p$. Any score function in this space is either a) a linear combination $\bar s = \sum c_j s_j$ of scores $s_j \in \tset_\p$, in which case we define $\dot\Psi (\bar s) = \sum c_j \dot\Psi(s)$ in accordance with linearity; or b) a limit of such combinations $\bar s = \lim_{n\to \infty} s_n$, in which case we define $\dot\Psi (\bar s) = \lim_{n\to\infty} \dot\Psi(s)$ in accordance with continuity. $\tspace_\p$ is always a subspace of $\eltwop$ and thus inherits its inner product $\langle f,g\rangle = \int fg \dd \p = \p fg$.
+All of this starts with pathwise differentiability. For a pathwise differentiable estimand, we know that $\dot\Psi$ is a bounded linear functional defined on the tangent set. In order to use an important result in functional analysis called the Riesz representation theorem we need to extend the pathwise derivative function $\dot\Psi$ so it is defined on an entire vector space. Although the tangent set is a vector space in all of the major examples we consider in this book, there are cases where it is not. I'll use the symbol $\tspace_\p$ to denote the linear closure of the tangent set $\tset_\p$, which I'll call the tangent *space*. This is shown in @fig-tangent-space.
 
 ::: {#fig-tangent-space}
 ``` tikz
@@ -1190,9 +1190,11 @@ Often $\tset = \tspace$ already. A linear closure of a set of vectors is all pos
 Cartoon of the relationship between the tangent set $\tset_\p$ and tangent space $\tspace_\p$. The tangent set is not always a subspace but it is always closed under positive scaling (prove it!), which is why it appears as a wedge in the cartoon. The tangent space fills in the rest of the plane that the tangent set sits in, i.e. it is the smallest subspace of $\eltwopz$ that contains the tangent set.
 :::
 
+A linear closure of a set of vectors is all possible linear combinations of those vectors along with any limits. Since it is linear and continuous, the pathwise derivative is easily defined on $\tspace_\p$. Any score function in this space is either a) a linear combination $\bar s = \sum c_j s_j$ of scores $s_j \in \tset_\p$, in which case we define $\dot\Psi (\bar s) = \sum c_j \dot\Psi(s)$ in accordance with linearity; or b) a limit of such combinations $\bar s = \lim_{n\to \infty} s_n$, in which case we define $\dot\Psi (\bar s) = \lim_{n\to\infty} \dot\Psi(s)$ in accordance with continuity. $\tspace_\p$ is always a subspace of $\eltwop$ and thus inherits its inner product $\langle f,g\rangle = \int fg \dd \p = \p fg$.
+
 :::: {.callout-important appearance="minimal"}
 ::: {#exr-tangent-space}
-For two models $\mathcal Q \subset \model$, what is the relationship between $\mathring{\mathcal Q}_\p$ and $\tspace_\p$ at any point $\p \in \mathcal Q$?
+For two models $\mathcal Q \subset \model$ where one contains the other, what is the relationship between their tangent spaces $\mathring{\mathcal Q}_\p$ and $\tspace_\p$ at any point $\p \in \mathcal Q$ in the smaller model?
 :::
 ::::
 
@@ -1208,15 +1210,15 @@ In $\reals^d$, the gradient vector $\grad f$ is precisely the Riesz representer 
 # Gradient of a Pathwise Differentiable Estimand
 
 ::: {#def-gradient}
-For an estimand $\Psi$ that is pathwise differentiable at $\p \in \model$, the *gradient* (or *canonical gradient*) $\grad_\p \Psi$ is the (unique) Riesz representer of the pathwise derivative $\dot\Psi: \tspace_\p \to \reals$.
+For an estimand $\Psi$ that is pathwise differentiable at $\p \in \model$, the *gradient* (or *canonical gradient*) $\grad_\p^\tspace \Psi$ is the (unique) Riesz representer of the pathwise derivative $\dot\Psi: \tspace_\p \to \reals$.
 
 The gradient is always an element of $\tspace_\p \subseteq \eltwopz$ and is thus square integrable and mean zero under $\p$ at a minimum.
 
-The gradient represents the "direction" in which the estimand is increasing most quickly and its $\eltwop$ norm $\| \grad_\p \Psi \| = \dot\Psi(\frac{\grad_\p \Psi}{\|\grad_\p \Psi\|})$ encodes the speed at which it is instantaneously increasing in that direction.
+The gradient represents the "direction" in which the estimand is increasing most quickly and its $\eltwop$ norm $\| \grad_\p^\tspace \Psi \| = \dot\Psi \left(\frac{\grad_\p^\tspace \Psi}{\|\grad_\p^\tspace \Psi\|} \right)$ encodes the "speed" at which the estimand is instantaneously increasing in that direction.
 :::
 ::::
 
-For functions defined on $\reals^d$ the gradient is a familiar $d$-dimensional vector. The pathwise derivative is defined on the tangent space $\tspace_\p$, a subspace of the space of functions $\eltwopz$, and therefore the gradient of the estimand is also an $\eltwopz$ function: it must be square integrable and have mean zero under $\p$. The gradient depends on what point $\p$ the pathwise derivative is taken at and in what model $\model$, but these dependencies are often suppressed in the notation.
+For functions defined on $\reals^d$ the gradient is a familiar $d$-dimensional vector. The pathwise derivative is defined on the tangent space $\tspace_\p$, a subspace of the space of functions $\eltwopz$, and therefore the gradient of the estimand is also an $\eltwopz$ function: it must be square integrable and have mean zero under $\p$. When we write $\grad\Psi(z)$ you should read it as the function $(\grad\Psi)$ evaluated at the point $z$. The gradient depends on what point $\p$ the pathwise derivative is taken at and on what the tangent space $\tspace$ is, but these dependencies are often suppressed in the notation. That is, we will often write $\grad_\p \Psi$ or even just $\grad \Psi$ when we mean $\grad^\tspace_\p \Psi$.
 
 ::: {#fig-gradient}
 ``` tikz
@@ -1316,20 +1318,20 @@ For functions defined on $\reals^d$ the gradient is a familiar $d$-dimensional v
 }
 ```
 
-Visual representation of the gradient. The value of the pathwise derivative function $\dot\Psi_\p$ is depicted on the domain $\tspace_\p$ using the blue shading: darker values indicate higher values of $\dot\Psi_\p(s)$ at each point $s \in \tspace_\p$. Thin dotted lines represent the level sets of the pathwise derivative. The gradient $\grad \Psi$ is shown as the dark blue arrow, representing the direction of fastest ascent of the linear function $\dot\Psi_\p$ and the speed of that ascent (spacing of the level sets; the closer together, the bigger the gradient). Since $\dot\Psi_\p$ is a derivative, larger values correspond to larger rates of increase of the estimand $\Psi$, meaning that the gradient corresponds to the direction of steepest instantaneous rate of increase of the estimand.
+Visual representation of the gradient. The value of the pathwise derivative function $\dot\Psi$ is depicted on the domain $\tspace$ using the blue shading: darker values indicate higher values of $\dot\Psi(s)$ at each point $s \in \tspace$. Thin dotted lines represent the level sets of the pathwise derivative. The gradient $\grad \Psi$ is shown as the dark blue arrow, representing the direction of fastest ascent of the linear function $\dot\Psi$ and the speed of that ascent (spacing of the level sets; the closer together, the bigger the gradient). Since $\dot\Psi$ is a derivative, larger values correspond to larger rates of increase of the estimand $\Psi$, meaning that the gradient corresponds to the direction of steepest instantaneous rate of increase of the estimand.
 :::
 
 The gradient is the Riesz representer of the pathwise derivative, so, by definition,
 
 $$
-\dot\Psi_\p (s) = \p s \grad \Psi \quad\text{for all } s \in \tspace_\p.
+\dot\Psi (s) = \p s \grad \Psi \quad\text{for all } s \in \tspace.
 $$
 
-This looks exactly like our central identity: $\dot\Psi_\p (s) = \p s \phi$ for all $s \in \tset_\p$. Since the gradient satisfies the identity for all scores in the tangent space, it certainly satisfies it for the subset of those that are in the tangent *set*. Therefore the gradient is an influence function for a RAL estimator! Since the gradient always exists (by Riesz representation), we have proven that every pathwise differentiable estimand has at least one RAL estimator. In fact, there may be many RAL estimators with this influence function, but by virtue of having the same influence function they are asymptotically equivalent.
+This looks exactly like our central identity: $\dot\Psi (s) = \p s \phi$ for all $s \in \tset$. Since the gradient satisfies the identity for all scores in the tangent space, it certainly satisfies it for the subset of those that are in the tangent *set*. Therefore the gradient is an influence function for a RAL estimator! Since the gradient always exists (by Riesz representation), we have proven that every pathwise differentiable estimand has at least one RAL estimator. In fact, there may be many RAL estimators with this influence function, but by virtue of having the same influence function they are asymptotically equivalent.
 
 :::: {.callout-important appearance="minimal"}
 ::: {#exr-gradient-norm}
-Use the identity above to prove the claim in @def-gradient that $\| \grad_\p \Psi \| = \dot\Psi(\frac{\grad_\p \Psi}{\|\grad_\p \Psi\|})$.
+Use the identity above to prove the claim in @def-gradient that $\| \grad \Psi \| = \dot\Psi(\frac{\grad \Psi}{\|\grad \Psi\|})$.
 :::
 ::::
 
@@ -1386,6 +1388,29 @@ Using Riesz representation, we showed that for any pathwise differentiable estim
 In general, Riesz representation says that the gradient is the *only* element $\phi$ in the tangent space for which $\dot\Psi (s) = \p s\phi$ for all scores in the tangent space. When the model is locally nonparametric at $\p$, that means the gradient is the only mean-zero, square-integrable function that satisfies that identity. But since any influence function must also be mean-zero and square integrable (@def-AL), that rules out the possibility that any other $\eltwopz$ function can be an influence function. Therefore in locally nonparametric models there is only *one* influence function (the gradient of the estimand) and thus all RAL estimators are asymptotically equivalent to each other.
 
 By itself this fact is already incredibly useful since locally nonparametric models are among the most practical in the real world. We'll see in the next chapter that deriving the gradient (and thus the only influence function) in a nonparametric model is easy to do.
+
+:::: {.callout-important appearance="minimal"}
+::: {#exr-ipw-irregular}
+Consider a locally nonparametric model for an standard observational study with outcome-treatment-covariate data $(Y,A,X)$. In the traditional causal inference literature, a popular way to estimate a treatment-specific mean $\psi_a = \E[\E[Y|A=a,X]]$ for either $a=0$ or $a=1$ is with the inverse propensity weighting (IPW) estimator:
+
+$$
+\hat\psi = \frac{1}{n} \sum \frac{1_a(A)}{\hat\pi(a,X)} Y.
+$$
+
+$\hat\pi$ is the estimated propensity score $\pi(a,x) = \p\{A=a|X=x\}$. In general this is fit from data and thus is random but for the purpose of this problem we'll treat $\hat\pi$ as some a-priori fixed guess of $\pi$ (perhaps imagine it was fit on a large external dataset).
+
+a) What is the influence function of the IPW estimator? *Hint: you can read it directly off of the definition of the estimator by comparing to @def-AL*.
+
+In the next chapter (@exm-ATE-gradient), we will derive that the canonical gradient of the ATE in a nonparametric model is 
+
+$$
+\grad\Psi_a(Y,A,X) = \frac{1_a(A)}{\pi(a,X)}(Y - \mu(a,X)) + (\mu(a,X) - \psi_a)
+$$
+
+b) In light of the above and @thm-RAL-IFs, what does this imply about the regularity of the IPW estimator in a nonparametric model (even when $\hat\pi = \pi$)?
+
+:::
+::::
 
 Things are more interesting when the model is not locally nonparametric, i.e. when the tangent space is *not* all of $\eltwopz$. Since the tangent space is a vector space, it has an orthogonal complement $\tspace_\p^\perp$ relative to $\eltwopz$. This is essentially the largest subspace of directions in which we are not allowed to pertrub the distribution $\p$ because doing so would take us out of the model. The elements of this space therefore cannot be scores at $\p \in \model$ but nonetheless they live with scores in the common space $\eltwopz$.
 
@@ -1595,9 +1620,9 @@ First we will apply all of the theory we've developed in this chapter to the par
 
 A parametric model $\model$ is one in which every distribution can be put into one-to-one correspondence with an element $\theta \in \reals^d$. To simplify the presentation we'll assume that every distribution has a density (with respect to Lebesgue measure). We write the density corresponding to the parameter value $\theta$ as $p_\theta$. 
 
-In this context, the score function $s$ is usually defined as the derivative of the log-likelihood with respect to $\theta$: that is, a $d$-dimensional function of $z$. This is a natural extension of the score in a one-dimensional parametric model (i.e. a differentiable path), but the interpretation is a little different. For a one-dimensional model the score neatly encodes the "direction" in $\eltwo$ in which the root density is moving as the single parameter changes. For a $d$-dimensional model, each of the $d$ *elements* of the score encodes the same for each of the $d$ parameters, others held constant. I find it helpful to keep the "path" interpretation and think of these as separate scores $s_1, \dots s_d$ along $d$ paths baked into one vector $s$. The tangent space is the linear span of these $d$ scores, i.e. $\tspace = \{c^\top s: c \in \reals^d\}$. 
+In this context, the "score function" $s$ is usually defined as the derivative of the log-likelihood with respect to the vector $\theta$: that is, a $d$-dimensional function of $z$. This is a natural extension of the score in a one-dimensional parametric model (i.e. a differentiable path), but the interpretation is a little different. For a one-dimensional model any score neatly encodes a "direction" in $\eltwo$ in which the root density is moving as the single $\eps$ parameter changes. For a $d$-dimensional model, each of the $d$ *elements* of the score encodes the same for each of the $d$ parameters $\theta_1 \dots \theta_d$, others held constant. I personally find it helpful to keep the "path" interpretation and think of these as separate scores $s_1, \dots s_d$ along $d$ paths baked into one vector $s_\theta$. I'll use the notation $s_\theta$ to denote the vector of scores $\frac{\dd}{\dd \theta}s$ and call it the "score vector" to distinguish it from a generic score $s$ of a differentiable path, but you should be aware that, in the parametric literature, $s_\theta$ is referred to as *the* "score function" for the model. The tangent space is the linear span of the $d$ scores in the score vector, i.e., $\tspace = \{c^\top s_\theta: c \in \reals^d\}$. 
 
-In the parametric world we are most often interested in one of the parameters $\psi = \theta_1$ and consider the rest of the parameters $\eta = [\theta_2, \dots \theta_d]$ to be "nuisances". Therefore we write $\Psi(\p_\theta) = \psi$. For example, we might be interested in estimating the mean of a normal distribution but agnostic to the value of the standard deviation. In this context we can partition the elements of the score vector into $s = [s_\psi, s_\eta]$. These scores are typically not orthogonal: two different parameters can change the density in similar ways. 
+In the parametric world we are most often interested in one of the parameters $\psi = \theta_1$ and consider the rest of the parameters $\eta = [\theta_2, \dots \theta_d]$ to be "nuisances". Therefore we write $\Psi(\p_\theta) = \psi$. For example, we might be interested in estimating the mean of a normal distribution but agnostic to the value of the standard deviation. In this context we can partition the elements of the score vector into $s_\theta = [s_\psi, s_\eta]$. These scores are typically not orthogonal: two different parameters can change the density in similar ways. 
 
 There are two useful identities that arise from these definitions. Firstly, if we move in the distribution along a path with score $s_\psi$, the pathwise derivative must exactly equal to $1$: a one-unit change in the parameter induces a one-unit change in the parameter! Therefore, for any gradient $\phi$,
 
@@ -1605,13 +1630,13 @@ $$
 1 = \dot\Psi(s_\psi) = \p s_\psi \phi.
 $$
 
-Secondly, if we move in any direction which does *not* change the parameter of interest $\psi$, the pathwise derivative must equal $0$. These directions are precisely any linear combination of the $d-1$ scores $s_\eta$, i.e. $\{c\top s_\eta: c \in \reals^{d-1}\}$. This set is referred to as the *nuisance tangent space* $\tspace_{\p,\eta}$. The resulting identity is then
+Secondly, if we move in any direction which does *not* change the parameter of interest $\psi$, the pathwise derivative must equal $0$. These directions are precisely any linear combination of the $d-1$ scores $s_\eta$, i.e.. $\{c\top s_\eta: c \in \reals^{d-1}\}$. This set is referred to as the *nuisance tangent space* $\tspace_{\p,\eta}$. The resulting identity is then
 
 $$
 0 = \dot\Psi(s) = \p s \phi \quad \text{for all } s \in \tspace_{\p,\eta}
 $$
 
-In other words, any gradient is in the orthogonal complement of the nuisance tangent space and has inner product equal to one with the estimand score. These two observations completely triangulate the canonical gradient, as we will see. If we project the estimand score onto $\tspace_{\p,\eta}^\perp$ the result will be in the intersection of $\tspace_{\p,\eta}^\perp$ and the full tangent space $\tspace_\p$. That intersection is a one-dimensional space since the nuisance tangent space is $d-1$ dimensional and the tangent space is $d$ dimensional. 
+In other words, any gradient is in the orthogonal complement of the nuisance tangent space and has inner product with the estimand score equal to one. These two observations completely triangulate the canonical gradient, as we will see. If we project the estimand score onto $\tspace_{\p,\eta}^\perp$ the result will be in the intersection of $\tspace_{\p,\eta}^\perp$ and the full tangent space $\tspace_\p$. That intersection is a one-dimensional space since the nuisance tangent space is $d-1$ dimensional and the tangent space is $d$ dimensional. 
 
 ::: {#fig-parametric-tangent-space}
 ``` tikz
@@ -1722,7 +1747,7 @@ Visual representation of the relationship between objects in (semi-)parametric e
 
 Combining these observations, the geometric meaning of $\p s_\psi \grad\Psi = 1$ is that the length of the projection of the parameter score $s_\psi$ onto the orthogonal complement of the nuisance tangent space $\tspace_{\p,\eta}$ is $\frac{1}{\|\grad\Psi\|}$. (see @sec-projection). That projection $s^* = \tspace_{\p,\eta}^\perp s_\psi$ is typically called the *efficient score*. 
 
-Since we don't already have score vector in the orthogonal complement of the nuisance tangent space, the way to mechanically calculate the projection of $s_\psi$ onto this space is to first project it onto the nuisance tangent space and then take the residual. If $\eta \in \reals$, 
+Since we don't already have a score vector in the orthogonal complement of the nuisance tangent space to project onto, the way to mechanically calculate the projection of $s_\psi$ onto this space is to first project it onto the nuisance tangent space and then take the residual. If $\eta \in \reals$, 
 
 $$
 s^* 
@@ -1730,7 +1755,7 @@ s^*
 = s_\psi - \frac{\p s_\psi s_\eta}{\p s_\eta^2} s_\eta.
 $$
 
-If $\eta$ is multidimensional the process is the same but the estimand score must be residualized against each score $s_{\eta_1}, s_{\eta_2}, \dots s_{\eta_{d-1}}$ in turn. The formula is obviously more complicated so I'll omit it: there is no conceptual difference. In fact this even works if $\eta$ is infinite-dimensional (such models are called *semi-parametric*).
+If $\eta$ is multidimensional the process is the same but the estimand score must be residualized against each score $s_{\eta_1}, s_{\eta_2}, \dots s_{\eta_{d-1}}$ in turn. The formula is obviously more complicated so I'll omit it: there is no conceptual difference. In principle this even works if $\eta$ is infinite-dimensional (such models are called *semi-parametric*) - you just need a way to calculate the projection.
 
 Since the canonical gradient (efficient influence function) is always in the tangent space and we just showed it must also be in the orthogonal complement of the nuisance tangent space, it is also a vector in $\tspace_\p \cap \tspace_{\p,\eta}^\perp$, therefore it is a scalar multiple of the efficient score $s^*$. So by the first of our two identities, $1 = \p (s_\psi) (cs^*)$, giving $c = [\p s_\psi s^*]^{-1} = \|s^*\|^{-2}$ (prove this equality!). Therefore, finally,
 
@@ -1749,12 +1774,26 @@ $$
 
 One benefit of such (semi-)parametric models is that the canonical gradient can usually be explicitly derived as shown above. The identities in the semiparametric model give different kinds of geometric information that each narrow down location of the gradient set $\Phi$ until it can be exactly triangulated. From the nonparametric theory we know the gradients make a linear variety that is orthogonal to the tangent space (after shifting to the origin) but we don't know exactly where it intersects the tangent space. Considering the nuisance scores tells us what "direction" or "axis" the point of intersection lies in within the tangent space (the orthogonal complement to the nuisance tangent space). Considering the estimand score tells us exactly how far along the intersection is in that direction. 
 
+:::: {.callout-important appearance="minimal"}
+::: {#exr-parametric-efficiency}
+Consider the bivariate normal model $(Z_1, Z_2) \sim \norm\left([\mu_1, \mu_2], \Sigma\right)$ where $\Sigma$ is a fixed, known covariance matrix. We can write densities in this model with the notation $p_{\mu}$.
+
+a. Derive the scores $s_1 = \frac{\partial}{\partial \mu_1} \log(p_{\mu})$ and $s_2 = \frac{\partial}{\partial \mu_2} \log(p_{\mu})$ at some $p_\mu$. Are the scores orthogonal or not?
+b. Derive the canonical gradient $\grad\mu_1$ at an arbitrary point $p_\mu$ (*hint: you should get a familiar answer*).
+c. Draw a cartoon of the "vectors" $s_1, s_2$, and $\phi_1$ on a 2D cartesian plane. Why does it make sense to let $s_2/\|s_2\|$ be the unit y-axis and $\grad\mu_1/\|\grad\mu_1\|$ be the unit x-axis? Where would $\grad\mu_2$ go?
+d. Starting from any $p$ of your choice, construct the convex paths $p_\eps = (1+ \epsilon s_1/\|s_1\|) p$ and $p^*_\eps = (1+ \epsilon \grad\mu_1/\|\grad\mu_1 \|) p$ which have scores $s_1/\|s_1\|$ and $\grad\mu_1/\|\grad\mu_1 \|$, respectively. What are $\mu_1(p_\eps)$ and $\mu_1(p^*_\eps)$ as functions of $\epsilon$? For which path is $\mu_1$ changing more quickly and why does this make sense?
+e. What are $\mu_2(p_\eps)$ and $\mu_2(p^*_\eps)$ as functions of $\epsilon$? Why is it sensible that $\mu_2(p^*_\eps)$ varies with $\epsilon$?
+
+:::
+::::
+
+
 ### Connection to Likelihood Theory
 
 At last we can connect all of this to classical ideas in likelihood theory. The *Fisher information* matrix is defined as 
 
 $$
-I_\p = \p s s^\top = 
+I_\p = \p s_\theta s_\theta^\top = 
 \p \left[\begin{matrix}
 s_\psi^2 & s_\psi s_\eta^\top \\
 s_\psi s_\eta & s_\eta s_\eta^\top \\

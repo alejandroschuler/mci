@@ -920,8 +920,7 @@ $$
 \E\left[ 
     \frac{1_a(A)}{\pi(a,X)} \big( Y - \mu(A, X) \big) 
     + \mu(a,X) - \Psi_a
-\middle| A, X \right] 
-\\
+\middle| A, X \right] \\
 &=
 \mu(a,X) - \Psi_a
 .
@@ -963,17 +962,40 @@ Which of course implies the same for the gradient of the ATE, i.e. $\nabla^{\mat
 The implication is that the canonical gradient for the average treatment effect is the *same* in a randomized trial model as it is in a nonparametric model. In turn, this means that the norm of the gradient is the same regardless and thus there is no gain in asymptotic efficiency in estimating the ATE in a randomized trial vs. in an observational study. This is a remarkable fact that runs counter to our intuition: we typically expect that knowing more about the data-generating process should reduce our uncertainty. However, the example illustrates that there are some aspects of any data-generating process that are simply not relevant to particular estimands. To reduce uncertainty, the knowledge or assumptions must restrict the model in a way that is germane to the estimand.
 ::::
 
-::: {.callout-note collapse="true" appearance="minimal"}
-# Nonparametric Nuisance Tangent Space
-
-The concept of having aspects of a data-generating distribution that are not germane to a given estimand can be formalized. In @sec-classical-efficiency we introduced the idea of the nuisance tangent set. We can generalize the definition to nonparametric models: the (nonparametric) nuisance tangent set $\tspace_\eta$ of a pathwise differentiable parameter $\Psi$ at $\p$ is the set of all scores $s \in \eltwopz$ for which $\dot\Psi_\p = 0$. This is nothing but the null space of the pathwise derivative. The nuisance tangent set contains the directions in which the distribution can change without affecting the value of the estimand. For the randomized trial model, the nuisance tangent set is precisely $\mathring{\mathcal Q}^{(A|X)}$.
-
-At any $\p$, a model that is restricted only in the the nuisance tangent set will not affect the value of the canonical gradient relative to the nonparametric model.
-:::
-
 :::: {.callout-important appearance="minimal"}
 ::: {#exr-rct-gradient-expectations}
 Prove the equality in the second line of @eq-rct-projections using the definitions of $\mu(a,x)$ and $\pi(a,x)$. This is purely a refresher exercise in conditional expectation, no knowledge of efficiency theory is required.
+:::
+::::
+
+:::: {.callout-important appearance="minimal"}
+::: {#exr-rct-ipw}
+Althought the *canonical* gradient is the same whether or not the treatment mechanism is known, there is another difference between the randomized and observational settings that pertains to estimation. In @exr-ipw-irregular, you showed that the IPW estimator for the treatment-specific mean with fixed propensity model $\hat\pi(a,x)$ has influence function
+
+$$
+\phi(Y,A,X) = \frac{1_a(A)}{\hat\pi(a,X)}Y,
+$$ {#eq-ipw-if}
+
+which is not equal to the canonical gradient of the treatment-specific mean in a observational study. Because the model is nonparametric in that setting, the only influence function of a RAL estimator is the canonical gradient, which implies that the IPW estimator is not regular!
+
+Is this the case in a randomized trial? When
+
+$$
+\tspace = \mathring{\mathcal Q}^{(X)} \oplus \mathring{\mathcal Q}^{(Y|A,X)},
+$$
+
+with
+
+$$
+\begin{aligned}
+\mathring{\mathcal Q}^{(X)} &= \{s \in \eltwopz: s(y,a,x) = s(x) \} \\
+\mathring{\mathcal Q}^{(Y|A,X)} &= \{s \in \eltwopz: \E[s(Y,A,X)|A,X] = 0\},
+\end{aligned}
+$$
+
+prove that the IPW influence function $\phi$ is a gradient of the treatment specific mean $\Psi_a(\p) = \E_\p[\E_\p[Y|A=a,X]]$ by showing that $\p s \phi = \p s \nabla^{\mathcal P}_\p \Psi$ for all $s \in \tspace$.
+
+Since the set of gradients coincides with the set of influence functions of RAL estimators, your result shows that the fixed-propensity IPW estimator is a regular (but inefficient) estimator when the treatment mechanism is known.
 :::
 ::::
 
@@ -1003,3 +1025,89 @@ leaving off the $\p$ subscripts and letting $\psi = \Psi(\p)$, $\pi(a,x) = \p\{A
 Let $\mathcal P$ be the randomized trial model we considered in @exm-rct-tspace and @exm-ate-rct-gradient. What is the canonical gradient of the ATT in the randomized trial model? Given your conclusion, does treatment randomization result in a gain of estimation efficiency for the ATT or not?
 :::
 ::::
+
+The concept of having aspects of a data-generating distribution that are not relevant to a given estimand can be formalized. In @sec-classical-efficiency we introduced the idea of the nuisance tangent set. The idea is that this set contains all the directions through the model in which the distribution can be changed *without* affecting the value of the estimand. We can generalize the definition to nonparametric models: the *nuisance* tangent space of a pathwise differentiable parameter $\Psi$ at $\p$ is the smallest closed subspace of the tangent space contianing all scores for which $\dot\Psi_\p = 0$. If you remember linear algebra, you know this is the definition of the *null space* of $\dot\Psi_\p$, so we can also call it that. In a nonparametric model, the null space of the ATE's pathwise derivative includes $\mathring{\mathcal Q}^{(A|X)}$, which is why knowledge of the treatment mechanism has no effect on the optimal asymptotic variance when estimating the ATE.
+
+:::: {.callout-important appearance="minimal"}
+::: {#exr-rct-gradient-expectations}
+Use @thm-RAL-IFs to prove that the null space of $\dot\Psi$ is also the orthogonal complement of the span of the canonical gradient, relative to the full tangent space.
+:::
+::::
+
+At any $\p$, a model that is restricted only in the nusiance tangent space of a parameter set will not affect the value of the canonical gradient relative to the nonparametric model. The reason is simple: restricting the way a distribution can vary that doesn't affect the estimand has no effect on how hard it is to estimate that estimand.
+
+The concept of a nuisance tangent space is also relevant in other restricted models. I give the theorem and example below not they have much practical utility, but because understanding the result is a good summative exercise of all the tools we've learned relating to gradients and tangent spaces. And also it's just plain cool.
+
+:::: callout-note
+# Estimand-Restricted Models
+::: {#thm-estimand-restricted-models}
+Let $\Psi$ and $\Upsilon$ be two estimands that are pathwise differentiable at $\p$ in some model $\mathcal Q$. Let $\model = \{\p \in \mathcal Q: \Upsilon(\p) = \upsilon\}$ be all distributions where $\Psi$ is fixed at the value $\upsilon \in \reals$ and let $\{\nabla_\p^{\mathcal Q} \Upsilon \} = \{c \nabla_\p^{\mathcal Q} \Upsilon: c \in \reals\}$ be the span of the gradient of $\Psi$ in $\mathcal Q$. Then 
+
+$$
+\tspace_\p = \{\nabla_\p^{\mathcal Q}\}^\perp
+$$
+
+where the orthogonal complement is relative to the tangent space $\mathring{\mathcal Q}$ in the unrestricted model. As a consequence of the gradient projection theorem (@thm-gradient-proj) and the one-dimensional projection formula (@thm-1d-proj), 
+
+$$
+\begin{aligned}
+\nabla_\p^{\mathcal P} \Psi
+&= \tspace_\p (\nabla_\p^{\mathcal Q} \Psi) \\
+&= \nabla_\p^{\mathcal Q} \Psi -  \frac{\left\langle \nabla_\p^{\mathcal Q} \Upsilon, \nabla_\p^{\mathcal Q} \Psi \right\rangle}{\|\nabla_\p^{\mathcal Q} \Upsilon\|^2} \nabla_\p^{\mathcal Q} \Upsilon.
+\end{aligned}
+$$
+
+:::
+::::
+
+The theorem seems complicated but it actually follows immediately from the definitions. When the estimand $\Upsilon$ is fixed, the only directions that distributions in the restricted model $\model$ are allowed to vary in are precisely those in which $\Upsilon$ doesn't change, i.e., $s$ where $\dot\Upsilon(s) = 0$. Therefore that is the tangent set of the model. By the central identity, the scores that satisfy $0 = \dot\Upsilon_\p (s) = \p s \grad\Upsilon$ are those orthogonal to the gradient. The rest is the one-dimensional projection formula.
+
+::: {#exm-estimand-restricted-model}
+Let's say you know for a fact that the median of a random variable $Z$ is $\upsilon$, but are interested in estimating the mean from a sample of data. This isn't a scenario you're likely to encounter, but to make things concrete you might imagine that the median age in a population is reported as a summary of a population census, but the mean age isn't. You don't have access to the original census dataset, but you do have access to a much smaller sample. You want to estimate the mean age from that smaller sample, but want to know if incorporating prior knowledge of the median can yield any gain in certainty. 
+
+Let $\Psi$ map a one-dimensional continuous distribution to its mean and let $\Upsilon$ map to its median. In @exm-gradient-nonparam and @exm-quantile-gradient we established that the nonparametric gradients of these estimands are
+
+$$
+\begin{aligned}
+\grad\Psi(z) &= z - \psi \\
+\grad\Upsilon &= \frac{q - 1(z\ge \upsilon)}{p(q)} 
+\end{aligned} 
+$$
+
+where I've omitted the $\p$ subscripts and abbreviated $\psi = \Psi(\p)$, $\upsilon = \Upsilon(\p)$, and $q=1/2$. As usual, $p$ is the density of $\p$. 
+
+By @thm-estimand-restricted-models, the canonical gradient of the mean in the model where the median is known must be
+
+$$
+\begin{aligned}
+\nabla^{\mathcal P} \Psi
+&= \grad \Psi -  \frac{\left\langle \grad \Upsilon, \grad \Psi \right\rangle}{\|\grad \Upsilon\|^2} \grad \Upsilon.
+\end{aligned}
+$$
+
+The inner product and norm are
+
+$$
+\begin{aligned}
+\left\langle \grad \Upsilon, \grad \Psi \right\rangle 
+&= \E\left[ (z - \psi) \left( \frac{q - 1(z\ge \upsilon)}{p(q)}  \right) \right] \\
+&= \frac{q(\psi - \E[Z | Z \ge \upsilon])}{p(q)} \\
+\|\grad \Upsilon\|^2 
+&= \E \left[ \frac{(q - 1(z\ge \upsilon))^2}{p(q)^2} \right] \\
+&= \frac{q(1-q)}{p(q)^2}
+\end{aligned}
+$$
+
+since, by definition, $q = \p\{Z \ge \upsilon\} = \E[1(Z \ge \upsilon)]$. Combining,
+
+$$
+\begin{aligned}
+\nabla^{\mathcal P} \Psi(z)
+&= (z-\psi) 
+-  \frac{\psi - \E[Z | Z \ge \upsilon]}{1-q} (q - 1(z\ge \upsilon)).
+\end{aligned}
+$$
+
+Since this is generally different than the nonparametric gradient $\grad \Psi$, the projection must have reduced the norm of the gradient and therefore improved the asymptotic efficiency. Knowing the median therefore theoretically improves our ability to estimate the mean, which is intuitively plausible.
+
+:::

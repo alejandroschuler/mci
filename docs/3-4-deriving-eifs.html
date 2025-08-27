@@ -847,8 +847,7 @@ Figure&nbsp;3.3: Visual illustration of the projection of the nonparametric grad
 \mathbb{E}\left[
     \frac{1_a(A)}{\pi(a,X)} \big( Y - \mu(A, X) \big)
     + \mu(a,X) - \Psi_a
-\middle| A, X \right]
-\\
+\middle| A, X \right] \\
 &amp;=
 \mu(a,X) - \Psi_a
 .
@@ -882,23 +881,6 @@ Figure&nbsp;3.3: Visual illustration of the projection of the nonparametric grad
 <p>Which of course implies the same for the gradient of the ATE, i.e.&nbsp;<span class="math inline">\(\nabla^{\mathring{\mathcal P}} \Psi = \nabla^{\mathring{\mathcal Q}} \Psi\)</span>. This happens because the nonparametric gradient is already in the randomized trial tangent space: the projection does nothing to it.</p>
 <p>The implication is that the canonical gradient for the average treatment effect is the <em>same</em> in a randomized trial model as it is in a nonparametric model. In turn, this means that the norm of the gradient is the same regardless and thus there is no gain in asymptotic efficiency in estimating the ATE in a randomized trial vs.&nbsp;in an observational study. This is a remarkable fact that runs counter to our intuition: we typically expect that knowing more about the data-generating process should reduce our uncertainty. However, the example illustrates that there are some aspects of any data-generating process that are simply not relevant to particular estimands. To reduce uncertainty, the knowledge or assumptions must restrict the model in a way that is germane to the estimand.</p>
 </div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Nonparametric Nuisance Tangent Space
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>The concept of having aspects of a data-generating distribution that are not germane to a given estimand can be formalized. In <a href="3-3-efficiency.html#sec-classical-efficiency" class="quarto-xref"><span>Section 2.6</span></a> we introduced the idea of the nuisance tangent set. We can generalize the definition to nonparametric models: the (nonparametric) nuisance tangent set <span class="math inline">\({\mathring{{\mathcal{P}}}}_\eta\)</span> of a pathwise differentiable parameter <span class="math inline">\(\Psi\)</span> at <span class="math inline">\({\mathbb{P}}\)</span> is the set of all scores <span class="math inline">\(s \in \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span> for which <span class="math inline">\(\dot\Psi_{\mathbb{P}}= 0\)</span>. This is nothing but the null space of the pathwise derivative. The nuisance tangent set contains the directions in which the distribution can change without affecting the value of the estimand. For the randomized trial model, the nuisance tangent set is precisely <span class="math inline">\(\mathring{\mathcal Q}^{(A|X)}\)</span>.</p>
-<p>At any <span class="math inline">\({\mathbb{P}}\)</span>, a model that is restricted only in the the nuisance tangent set will not affect the value of the canonical gradient relative to the nonparametric model.</p>
-</div>
-</div>
-</div>
 <div class="callout callout-style-simple callout-important no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -917,8 +899,37 @@ Nonparametric Nuisance Tangent Space
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
+<div id="exr-rct-ipw" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.8</strong></span> Althought the <em>canonical</em> gradient is the same whether or not the treatment mechanism is known, there is another difference between the randomized and observational settings that pertains to estimation. In <a href="3-3-efficiency.html#exr-ipw-irregular" class="quarto-xref">Exercise&nbsp;<span>2.7</span></a>, you showed that the IPW estimator for the treatment-specific mean with fixed propensity model <span class="math inline">\(\hat\pi(a,x)\)</span> has influence function</p>
+<p><span id="eq-ipw-if"><span class="math display">\[
+\phi(Y,A,X) = \frac{1_a(A)}{\hat\pi(a,X)}Y,
+\tag{3.3}\]</span></span></p>
+<p>which is not equal to the canonical gradient of the treatment-specific mean in a observational study. Because the model is nonparametric in that setting, the only influence function of a RAL estimator is the canonical gradient, which implies that the IPW estimator is not regular!</p>
+<p>Is this the case in a randomized trial? When</p>
+<p><span class="math display">\[
+{\mathring{{\mathcal{P}}}}= \mathring{\mathcal Q}^{(X)} \oplus \mathring{\mathcal Q}^{(Y|A,X)},
+\]</span></p>
+<p>with</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathring{\mathcal Q}^{(X)} &amp;= \{s \in \mathcal{L}_2^0\left(\mathbb{P}\right): s(y,a,x) = s(x) \} \\
+\mathring{\mathcal Q}^{(Y|A,X)} &amp;= \{s \in \mathcal{L}_2^0\left(\mathbb{P}\right): \mathbb{E}[s(Y,A,X)|A,X] = 0\},
+\end{aligned}
+\]</span></p>
+<p>prove that the IPW influence function <span class="math inline">\(\phi\)</span> is a gradient of the treatment specific mean <span class="math inline">\(\Psi_a({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[\mathbb{E}_{\mathbb{P}}[Y|A=a,X]]\)</span> by showing that <span class="math inline">\({\mathbb{P}}s \phi = {\mathbb{P}}s \nabla^{\mathcal P}_{\mathbb{P}}\Psi\)</span> for all <span class="math inline">\(s \in {\mathring{{\mathcal{P}}}}\)</span>.</p>
+<p>Since the set of gradients coincides with the set of influence functions of RAL estimators, your result shows that the fixed-propensity IPW estimator is a regular (but inefficient) estimator when the treatment mechanism is known.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
 <div id="exr-att-rct-gradient" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.8</strong></span> In our usual <span class="math inline">\((Y,A,X)\)</span> data structure with <span class="math inline">\(A\)</span> binary, let</p>
+<p><span class="theorem-title"><strong>Exercise 3.9</strong></span> In our usual <span class="math inline">\((Y,A,X)\)</span> data structure with <span class="math inline">\(A\)</span> binary, let</p>
 <p><span class="math display">\[
 \Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}\left[\left(\mathbb{E}_{\mathbb{P}}[Y|A=1,X] - \mathbb{E}_{\mathbb{P}}[Y|A=0,X] \right) \big| A=1 \right]
 \]</span></p>
@@ -938,6 +949,86 @@ Nonparametric Nuisance Tangent Space
 </div>
 </div>
 </div>
+</div>
+<p>The concept of having aspects of a data-generating distribution that are not relevant to a given estimand can be formalized. In <a href="3-3-efficiency.html#sec-classical-efficiency" class="quarto-xref"><span>Section 2.6</span></a> we introduced the idea of the nuisance tangent set. The idea is that this set contains all the directions through the model in which the distribution can be changed <em>without</em> affecting the value of the estimand. We can generalize the definition to nonparametric models: the <em>nuisance</em> tangent space of a pathwise differentiable parameter <span class="math inline">\(\Psi\)</span> at <span class="math inline">\({\mathbb{P}}\)</span> is the smallest closed subspace of the tangent space contianing all scores for which <span class="math inline">\(\dot\Psi_{\mathbb{P}}= 0\)</span>. If you remember linear algebra, you know this is the definition of the <em>null space</em> of <span class="math inline">\(\dot\Psi_{\mathbb{P}}\)</span>, so we can also call it that. In a nonparametric model, the null space of the ATE’s pathwise derivative includes <span class="math inline">\(\mathring{\mathcal Q}^{(A|X)}\)</span>, which is why knowledge of the treatment mechanism has no effect on the optimal asymptotic variance when estimating the ATE.</p>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-rct-gradient-expectations" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.10</strong></span> Use <a href="3-3-efficiency.html#thm-RAL-IFs" class="quarto-xref">Theorem&nbsp;<span>2.2</span></a> to prove that the null space of <span class="math inline">\(\dot\Psi\)</span> is also the orthogonal complement of the span of the canonical gradient, relative to the full tangent space.</p>
+</div>
+</div>
+</div>
+</div>
+<p>At any <span class="math inline">\({\mathbb{P}}\)</span>, a model that is restricted only in the nusiance tangent space of a parameter set will not affect the value of the canonical gradient relative to the nonparametric model. The reason is simple: restricting the way a distribution can vary that doesn’t affect the estimand has no effect on how hard it is to estimate that estimand.</p>
+<p>The concept of a nuisance tangent space is also relevant in other restricted models. I give the theorem and example below not they have much practical utility, but because understanding the result is a good summative exercise of all the tools we’ve learned relating to gradients and tangent spaces. And also it’s just plain cool.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Estimand-Restricted Models
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="thm-estimand-restricted-models" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3.3</strong></span> Let <span class="math inline">\(\Psi\)</span> and <span class="math inline">\(\Upsilon\)</span> be two estimands that are pathwise differentiable at <span class="math inline">\({\mathbb{P}}\)</span> in some model <span class="math inline">\(\mathcal Q\)</span>. Let <span class="math inline">\({\mathcal{P}}= \{{\mathbb{P}}\in \mathcal Q: \Upsilon({\mathbb{P}}) = \upsilon\}\)</span> be all distributions where <span class="math inline">\(\Psi\)</span> is fixed at the value <span class="math inline">\(\upsilon \in \mathbb{R}\)</span> and let <span class="math inline">\(\{\nabla_{\mathbb{P}}^{\mathcal Q} \Upsilon \} = \{c \nabla_{\mathbb{P}}^{\mathcal Q} \Upsilon: c \in \mathbb{R}\}\)</span> be the span of the gradient of <span class="math inline">\(\Psi\)</span> in <span class="math inline">\(\mathcal Q\)</span>. Then</p>
+<p><span class="math display">\[
+{\mathring{{\mathcal{P}}}}_{\mathbb{P}}= \{\nabla_{\mathbb{P}}^{\mathcal Q}\}^\perp
+\]</span></p>
+<p>where the orthogonal complement is relative to the tangent space <span class="math inline">\(\mathring{\mathcal Q}\)</span> in the unrestricted model. As a consequence of the gradient projection theorem (<a href="#thm-gradient-proj" class="quarto-xref">Theorem&nbsp;<span>3.2</span></a>) and the one-dimensional projection formula (<a href="5-2-L2.html#thm-1d-proj" class="quarto-xref">Theorem&nbsp;<span>B.2</span></a>),</p>
+<p><span class="math display">\[
+\begin{aligned}
+\nabla_{\mathbb{P}}^{\mathcal P} \Psi
+&amp;= {\mathring{{\mathcal{P}}}}_{\mathbb{P}}(\nabla_{\mathbb{P}}^{\mathcal Q} \Psi) \\
+&amp;= \nabla_{\mathbb{P}}^{\mathcal Q} \Psi -  \frac{\left\langle \nabla_{\mathbb{P}}^{\mathcal Q} \Upsilon, \nabla_{\mathbb{P}}^{\mathcal Q} \Psi \right\rangle}{\|\nabla_{\mathbb{P}}^{\mathcal Q} \Upsilon\|^2} \nabla_{\mathbb{P}}^{\mathcal Q} \Upsilon.
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+<p>The theorem seems complicated but it actually follows immediately from the definitions. When the estimand <span class="math inline">\(\Upsilon\)</span> is fixed, the only directions that distributions in the restricted model <span class="math inline">\({\mathcal{P}}\)</span> are allowed to vary in are precisely those in which <span class="math inline">\(\Upsilon\)</span> doesn’t change, i.e., <span class="math inline">\(s\)</span> where <span class="math inline">\(\dot\Upsilon(s) = 0\)</span>. Therefore that is the tangent set of the model. By the central identity, the scores that satisfy <span class="math inline">\(0 = \dot\Upsilon_{\mathbb{P}}(s) = {\mathbb{P}}s \nabla\!\Upsilon\)</span> are those orthogonal to the gradient. The rest is the one-dimensional projection formula.</p>
+<div id="exm-estimand-restricted-model" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.9</strong></span> Let’s say you know for a fact that the median of a random variable <span class="math inline">\(Z\)</span> is <span class="math inline">\(\upsilon\)</span>, but are interested in estimating the mean from a sample of data. This isn’t a scenario you’re likely to encounter, but to make things concrete you might imagine that the median age in a population is reported as a summary of a population census, but the mean age isn’t. You don’t have access to the original census dataset, but you do have access to a much smaller sample. You want to estimate the mean age from that smaller sample, but want to know if incorporating prior knowledge of the median can yield any gain in certainty.</p>
+<p>Let <span class="math inline">\(\Psi\)</span> map a one-dimensional continuous distribution to its mean and let <span class="math inline">\(\Upsilon\)</span> map to its median. In <a href="3-3-efficiency.html#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>2.5</span></a> and <a href="#exm-quantile-gradient" class="quarto-xref">Example&nbsp;<span>3.6</span></a> we established that the nonparametric gradients of these estimands are</p>
+<p><span class="math display">\[
+\begin{aligned}
+\nabla\!\Psi(z) &amp;= z - \psi \\
+\nabla\!\Upsilon &amp;= \frac{q - 1(z\ge \upsilon)}{p(q)}
+\end{aligned}
+\]</span></p>
+<p>where I’ve omitted the <span class="math inline">\({\mathbb{P}}\)</span> subscripts and abbreviated <span class="math inline">\(\psi = \Psi({\mathbb{P}})\)</span>, <span class="math inline">\(\upsilon = \Upsilon({\mathbb{P}})\)</span>, and <span class="math inline">\(q=1/2\)</span>. As usual, <span class="math inline">\(p\)</span> is the density of <span class="math inline">\({\mathbb{P}}\)</span>.</p>
+<p>By <a href="#thm-estimand-restricted-models" class="quarto-xref">Theorem&nbsp;<span>3.3</span></a>, the canonical gradient of the mean in the model where the median is known must be</p>
+<p><span class="math display">\[
+\begin{aligned}
+\nabla^{\mathcal P} \Psi
+&amp;= \nabla\!\Psi -  \frac{\left\langle \nabla\!\Upsilon, \nabla\!\Psi \right\rangle}{\|\nabla\!\Upsilon\|^2} \nabla\!\Upsilon.
+\end{aligned}
+\]</span></p>
+<p>The inner product and norm are</p>
+<p><span class="math display">\[
+\begin{aligned}
+\left\langle \nabla\!\Upsilon, \nabla\!\Psi \right\rangle
+&amp;= \mathbb{E}\left[ (z - \psi) \left( \frac{q - 1(z\ge \upsilon)}{p(q)}  \right) \right] \\
+&amp;= \frac{q(\psi - \mathbb{E}[Z | Z \ge \upsilon])}{p(q)} \\
+\|\nabla\!\Upsilon\|^2
+&amp;= \mathbb{E}\left[ \frac{(q - 1(z\ge \upsilon))^2}{p(q)^2} \right] \\
+&amp;= \frac{q(1-q)}{p(q)^2}
+\end{aligned}
+\]</span></p>
+<p>since, by definition, <span class="math inline">\(q = {\mathbb{P}}\{Z \ge \upsilon\} = \mathbb{E}[1(Z \ge \upsilon)]\)</span>. Combining,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\nabla^{\mathcal P} \Psi(z)
+&amp;= (z-\psi)
+-  \frac{\psi - \mathbb{E}[Z | Z \ge \upsilon]}{1-q} (q - 1(z\ge \upsilon)).
+\end{aligned}
+\]</span></p>
+<p>Since this is generally different than the nonparametric gradient <span class="math inline">\(\nabla\!\Psi\)</span>, the projection must have reduced the norm of the gradient and therefore improved the asymptotic efficiency. Knowing the median therefore theoretically improves our ability to estimate the mean, which is intuitively plausible.</p>
 </div>
 
 
