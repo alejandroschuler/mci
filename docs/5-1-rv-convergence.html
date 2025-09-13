@@ -119,6 +119,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -163,8 +164,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./3-0-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Efficiency Theory</span></a>
+            <a href="./1-0-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Models and Estimands</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -172,28 +173,16 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3-2-regularity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./3-3-efficiency.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./3-4-deriving-eifs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
+  <a href="./1-1-estimation-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Estimation Problems</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./4-0-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Building Efficient Estimators</span></a>
+            <a href="./3-0-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Efficiency Theory</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -201,8 +190,26 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./3-2-regularity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-3-efficiency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-4-deriving-eifs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
   </div>
 </li>
       </ul>
@@ -336,7 +343,7 @@ x_n y_n &amp;\to xy
 </div>
 <!-- Many proofs use arguments relating to *subsequences*. A subsequence is what you get when you take a sequence and "skip over" some of the elements. Formally the way that we write a subsequence of $x_n$ is $x_{n_m}$. The reason we write it this way is that we imagine that $n_m$ is a seqeunce of increasing positive integers, like $\{1,5,9,20 \dots\}$. The index $m$ corresponds to how far along we are in the sequence $n_m$, i.e. $n_2 = 5, n_3=9$, etc.  Then $x_{n_m}$ is the subsequence of $x_n$ corresponding to the elements $\{x_1, x_5, x_9, x_20, \dots\}$ where we count the index along $n_m$ instead of the usual $\{1,2,3,\dots\}$. 
 
-::: {#exm-subseq}
+::: {.Exm #exm-subseq}
 
 ::: -->
 </section>
@@ -360,7 +367,7 @@ Pointwise Convergence of Functions
 </div>
 <p>Pointwise convergence is one way to say that the functions <span class="math inline">\(f_n\)</span> are getting closer to <span class="math inline">\(f\)</span> as <span class="math inline">\(n\)</span> increases, but there are actually other ways too! For example, we say that <span class="math inline">\(f_n\)</span> converges to <span class="math inline">\(f\)</span> in mean-squared error if <span class="math inline">\(\int (f_n(x) - f(x))^2 \mathop{}\!\mathrm{d}x \to 0\)</span> as a sequence. For reasons we’ll see later this is sometimes denoted as <span class="math inline">\(f_n \overset{\mathcal L_2}{\to} f\)</span>.</p>
 <p>The reason I bring this up is to point out the fact that there are many different senses of “convergence” when you start talking about objects that are more complicated than real numbers. A function can converge to a limit in a mean-squared sense but not in a pointwise sense, and vice versa! Sometimes one type of convergence implies another and sometimes not (without additional assumptions).</p>
-<div id="exm-fn-convergence" class="theorem example">
+<div id="exm-fn-convergence" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example A.1</strong></span> In the plots shown here we investigate the convergence of</p>
 <p><span class="math display">\[
 f_n(x) = \sqrt n e^{-(nx)^2}
@@ -385,6 +392,7 @@ f_n(x) = \sqrt n e^{-(nx)^2}
 </div>
 </div>
 <p>As you can see visually, at any point <span class="math inline">\(x_0 \in (0,\infty)\)</span> the sequence of points <span class="math inline">\(a_n = f_n(x_0)\)</span> converges to zero. Therefore we say <span class="math inline">\(f_n \to 0\)</span> on the domain <span class="math inline">\((0,\infty)\)</span>. However, if you calculate the mean-squared error <span class="math inline">\(\int_0^\infty (f_n - 0)^2 \mathop{}\!\mathrm{d}x\)</span> for this sequence of functions (your favorite LLM can do this for you), you’ll see that it stays at a constant, nonzero value of <span class="math inline">\(\sqrt{\pi/8}\)</span>. Therefore, while this sequence converges pointwise, it does not converge in a mean-squared sense.</p>
+<br>
 </div>
 <p>There is also a more general notion of convergence of which the convergence of real number sequences and mean-squared convergence of functions are special cases.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
@@ -411,8 +419,9 @@ Metric Space Convergence
 </div>
 </div>
 <p>This definition generalizes the definition used for sequences real numbers by generalizing the usual “distance” <span class="math inline">\(d(x,y) = |x-y|\)</span> on the reals to other possible choices that make sense on other sets of objects. Usually we just say <span class="math inline">\(x_n\)</span> “converges” to <span class="math inline">\(x\)</span> instead of saying that the sequence <span class="math inline">\((\mathcal X, d)\)</span>-converges, leaving the set and metric implicit when clear from context. It’s also common to see something like <span class="math inline">\(x_n \overset{\mathcal X}\to x\)</span>, slightly abusing notation and letting <span class="math inline">\(\mathcal X\)</span> represent both the set <span class="math inline">\(\mathcal X\)</span> and the metric space <span class="math inline">\((\mathcal X, d)\)</span>. In this convention, the metric comes “bundled” with the set. In practice certain sets almost always use the same metric (e.g.&nbsp;absolute value of differences for <span class="math inline">\(\mathbb{R}\)</span>, Euclidian norm for <span class="math inline">\(\mathbb{R}^d\)</span>: see <a href="#exm-convergence-Rd" class="quarto-xref">Example&nbsp;<span>A.2</span></a>) but really there is no single privileged metric that goes with each set. When multiple spaces or metrics are in play you may see the more explicit <span class="math inline">\((\mathcal X, d)\)</span> notation because sequences may converge under one metric but not another.</p>
-<div id="exm-convergence-Rd" class="theorem example">
+<div id="exm-convergence-Rd" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example A.2</strong></span> For finite-dimensional vectors <span class="math inline">\(v \in \mathbb{R}^d\)</span>, the Euclidian norm is defined as <span class="math inline">\(\|v\| = \sqrt{\sum v_j^2}\)</span>. From this, the Euclidean distance is defined as <span class="math inline">\(d(u,v) = \|u-v\|\)</span>. It is easy to verify that this distance satisfies the properties of a metric. Then we can say that <span class="math inline">\(v_n \to v\)</span> if <span class="math inline">\(\|v_n - v\| \to 0\)</span>.</p>
+<br>
 </div>
 <div class="callout callout-style-simple callout-important no-icon">
 <div class="callout-body d-flex">
@@ -453,9 +462,10 @@ Uniform Convergence of Functions
 </div>
 <p>Notice that as as <span class="math inline">\(n\)</span> changes, the point <span class="math inline">\(x\)</span> at which the difference <span class="math inline">\(|f_n(x) - f(x)|\)</span> is maximized might change!</p>
 <p>Uniform convergence is another example of convergence in a metric space (<a href="#def-metric-conv" class="quarto-xref">Definition&nbsp;<span>A.3</span></a>): you can check that <span class="math inline">\(d(f,g) = \sup_x |g(x) - f(x)|\)</span> is a valid metric on the set of all functions.</p>
-<div id="exm-unif-conv-fns" class="theorem example">
+<div id="exm-unif-conv-fns" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example A.3</strong></span> let <span class="math inline">\(f=0\)</span> and consider a sequence <span class="math inline">\(f_n(x) = 1(n &lt; x \le n+1)\)</span>. You can think of the sequence <span class="math inline">\(f_n\)</span> as a bump that moves further and further down the x-axis as <span class="math inline">\(n\)</span> increases. If you stand still at any value <span class="math inline">\(x\)</span>, the bump comes and passes over you and then departs. Therefore, for <span class="math inline">\(n\)</span> large enough (specifically <span class="math inline">\(n&gt;x+1\)</span>), <span class="math inline">\(f_n(x) =0\)</span> exactly forevermore and thus <span class="math inline">\(f_n \to f\)</span> pointwise.</p>
 <p>That might seem a little weird to you considering that obviously there is still always a bump in <span class="math inline">\(f_n\)</span> that doesn’t “go to zero” no matter how big <span class="math inline">\(n\)</span> is. That’s part of the intuiton that uniform convergence tries to capture. If you look at the largest value of <span class="math inline">\(f_n - f = f_n\)</span>, you will find that it is always 1, attained at any value <span class="math inline">\(x \in [n,n+1]\)</span>. Therefore <span class="math inline">\(\sup_x |f_n(x) - f(x)| = 1 \not\to 0\)</span>, meaning this sequence of functions does not converge <em>uniformly</em>.</p>
+<br>
 </div>
 <div class="callout callout-style-simple callout-important no-icon">
 <div class="callout-body d-flex">
@@ -590,8 +600,8 @@ Y_n = X_n + U_n \text{ where } r_nU_n \overset{\mathbb P}{\to} 0.
 U_n = o_{\mathbb P}(1) / r_n \equiv o_{\mathbb P}(1/r_n).
 \]</span> The last equality here defines what we mean when we say some variable <span class="math inline">\(U_n\)</span> is <span class="math inline">\(o_{\mathbb P}(1/r_n)\)</span>: namely that <span class="math inline">\(U_n\)</span> times <span class="math inline">\(r_n\)</span> converges in probability to 0. When this is the case we say that “<span class="math inline">\(U_n\)</span> converges at the <em>rate</em> <span class="math inline">\(1/r_n\)</span>”. Sometimes the sequence <span class="math inline">\(r_n\)</span> can also itself be a random variable <span class="math inline">\(R_n\)</span>, but the meaning is the same: if you see <span class="math inline">\(U_n = o_{\mathbb P}(1/R_n)\)</span> it means that <span class="math inline">\(U_n R_n \overset{\mathbb P}{\to} 0\)</span>.</p>
 <p>The intuition for “rates” is that often we’re interested in random variables that go to 0 so quickly that even if they get blown up by some increasing sequence, the product still goes to 0. For example, if some variable <span class="math inline">\(U_n\)</span> is <span class="math inline">\(o_{\mathbb P}(n^{-1/2})\)</span>, that means that <span class="math inline">\(\sqrt n U_n\)</span> still goes to 0, even though <span class="math inline">\(\sqrt n\)</span> is sequence that gets bigger and bigger. The rate <span class="math inline">\(r_n\)</span> (<span class="math inline">\(r_n = n^{1/2}\)</span> in this example) is the factor by which we can afford to “blow up” the sequence of variables <span class="math inline">\(U_n\)</span> and still have it converge to 0. Another way to think of it is that <span class="math inline">\(U_n = o_{\mathbb P}(1/r_n)\)</span> means that <span class="math inline">\(U_n &lt; C/r_n\)</span> with high probability (for some constant <span class="math inline">\(C\)</span> and large enough <span class="math inline">\(n\)</span>). Notice that this is a strict inequality: more on that later.</p>
-<div id="exm-littleo-densities" class="theorem example">
-<p><span class="theorem-title"><strong>Example A.4</strong></span> Let’s say that <span class="math inline">\(Z_n \sim \mathsf{N}(0, \sigma_n^2)\)</span> where <span class="math inline">\(\sigma_n = n^{-1/2}\)</span>. This is what we’d expect the large-sample sampling distribution of <span class="math inline">\(\hat\psi -\psi\)</span> to look like for any asymptotically linear estimator (see <a href="3-2-regularity.html#def-AL" class="quarto-xref">Definition&nbsp;<span>1.2</span></a>).</p>
+<div id="exm-littleo-densities" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example A.4</strong></span> Let’s say that <span class="math inline">\(Z_n \sim \mathsf{N}(0, \sigma_n^2)\)</span> where <span class="math inline">\(\sigma_n = n^{-1/2}\)</span>. This is what we’d expect the large-sample sampling distribution of <span class="math inline">\(\hat\psi -\psi\)</span> to look like for any asymptotically linear estimator (see <a href="3-2-regularity.html#def-AL" class="quarto-xref">Definition&nbsp;<span>2.2</span></a>).</p>
 <p>Below, you can see some density plots for this sequence and how they change if they are blown up by different sequences. In the top two rows, the scaling factor is 1 (not increasing) or <span class="math inline">\(n^{1/4}\)</span> (increasing very slowly) and you can see that the densities are still narrowing as <span class="math inline">\(n\)</span> increases, albiet a little more slowly when blown up by <span class="math inline">\(n^{1/4}\)</span>. However, in the third row the sequence is blown up by the moderately increasing factor <span class="math inline">\(n^{1/2}\)</span>. You can see this is enough to perfectly “stabilize” the distribution: it neither narrows nor widens as <span class="math inline">\(n\)</span> increases. Lastly, in final row we’ve blown up <span class="math inline">\(Z_n\)</span> by the massive factor <span class="math inline">\(n\)</span> and you can see the distribution widens very quickly as <span class="math inline">\(n\)</span> increases.</p>
 <div id="fig-littleo-densities" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -612,6 +622,7 @@ Figure&nbsp;A.1: Scaled normal densities.
 </figure>
 </div>
 <p>Since we can see <span class="math inline">\(Z_n \overset{\mathbb P}{\to} 0\)</span> we could write <span class="math inline">\(Z_n = o_{\mathbb P}(1)\)</span>. Similarly, since we see <span class="math inline">\(n^{1/2}Z_n \overset{\mathbb P}{\to} 0\)</span> we could also write <span class="math inline">\(Z_n = o_{\mathbb P}(n^{-1/4})\)</span>, which is a stronger statement. However, we <em>cannot</em> write <span class="math inline">\(Z_n = o_{\mathbb P}(n^{-1/2})\)</span> because <span class="math inline">\(n^{1/2}Z_n\)</span> is not collapsing to zero. Similarly we cannot write <span class="math inline">\(Z_n = o_{\mathbb P}(n^{-1})\)</span>.</p>
+<br>
 </div>
 <div class="callout callout-style-simple callout-important no-icon">
 <div class="callout-body d-flex">
@@ -631,7 +642,7 @@ Figure&nbsp;A.1: Scaled normal densities.
 <p>Alternatively, if you saw <span class="math inline">\(Y_n = X_n + o_{\mathbb P}(n^{-1/2})\)</span> without knowledge of the distribution of <span class="math inline">\(X_n\)</span> then you would know that <span class="math inline">\(Y_n \approx X_n\)</span> asymptotically only if <span class="math inline">\(X_n\)</span> converges more slowly (if at all) to zero than <span class="math inline">\(n^{-1/2}\)</span>. Alternatively, you would know that <span class="math inline">\(Y_n\)</span> converges to zero at an <span class="math inline">\(n^{-1/2}\)</span> rate if and only if <span class="math inline">\(X_n = o_{\mathbb P}(n^{-1/2})\)</span>.</p>
 <p>Usually the most important part of a rate will be some polynomial factor like <span class="math inline">\(n^{1/2}\)</span>. You should remember that the larger the exponent, the faster a polynomial grows. If you have a negative exponent, the larger in magnitude it is the faster it decays. A term that is <span class="math inline">\(o_{\mathbb P}(n^{-1})\)</span> decays very quickly, while <span class="math inline">\(o_{\mathbb P}(n^{-1/2})\)</span> decays more slowly and <span class="math inline">\(o_{\mathbb P}(n^{-1/3})\)</span> more slowly still.</p>
 <p>A final note is that a similar notation is often used to describe <em>deterministic</em> sequences. If <span class="math inline">\(r_n a_n \to 0\)</span>, you will sometimes see that written as <span class="math inline">\(a_n = o(r_n^{-1})\)</span>.</p>
-<div id="exm-little-oh-derivative" class="theorem example">
+<div id="exm-little-oh-derivative" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example A.5</strong></span> If a function <span class="math inline">\(f(z)\)</span> is differentiable at <span class="math inline">\(z=0\)</span> with derivative <span class="math inline">\(\dot f\)</span> it means that</p>
 <p><span class="math display">\[
 \lim_{t \to 0} \frac{f(t) - f(0)}{t} = \dot f
@@ -645,6 +656,7 @@ Figure&nbsp;A.1: Scaled normal densities.
 (f(t) - f(0)) - \dot f t = o(t).
 \]</span></p>
 <p>This way of writing the definition more clearly illustrates that <span class="math inline">\(\dot f\)</span> is the slope of a linear function <span class="math inline">\(g(t) = \dot f t\)</span> which approximates the difference <span class="math inline">\(f(t) - f(0)\)</span> well-enough that the remainder of the approximation disappears at a better-than-linear rate <span class="math inline">\(o(t)\)</span> (recall <span class="math inline">\(t\to 0\)</span>). This is really the key to differentiability: you can construct a linear approximation to any function at a point, but for the function to be <em>differentiable</em>, that approximation error has to improve linearly or better as you zoom in at a steady rate to the approximation point.</p>
+<br>
 </div>
 </section>
 <section id="sec-app-conv-bigO" class="level3" data-number="A.3.2">
@@ -687,15 +699,17 @@ Figure&nbsp;A.2: The sequence of random variables <span class="math inline">\(\m
 </div>
 <p>Saying a sequence is stochastically bounded is only <em>slightly</em> weaker than saying it converges to zero. If we multiply a stochastically bounded sequence by any sequence that converges to zero, however slowly, the resulting sequence will converge to zero. On the other hand, if we multiply it by any sequence that diverges, however slowly, then the resulting sequence also diverges. A stochastically bounded sequence that does not converge to zero is therefore on the knife’s edge between convergence and divergence. Another way to think of it is that <span class="math inline">\(U_n = O_{\mathbb P}(1/r_n)\)</span> means that <span class="math inline">\(U_n \le C/r_n\)</span> with high probability (for a constant <span class="math inline">\(C\)</span> and large enough <span class="math inline">\(n\)</span>). Notice that for big <span class="math inline">\(O\)</span> it’s less than <em>or equal to</em> whereas for little <span class="math inline">\(o\)</span> it’s a strict inequality.</p>
 <p>Any sequence of random variables that converges in distribution is stochastically bounded. This makes sense if we’re thinking of stochastic boundedness as “almost” convergence to zero: if the sequence converges to a (nonzero) stable limit distribution, any additional shrinking will collapse it to zero.</p>
-<div id="exm-stochastic-bounding-clt" class="theorem example">
+<div id="exm-stochastic-bounding-clt" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example A.6</strong></span> The CLT says that under a variety of conditions <span class="math display">\[
 \sqrt{n}\underbrace{\left(\frac{1}{n}\sum Z_i - \mathbb E[Z] \right)}_{X_n} \rightsquigarrow \mathsf{N}(0, \sigma^2)
 \]</span></p>
 <p>Since the demeaned sample average <span class="math inline">\(X_n\)</span> converges to a stable distribution when scaled by <span class="math inline">\(\sqrt{n}\)</span>, it does not diverge. Therefore we can say <span class="math inline">\(X_n = O_{\mathbb P}(n^{-1/2})\)</span>. However, the limit distribution is not deterministically zero. Therefore <span class="math inline">\(X_n \ne o_{\mathbb P}(n^{-1/2})\)</span>.</p>
+<br>
 </div>
 <p>Often the big <span class="math inline">\(O\)</span> is used to indicate that <span class="math inline">\(r_n\)</span> is <em>exactly</em> the rate that “stabilizes” the asymptotic distribution of <span class="math inline">\(U_n\)</span> so that is neither converging to zero nor diverging. Any rate that is slightly slower (like <span class="math inline">\(n^{1/2 - \epsilon}\)</span>) and <span class="math inline">\(r_n U_n\)</span> would collapse to a point. Anything slightly faster (like <span class="math inline">\(n^{1/2 + \epsilon}\)</span>) and it would blow up.</p>
-<div id="exm-Op-vs-op" class="theorem example">
+<div id="exm-Op-vs-op" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example A.7</strong></span> Recall the example above where <span class="math inline">\(Z_n = \mathsf{N}(0, \sigma_n^2)\)</span> where <span class="math inline">\(\sigma_n = n^{-1/2}\)</span>. In this case we saw that <span class="math inline">\(n^{1/2}Z_n\)</span> does <em>not</em> converge to zero in probability. However, <span class="math inline">\(n^{1/2}Z_n\)</span> <em>is</em> stochastically bounded because it converges to a stable limit distribution (in this case <span class="math inline">\(N(0,1)\)</span>). Therefore while we cannot write <span class="math inline">\(Z_n = o_{\mathbb P}(n^{-1/2})\)</span>, we <em>can</em> write <span class="math inline">\(Z_n = O_{\mathbb P}(n^{-1/2})\)</span> with the big <span class="math inline">\(O\)</span>.</p>
+<br>
 </div>
 <p>Technically something that is <span class="math inline">\(O_{\mathbb P}(1/r_n)\)</span> might also be <span class="math inline">\(o_{\mathbb P}(1/r_n)\)</span> (big <span class="math inline">\(O\)</span> means less than or equal to, which <em>could</em> be strictly less). But usually for given rates <span class="math inline">\(1/a_n &lt; 1/b_n\)</span> (e.g.&nbsp;<span class="math inline">\(n^{-1/2} &lt; n^{-1/3}\)</span>) you should roughly understand that <span class="math inline">\(o_{\mathbb P}(1/a_n) &lt; O_{\mathbb P}(1/a_n) &lt; o_{\mathbb P}(1/b_n)\)</span>.</p>
 </section>
@@ -708,7 +722,7 @@ Figure&nbsp;A.2: The sequence of random variables <span class="math inline">\(\m
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="math inline">\(o_{\mathbb P}\)</span> Algebra
+<span class="math inline">\(o_{\mathbb{P}}\)</span> Algebra
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -727,23 +741,23 @@ Figure&nbsp;A.2: The sequence of random variables <span class="math inline">\(\m
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="math inline">\(o_{\mathbb P}(1) + o_{\mathbb P}(1) = o_{\mathbb P}(1)\)</span></td>
+<td><span class="math inline">\(o_{\mathbb{P}}(1) + o_{\mathbb{P}}(1) = o_{\mathbb{P}}(1)\)</span></td>
 <td>the sum of two convergent sequences converges</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(O_{\mathbb P}(1) + o_{\mathbb P}(1) = O_{\mathbb P}(1)\)</span></td>
+<td><span class="math inline">\(O_{\mathbb{P}}(1) + o_{\mathbb{P}}(1) = O_{\mathbb{P}}(1)\)</span></td>
 <td>a stochastically bounded sequence plus a convergent seqeunce remains stochastically bounded</td>
 </tr>
 <tr class="odd">
-<td><span class="math inline">\(O_{\mathbb P}(1)  o_{\mathbb P}(1) = o_{\mathbb P}(1)\)</span></td>
+<td><span class="math inline">\(O_{\mathbb{P}}(1)  o_{\mathbb{P}}(1) = o_{\mathbb{P}}(1)\)</span></td>
 <td>multiplying a stochastically bounded sequence by a convergent sequence is enough to tip it over the edge and make it converge</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\((c + o_{\mathbb P}(1))^{-1} = O_{\mathbb P}(1)\)</span></td>
+<td><span class="math inline">\((c + o_{\mathbb{P}}(1))^{-1} = O_{\mathbb{P}}(1)\)</span></td>
 <td>the reciprocal of a nonzero constant plus a convergent term will be stochastically bounded (because the denominator will eventually be close to <span class="math inline">\(c \ne 0\)</span>)</td>
 </tr>
 <tr class="odd">
-<td>if <span class="math inline">\(r_n \to \infty\)</span> then <span class="math inline">\(O_{\mathbb P}(r_n^{-1}) = o_{\mathbb P}(1)\)</span></td>
+<td>if <span class="math inline">\(r_n \to \infty\)</span> then <span class="math inline">\(O_{\mathbb{P}}(r_n^{-1}) = o_{\mathbb{P}}(1)\)</span></td>
 <td>any sequence that is still stochastically bounded when “blown up” by <span class="math inline">\(r_n\)</span> must by itself converge</td>
 </tr>
 </tbody>
@@ -751,7 +765,7 @@ Figure&nbsp;A.2: The sequence of random variables <span class="math inline">\(\m
 </div>
 </div>
 </div>
-<p>As per the abuse of notation, these are really implications rather than equalities. For example, the first statment is an abbreviation for <span class="math inline">\(X_n = o_{\mathbb P}(1) + o_{\mathbb P}(1) \implies X_n = o_{\mathbb P}(1)\)</span> which itself is an abbreviation for <span class="math inline">\(X_n \to 0, Y_n \to 0 \implies X_n + Y_n \to 0\)</span>.</p>
+<p>As per the abuse of notation, these are really implications rather than equalities. For example, the first statment is an abbreviation for <span class="math inline">\(X_n = o_{\mathbb{P}}(1) + o_{\mathbb{P}}(1) \implies X_n = o_{\mathbb{P}}(1)\)</span> which itself is an abbreviation for <span class="math inline">\(X_n \to 0, Y_n \to 0 \implies X_n + Y_n \to 0\)</span>.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">

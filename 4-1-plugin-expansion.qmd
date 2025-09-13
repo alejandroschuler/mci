@@ -28,3 +28,10 @@ Thus CIs etc will be wrong, even though estimate may be ok.
 ## Von Mises Expansion (formalizing above)
 
 ## 
+
+<!-- What does DML do? 
+For PD estimands, DML estimators are exactly the EEE/GMM estimators. Emphasizes ML and sample splitting, which is not new but needed more timely attention (cv-TMLE [2010] perhaps too soon relative to "big data" and DL). under some regularity conditions (eg continuity of phi), better describes when estimands have a "double robustness" property that can be exploited and when nusiance rates can be favorably slow. insights about rates extend to non-PD estimands. Original papers only discuss use with nonparam EIF but I think should hold as well with EIF in restricted models with appropriate and easily-satisfied regularity conditons.
+
+@dml @dml-gmm @orth-stat-lrn
+
+-->

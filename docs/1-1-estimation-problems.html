@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; Estimation Problems – Foundations of Modern Causal Inference</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./3-0-intro.html" rel="next">
+<link href="./1-0-intro.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-cb90a69176a861232a8fe12288a45817.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1-0-intro.html">Models and Estimands</a></li><li class="breadcrumb-item"><a href="./1-1-estimation-problems.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Estimation Problems</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Foundations of Modern Causal Inference</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./1-0-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Models and Estimands</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1-1-estimation-problems.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Estimation Problems</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./3-0-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Efficiency Theory</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-2-regularity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-3-efficiency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-4-deriving-eifs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./6-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./5-1-rv-convergence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Convergence</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./5-2-L2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title"><span class="math inline">\(\mathcal L_2\)</span> Space</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#data-and-distributions" id="toc-data-and-distributions" class="nav-link active" data-scroll-target="#data-and-distributions"><span class="header-section-number">1.1</span> Data and Distributions</a>
+  <ul class="collapse">
+  <li><a href="#the-fiction-of-probability" id="toc-the-fiction-of-probability" class="nav-link" data-scroll-target="#the-fiction-of-probability"><span class="header-section-number">1.1.1</span> The Fiction of Probability</a></li>
+  <li><a href="#independent-observations" id="toc-independent-observations" class="nav-link" data-scroll-target="#independent-observations"><span class="header-section-number">1.1.2</span> Independent Observations</a></li>
+  </ul></li>
+  <li><a href="#models" id="toc-models" class="nav-link" data-scroll-target="#models"><span class="header-section-number">1.2</span> Models</a></li>
+  <li><a href="#estimands" id="toc-estimands" class="nav-link" data-scroll-target="#estimands"><span class="header-section-number">1.3</span> Estimands</a>
+  <ul class="collapse">
+  <li><a href="#sec-emp-proc-notation" id="toc-sec-emp-proc-notation" class="nav-link" data-scroll-target="#sec-emp-proc-notation"><span class="header-section-number">1.3.1</span> Notation for Expectation</a></li>
+  </ul></li>
+  <li><a href="#estimators" id="toc-estimators" class="nav-link" data-scroll-target="#estimators"><span class="header-section-number">1.4</span> Estimators</a>
+  <ul class="collapse">
+  <li><a href="#empirical-distributions" id="toc-empirical-distributions" class="nav-link" data-scroll-target="#empirical-distributions"><span class="header-section-number">1.4.1</span> Empirical Distributions</a></li>
+  <li><a href="#estimators-1" id="toc-estimators-1" class="nav-link" data-scroll-target="#estimators-1"><span class="header-section-number">1.4.2</span> Estimators</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1-0-intro.html">Models and Estimands</a></li><li class="breadcrumb-item"><a href="./1-1-estimation-problems.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Estimation Problems</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Estimation Problems</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The purpose of statistics is to help make decisions based on our observations in the real world. Should we enact rent control? Who should more carefully control their blood pressure? When should we plant crops to maximize yield? All of these are examples of questions where decisions need to be made and can be informed by observations. Statistics comes in when we know that the same or similar experiments, if repeated, would yield different results due to chance variation in the observations (or, from a Bayesian perspective, when those observations incrementally shift the degree to which we beleive something). The vast majority of important real-world questions involve some degree of variability. In this sense, statistics is one of the most important stewards of the scientific process. Surprisingly, however, many traditional courses in statistics do not introduce the “big picture” perspective that I’ll lay out here, which is why I feel compelled to include it even though some readers will be familiar with some or all of these concepts.</p>
+<p>To answer a question, or make a decision, we usually would like to know a particular number or set of numbers that are “fundamental” to the world but practically or theoretically unobservable. For example, to facilitate vaccine production, we may want to know how many people have the flu. Or, to decide who to market a movie to, we’d like to know what percentage of each market segment would pay to see the film if shown an ad vs.&nbsp;if not. We imagine that these are fixed, but unknown, quantities. We may have access to some sample of people who are either sick or not, or we may have access to a focus group of movie-goers, but what can these observations tell us about the broader populations (or counterfactual populations) we’re interested in? How does that depend on what we assume to begin with? That is the question that we attempt to formalize and address in the study of statistics. Before proceeding to the specifics of <em>causal</em> inference, we’ll first address the fundamentals of estimation problems writ large.</p>
+<p>Not defining a clear question or set of assumptions is by far the largest source of catastrophic errors in any data analysis. No matter what you do with the data, if you didn’t have a clear question to begin with, whatever answer you’ve arrived at is completely meaningless. You’ll often see analyses that start with “we took the data and did linear regression; here we report the coefficients and confidence intervals”. Without specifying a concrete goal, how can we judge what these coefficients are supposed to mean? Without a clear description of modeling assumptions, how can we know that the confidence intervals actually have their promised level of coverage? You could have infinite data and still get it all wrong. Leaving questions and assumptions implicit causes confusion.</p>
+<p>Of course, it’s not always easy to pin down a good question and clarify assumptions. Most of the time, domain experts actually have a large swath of vague, interlocking questions: it’s part of the statistician’s job to help wrangle these down to something concrete and propose or verify sets of tenable assumptions. That’s why you need a good understanding of the formal objects we’ll define in this chapter so you can help tie them to the real world.</p>
+<p>You can think of this as an iceberg: you get to see the data, what you do with it, and the results. These are all things you can see and “touch” (at least in a computer program). But that’s only the tip of the iceberg, the 10% above the waterline. Under the surface, you need to have an imagined space of data-generating distributions (different plausible versions of “the real world”), functions that act on these distributions to reveal their true properties (i.e.&nbsp;definitions of “the answer” in each “world”), and an infinite number of repetitions of the statistical processes that generated the data (to allow for a quantification of uncertainty). That’s the 90% of the iceberg that remains submerged; imaginary. Outside of simulations, you can’t ever touch these things. It’s your job to know they are there. The tip of the iceberg can’t exist, or at least doesn’t mean anything useful, without the hidden mass below.</p>
+<div id="fig-iceberg" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-iceberg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/iceberg.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-iceberg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.1: What is visible and what is invisible in a data analysis.
+</figcaption>
+</figure>
+</div>
+<section id="data-and-distributions" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="data-and-distributions"><span class="header-section-number">1.1</span> Data and Distributions</h2>
+<p>To make progress on this front we have to formalize some ideas. We’ll start with what we actually observe in a study: the data. For the purposes of this book, we’ll stick to “tabular” data and presume that our data looks something like this:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(i\)</span></th>
+<th><span class="math inline">\(W\)</span></th>
+<th><span class="math inline">\(X\)</span></th>
+<th><span class="math inline">\(\dots\)</span></th>
+<th><span class="math inline">\(Y\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(1\)</span></td>
+<td><span class="math inline">\(W_1\)</span></td>
+<td><span class="math inline">\(X_1\)</span></td>
+<td><span class="math inline">\(\dots\)</span></td>
+<td><span class="math inline">\(Y_1\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(2\)</span></td>
+<td><span class="math inline">\(W_2\)</span></td>
+<td><span class="math inline">\(X_2\)</span></td>
+<td><span class="math inline">\(\dots\)</span></td>
+<td><span class="math inline">\(Y_2\)</span></td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(n\)</span></td>
+<td><span class="math inline">\(W_n\)</span></td>
+<td><span class="math inline">\(X_n\)</span></td>
+<td><span class="math inline">\(\dots\)</span></td>
+<td><span class="math inline">\(Y_n\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The variables <span class="math inline">\(X\)</span>, <span class="math inline">\(W\)</span>, <span class="math inline">\(Y\)</span>, or whatever other symbols we choose to use, represent the different kinds of measurements we take in the study, and the indices <span class="math inline">\(i\)</span> represent the different units of observation. Therefore <span class="math inline">\(X_i\)</span> represents the value of variable <span class="math inline">\(X\)</span> for observation <span class="math inline">\(i\)</span>. For example, if we were interested in the effect of a drug, the different observations might corresond to different patients, <span class="math inline">\(W\)</span> their ages, <span class="math inline">\(X\)</span> whether or not they took the drug, and <span class="math inline">\(Y\)</span> some measure of their health afterwards. We presume that all of these values are numbers and I’ll usually use caligraphic letters to denote their domains, e.g., <span class="math inline">\(\mathcal X\)</span> is the domain of <span class="math inline">\(X\)</span>. These domains are always subsets of the reals <span class="math inline">\(\mathbb{R}\)</span> - categorical and binary variables are represented with sets of integers and <span class="math inline">\(\{0,1\}\)</span>, respectively. Generally I’ll let <span class="math inline">\(Z_i\)</span> denote the tuple of all the different measurements for a particular observation <span class="math inline">\(i\)</span> (e.g., <span class="math inline">\(Z_i = (X_i,W_i,Y_i)\)</span>) and if I write <span class="math inline">\(Z\)</span> without the subscript I’m referring to a generic or arbitrary observeration.</p>
+<p>In statistics we imagine that the data are a draw from an unknown <em>distribution</em> <span class="math inline">\({\mathbb{P}}^n\)</span> over all <span class="math inline">\(n\)</span> variables <span class="math inline">\(Z_1 \dots Z_n\)</span> that generates the dataset. We’ll use blackboard boldface notation <span class="math inline">\({\mathbb{P}}\)</span> to denote distributions. A distribution of a random variable <span class="math inline">\(Z\)</span> assigns a probability value in <span class="math inline">\([0,1]\)</span> to subsets of the <span class="math inline">\(\mathcal Z\)</span>, the domain of <span class="math inline">\(Z\)</span>. I’ll use the curly-brace notation <span class="math inline">\({\mathbb{P}}\{\mathcal S\}\)</span> or <span class="math inline">\({\mathbb{P}}\{Z \in \mathcal S\}\)</span> to indicate the probability of a set <span class="math inline">\(\mathcal S \subset \mathcal Z\)</span>. In a mild and ubiquitous abuse of notation I’ll also write <span class="math inline">\({\mathbb{P}}\{Z \le z\}\)</span>, etc. to denote what should formally and tediously be written as <span class="math inline">\({\mathbb{P}}\{ \{ z' \in \mathcal Z: z' \le z \} \}\)</span>.</p>
+<div id="fig-roadmap-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-roadmap-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="1-1-estimation-problems_files/mediabag/525caf860d3a2099a4525a39b698a0621647ee1c.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roadmap-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.2: A schematic showing that we can imagine our data (labelled <span class="math inline">\({\mathbb{P}_n}\)</span>, to be explained in below) as a draw from an unknown distribution <span class="math inline">\({\mathbb{P}}\)</span>. The data are shown in orange to illustrate that we can observe them, while the distribution is in black to show that it is not observable. We will add to this schematic as the chapter progresses using the same convention: elements in orange are observable (tip of the iceberg) and elements in black are not (under the surface).
+</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If any of the statements <span class="math inline">\(z \in \mathbb{R}^d\)</span>, <span class="math inline">\(\mathcal F = \{f(z): z \in \mathcal Z\}\)</span>, <span class="math inline">\(f: \mathbb{R}\to \mathcal Z\)</span>, or <span class="math inline">\(x \mapsto g(x,z)\)</span> aren’t absolutely clear to you, you should review some set basics before continuing. The Bright Side of Mathematics has a wonderful series on YouTube titled <a href="https://www.youtube.com/playlist?list=PLBh2i93oe2quSTcPiynsSW11Ox6oBBKiq">“Start Learning Sets”</a> that should take you less than an hour to get through and covers what you need to know. It is absolutely essential that you understand these notations concretely before proceeding.</p>
+</div>
+</div>
+<p>All distributions have an associated cumulative distribution function <span class="math inline">\(z \mapsto {\mathbb{P}}\{Z \le z\}\)</span> that uniquely identifies them. Although not all distributions have standard density functions (with respect to Lebesgue measure), it is sometimes helpful imagine a (multivariate) density function <span class="math inline">\(p(z)\)</span> as the representation of a distribution. This can help facilitate your reasoning. Throughout the book I’ll use lowercase <span class="math inline">\(p\)</span> to denote the density of a distribution <span class="math inline">\({\mathbb{P}}\)</span>.</p>
+<p>When necessary, I’ll use parentheses to indicate marginal or conditional distributions like <span class="math inline">\({\mathbb{P}}(X)\)</span> or <span class="math inline">\({\mathbb{P}}(Y|X=x)\)</span> under a joint distribution <span class="math inline">\({\mathbb{P}}(Y,X)\)</span>. Because when we write <span class="math inline">\({\mathbb{P}}\{Y &lt; y| X=x\}\)</span>, etc. it is obvious what distribution we’re referring to, we only need to write the paranthetical random variables when we are referring to those distributions as objects in and of themselves, not when we are applying them to find the probability of particular sets.</p>
+<section id="the-fiction-of-probability" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="the-fiction-of-probability"><span class="header-section-number">1.1.1</span> The Fiction of Probability</h3>
+<p>Before going any further, I want to underscore what I said above about <em>imagining</em> that data are drawn from a distribution. In the frequentist view, a dataset is a single instantiation of what could have happened under repetitions of a given experiment or physical process. Repeat the experiment, get a different dataset. The probability distribution of the data represents the accumulated patterns of the data over infinite repetitions of the experiment. A probability statement like <span class="math inline">\({\mathbb{P}}\{Z &gt; 0\} = 1/2\)</span> means that <span class="math inline">\(Z\)</span> (whatever that is) comes out to be positive in exactly half of the repetitions of the experiment.</p>
+<p>Obviously this is a fiction. Very rarely, if ever, can experiments be exactly replicated. If they cannot be replicated, in what sense can we give meaning to the “distribution” of the data? Indeed, a random number generator fundamentally has nothing to do with the physical, biological, or social processes by which numbers end up appearing in a spreadsheet. A probability distribution is a simulacrum of what is actually happening in the real world: a convenient way to smooth over things which we do not really understand while maintaining a transparent, shared vocabulary. Frequentist probability is a shared lie, it is not real in any meaningful way.</p>
+<p>Nonetheless, the frequentist probability framework is extremely useful. As humans, we are entirely in the business of fabricating social fictions and operating by them. We have no problem making good use of invented abstractions. <em>Numbers themselves</em> are mythical. Certainly you can have two apples or two pencils, but “two” is not real (and neither is an apple - you cannot cleanly define such a thing without social context). Like apples, the number two, and the “laws” of physics, frequentist probability is extremely useful despite not being real. This is roughly the instrumentalist-fictionalist stance in the sense of <span class="citation" data-cites="fictionalism">Vaihinger and Rosenthal (<a href="6-references.html#ref-fictionalism" role="doc-biblioref">2021</a>)</span>: mathematical models should be treated as useful “as-if” fictions chosen for empirical adequacy and transparent communication, not as literal features of the world.</p>
+<p>For completeness I should note that subjectivist Bayesian probability gives an account of probability that to me is much more plausible. In that framework, probability reflects a personal degree of belief <span class="citation" data-cites="subj-bayes">(<a href="6-references.html#ref-subj-bayes" role="doc-biblioref">Joyce 2011</a>)</span>. I don’t want to spend too much time on the details here but roughly speaking my perspective is that Bayesian probability, while philosophically a bit more satisfying, is practically more challenging and socially less valuable than the frequentist framework because priors are difficult to agree on and because Bayesian nonparametrics are very unweildy. Many people would vehemently disagree with me on that, but empirically it appears to be true: frequentist probability is far more popular in the wild. And, ultimately, subjective Bayesian probability is also a myth in the same sense as any other mathematics: it just buries its lies a bit deeper than the frequentist framework. The fact that there are entire textbooks devoted to the philosophy of probability (e.g., <span class="citation" data-cites="philosophy">Weatherford (<a href="6-references.html#ref-philosophy" role="doc-biblioref">2022</a>)</span>) should be enough to convince you that no approach is entirely salvageable or coherent.</p>
+</section>
+<section id="independent-observations" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="independent-observations"><span class="header-section-number">1.1.2</span> Independent Observations</h3>
+<p>For the purposes of this book we will only consider distributions where the different observtions <span class="math inline">\(i \in \{1 \dots n\}\)</span> are considered <em>independent</em> and <em>identically distributed</em> (IID). That is, where joint probabilities factor as <span class="math inline">\({\mathbb{P}}(Z_i, Z_j) = {\mathbb{P}}(Z_i) {\mathbb{P}}(Z_j)\)</span> for <span class="math inline">\(i\ne j\)</span>. That is why I used the suggestive notation <span class="math inline">\({\mathbb{P}}^n\)</span> to indicate the distribution of the the entire dataset above: <span class="math inline">\({\mathbb{P}}\)</span> indicates the distribution of a single, generic observation and <span class="math inline">\({\mathbb{P}}^n\)</span> indicates the distribution of the entire dataset which, by independence, is simply the product of the <span class="math inline">\(n\)</span> identical per-observation distributions.</p>
+<div id="fig-roadmap-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-roadmap-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="1-1-estimation-problems_files/mediabag/f8de5603dba72c0f0811709661ddd54d4af71585.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roadmap-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.3: For IID observations, the data are generated by sampling from the distribution <span class="math inline">\({\mathbb{P}}\)</span> repeatedly for a total of <span class="math inline">\(n\)</span> times.
+</figcaption>
+</figure>
+</div>
+<p>Independence and interchangeability of observations is a strong assumption: to assess it, you can imagine repeating your “experiment” or data-generating process many, many times to gather different datasets of the same size as the one you observe. If you take the first row <span class="math inline">\(Z_1\)</span> from each of these datasets and subset to those datasets where <span class="math inline">\(Z_2 = z_2\)</span> (or another condition), the distribution of <span class="math inline">\(Z_1\)</span> in that subset should be the same as it is across the entire collection of datasets.</p>
+<div id="exm-non-iid-data" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 1.1</strong></span> Let’s say <span class="math inline">\(Z_i\)</span> are binary indicators of whether a person <span class="math inline">\(i\)</span> has the flu or not. Imagine first an experiment where on January 1st of 2025 we sample 100 random people in Berkeley, California and test them for flu. Repeating this experiment would require time travel, but in this setup the observations <span class="math inline">\(Z_1\)</span> and <span class="math inline">\(Z_2\)</span> would be essentially independent (modulo the fact that Berkeley has a finite population; we can sensibly ignore this since it is large relative to the sample size). The only randomness comes from who we sample, and sampling one person does not make it more or less likely that the rest of the sample is sick or healthy.</p>
+<p>In contrast, consider a version of the “experiment” where we first pick a random day in 2025, and then pick 100 random people in Berkeley. In this setup, knowing that one person is sick in our dataset actually gives us a lot of information about the others. The reason is simple. If we look at person 1 and see they have the flu, that makes it more likely that our sample was taken during flu season and therefore it’s more likely that other have the flu too. Or, explained more literally, if we subset to all the datasets where person 1 has the flu, more of those will have been taken in flu season and therefore the distribution of <span class="math inline">\(Z_2\)</span> in those datasets will be tilted towards 1 more than the general distribution of <span class="math inline">\(Z_2\)</span>.</p>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-iid-data" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 1.1</strong></span> Imagine an experiment where we first pick a random city and then sample 100 people and test if they have flu. Are two people’s test results independent in that setup? Why or why not?</p>
+<p>Does your answer change if the disease tested in the study is genetic (like sickle-cell anemia) instead of contagious (like the flu)?</p>
+</div>
+</div>
+</div>
+</div>
+<p>Statistics has nothing to say about which version of the experiment is the correct one. A dataset of 100 flu tests from Berkeley is equally compatible with all three hypothetical experiments. There is not a mathematically wrong answer in terms of determining whether the observations are independent, even though that assuption impacts the analysis and interpretation of the data.</p>
+<p>While we may never actually repeat <em>any</em> version of our experiment, it’s certainly more plausible to imagine a similar experiment in a different city or in a different time as “repetition” of our experiment than it is to go back in time. The result of our analysis has more social utility if we interpret the data as coming from the random-time or random-city experiments, and therefore this is the more sensible choice. Therefore, in this context, we should often treat <span class="math inline">\(Z_1\)</span> and <span class="math inline">\(Z_2\)</span> as <em>dependent</em> rather than <em>independent</em>.</p>
+<br>
+</div>
+<p>In <a href="#exm-non-iid-data" class="quarto-xref">Example&nbsp;<span>1.1</span></a>, the dependence arises because the flu is a contagious disease that clusters temporally and geographically. In many other cases, independence is a more reasonable assumption. For the remainder of this book we will assume IID data, partly because this covers a large number of practical applications and partly because it simplifies things in a way that is useful for learning. Similar ideas apply in non-IID settings, but it is easier to understand that theory after covering the IID case.</p>
+<p>When the data are assumed IID, taking a dataset of size <span class="math inline">\(n\)</span> from a distribution is equivalent to sampling <span class="math inline">\(n\)</span> times with replacement from some (possibly infinite) “population” of possible rows of data. I often find it helpful to reason in terms of a very large, yet finite population, i.e., a data table very similar to the one shown above, but with a huge number of rows <span class="math inline">\(n^*\)</span>. In that case, the joint probability distribution <span class="math inline">\({\mathbb{P}}\)</span> is nothing more than the joint histogram of that population dataset. In fact, you can even think of the <span class="math inline">\({\mathbb{P}}\)</span> as standing for “<span class="math inline">\({\mathbb{P}}\text{opulation}\)</span>”.</p>
+<p>In a large, finite population, evaluating a probability like <span class="math inline">\({\mathbb{P}}\{X&gt;5\}\)</span> reduces to counting the number of rows that satisfy the condition <span class="math inline">\(X &gt; 5\)</span> in that dataset and dividing by <span class="math inline">\(n^*\)</span>. Similarly, <span class="math inline">\({\mathbb{P}}\{X&gt;5|Y=2\} = \frac{\#\{X&gt;5, Y=2\}}{\#\{Y=2\}}\)</span>, the number of rows where <span class="math inline">\(X &gt; 5\)</span> among those with <span class="math inline">\(Y=2\)</span>. All of the standard rules and theorems of probability (Bayes’ Theorem, total expectation, etc.) are easy to derive intuitvely in this setting.</p>
+</section>
+</section>
+<section id="models" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="models"><span class="header-section-number">1.2</span> Models</h2>
+<p>We presume that data are drawn from some distribution, but we do not pretend to know what that distribution actually is. However, we may know something at least about some <em>aspects</em> of the distribution.</p>
+<div id="exm-positive-rv-assumptions" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 1.2</strong></span> Let’s say <span class="math inline">\(Z_i\)</span> represents someone’s age in a random sample from a population of interest and that is all we are told. We model <span class="math inline">\(Z_i  \overset{\text{IID}}\sim {\mathbb{P}}\)</span> with <span class="math inline">\({\mathbb{P}}\)</span> unknown. However, since <span class="math inline">\(Z\)</span> represents age, we actually already know that <span class="math inline">\({\mathbb{P}}\{Z \ge  0\} = 1\)</span>. Note that other aspects of the distribution may still be unknown: we certainly don’t know if there are more children than adults, what the mean age is, etc. If we are somewhat more ambitious, however, we may also be comfortable assuming <span class="math inline">\({\mathbb{P}}\{Z \le  200\} = 1\)</span> or some other large age depending on the population of interest, since, to my knowledge, nobody has ever lived that long!</p>
+<br>
+</div>
+<div id="exm-rct-assumptions" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 1.3 (Randomized Trial)</strong></span> Presume that we collect data from a simple randomized trial. In a randomized trial, participants <span class="math inline">\(i\)</span> are recruited from a population of interest. Usually some measurements (age, sex, disease state) are taken at baseline. We’ll call these the <em>covariates</em> and denote them with <span class="math inline">\(X_i\)</span> for each participant. Once they are enrolled, participants are randomized by a fair 50/50 coin flip to receive either an experimental treatment (e.g., a drug) or placebo (alterantively, some standard-of-care treatment). We use <span class="math inline">\(A_i \in \{0,1\}\)</span> to denote whether or not the participant was in the treatment arm (<span class="math inline">\(A=1\)</span>) or control <span class="math inline">\((A=0)\)</span>. After some time elapses for each participant, an outcome <span class="math inline">\(Y_i\)</span> (e.g., disease state) is measured for each person.</p>
+<p>For IID observations, we have <span class="math inline">\((Y,A,X)_i \overset{\text{IID}}\sim {\mathbb{P}}\)</span> for some distribution <span class="math inline">\({\mathbb{P}}\)</span>. While <span class="math inline">\({\mathbb{P}}\)</span> is unknown, we actually do know something about it. Namely, <span class="math inline">\({\mathbb{P}}(A=1|X) = 1/2\)</span>. This is not an assumption: since the trial was randomized, we know this for a fact!</p>
+<p>Since the randomization happens individually for each person, we know the conditioning on <span class="math inline">\(X\)</span> is appropriate: the population distribution of the treatment will be 50/50 in any stratum of the covariates <span class="math inline">\(X=x\)</span>. That’s why we know <span class="math inline">\({\mathbb{P}}\{A=1|X\} = 1/2\)</span> and not just the weaker statement <span class="math inline">\({\mathbb{P}}\{A=1\} = 1/2\)</span>. The latter would just imply that half of the people in the population get treated, but that could easily happen if, e.g., we treat all women and don’t treat all men.</p>
+<br>
+</div>
+<p>As the examples show, there is often some knowledge about the distribution: at a minimum, we usually know the domains of the different variables. A <em>statistical model</em> is a tool to formalize these pieces of knowledge.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-model" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.1</strong></span> A <em>statistical model</em> (or just <em>model</em>) is any set <span class="math inline">\({\mathcal{P}}\)</span> whose elements are probability distributions.</p>
+</div>
+</div>
+</div>
+<p>The definition of a model is extremely simple. The utility comes when we define models that align with our knowledge or suppositions so that the model formalizes what we believe about the world. If the model reflects reality in this way, then the true data-generating distribution <span class="math inline">\({\mathbb{P}}\)</span> is an element of the model, i.e., <span class="math inline">\({\mathbb{P}}\in {\mathcal{P}}\)</span>. The problem of statistics, in its most ambitious form, is to try and deduce which element of <span class="math inline">\({\mathcal{P}}\)</span> is the data-generating distribution based on an observed dataset sampled from that distributon.</p>
+<p>Since we’ll assume IID data throughout this book, we won’t write that as a restriction on the model. That is, instead of specifying the set of data distributions <span class="math inline">\({\mathbb{P}}^n\)</span>, we’ll just specify the set of distributions <span class="math inline">\({\mathbb{P}}\)</span> possible for a generic, individual observation. The latter model on individual observations induces the former model on datasets, i.e., <span class="math inline">\({\mathcal{P}}^n = \{{\mathbb{P}}^n : {\mathbb{P}}\in {\mathcal{P}}\}\)</span>.</p>
+<div id="fig-roadmap-3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-roadmap-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="1-1-estimation-problems_files/mediabag/45bfd5e125fc4578516d1c52a768634f06b8b0ff.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roadmap-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.4: The model is shown here as a blob around the distribution <span class="math inline">\({\mathbb{P}}\)</span>. The model is known in the sense that it is determined by the assumptions the analyst is willing to make. However, it is a theoretical construct and not directly tangible to the analyst (in terms of code, etc.) so we show it in teal.
+</figcaption>
+</figure>
+</div>
+<div id="exm-rct-model" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 1.4 (Randomized Trial)</strong></span> In <a href="#exm-rct-assumptions" class="quarto-xref">Example&nbsp;<span>1.3</span></a> above we discussed randomized trials and concluded that <span class="math inline">\({\mathbb{P}}(A|X)\)</span> is known in such situations. Therefore an appropriate model to use in a randomized trial setting is</p>
+<p><span class="math display">\[
+{\mathcal{P}}= \{{\mathbb{P}}: {\mathbb{P}}\{A=1|X\}=1/2\}
+\]</span></p>
+<br>
+</div>
+<div id="exm-lin-reg-model" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 1.5 (Linear Regression with Normal Errors)</strong></span> In settings where a vector of predictors <span class="math inline">\(X \in \mathbb{R}^d\)</span> and an outcome <span class="math inline">\(Y \in \mathbb{R}\)</span> are observed for each observation, it is sometimes mathematically convenient to assume that the conditional expectation (“regression function”) of the outcome is a linear function of <span class="math inline">\(X\)</span> and that the outcome is determined by adding gaussian noise to this function. Therefore, the <em>linear regression</em> model (with normal errors) for the conditional distribution <span class="math inline">\({\mathbb{P}}(Y|X)\)</span> is</p>
+<p><span class="math display">\[
+{\mathcal{P}}= \left\{ \mathsf{N}(X^\top\beta, \sigma^2) : \beta \in \mathbb{R}^d, \sigma^2 &gt; 0 \right\}
+\]</span></p>
+<br>
+</div>
+<p>Unfortunately, using the term “model” for a set of distributions (one of which is the “real” one) somewhat conflicts with the way “model” is often used coloquially. In the langauge of statistical theory, <em>the</em> linear regression model is the set described in <a href="#exm-lin-reg-model" class="quarto-xref">Example&nbsp;<span>1.5</span></a>. But often people will refer to <em>a</em> linear regression model <span class="math inline">\(Y = X^\top \hat\beta + \mathsf{N}(0,1)\)</span> for some fixed value of <span class="math inline">\(\hat\beta\)</span>, referring to the result of “fitting” the model. The former use refers to a set of distributions while the latter refers to a specific distribution in this set. In the language we will develop shortly, something like <span class="math inline">\(Y = X^\top \hat\beta + \mathsf{N}(0,1)\)</span> would be called an <em>estimate</em> of the conditional distribution, rather than a model for it.</p>
+<p>Since models are sets, they can certainly be compared in terms of sub- and super-sets. The randomized trial model in <a href="#exm-rct-model" class="quarto-xref">Example&nbsp;<span>1.4</span></a> is a subset of a “larger” model where nothing is assumed about <span class="math inline">\({\mathbb{P}}(A|X)\)</span>, and a superset of a model where the covariate distribution <span class="math inline">\({\mathbb{P}}(X)\)</span> is also known. We often use langauge like this informally, saying that certain models are relatively large and others are relatively small. Another way to measure the size of the model is to count how many parameters it takes to parametrize it.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+(Non)Parametric Model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-param-model" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.2</strong></span> A <em>parametric model</em> of dimension <span class="math inline">\(d\)</span> is any model <span class="math inline">\({\mathcal{P}}\)</span> whose elements can be put into correspondence with some subset of real vectors <span class="math inline">\(\Theta \subseteq \mathbb{R}^d\)</span> without running out of vectors. An element <span class="math inline">\(\theta \in \Theta\)</span> is called a <em>parameter value</em> and each coordinate of <span class="math inline">\(\theta = [\theta_1 \dots \theta_d]\)</span> is usually referred to as a (scalar) parameter.</p>
+<p>Formally, a model <span class="math inline">\({\mathcal{P}}\)</span> is (<span class="math inline">\(d\)</span>-dimensionally) parametric if there exists an onto function from <span class="math inline">\(\Theta\)</span> to <span class="math inline">\({\mathcal{P}}\)</span>. Usually this function is written <span class="math inline">\(\theta \mapsto {\mathbb{P}}_\theta\)</span> so that <span class="math inline">\({\mathbb{P}}_\theta\)</span> denotes the distribution associated with or “indexed by” the parameter value <span class="math inline">\(\theta\)</span>.</p>
+<p>Any model that cannot be indexed with a finite-dimensional vector space is called <em>nonparametric</em>.</p>
+</div>
+</div>
+</div>
+<div id="fig-parametric-model" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-parametric-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="1-1-estimation-problems_files/mediabag/7c63be627ae359c8348879115c74873225952448.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-parametric-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.5: In a parametric model, each distribution corresponds to some parameter value in a finite-dimensional space.
+</figcaption>
+</figure>
+</div>
+<p>The classical linear regression model in <a href="#exm-lin-reg-model" class="quarto-xref">Example&nbsp;<span>1.5</span></a> is an example of a parametric model that has <span class="math inline">\(d + 1\)</span> parameters (<span class="math inline">\(d\)</span> for the components of the coefficient vector <span class="math inline">\(\beta\)</span> plus one for <span class="math inline">\(\sigma^2\)</span>). Forcing one of the coefficients to be zero (equivalent to omitting a predictor) would result in a model with one fewer dimension.</p>
+<p>Parametric models can always be parametrized in different ways. For example, the set of all normal distributions can be parametrized with the mean <span class="math inline">\(\mu\)</span> and the standard deviation <span class="math inline">\(\sigma\)</span> (as usual), or it can be parametrized with the natural parameters of the exponential family (it doesn’t matter if you don’t know what that is) which are <span class="math inline">\(\theta_1 = \mu/\sigma^2\)</span> and <span class="math inline">\(\theta_2 = -1/(2\sigma^2)\)</span>. The mappings <span class="math inline">\((\mu, \sigma) \mapsto {\mathbb{P}}_{\mu, \sigma}\)</span> and <span class="math inline">\((\theta_1, \theta_2) \mapsto {\mathbb{P}}_{\theta_1, \theta_2}\)</span> are essentially two different naming or labelling conventions for the same set of distributions, in this case normals.</p>
+<p>Nonparametric models can also (confusingly) be parametrized - just not with a finite-dimensional parameter. For example, the set of all distributions that have continuous densities can be parametrized by those densities themselves: we could write a mapping <span class="math inline">\(p \to {\mathbb{P}}_p\)</span> from densities to the corresponding distributions. But, of course, the set of density functions <span class="math inline">\(p\)</span> is not a finite-dimensional space. “Finite-dimensional” is therefore a clearer descriptor than “parametric”, but we’re stuck with the terms we have.</p>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To learn more about spaces of functions you can peek at <a href="5-2-L2.html#sec-app-L2-vectors" class="quarto-xref"><span>Section B.1</span></a>. You won’t need any of that material at this point in the book but it’s there if you’re curious.</p>
+</div>
+</div>
+<p>Sometimes a nonparametric model is parametrized partly with finite-dimensional parameter and partly with an infinite dimensional parameter. Such models are usually called <em>semiparametric</em>, but formally they are one kind of nonparametric model, or specifically one way of parametrizing a nonparametric model.</p>
+<div id="exm-symmetric-location-model" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 1.6</strong></span> Presume that we measure a continuous variable <span class="math inline">\(Z\)</span> which, for some reason, we know should have a symmetric distribution around its mean. This might be a reasonable assumption when taking noisy measurements of a physical system. One way to formalize this is to assume the model</p>
+<p><span class="math display">\[
+\begin{aligned}
+Z &amp;= \mu + W \\
+p(w) &amp;= p(-w).
+\end{aligned}
+\]</span></p>
+<p>The second line enforces the fact that the noise <span class="math inline">\(W\)</span> has zero mean and a symmetric distribution around zero.</p>
+<p>This is a semi-parametric model parametrized by <span class="math inline">\((\mu, p(w))\)</span>. The first parameter is a scalar, but the second is a function. Overall the model is nonparametric, but in this parametrization we’ve isolated some feature of the distributions in the model as a finite-dimensional parameter.</p>
+<br>
+</div>
+<p>Nonparametric (i.e., infinite-dimensional) models can also be relatively larger or smaller than each other. For example, the set of all continuous probability densities of a variable <span class="math inline">\(Z\)</span> is larger than the set of all such densities that are zero for all negative <span class="math inline">\(z\)</span>, but both are nonparametric.</p>
+<p>In a given statistical problem, there is rarely a single “correct” model to use. However, the general principle is that one should work with the smallest-possible tractable model that reasonably contains the true data-generating distribution. Since that distribution is never known, this principle essentially means that you should only make assumptions that you are near-certain of. A lot of the time that means working with nonparametric models like the set of all probability distributions, and there is nothing wrong with that! In this book we won’t shy away from the complexity of the real world and we will see that the methods we come up with are often not any more complicated from a user’s perspective.</p>
+<p>Statisticians often like to hide behind the famous George Box maxim “<em>all models are wrong, but some are useful</em>” when they use low-dimensional parametric models like linear regression without justification. In absolute terms, I agree with the quote: it’s very much in line with the instrumentalist-fictionalist perspective on frequentist probability as a whole. Where I disagree is in the way the quote is abused. An incorrect model is certainly not useful when it produces answers that are entirely wrong! In a relative sense, there are important degrees of incorrectness that should not be washed away without argument by appealing to a pithy quote.</p>
+<p>In some cases it is justifiable to use models that are patently wrong, but only if the rationale is clearly explained (we’ll see an example later in the book). Usually this occurs when the incorrectness of the model don’t actually matter to the specific problem at hand. When we do this we are careful to call the model a <em>working</em> model to indicate that we do not actually beleive the model restrictions reflect plausible assumptions about the real world.</p>
+</section>
+<section id="estimands" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="estimands"><span class="header-section-number">1.3</span> Estimands</h2>
+<p>We’ve filled the role of a data-generating process (or “reality”) with an unknown probability distribution <span class="math inline">\({\mathbb{P}}\)</span>. For example, we might imagine that each person’s income in some country is a random variable. We’ve also represented our existing knowledge about the unknown distribution using the model <span class="math inline">\({\mathcal{P}}\)</span>. Now we need to fill the role of our scientific quantity of interest; i.e., we must explain how to translate a question like “what is a usual income?” into the language of probability. That is the purpose of an estimand.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Estimand
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-param-model" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.3</strong></span> An <em>estimand</em> <span class="math inline">\(\Psi\)</span> is a function whose domain is a statistical model <span class="math inline">\({\mathbb{P}}\)</span> and whose value at the unknown data-generating distribution is of scientific interest.</p>
+</div>
+</div>
+</div>
+<p>Framing the estimand as a <em>function</em> makes a lot of sense: the “true” value that we are trying to estimate depends on what the underlying data-generating distribution is!</p>
+<div id="fig-roadmap-4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-roadmap-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="1-1-estimation-problems_files/mediabag/84fe88ebcf1cf791ab8aab91c5df81e95e2ebcad.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roadmap-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.6: The estimand is shown here as a box that maps a distribution <span class="math inline">\({\mathbb{P}}\)</span> in the model <span class="math inline">\({\mathcal{P}}\)</span> into a number on the number line. Different points in the model could map to different points on the number line. The estimand is known to the analyst, but is also a theoretical construct that is not instantiated in code; it represents the scientific question of interest that could be answered if we had access to the true distribution <span class="math inline">\({\mathbb{P}}\)</span>. Although the mapping is known, the distribution is not, so the input (and thus output) of the estimator are unknown and colored black to reflect that.
+</figcaption>
+</figure>
+</div>
+<p>In traditional (parametric) statistics, the same problem is addressed by making one or more parameters <span class="math inline">\(\theta\)</span> the object(s) of interest. Certainly in a parametric model we can define an estimand <span class="math inline">\(\Psi({\mathbb{P}}_\theta) = \theta\)</span>, but when the data-generating distribution is no longer in the parametric model, this definition has no meaning. Thinking of estimands first and foremost as mappings that extract generic properties of a distribution solves the problem. In this way we can formalize the scientific question of interest before we even pin down a model, parametric or otherwise.</p>
+<p>What I call an estimand is often called a parameter throughout the statistics literature, or more specifically a <em>target parameter</em>. That term makes sense since finite-dimensional parameters are one extractable aspect of a distribution in a parametric model and the definition of an estimand generalizes this idea. I prefer the term estimand, however, because it clearly communicates that it is what we are going to <em>estimate</em>. To me, it sounds less abstract and more approachable than “target parameter”. It also makes a clean break with the “parameters” of parametric models and therefore avoids confusion. Lastly, the term “estimand” is gaining popularity in regulatory agencies and in clinical trials, perhaps also because it clearly evokes what it means <span class="citation" data-cites="estimands">(<a href="6-references.html#ref-estimands" role="doc-biblioref">Kahan et al. 2024</a>)</span>.</p>
+<div id="exm-estimand-mean" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 1.7 (Mean)</strong></span> Presume we have a continuous random variable <span class="math inline">\(Z\)</span> (i.e., with a density function) with an unknown distribution <span class="math inline">\({\mathbb{P}}\)</span>. The mean of <span class="math inline">\(Z\)</span> is a common estimand defined by</p>
+<p><span class="math display">\[
+\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[Z] = \int z\ p(z) \mathop{}\!\mathrm{d}z
+\]</span></p>
+<p>Different distributions have different means. If the mean estimand were evaluated at <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span>, the result would be 0. If it were evaluated at <span class="math inline">\({\mathbb{P}}= \mathsf{Unif}(1,2)\)</span>, the result would be <span class="math inline">\(1/2\)</span>.</p>
+<p>Our definition of the mean estimand is more general than an alternative definition that could work in a parametric model. For example, if the model were <span class="math inline">\({\mathcal{P}}= \{\mathsf{N}(\mu,1):\mu \in \mathbb{R}\}\)</span>, the estimand would traditionally be the parameter <span class="math inline">\(\mu\)</span>. But if the model were <span class="math inline">\({\mathcal{P}}= \{\mathsf{Unif}(a,b): a &lt; b \in \mathbb{R}\}\)</span>, the estimand would be <span class="math inline">\((b-a) / 2\)</span>. By writing <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[Z]\)</span> we easily generalize both of these model-specific definitions.</p>
+<br>
+</div>
+<div id="exm-estimand-reg-coef" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 1.8 (Regression Coefficient)</strong></span> Let’s say we collect a scalar predictor <span class="math inline">\(X\)</span> and outcome <span class="math inline">\(Y\)</span> for each observation and we’re interested in what increase in the average outcome is associated on average with a one-unit increase in the predictor.</p>
+<p>A traditional approach to this problem would be to suppose a linear regression model (e.g. <a href="#exm-lin-reg-model" class="quarto-xref">Example&nbsp;<span>1.5</span></a>). Under this model, <span class="math inline">\(Y = \mathsf{N}(\beta_0 + X\beta, \sigma^2)\)</span> and a one-unit increase in <span class="math inline">\(X\)</span> translates to an average increase in <span class="math inline">\(Y\)</span> of <span class="math inline">\(\beta\)</span> units. Therefore the estimand would be the parameter <span class="math inline">\(\beta\)</span>.</p>
+<p>This approach completely falls apart if we are not willing to assume linearity. And why should we? The vast majority of physical, biological, or social processes are nonlinear in important regimes. To formulate this estimand as a function of a generic distribution, we can instead take</p>
+<p><span class="math display">\[
+\begin{aligned}
+\Psi({\mathbb{P}}) &amp;= \mathbb{E}_{\mathbb{P}}\big[\mathbb{E}_{\mathbb{P}}[Y|X+1] - \mathbb{E}_{\mathbb{P}}[Y|X]\big] \\
+&amp;= \mathbb{E}_{\mathbb{P}}[\mu_{\mathbb{P}}(X+1) - \mu_{\mathbb{P}}(X)]
+.
+\end{aligned}
+\]</span></p>
+<p>This is a literal interpretation of the question: “what increase in the average outcome is associated on average with a one-unit increase in the predictor”. We first extract the conditional mean function <span class="math inline">\(\mu_{\mathbb{P}}(x) = \mathbb{E}_{\mathbb{P}}[Y|X=x]\)</span>, which encodes the average outcome at any level of the predictor. We then compare that average outcome at each value <span class="math inline">\(x\)</span> to the corresponding average outcome that we expect to observe if the predictor were augmented by one unit to <span class="math inline">\(x+1\)</span>. Lastly, we average those differences over the values of <span class="math inline">\(X\)</span> taken in the population.</p>
+<p>When the distribution of interest is in the linear model, this definition coincides exactly with the value of the parameter <span class="math inline">\(\beta\)</span>. But our construction makes it so much clearer what <span class="math inline">\(\beta\)</span> actually represents scientifically.</p>
+<br>
+</div>
+<p>Estimands can also be defined implicitly as values that satisfy or minimize/maximize a particular equation.</p>
+<div id="exm-estimand-median" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 1.9 (Median)</strong></span> Let <span class="math inline">\(Z\)</span> be a scalar-valued random variable. The median of <span class="math inline">\(Z\)</span> under a distribution <span class="math inline">\({\mathbb{P}}\)</span> is</p>
+<p><span class="math display">\[
+\Psi({\mathbb{P}}) = \arg\inf_z  \big\{z: {\mathbb{P}}\{Z \le z\} \ge 1/2 \big\},
+\]</span></p>
+<p>in other words, the smallest number such that half the probability mass is to the left of it. An equivalent formulation is to say the median of <span class="math inline">\(Z\)</span> under <span class="math inline">\({\mathbb{P}}\)</span> is the (smallest) minimizer of <span class="math inline">\(\mathbb{E}_{\mathbb{P}}|Z - z|\)</span> in <span class="math inline">\(z\)</span></p>
+<br>
+</div>
+<p>Estimands can be scalar (<span class="math inline">\(\Psi: {\mathcal{P}}\to \mathbb{R}\)</span>, like the examples above) or vector valued (<span class="math inline">\(\Psi: {\mathcal{P}}\to \mathbb{R}^d\)</span>) or even function-valued (<span class="math inline">\(\Psi:{\mathcal{P}}\to \mathcal{L}_2\)</span>, for example). Fitting a regression function is an example of estimating a function-valued estimand. In this book we’ll deal only with scalar estimands because this reduces notational complexity and because most of the common estimands in causal inference are scalar. However, the methods we develop extend easily to vector estimands and even to some functional estimands in certain cases.</p>
+<section id="sec-emp-proc-notation" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="sec-emp-proc-notation"><span class="header-section-number">1.3.1</span> Notation for Expectation</h3>
+<p>In <a href="#exm-estimand-reg-coef" class="quarto-xref">Example&nbsp;<span>1.8</span></a>, we defined the estimand <span class="math inline">\(\mathbb{E}_{\mathbb{P}}[\mu_{\mathbb{P}}(X+1) - \mu_{\mathbb{P}}(X)]\)</span>. Many of the estimands we’ll be working with will look similar to this: expectations of some function, i.e.&nbsp;<span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[f(Z)]\)</span>. It quickly becomes cumbersome to write <span class="math inline">\(\mathbb{E}_{\mathbb{P}}[f(Z)]\)</span> over and over again, so in this book we’ll often denote expectations of functions of random variables using the notation</p>
+<p><span class="math display">\[
+{\mathbb{P}}f = \mathbb{E}_{\mathbb{P}}[f(Z)]
+.
+\]</span></p>
+<p>This is called <em>empirical process notation</em> for expectation becasue it originates in the literature on empirical process theory. We’ll learn a little about empirical processes later in the book but they’re not a big part of what we’ll discuss. Nonetheless, the notation by itself is quite neat so we will certainly borrow it.</p>
+<p>The motivation this notation is fairly straightforward. Any expectation is always with respect to some distribution <span class="math inline">\({\mathbb{P}}\)</span>. Generally we leave The <span class="math inline">\({\mathbb{P}}\)</span> subscript off, but in many situations it’s nice to have it there when we’re talking about a quantity that varies depending on <span class="math inline">\({\mathbb{P}}\)</span>. But when we do that, there’s really no point in all the notational clutter of <span class="math inline">\(\mathbb{E}_{\mathbb{P}}\)</span> when we can simply write <span class="math inline">\({\mathbb{P}}\)</span> and be done with it. Naturally this is an abuse of notation since <span class="math inline">\({\mathbb{P}}\{Z \in \mathcal Z\}\)</span> measures the probability of a set, but we can easily disambiguate expectation from a probability statement because what comes to the right of the <span class="math inline">\({\mathbb{P}}\)</span> will either be a set (for probability) or a function (for expectation). When needed, I’ll use square brackets to distinguish a probability statment <span class="math inline">\({\mathbb{P}}\{\cdot\}\)</span> from an expectation <span class="math inline">\({\mathbb{P}}[\cdot]\)</span> or to clarify exactly what is in the expectation. But, keeping in convention with the notation for linear operators (like matrix multiplication), we usually leave the brackets off, writing <span class="math inline">\({\mathbb{P}}f\)</span> instead of <span class="math inline">\({\mathbb{P}}[f]\)</span></p>
+<p>The expectation and probability operators are very closely related anyways. For any set <span class="math inline">\(\mathcal S\)</span>, we have the identity <span class="math inline">\({\mathbb{P}}\{\mathcal S\} = \mathbb{E}[1_{\mathcal S}(Z)]\)</span>, or, in empirical process notation, <span class="math inline">\({\mathbb{P}}\{\mathcal S\} = {\mathbb{P}}1_{\mathcal S}\)</span>. If you’re not familiar with this identity, it’s easy to see for random variables with densities: <span class="math inline">\({\mathbb{P}}\{Z \in \mathcal S\} = \int 1_{\mathcal S}(z) \ p(z) \mathop{}\!\mathrm{d}z = \int_{\mathcal S} \ p(z) \mathop{}\!\mathrm{d}z\)</span>.</p>
+<p>Another thing to be aware of with this notation is that the <span class="math inline">\({\mathbb{P}}\)</span> is understood to be a function that maps <em>functions</em> (of random variables) to numbers, not random variables to numbers. When you use the <span class="math inline">\(\mathbb{E}[\cdot]\)</span> notation, you always need to have some random variable (e.g., <span class="math inline">\(Z\)</span>) in the argument. For example, <span class="math inline">\(\mathbb{E}[f(Z)]\)</span> is grammatically correct, but <span class="math inline">\(\mathbb{E}[f]\)</span> is not. On the other hand, <span class="math inline">\({\mathbb{P}}f\)</span> is correct, but <span class="math inline">\({\mathbb{P}}f(Z)\)</span> is not. In the empirical process notation, all the random variables are considered to be already baked into the operator <span class="math inline">\({\mathbb{P}}\)</span> that specifies their distributions, so there is no need to write them.</p>
+<p>Nonetheless you will see some abuses of this in the wild, like people writing <span class="math inline">\({\mathbb{P}}Z\)</span> or <span class="math inline">\(\mathbb{E}[f]\)</span> - it’s ok from time to time as long as you have good reason to do it and it’s clear what is meant. One particularly aggravating shortcoming is that it’s awkward to write the simple expectation <span class="math inline">\(\mathbb{E}_{\mathbb{P}}[Z]\)</span> using empirical process notation. The correct way to do it would be <span class="math inline">\({\mathbb{P}}[z \mapsto z]\)</span> but this is hardly more concise. I’ll compromise and write <span class="math inline">\({\mathbb{P}}z\)</span> as a shorthand for “<span class="math inline">\({\mathbb{P}}f\)</span> where <span class="math inline">\(f(z) = z\)</span>”.</p>
+<p>Lastly, the empirical process expectation never averages over any possible randomness in its function-valued argument. For example, let <span class="math inline">\(\hat f\)</span> be the result of fitting a linear regression, i.e.&nbsp;<span class="math inline">\(\hat f (x) = x^\top \hat\beta\)</span>. The coefficients <span class="math inline">\(\hat\beta\)</span> depend on the random data <span class="math inline">\((Y,X)_{1,\dots n}\)</span> and so they are random variables too. Therefore <span class="math inline">\(\hat f\)</span> is a <em>random function</em>.</p>
+<p>When we write <span class="math inline">\({\mathbb{P}}\hat f\)</span>, we are indicating that we only want to average over the randomness in the <em>input</em> to <span class="math inline">\(\hat f\)</span>, not the randomness in <span class="math inline">\(\hat f\)</span> itself. Another more verbose way to indicate that might be <span class="math inline">\(\mathbb{E}_X [\hat f(X)]\)</span> or <span class="math inline">\(\mathbb{E}[\hat f(X) | \hat f]\)</span> as opposed to <span class="math inline">\(\mathbb{E}_{\hat f, X} [\hat f(X)]\)</span> or <span class="math inline">\(\mathbb{E}[\hat f(X)]\)</span>. Since <span class="math inline">\({\mathbb{P}}\hat f\)</span> doesn’t average over the randomness in <span class="math inline">\(\hat f\)</span>, the result is itself a random variable. In contrast, if we write <span class="math inline">\(\mathbb{E}[\hat f(X)]\)</span>, the presumption is that everything gets averaged over and the result is a single number. This will come in handy later but for now you can forget about it - I will remind you how it works when you need to know.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Formalities (if you know measure theory)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If you’re already familiar with measure-theoretic probability, you know that random variables are themselves functions mapping some theoretical sample space <span class="math inline">\(\Omega\)</span> to some domain i.e.&nbsp;<span class="math inline">\(Z: \Omega \to \mathcal Z\)</span>. Therefore what I said above is a little imprecise. To make it formal, you can let <span class="math inline">\(\mathbb{E}[\cdot]\)</span> take expectation of a function defined on the sample space <span class="math inline">\(\Omega\)</span>. That is, the expectation is taken with respect to a probability measure <span class="math inline">\(\mathbb{Q}\)</span> that measures subsets of <span class="math inline">\(\Omega\)</span>. Formally, for some function <span class="math inline">\(f: \mathcal Z \to \mathbb{R}\)</span>, define expectation as the Lebesgue integral</p>
+<p><span class="math display">\[
+\mathbb{E}[f(Z)] = \int f(Z(\omega)) \mathop{}\!\mathrm{d}\mathbb{Q}(\omega).
+\]</span></p>
+<p>In contrast, we take <span class="math inline">\({\mathbb{P}}\)</span> to be a measure that measures subsets <span class="math inline">\(\mathcal S \subseteq \mathcal Z\)</span> according to whatever distribution the random variable <span class="math inline">\(Z\)</span> and measure <span class="math inline">\(\mathbb{Q}\)</span> induce. This is the push-forward measure defined by</p>
+<p><span id="eq-pushforward"><span class="math display">\[
+{\mathbb{P}}\{\mathcal S\} = \mathbb{Q}\{\omega : Z(\omega) \in \mathcal S\}
+.
+\tag{1.1}\]</span></span></p>
+<p>This is the mechanism by which <span class="math inline">\({\mathbb{P}}\)</span> has the random variable <span class="math inline">\(Z\)</span> baked into it. Therefore when we write <span class="math inline">\({\mathbb{P}}f\)</span> we mean</p>
+<p><span class="math display">\[
+{\mathbb{P}}f = \int f(z) \mathop{}\!\mathrm{d}{\mathbb{P}}(z)
+\]</span></p>
+<p>and there is no need to reference <span class="math inline">\(Z\)</span>.</p>
+<p>When we write <span class="math inline">\(E_{\mathbb{P}}[f(Z)]\)</span> with the subscript, we mean expectation of <span class="math inline">\(f(Z)\)</span> under any random varible <span class="math inline">\(Z\)</span> and any measure <span class="math inline">\(\mathbb{Q}\)</span> on any sample space <span class="math inline">\(\Omega\)</span> such that <a href="#eq-pushforward" class="quarto-xref">Equation&nbsp;<span>1.1</span></a> is satisfied for the given <span class="math inline">\({\mathbb{P}}\)</span>.</p>
+<p>The same formalism explains why <span class="math inline">\({\mathbb{P}}f\)</span> doesn’t average over variability in <span class="math inline">\(\hat f\)</span> when it is taken to be a random function. Formally, we should always write <span class="math inline">\([\hat f(\omega)](x)\)</span> to indicate that each element <span class="math inline">\(\omega\)</span> in the sample space <span class="math inline">\(\Omega\)</span> gives a different realization <span class="math inline">\(\hat f(\omega)\)</span> which is a function of <span class="math inline">\(x\)</span>. Since <span class="math inline">\(\mathbb{E}[\cdot]\)</span> takes averages defined with respect to this base sample space,</p>
+<p><span class="math display">\[
+\mathbb{E}[\hat f(Z)] = \int [\hat f(\omega)](Z(\omega)) \mathop{}\!\mathrm{d}\mathbb{Q}(\omega),
+\]</span></p>
+<p>which averages over everything. In contrast, <span class="math inline">\({\mathbb{P}}\)</span> averages with respect to the pushforward distribution <span class="math inline">\({\mathbb{P}}\)</span> which makes no reference to <span class="math inline">\(\omega\)</span>, so</p>
+<p><span class="math display">\[
+{\mathbb{P}}\hat f = \int [\hat f (\omega)](z) \mathop{}\!\mathrm{d}{\mathbb{P}}(z),
+\]</span></p>
+<p>and the dependence on <span class="math inline">\(\omega\)</span> (i.e., randomness) via <span class="math inline">\(\hat f\)</span> remains.</p>
+</div>
+</div>
+</div>
+<p>If we define <span class="math inline">\(\mu_+(x) = \mu(x+1)\)</span>, the “regression coefficient” estimand from <a href="#exm-estimand-reg-coef" class="quarto-xref">Example&nbsp;<span>1.8</span></a> is concisely written as <span class="math inline">\({\mathbb{P}}[\mu_+ - \mu]\)</span> with empirical process notation.</p>
+<p>Empirical process notation does not entirely replace the usual <span class="math inline">\(\mathbb{E}[\dot]\)</span> notation. It has different strengths and weakness and, strictly speaking, behaves a little differently. I’ll use whichever is more appropriate and convenient in any given situation.</p>
+</section>
+</section>
+<section id="estimators" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="estimators"><span class="header-section-number">1.4</span> Estimators</h2>
+<p>We have finally established our estimation problem. Given a dataset <span class="math inline">\(Z_1, \dots Z_n\)</span> drawn from an unknown distribution <span class="math inline">\({\mathbb{P}}\)</span> in a model <span class="math inline">\({\mathcal{P}}\)</span> and given an estimand of interest <span class="math inline">\(\Psi\)</span>, can we guess the value of <span class="math inline">\(\Psi({\mathbb{P}})\)</span>? In all but the simplest models, it’s obvious that our inability to pin down the distribution <span class="math inline">\({\mathbb{P}}\)</span> translates to an inability to know the value of the estimand <span class="math inline">\(\Psi({\mathbb{P}})\)</span>. Nonetheless, we can try to make an informed guess. The process of making such a guess based on the observed data is called <em>estimation</em> and the procedure we use to execute the process is called an <em>estimator</em>.</p>
+<section id="empirical-distributions" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="empirical-distributions"><span class="header-section-number">1.4.1</span> Empirical Distributions</h3>
+<p>Before formally defining an estimator, though, let’s add one little bit of helpful notation. It’s somewhat cumbersome to write out an entire dataset <span class="math inline">\(Z_1, \dots Z_n\)</span> so instead I will use the symbol <span class="math inline">\({\mathbb{P}}_n\)</span> to refer to a dataset. Formally, <span class="math inline">\({\mathbb{P}}_n\)</span> refers to the <em>empirical distribution</em> of the data. Given a fixed set of points <span class="math inline">\(z_1, \dots z_n\)</span>, the empirical distribution of these points is the distribution that puts mass <span class="math inline">\(1/n\)</span> at each of the <span class="math inline">\(n\)</span> points. Formally, for any set <span class="math inline">\(\mathcal S \in \mathcal Z\)</span>, the fixed empirical probability distribution of these fixed points is defined as <span class="math inline">\({\mathbb{P}_n}\{S\} = \frac{1}{n} \sum_i 1(z_i \in \mathcal S)\)</span>, the fraction of the points <span class="math inline">\(z_i\)</span> that fall in the set <span class="math inline">\(\mathcal S\)</span>.</p>
+<p>When the points are random (<span class="math inline">\(Z_i\)</span> instead of <span class="math inline">\(z_i\)</span>), the empirical distribution is a <em>random distribution</em>. The definition is again</p>
+<p><span class="math display">\[
+{\mathbb{P}_n}\{S\} = \frac{1}{n} \sum_i 1(Z_i \in \mathcal S)
+.
+\]</span></p>
+<p>For any set <span class="math inline">\(\mathcal S\)</span>, this counts the fraction of the observations in the dataset that fall in the set. Since the data are random, this is itself a random variable: for different datasets, the fraction of the data in a given set is different. Therefore you can think of the random distribution <span class="math inline">\({\mathbb{P}_n}\)</span> as a collection of random variables indexed by all the possible sets <span class="math inline">\(\mathcal S \subseteq \mathcal Z\)</span> if you like. You can also think of <span class="math inline">\({\mathbb{P}_n}\)</span> as a random CDF as is shown in <a href="#fig-emp-cdf" class="quarto-xref">Figure&nbsp;<span>1.7</span></a>.</p>
+<p>The random distribution <span class="math inline">\({\mathbb{P}}_n\)</span> captures the value of all of the data points and therefore represents the entire (random) dataset as a distribution. That is why in our ongoing schematics (e.g., <a href="#fig-roadmap-3" class="quarto-xref">Figure&nbsp;<span>1.4</span></a>) we have been using <span class="math inline">\({\mathbb{P}_n}\)</span> as the label for our data.</p>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Empirical distribution illustration (eCDF + point-mass spikes)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># - ns = c(5, 20, 100)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># - Rows: CDF vs Density</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># - Three independent draws per n (colored)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># - True CDF/PDF in thick black</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># - "Empirical PDF": sticks of height 1/n with a dot at each observation</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- True distribution (N(0,1)); swap these to change the truth ----</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>rgen  <span class="ot">&lt;-</span> <span class="cf">function</span>(n) <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>ptrue <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">pnorm</span>(x, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>dtrue <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">dnorm</span>(x, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Settings ----</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>ns     <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">20</span>, <span class="dv">100</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>draws  <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>x_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">length.out =</span> <span class="dv">600</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Simulate three draws for each n (compute 1/n BEFORE converting n to factor) ----</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> <span class="fu">map_df</span>(ns, <span class="cf">function</span>(n0) {</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  nn <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(n0)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_df</span>(<span class="dv">1</span><span class="sc">:</span>draws, <span class="cf">function</span>(d) {</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>      <span class="at">x    =</span> <span class="fu">rgen</span>(nn),</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">n    =</span> nn,          <span class="co"># keep numeric for now</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">draw =</span> <span class="fu">factor</span>(d),</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">y1   =</span> <span class="dv">1</span><span class="sc">/</span>nn         <span class="co"># height of each spike</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">factor</span>(n, <span class="at">levels =</span> ns))  <span class="co"># convert to factor only after y1 is computed</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- True curves for both statistics, replicated over facets ----</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>true_df <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">x    =</span> x_grid,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">stat =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"CDF"</span>, <span class="st">"Density"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"CDF"</span>, <span class="st">"Density"</span>)),</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">n    =</span> <span class="fu">factor</span>(ns, <span class="at">levels =</span> ns)</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="fu">if_else</span>(stat <span class="sc">==</span> <span class="st">"CDF"</span>, <span class="fu">ptrue</span>(x), <span class="fu">dtrue</span>(x)))</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Spikes (empirical point masses) for the Density row ----</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>spikes <span class="ot">&lt;-</span> sim <span class="sc">%&gt;%</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    x, <span class="at">y0 =</span> <span class="dv">0</span>, y1,</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    n, draw,</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">stat =</span> <span class="fu">factor</span>(<span class="st">"Density"</span>, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"CDF"</span>, <span class="st">"Density"</span>))</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Build the plot ----</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>  <span class="co"># True curves (thick black)</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> true_df,</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y),</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">1.1</span>,</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>  <span class="co"># eCDFs (pad=TRUE so they start at 0 and end at 1 within the plotted x-range)</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_ecdf</span>(</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> sim <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">stat =</span> <span class="fu">factor</span>(<span class="st">"CDF"</span>, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"CDF"</span>, <span class="st">"Density"</span>))),</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">color =</span> draw, <span class="at">group =</span> draw),</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">0.7</span>,</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    <span class="at">pad =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Empirical "PDF": vertical sticks of height 1/n with dots on top</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> spikes,</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">xend =</span> x, <span class="at">y =</span> y0, <span class="at">yend =</span> y1, <span class="at">color =</span> draw, <span class="at">group =</span> draw),</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">0.6</span>,</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>    <span class="at">lineend =</span> <span class="st">"round"</span>,</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.9</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> spikes,</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y1, <span class="at">color =</span> draw, <span class="at">group =</span> draw),</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">1.3</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(stat <span class="sc">~</span> n, <span class="at">scales =</span> <span class="st">"free_y"</span>, </span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>    <span class="at">labeller =</span> <span class="fu">labeller</span>(<span class="at">stat =</span> label_value,  <span class="co"># rows</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>                               <span class="at">n    =</span> label_both)) <span class="sc">+</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">name =</span> <span class="st">"Draw"</span>) <span class="sc">+</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"x"</span>,</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">range</span>(x_grid)) <span class="sc">+</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>)</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-emp-cdf" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-emp-cdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="1-1-estimation-problems_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-emp-cdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.7: Empirical distributions of three datasets (for each of three sample sizes) based on data drawn IID from a standard normal distribution (shown in black).
+</figcaption>
+</figure>
+</div>
+<p>The “<span class="math inline">\({\mathbb{P}}\)</span>” in <span class="math inline">\({\mathbb{P}}_n\)</span> refers to the <em>true</em> distribution that the data are drawn from to form the empirical distribution. If we drew data from a different distribution <span class="math inline">\(\mathbb{Q}\)</span>, we’d denote a random dataset using the symbol <span class="math inline">\(\mathbb{Q}_n\)</span>, not <span class="math inline">\({\mathbb{P}}_n\)</span>. The <span class="math inline">\(n\)</span> of course refers to the number of samples being drawn to form the dataset/empirical distribution. As you can see in <a href="#fig-emp-cdf" class="quarto-xref">Figure&nbsp;<span>1.7</span></a>, the “distribution” of the empirical distribution (behavior over multiple draws) depends on the number of samples. When <span class="math inline">\(n\)</span> is small, the empirical CDFs (samples of <span class="math inline">\({\mathbb{P}}_n\)</span>) are not a great approximation of the true CDF of <span class="math inline">\({\mathbb{P}}\)</span>, but when <span class="math inline">\(n\)</span> is larger the approximation improves.</p>
+<p>Besides making it much easier to refer to an entire random dataset with <span class="math inline">\(n\)</span> samples, the empirical distribution can also be combined with empirical process conventions (<a href="#sec-emp-proc-notation" class="quarto-xref"><span>Section 1.3.1</span></a>) to simplify the way that sample averages are written. Since the empirical measure (once realized) is a distribution like any other, <span class="math inline">\({\mathbb{P}_n}f\)</span> refers to the expectation of <span class="math inline">\(f(Z)\)</span> under the distribution <span class="math inline">\({\mathbb{P}_n}\)</span>. Given that <span class="math inline">\({\mathbb{P}_n}\)</span> is a discrete distribution with probability mass function <span class="math inline">\(p(z)= \frac{1}{n} 1(z \in \{Z_1, \dots Z_n\})\)</span>, the expectation is</p>
+<p><span class="math display">\[
+{\mathbb{P}_n}f = \frac{1}{n} \sum_i f(Z_i)
+.
+\]</span></p>
+<p>The quantity on the right-hand side the sample average of <span class="math inline">\(f(Z)\)</span>, which you should already understand as a random variable. On the left we have <span class="math inline">\({\mathbb{P}_n}f\)</span> which is the expectation of <span class="math inline">\(f\)</span> under the distribution <span class="math inline">\({\mathbb{P}_n}\)</span>. Usually an expectation is a fixed quantity, not random. However, in this case, the underlying distribution itself (<span class="math inline">\({\mathbb{P}_n}\)</span>) is random which is why <span class="math inline">\({\mathbb{P}_n}f\)</span> is a random variable. For any “draw” of <span class="math inline">\({\mathbb{P}_n}\)</span> we get a fixed number (i.e.&nbsp;the observed sample average) but over different draws of the data we get different empirical distirbutions and thus different expectations.</p>
+</section>
+<section id="estimators-1" class="level3" data-number="1.4.2">
+<h3 data-number="1.4.2" class="anchored" data-anchor-id="estimators-1"><span class="header-section-number">1.4.2</span> Estimators</h3>
+<p>Now we can concisely define estimators.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Estimator and Estimate
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-estimator" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.4</strong></span> An <em>estimator</em> <span class="math inline">\(\hat \Psi\)</span> of an estimand <span class="math inline">\(\Psi\)</span> is a function that maps empirical distributions to the range of <span class="math inline">\(\Psi\)</span>. Usually we indicate that an estimator is an estimator of a certain estimand by putting a “hat” over the estimand to denote the estimator.</p>
+<p>The output of an estimator when evaluated on a dataset <span class="math inline">\(\hat\psi = \hat\Psi({\mathbb{P}}_n)\)</span> is called the <em>estimate</em>. Since <span class="math inline">\({\mathbb{P}_n}\)</span> is random, the estimate <span class="math inline">\(\hat\psi\)</span> is a random variable.</p>
+</div>
+</div>
+</div>
+<p>An estimator should be thought of as an algorithm, machine, process, or recipe that takes a dataset and returns a number (for scalar estimands). Such an process is nothing other than a <em>function</em> of a dataset. The returned estimate represents the estimator’s best guess as to the value of the estimand.</p>
+<div id="fig-roadmap-5" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-roadmap-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="1-1-estimation-problems_files/mediabag/03efde501f9291ded80c8f3ec12f6a556ded2253.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roadmap-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.8: The estimator translates a dataset into an estimate. The estimator is usually instantiated in code and outputs the estimate as an object in software. Both are tangible to the analyst.
+</figcaption>
+</figure>
+</div>
+<p>Formulating the input to an estimator as an empirical distribution gives the definitions of estimands and estimators a nice symmetry. They are both functions, they both have distributions as inputs, and they both output the same kind of object (e.g.&nbsp;a number).</p>
+<div id="exm-sample-mean" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 1.10</strong></span> The sample mean is one popular estimator of the expectation. Formally, for <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[Z]\)</span>, the sample mean estimator is</p>
+<p><span class="math display">\[
+\hat\Psi({\mathbb{P}}_n) = \frac{1}{n}\sum Z_i = {\mathbb{P}}_n z
+\]</span></p>
+<br>
+</div>
+<p>Although the sample mean is certainly simple, estimators can be quite complicated! The estimators we’ll study in the second half of this book will often involve fitting multiple machine learning models across different parts of a dataset and combining them in particular ways. There’s no reason an estimator has to be something you can write out in a single formula. It may be more naturally expressed in code or a flowchart showing how the data is manipulated to arrive at an estimate. A generic symbol like <span class="math inline">\(\hat\Psi\)</span> conveniently obscures all of that complexity so that we don’t have to think about it when it’s not relevant.</p>
+<p>There are always multiple estimators for any given estimand. If <span class="math inline">\(\hat\Psi_1\)</span> and <span class="math inline">\(\hat\Psi_2\)</span> are two different estimators of <span class="math inline">\(\Psi\)</span>, you can think of them as two different procedures or algorithms for guessing the value of <span class="math inline">\(\Psi\)</span> from data. Some algorithms may do better when data are drawn from certain distributions and others when data are drawn from others, but perhaps there are still ways we can attempt to compare estimators. We’ll have a lot more to say about this in the second part of the book.</p>
+<p>An estimator is a fixed function, but since its input (data) is considered random, its output (the estimate) is also random. The distribution of the estimate <span class="math inline">\(\hat\psi = \hat\Psi({\mathbb{P}}_n)\)</span> is called the <em>sampling distribution</em> of the estimator at <span class="math inline">\({\mathbb{P}}\)</span> for sample size <span class="math inline">\(n\)</span>. Since <span class="math inline">\({\mathbb{P}}\)</span> is unknown, the distribution of <span class="math inline">\({\mathbb{P}}_n\)</span> (essentially the distribution of all possible datasets of size <span class="math inline">\(n\)</span>) is unknown, and therefore the sampling distribution is generally unknown as well. A huge part of statistical theory is focused on determining what we can say about the sampling distribution of various estimators depending on restrictions we place on <span class="math inline">\({\mathbb{P}}\)</span>, i.e., what model we assume.</p>
+<div id="fig-roadmap-6" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-roadmap-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="1-1-estimation-problems_files/mediabag/2c35bfa33fa3d78a8615aeb2a62c5fa18a1612b8.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roadmap-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.9: Finally, we add repetitions of the dataset and the sampling distribution of the estimator. These are also theoretical, unobserved objects because the experiment is never really repeated. You can think of running all the hypothetical datasets through the estimator to produce many estimates on the number line. The histogram of these estimates is the sampling distribution.
+</figcaption>
+</figure>
+</div>
+<p>Even though we don’t know the sampling distribution, we can still define various useful theoretical quantities from it that can help us compare different estimators. Chief among these are the bias of an estimator <span class="math inline">\(\mathbb{E}[\hat\psi - \psi]\)</span> (a concise way of writing <span class="math inline">\(\mathbb{E}[\hat\Psi({\mathbb{P}_n}) - \Psi({\mathbb{P}})]\)</span> where the distribution is left implicit) and the variance of an estimator <span class="math inline">\(\mathbb{V}[\hat\psi]\)</span>. We’ll give a lot of attention to these performance measures in the second half of the book.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-subj-bayes" class="csl-entry" role="listitem">
+Joyce, James M. 2011. <span>“The Development of Subjective Bayesianism.”</span> In <em>Handbook of the History of Logic</em>, 10:415–75. Elsevier.
+</div>
+<div id="ref-estimands" class="csl-entry" role="listitem">
+Kahan, Brennan C, Joanna Hindley, Mark Edwards, Suzie Cro, and Tim P Morris. 2024. <span>“The Estimands Framework: A Primer on the ICH E9 (R1) Addendum.”</span> <em>Bmj</em> 384.
+</div>
+<div id="ref-fictionalism" class="csl-entry" role="listitem">
+Vaihinger, Hans, and Michael A Rosenthal. 2021. <em>The Philosophy of’as If’</em>. Routledge.
+</div>
+<div id="ref-philosophy" class="csl-entry" role="listitem">
+Weatherford, Roy. 2022. <em>Philosophical Foundations of Probability Theory</em>. Routledge.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./1-0-intro.html" class="pagination-link" aria-label="Models and Estimands">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Models and Estimands</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./3-0-intro.html" class="pagination-link" aria-label="Efficiency Theory">
+        <span class="nav-page-text">Efficiency Theory</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

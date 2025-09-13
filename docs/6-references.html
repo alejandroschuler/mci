@@ -118,6 +118,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -162,8 +163,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./3-0-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Efficiency Theory</span></a>
+            <a href="./1-0-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Models and Estimands</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -171,28 +172,16 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3-2-regularity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./3-3-efficiency.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./3-4-deriving-eifs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
+  <a href="./1-1-estimation-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Estimation Problems</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./4-0-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Building Efficient Estimators</span></a>
+            <a href="./3-0-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Efficiency Theory</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -200,8 +189,26 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./3-2-regularity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-3-efficiency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-4-deriving-eifs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
   </div>
 </li>
       </ul>
@@ -269,6 +276,10 @@ window.Quarto = {
 <div id="ref-analysis" class="csl-entry" role="listitem">
 Abbott, Stephen. 2015. <em>Understanding Analysis</em>. Springer.
 </div>
+<div id="ref-agnostic-statistics" class="csl-entry" role="listitem">
+Aronow, Peter M, and Benjamin T Miller. 2019. <em>Foundations of
+Agnostic Statistics</em>. Cambridge University Press.
+</div>
 <div id="ref-aronow2025nonparametric" class="csl-entry" role="listitem">
 Aronow, PM, James M Robins, Theo Saarinen, Fredrik Sävje, and Jasjeet S
 Sekhon. 2025. <span>“Nonparametric Identification Is Not Enough, but
@@ -298,6 +309,11 @@ ML and AI.”</span> <em>arXiv Preprint arXiv:2403.02467</em>.
 Cunningham, Scott. 2021. <em>Causal Inference: The Mixtape</em>. Yale
 university press.
 </div>
+<div id="ref-hahn1998role" class="csl-entry" role="listitem">
+Hahn, Jinyong. 1998. <span>“On the Role of the Propensity Score in
+Efficient Semiparametric Estimation of Average Treatment
+Effects.”</span> <em>Econometrica</em>, 315–31.
+</div>
 <div id="ref-what-if" class="csl-entry" role="listitem">
 Hernan, Miguel A, and James M Robins. 2020. <span>“Causal Inference:
 What If.”</span>
@@ -307,6 +323,11 @@ Hines, Oliver, Oliver Dukes, Karla Diaz-Ordaz, and Stijn Vansteelandt.
 2022. <span>“Demystifying Statistical Learning Based on Efficient
 Influence Functions.”</span> <em>The American Statistician</em> 76 (3):
 292–304.
+</div>
+<div id="ref-rootn-density" class="csl-entry" role="listitem">
+Ibragimov, IA, and RZ Khas’ minskii. 1983. <span>“Estimation of
+Distribution Density Belonging to a Class of Entire Functions.”</span>
+<em>Theory of Probability &amp; Its Applications</em> 27 (3): 551–62.
 </div>
 <div id="ref-ibragimov" class="csl-entry" role="listitem">
 Ibragimov, Ildar Abdulovich, and Rafail Zalmanovich Has’ Minskii. 2013.
@@ -318,6 +339,16 @@ Ichimura, Hidehiko, and Whitney K Newey. 2022. <span>“The Influence
 Function of Semiparametric Estimators.”</span> <em>Quantitative
 Economics</em> 13 (1): 29–61.
 </div>
+<div id="ref-subj-bayes" class="csl-entry" role="listitem">
+Joyce, James M. 2011. <span>“The Development of Subjective
+Bayesianism.”</span> In <em>Handbook of the History of Logic</em>,
+10:415–75. Elsevier.
+</div>
+<div id="ref-estimands" class="csl-entry" role="listitem">
+Kahan, Brennan C, Joanna Hindley, Mark Edwards, Suzie Cro, and Tim P
+Morris. 2024. <span>“The Estimands Framework: A Primer on the ICH E9
+(R1) Addendum.”</span> <em>Bmj</em> 384.
+</div>
 <div id="ref-kennedy-review" class="csl-entry" role="listitem">
 Kennedy, Edward H. 2024. <span>“Semiparametric Doubly Robust Targeted
 Double Machine Learning: A Review.”</span> <em>Handbook of Statistical
@@ -327,12 +358,26 @@ Methods for Precision Medicine</em>, 207–36.
 Kreyszig, Erwin. 1991. <em>Introductory Functional Analysis with
 Applications</em>. John Wiley &amp; Sons.
 </div>
+<div id="ref-li2024efficient" class="csl-entry" role="listitem">
+Li, Harrison H. 2024. <span>“Efficient Estimation and Data Fusion Under
+General Semiparametric Restrictions on Outcome Mean Functions.”</span>
+<em>arXiv Preprint arXiv:2406.06941</em>.
+</div>
+<div id="ref-luedtke2016statistical" class="csl-entry" role="listitem">
+Luedtke, Alexander R, and Mark J Van Der Laan. 2016. <span>“Statistical
+Inference for the Mean Outcome Under a Possibly Non-Unique Optimal
+Treatment Strategy.”</span> <em>Annals of Statistics</em> 44 (2): 713.
+</div>
 <div id="ref-causality-pearl" class="csl-entry" role="listitem">
 Pearl, Judea. 2009. <em>Causality</em>. Cambridge university press.
 </div>
 <div id="ref-tsiatis" class="csl-entry" role="listitem">
 Tsiatis, A. 2007. <span>“<span class="nocase">Semiparametric theory and
 missing data</span>.”</span>
+</div>
+<div id="ref-fictionalism" class="csl-entry" role="listitem">
+Vaihinger, Hans, and Michael A Rosenthal. 2021. <em>The Philosophy of’as
+If’</em>. Routledge.
 </div>
 <div id="ref-targeted-learning" class="csl-entry" role="listitem">
 Van der Laan, Mark J, and Sherri Rose. 2018. <em>Targeted Learning in
@@ -341,6 +386,14 @@ Data Science</em>. Springer.
 <div id="ref-vdv" class="csl-entry" role="listitem">
 Van der Vaart, Aad W. 2000. <em>Asymptotic Statistics</em>. Vol. 3.
 Cambridge university press.
+</div>
+<div id="ref-all-of-stats" class="csl-entry" role="listitem">
+Wasserman, Larry. 2013. <em>All of Statistics: A Concise Course in
+Statistical Inference</em>. Springer Science &amp; Business Media.
+</div>
+<div id="ref-philosophy" class="csl-entry" role="listitem">
+Weatherford, Roy. 2022. <em>Philosophical Foundations of Probability
+Theory</em>. Routledge.
 </div>
 </div>
 
@@ -767,7 +820,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./4-1-plugin-expansion.html" class="pagination-link" aria-label="Plug-In Estimators">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

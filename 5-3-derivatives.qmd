@@ -52,7 +52,7 @@ When a function admits such a derivative we say it is *Fréchet differentiable*,
 
 The interpretation of this generalized derivative is the same as in the traditional derivative: a linear approximation at a point with error vanishing faster than the perturbation $\eps$. The continuity of $\dot f$ is important: it means that there is no "direction" in which $f$ is increasing arbitrarily quickly (see @sec-app-riesz). If it exists, you should think of the total derivative $\dot f$ as the tangent (hyper)plane to $f$ at the point $z_0$.
 
-::: {#exm-total-deriv-norm}
+::: {.Exm #exm-total-deriv-norm}
 Let $z \in \mathcal Z$ where $\mathcal Z$ is any Hilbert space and say that our function of interest is $f(z) = \|z\|^2_{\mathcal Z}$ (from now on omitting the subscript).
 
 Consider a point of interest $z_0$. Since $\|z\|^2 = \langle z,z \rangle$, 

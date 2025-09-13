@@ -95,7 +95,7 @@ $$
 
 <!-- Many proofs use arguments relating to *subsequences*. A subsequence is what you get when you take a sequence and "skip over" some of the elements. Formally the way that we write a subsequence of $x_n$ is $x_{n_m}$. The reason we write it this way is that we imagine that $n_m$ is a seqeunce of increasing positive integers, like $\{1,5,9,20 \dots\}$. The index $m$ corresponds to how far along we are in the sequence $n_m$, i.e. $n_2 = 5, n_3=9$, etc.  Then $x_{n_m}$ is the subsequence of $x_n$ corresponding to the elements $\{x_1, x_5, x_9, x_20, \dots\}$ where we count the index along $n_m$ instead of the usual $\{1,2,3,\dots\}$. 
 
-::: {#exm-subseq}
+::: {.Exm #exm-subseq}
 
 ::: -->
 
@@ -115,7 +115,7 @@ Pointwise convergence is one way to say that the functions $f_n$ are getting clo
 
 The reason I bring this up is to point out the fact that there are many different senses of "convergence" when you start talking about objects that are more complicated than real numbers. A function can converge to a limit in a mean-squared sense but not in a pointwise sense, and vice versa! Sometimes one type of convergence implies another and sometimes not (without additional assumptions).
 
-::: {#exm-fn-convergence}
+::: {.Exm #exm-fn-convergence}
 In the plots shown here we investigate the convergence of
 
 $$
@@ -244,7 +244,7 @@ In a metric space, we say that a sequence of objects $x_n \in \mathcal X$ $(\mat
 
 This definition generalizes the definition used for sequences real numbers by generalizing the usual "distance" $d(x,y) = |x-y|$ on the reals to other possible choices that make sense on other sets of objects. Usually we just say $x_n$ "converges" to $x$ instead of saying that the sequence $(\mathcal X, d)$-converges, leaving the set and metric implicit when clear from context. It's also common to see something like $x_n \overset{\mathcal X}\to x$, slightly abusing notation and letting $\mathcal X$ represent both the set $\mathcal X$ and the metric space $(\mathcal X, d)$. In this convention, the metric comes "bundled" with the set. In practice certain sets almost always use the same metric (e.g. absolute value of differences for $\reals$, Euclidian norm for $\reals^d$: see @exm-convergence-Rd) but really there is no single privileged metric that goes with each set. When multiple spaces or metrics are in play you may see the more explicit $(\mathcal X, d)$ notation because sequences may converge under one metric but not another.
 
-::: {#exm-convergence-Rd}
+::: {.Exm #exm-convergence-Rd}
 For finite-dimensional vectors $v \in \reals^d$, the Euclidian norm is defined as $\|v\| = \sqrt{\sum v_j^2}$. From this, the Euclidean distance is defined as $d(u,v) = \|u-v\|$. It is easy to verify that this distance satisfies the properties of a metric. Then we can say that $v_n \to v$ if $\|v_n - v\| \to 0$.
 :::
 
@@ -278,7 +278,7 @@ Notice that as as $n$ changes, the point $x$ at which the difference $|f_n(x) - 
 
 Uniform convergence is another example of convergence in a metric space (@def-metric-conv): you can check that $d(f,g) = \sup_x |g(x) - f(x)|$ is a valid metric on the set of all functions.
 
-::: {#exm-unif-conv-fns}
+::: {.Exm #exm-unif-conv-fns}
 let $f=0$ and consider a sequence $f_n(x) = 1(n < x \le n+1)$. You can think of the sequence $f_n$ as a bump that moves further and further down the x-axis as $n$ increases. If you stand still at any value $x$, the bump comes and passes over you and then departs. Therefore, for $n$ large enough (specifically $n>x+1$), $f_n(x) =0$ exactly forevermore and thus $f_n \to f$ pointwise.
 
 That might seem a little weird to you considering that obviously there is still always a bump in $f_n$ that doesn't "go to zero" no matter how big $n$ is. That's part of the intuiton that uniform convergence tries to capture. If you look at the largest value of $f_n - f = f_n$, you will find that it is always 1, attained at any value $x \in [n,n+1]$. Therefore $\sup_x |f_n(x) - f(x)| = 1 \not\to 0$, meaning this sequence of functions does not converge *uniformly*.
@@ -389,7 +389,7 @@ $$ The last equality here defines what we mean when we say some variable $U_n$ i
 
 The intuition for "rates" is that often we're interested in random variables that go to 0 so quickly that even if they get blown up by some increasing sequence, the product still goes to 0. For example, if some variable $U_n$ is $o_{\mathbb P}(n^{-1/2})$, that means that $\sqrt n U_n$ still goes to 0, even though $\sqrt n$ is sequence that gets bigger and bigger. The rate $r_n$ ($r_n = n^{1/2}$ in this example) is the factor by which we can afford to "blow up" the sequence of variables $U_n$ and still have it converge to 0. Another way to think of it is that $U_n = o_{\mathbb P}(1/r_n)$ means that $U_n < C/r_n$ with high probability (for some constant $C$ and large enough $n$). Notice that this is a strict inequality: more on that later.
 
-:::: {#exm-littleo-densities}
+:::: {.Exm #exm-littleo-densities}
 Let's say that $Z_n \sim \norm(0, \sigma_n^2)$ where $\sigma_n = n^{-1/2}$. This is what we'd expect the large-sample sampling distribution of $\hat\psi -\psi$ to look like for any asymptotically linear estimator (see @def-AL).
 
 Below, you can see some density plots for this sequence and how they change if they are blown up by different sequences. In the top two rows, the scaling factor is 1 (not increasing) or $n^{1/4}$ (increasing very slowly) and you can see that the densities are still narrowing as $n$ increases, albiet a little more slowly when blown up by $n^{1/4}$. However, in the third row the sequence is blown up by the moderately increasing factor $n^{1/2}$. You can see this is enough to perfectly "stabilize" the distribution: it neither narrows nor widens as $n$ increases. Lastly, in final row we've blown up $Z_n$ by the massive factor $n$ and you can see the distribution widens very quickly as $n$ increases.
@@ -483,7 +483,7 @@ Usually the most important part of a rate will be some polynomial factor like $n
 
 A final note is that a similar notation is often used to describe *deterministic* sequences. If $r_n a_n \to 0$, you will sometimes see that written as $a_n = o(r_n^{-1})$. 
 
-::: {#exm-little-oh-derivative}
+::: {.Exm #exm-little-oh-derivative}
 If a function $f(z)$ is differentiable at $z=0$ with derivative $\dot f$ it means that
 
 $$
@@ -581,7 +581,7 @@ Saying a sequence is stochastically bounded is only *slightly* weaker than sayin
 
 Any sequence of random variables that converges in distribution is stochastically bounded. This makes sense if we're thinking of stochastic boundedness as "almost" convergence to zero: if the sequence converges to a (nonzero) stable limit distribution, any additional shrinking will collapse it to zero.
 
-::: {#exm-stochastic-bounding-clt}
+::: {.Exm #exm-stochastic-bounding-clt}
 The CLT says that under a variety of conditions $$
 \sqrt{n}\underbrace{\left(\frac{1}{n}\sum Z_i - \mathbb E[Z] \right)}_{X_n} \rightsquigarrow \norm(0, \sigma^2)
 $$
@@ -591,7 +591,7 @@ Since the demeaned sample average $X_n$ converges to a stable distribution when 
 
 Often the big $O$ is used to indicate that $r_n$ is *exactly* the rate that "stabilizes" the asymptotic distribution of $U_n$ so that is neither converging to zero nor diverging. Any rate that is slightly slower (like $n^{1/2 - \epsilon}$) and $r_n U_n$ would collapse to a point. Anything slightly faster (like $n^{1/2 + \epsilon}$) and it would blow up.
 
-::: {#exm-Op-vs-op}
+::: {.Exm #exm-Op-vs-op}
 Recall the example above where $Z_n = \norm(0, \sigma_n^2)$ where $\sigma_n = n^{-1/2}$. In this case we saw that $n^{1/2}Z_n$ does *not* converge to zero in probability. However, $n^{1/2}Z_n$ *is* stochastically bounded because it converges to a stable limit distribution (in this case $N(0,1)$). Therefore while we cannot write $Z_n = o_{\mathbb P}(n^{-1/2})$, we *can* write $Z_n = O_{\mathbb P}(n^{-1/2})$ with the big $O$.
 :::
 

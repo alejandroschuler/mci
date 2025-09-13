@@ -66,7 +66,7 @@ If you don't really understand what $o_{\mathbb P}(n^{-1/2})$ means in the defin
 
 The function $\phi$ is called the *influence function* of the estimator $\hat\psi$. A better name for it could be the "averaging transformation" of the data for a given estimator because once the data have been transformed by $\phi$, the estimator can be closely approximated by the truth plus a sample average of those transformed variables (which have mean zero). In large samples, sample averages of mean-zero variables behave like Gaussian random noise. It's somewhat remarkable that a huge number of very complicated estimators actually behave this way, as we will see shortly. By definition, every asymptotically linear estimator has an influence function that satisfies the above criteria: having one is what makes the estimator asymptotically linear.
 
-::: {#exm-AL-sample-mean}
+::: {.Exm #exm-AL-sample-mean}
 ## Sample Mean
 
 The sample mean estimator is one example of an asymptotically linear estimator. To see that, write $\hat\psi = \frac{1}{n} \sum Z_i$ as 
@@ -83,7 +83,7 @@ The influence function for an estimator also depends on the distribution of the 
 
 In fact, it's more appropriate to say that an estimator is asymptotically linear *for some set of distributions*, i.e. within some model. But usually the restriction on the set of distributions is not particularly meaningful so we just say the estimator is "asymptotically linear (under regularity conditions)" and leave it at that.
 
-:::: {.callout-important appearance="simple"}
+:::: {.callout-important appearance="minimal"}
 ::: {#exr-not-AL-sample-mean}
 Let's presume that $Z$ are drawn from a distribution $\mathbb P$ such that $\sqrt n \left(\frac{1}{n}\sum Z_i\right)$ diverges as a random variable (see @sec-app-conv-bigO for a definition of divergence of random variables). A "textbook example" of such a distribution is $\text{Pareto}(1,1.5)$, but this happens for many "fat-tailed" distributions. You can ask your favorite large language model if you want to see a proof.
 
@@ -132,13 +132,13 @@ d.  Given (b) and (c), do you think the real-world confidence interval will gene
 :::
 ::::
 
-::: {#exm-sample-mean-var-IF}
+::: {.Exm #exm-sample-mean-var-IF}
 ## Variance of the sample mean
 
 In the case of the sample mean estimator $\hat\psi = \frac{1}{n} \sum Z_i$ we previously saw the influence function was $\phi(z) = z - \psi$. A plug-in estiamate of $\mathbb P\phi^2$ is therefore given by $\frac{1}{n} \sum \hat\phi(Z_i)^2 = \frac{1}{n} \sum (Z_i - \hat\phi)^2$
 :::
 
-::: {#exm-ols-var-IF}
+::: {.Exm #exm-ols-var-IF}
 ## Variance of ordinary least squares coefficients
 
 Let's say we're trying to estimate the regression coefficients in a linear model. Let $(Y,X) \sim \mathbb P$ with $X \in \mathbb R^d$. Let $\beta_0 = \text{argmin}_\beta \mathbb E\left[(Y - X\beta)^2\right]$ be the coefficients that minimize the population mean squared error. This will be our estimand. We haven't assumed the $Y$ vs. $X$ relationship is truly linear, we're just estimating the best linear approximation. As an estimator we will use the ordinary least squares (OLS) estimate $\hat\beta = \text{argmin}_\beta \frac{1}{n} \sum \left[(Y_i - X_i\beta)^2\right]$.
@@ -466,7 +466,7 @@ For the remainder of this section we'll work within models where every distribut
 
 The first step to imposing a structure that will be useful to us is to think in terms of density functions rather than distributions (measures). If all the elements of the model have densities, we can think of the model as a collection of densities. Since densities are functions, we might be tempted to say they are elements of $\eltwo$ because then everything is great: we have lengths, we have angles, we have all sorts of useful identities and relationships. But unfortunately that's not immediately possible. Recall @def-L2 that $\eltwo$ only includes functions that are square-integrable (have finite norm). However, there are some density functions for which $\int p(z) \dd z$ may blow up.
 
-::: {#exm-non-L2-density}
+::: {.Exm #exm-non-L2-density}
 The function $p(z) = \frac{1(0 < z <1)}{2\sqrt z}$ is a valid density because it is positive and integrates to one: 
 
 $$
@@ -562,11 +562,11 @@ A *path* is any set of distributions $\model_\epsilon \subseteq \model$ that can
 :::
 ::::
 
-::: {#exm-path-convex}
+::: {.Exm #exm-path-convex}
 Presume the model is the set of all continuous distributions. Pick any two points $p_0, p_1 \in \model$. Then the set of densities $\left\{\left(\frac{1}{2} - \epsilon\right) p_0 + \left(\frac{1}{2}+\epsilon\right) p_1 : \eps \in [0,1]\right\}$. This is an example of a *convex* path. You can think of this as the straight-line path starting at $p_0$ and ending at $p_1$ (at $\eps=1/2$). Some algebra shows that another way to write the elements of this path is $p_\eps = p_0 + \eps (p_1 - p_0)$.
 :::
 
-::: {#exm-norm-path}
+::: {.Exm #exm-norm-path}
 Presume the model includes all normal distributions. Then the set of distributions corresponding to $\norm(\epsilon, 1)$ is a path parameterized by $\eps \in \reals$.
 :::
 
@@ -576,7 +576,7 @@ Presume the model is the set of all mean-zero random variables. Why is $\{\norm(
 :::
 ::::
 
-::: {#exm-non-diff-path}
+::: {.Exm #exm-non-diff-path}
 Presume the model is the set of all densities. For $\eps \le 0$ let $p_\eps$ be the density of $\norm(\eps, 1)$ and for $0 < \eps$ let $p_\eps$ be the density $\unif(0,1+\eps)$.
 :::
 
@@ -960,7 +960,7 @@ Technically it's not the scores themselves that are tangent to paths in the mode
 
 ::: {#fig-path-score-cartoon}
 ``` tikz
-\resizebox{12cm}{!}{
+\resizebox{8cm}{!}{
 \begin{tikzpicture}[scale=1]
   % Draw blob outline
   \draw[thick] plot[smooth cycle, tension=0.8] coordinates {(-1,0) (-0.5,1) (1,0.8) (1.5,0.2) (1,-0.8) (0,-1) (-1.2,-0.5)};
@@ -988,7 +988,7 @@ Technically it's not the scores themselves that are tangent to paths in the mode
 A cartoon of the model and a distribution $\p$ within it. Two differentiable paths are depicted with dotted lines (in different colors) and the scores for those two paths at $\p$ are shown as tangent vectors in the corresponding colors.
 :::
 
-::: {#exm-convex-path-score}
+::: {.Exm #exm-convex-path-score}
 Fix an initial point $p_-$ and final point $p_+$ in a model and consider the convex path $\{p_0 + \eps (p_1 - p_0) : \eps \in [0,1]\}$ discussed in @exm-path-convex. For this path, the (pointwise derivative version of the) score at $\epsilon = 0$ is defined and is equal to 
 
 $$

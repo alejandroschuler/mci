@@ -2,6 +2,7 @@
 \newcommand{\eltwopz}[1][\mathbb{P}]{\mathcal{L}_2^0\left(#1\right)}
 \newcommand{\eltwo}{\mathcal{L}_2}
 \newcommand{\p}{{\mathbb{P}}}
+\newcommand{\pn}{{\mathbb{P}_n}}
 \newcommand{\q}{\mathbb{Q}}
 
 \newcommand{\E}{\mathbb{E}}

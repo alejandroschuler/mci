@@ -71,7 +71,7 @@ $$
 .
 $$
 
-::: {#exm-point-mass-mean-EIF}
+::: {.Exm #exm-point-mass-mean-EIF}
 # Gradient of mean
 
 Let $Z$ be a one-dimensional discrete random variable with no other restrictions and let $\Psi(\p) = \E_\p[Z]$, the population mean. By the above,
@@ -95,7 +95,7 @@ The manipulations in @exm-point-mass-mean-EIF are characteristic of gradient der
 
 Sometimes you also need to keep track of some other fixed point, as the next example shows.
 
-::: {#exm-point-mass-density}
+::: {.Exm #exm-point-mass-density}
 # Gradient of a density at a point
 
 Let $Z$ be a one-dimensional discrete random variable with no other restrictions and let $\Psi(\p) = \p \{ Z= \tilde z \}$ for a particular value $\tilde z$.
@@ -118,7 +118,7 @@ This is the same as above because $1^*(\tilde z) = 1(z^* = \tilde z) = 1_{\tilde
 
 When $Z$ is multidimensional the same process works but the notation can be more verbose. For example, if $Z = (Y,X)$, then the $Z$-domain $\mathcal Z = \{z_1, \dots z_J\}$ is some subset of the cartesian product $\mathcal Y \times \mathcal X$ where these are the (discrete) domains of $X$ and $Y$. We'll let $z^* = (y^*, x^*)$ be the point at which mass is concentrated in the mass function $1^*$ with corresponding distribution $\mathbb 1^*$. In an abuse of notation we'll also write, e.g., $1^*(x) = 1(x=x^*)$. This single-variable indicator also picks out terms in a sum, i.e., $\sum_{x,y} f(x,y) 1^*(x) = \sum_y f(x^*, y)$. We'll see patterns like this a lot in gradient derivations using point mass contamination.
 
-::: {#exm-point-mass-cond-mean-EIF}
+::: {.Exm #exm-point-mass-cond-mean-EIF}
 # Gradient of a conditional mean
 
 Let $(Y,X)$ be discrete random variables with no other restrictions and let $\Psi(\p) = \E_\p[Y|X=\tilde x]$, the conditional mean of $Y$ at a value $X=\tilde x$. Computing the pathwise derivative on a path from a distribution $p$ towards a point mass at $(y^*, x^*)$ gives
@@ -199,7 +199,7 @@ Point mass contamination is easiest to present for discrete models but it also w
 
 The derivation with Dirac deltas can be made rigorous (see @ichimura2022influence), but, following the advice of @kennedy-review, I find it much easier to simply pretend the model is discrete! Perhaps surprisingly, the form of the gradient in an unrestricted discrete model is generally also the form of the gradient in the nonparametric model. If you are worried, it is easy to check that the result holds by verifying the central identify for influence functions, since in a nonparametric model there is only one function (the gradient) for which it will hold.
 
-::: {#exm-point-mass-mean-check}
+::: {.Exm #exm-point-mass-mean-check}
 In @exm-point-mass-mean-EIF we showed that, in discrete data models, the gradient for the mean is $\grad\Psi(z) =  z - \E_\p[Z]$. We now verify that this is also the gradient in the nonparametric model by checking that $\dot\Psi_\p(s) = \p s \grad\Psi$ for all $s \in \eltwopz$.
 
 In @exm-gradient-nonparam we already derived that $\dot\Psi_\p(s) = \E[Zs(Z)]$ for the mean. On the other hand,
@@ -216,7 +216,7 @@ Of course, we already knew the gradient for the mean in the nonparametric model 
 
 Some estimands, however, are pathwise differentiable in discrete models but not in nonparametric models. When this happens you will see a specific kind of failure when you check $\dot\Psi_\p(s) = \p s \grad\Psi$ for all $s \in \eltwopz$.
 
-::: {#exm-point-mass-cond-mean-check}
+::: {.Exm #exm-point-mass-cond-mean-check}
 In @exm-point-mass-mean-EIF we showed that, in discrete data models, the gradient for the conditional mean of $Y$ at a point $X=\tilde x$ is $\grad\Psi(y,x) = \frac{1(x=\tilde x)}{p(\tilde x)}\left(y - \E[Y|X=\tilde x] \right)$. We now show that it is *not* the gradient in a nonparametric model. In fact, there is no gradient in a nonparametric model because this estimand is not pathwise differentiable in such models.
 
 Assuming we did not know about the lack of pathwise differentiability, we might try to check $\dot\Psi_\p(s) = \p s \grad\Psi$. On the right-hand side, for any distribution where $Y$ and $X$ are continuously-distributed with density $p(y,x)$
@@ -259,7 +259,7 @@ Show that the gradient we derived for $\Psi(\p) = \p \{ Z=\tilde z \}$ in @exm-p
 
 Although appealing to a discrete data model usually does the trick, there are times when it doesn't work. This can happen for estimands that are defined implicitly rather than explicitly in terms of expectations or probabilities. The point-mass contamination strategy is still useful, but we need a different approach to evaluate the pathwise derivative. I give an example here to demonstrate this, but it's not vitally important to understand in detail.
 
-:::: {#exm-quantile-gradient}
+:::: {.Exm #exm-quantile-gradient}
 # Gradient of a quantile
 
 Let $\mathcal P$ be all continuous distributions $\p$ of a single variable $Z$ and let the estimand $\Psi(\p)$ be the $q$th quantile of $Z$ under $\p$. Our aim is to find the canonical gradient of $\Psi$ in this model.
@@ -512,7 +512,7 @@ These rules look exactly the same as the usual rules for derivatives because the
 
 The gradient rules make it easy to derive gradients for complicated estimands, including those relevant in causal inference.
 
-::: {#exm-ATE-gradient}
+::: {.Exm #exm-ATE-gradient}
 # Gradient of the ATE in a nonparametric model
 
 Let $\Psi$ be the observable average treatment effect $\Psi(\p) = \E_\p[\E_\p[Y|A=1,X] - \E_\p[Y|A=0,X]]$. To derive the nonparametric gradient we'll use a combination of gradient rules and point mass contamination. Abbreviate
@@ -623,7 +623,7 @@ Recall that any gradient relative to a tangent space $\tspace$ orthogonally deco
 # Gradient Projection
 
 ::: {#thm-gradient-proj}
-$\model \subseteq \mathcal Q$ be models and let $\Psi$ be a parameter that is pathwise differentiable at $\p$ in the larger model $\mathcal Q$ with canonical gradient $\nabla^{\mathring{\mathcal Q}}_\p \Psi$. The canonical gradient of $\Psi$ at $\p$ in the smaller model $\model$ is the orthogonal projection of the canonical gradient in the larger model onto the tangent space $\tspace$ of the smaller model:
+$\model \subseteq \mathcal Q$ be models and let $\Psi$ be an estimand that is pathwise differentiable at $\p$ in the larger model $\mathcal Q$ with canonical gradient $\nabla^{\mathring{\mathcal Q}}_\p \Psi$. The canonical gradient of $\Psi$ at $\p$ in the smaller model $\model$ is the orthogonal projection of the canonical gradient in the larger model onto the tangent space $\tspace$ of the smaller model:
 
 $$
 \grad^{\tspace}_\p \Psi = \tspace\left[ \nabla^{\mathring{\mathcal Q}}_\p \Psi\right].
@@ -743,7 +743,7 @@ To use theorem, assuming we have a nonparametric gradient already, we need to fi
 You may want to go back and re-read @sec-factoring before proceeding.
 :::
 
-:::: {#exm-ate-rct-gradient}
+:::: {.Exm #exm-ate-rct-gradient}
 Let $(Y,A,X) \sim \p$ according to our standard outcome-treatment-covariate setup. Presume that we are working in a randomized trial so that our model $\model$ is distributions where we know $\p\{A=1|X\} = \frac{1}{2}$, but $\p\{Y|A,X\}$ and $\p\{X\}$ are allowed to be anything. Let's derive the canonical gradient of the average treatment effect within this randomized trial model by projecting the nonparametric canonical gradient onto the randomized trial tangent space.
 
 The first step is to find the tangent space. Let $\mathcal Q$ be the fully nonparametric model where none of the factors are known so $\mathring{\mathcal Q} = \eltwopz$. As worked out in @exm-rct-tspace, the tangent space of this model is
@@ -959,7 +959,9 @@ $$
 
 Which of course implies the same for the gradient of the ATE, i.e. $\nabla^{\mathring{\mathcal P}} \Psi = \nabla^{\mathring{\mathcal Q}} \Psi$. This happens because the nonparametric gradient is already in the randomized trial tangent space: the projection does nothing to it.
 
-The implication is that the canonical gradient for the average treatment effect is the *same* in a randomized trial model as it is in a nonparametric model. In turn, this means that the norm of the gradient is the same regardless and thus there is no gain in asymptotic efficiency in estimating the ATE in a randomized trial vs. in an observational study. This is a remarkable fact that runs counter to our intuition: we typically expect that knowing more about the data-generating process should reduce our uncertainty. However, the example illustrates that there are some aspects of any data-generating process that are simply not relevant to particular estimands. To reduce uncertainty, the knowledge or assumptions must restrict the model in a way that is germane to the estimand.
+The implication is that the canonical gradient for the average treatment effect is the *same* in a randomized trial model as it is in a nonparametric model. In turn, this means that the norm of the gradient is the same regardless and thus there is no gain in asymptotic efficiency in estimating the ATE in a randomized trial vs. in an observational study. If you are curious, @li2024efficient shows that even some strong restrictions on the outcome mechansim don't improve the efficiency bound! This is a remarkable fact that runs counter to our intuition: we typically expect that knowing more about the data-generating process should reduce our uncertainty. However, the example illustrates that there are some aspects of any data-generating process that are simply not relevant to particular estimands. To reduce uncertainty, the knowledge or assumptions must restrict the model in a way that is germane to the estimand. 
+
+This example is the subject of @hahn1998role, a heavily-cited paper in the causal inference literature. The paper should not be interpreted to mean that there is no estimation benefit to having the true propensity score. Using the true propensity score when it is available is useful, as we will see in the next chapters. In a randomized trial, using an estimated rather than the known, true propensity score can increase the finite-sample variance of efficient estimates. There can be benefits to estimating the propensity score in a randomized trial if an *inefficient* estimator like IPW is used (see @exr-rct-ipw), but generally there is no point in doing that.
 ::::
 
 :::: {.callout-important appearance="minimal"}
@@ -1022,11 +1024,11 @@ $$
 
 leaving off the $\p$ subscripts and letting $\psi = \Psi(\p)$, $\pi(a,x) = \p\{A=a|X=x\}$, and $\mu(a,x) = \E[Y|A=a,X=x]$ as usual.
 
-Let $\mathcal P$ be the randomized trial model we considered in @exm-rct-tspace and @exm-ate-rct-gradient. What is the canonical gradient of the ATT in the randomized trial model? Given your conclusion, does treatment randomization result in a gain of estimation efficiency for the ATT or not?
+Let $\mathcal P$ be the randomized trial model we considered in @exm-rct-tspace and @exm-ate-rct-gradient. What is the canonical gradient of the ATT in the randomized trial model? Given your conclusion, does treatment randomization result in a gain of estimation efficiency for the ATT or not? This question was also originally addressed by @hahn1998role.
 :::
 ::::
 
-The concept of having aspects of a data-generating distribution that are not relevant to a given estimand can be formalized. In @sec-classical-efficiency we introduced the idea of the nuisance tangent set. The idea is that this set contains all the directions through the model in which the distribution can be changed *without* affecting the value of the estimand. We can generalize the definition to nonparametric models: the *nuisance* tangent space of a pathwise differentiable parameter $\Psi$ at $\p$ is the smallest closed subspace of the tangent space contianing all scores for which $\dot\Psi_\p = 0$. If you remember linear algebra, you know this is the definition of the *null space* of $\dot\Psi_\p$, so we can also call it that. In a nonparametric model, the null space of the ATE's pathwise derivative includes $\mathring{\mathcal Q}^{(A|X)}$, which is why knowledge of the treatment mechanism has no effect on the optimal asymptotic variance when estimating the ATE.
+The concept of having aspects of a data-generating distribution that are not relevant to a given estimand can be formalized. In @sec-classical-efficiency we introduced the idea of the nuisance tangent set. The idea is that this set contains all the directions through the model in which the distribution can be changed *without* affecting the value of the estimand. We can generalize the definition to nonparametric models: the *nuisance* tangent space of a pathwise differentiable estimand $\Psi$ at $\p$ is the smallest closed subspace of the tangent space contianing all scores for which $\dot\Psi_\p = 0$. If you remember linear algebra, you know this is the definition of the *null space* of $\dot\Psi_\p$, so we can also call it that. In a nonparametric model, the null space of the ATE's pathwise derivative includes $\mathring{\mathcal Q}^{(A|X)}$, which is why knowledge of the treatment mechanism has no effect on the optimal asymptotic variance when estimating the ATE.
 
 :::: {.callout-important appearance="minimal"}
 ::: {#exr-rct-gradient-expectations}
@@ -1034,9 +1036,9 @@ Use @thm-RAL-IFs to prove that the null space of $\dot\Psi$ is also the orthogon
 :::
 ::::
 
-At any $\p$, a model that is restricted only in the nusiance tangent space of a parameter set will not affect the value of the canonical gradient relative to the nonparametric model. The reason is simple: restricting the way a distribution can vary that doesn't affect the estimand has no effect on how hard it is to estimate that estimand.
+At any $\p$, a model that is restricted only in the nusiance tangent space of an estimand will not affect the value of the canonical gradient of that estimand relative to the nonparametric model. The reason is simple: restricting the way a distribution can vary that doesn't affect the estimand has no effect on how hard it is to estimate that estimand.
 
-The concept of a nuisance tangent space is also relevant in other restricted models. I give the theorem and example below not they have much practical utility, but because understanding the result is a good summative exercise of all the tools we've learned relating to gradients and tangent spaces. And also it's just plain cool.
+The concept of a nuisance tangent space is also relevant in other restricted models. I give the theorem and example below not because they have much practical utility, but because understanding the result is a good summative exercise of all the tools we've learned relating to gradients and tangent spaces. And also it's just plain cool.
 
 :::: callout-note
 # Estimand-Restricted Models
@@ -1044,7 +1046,7 @@ The concept of a nuisance tangent space is also relevant in other restricted mod
 Let $\Psi$ and $\Upsilon$ be two estimands that are pathwise differentiable at $\p$ in some model $\mathcal Q$. Let $\model = \{\p \in \mathcal Q: \Upsilon(\p) = \upsilon\}$ be all distributions where $\Psi$ is fixed at the value $\upsilon \in \reals$ and let $\{\nabla_\p^{\mathcal Q} \Upsilon \} = \{c \nabla_\p^{\mathcal Q} \Upsilon: c \in \reals\}$ be the span of the gradient of $\Psi$ in $\mathcal Q$. Then 
 
 $$
-\tspace_\p = \{\nabla_\p^{\mathcal Q}\}^\perp
+\tspace_\p = \{\nabla_\p^{\mathcal Q} \Upsilon \}^\perp
 $$
 
 where the orthogonal complement is relative to the tangent space $\mathring{\mathcal Q}$ in the unrestricted model. As a consequence of the gradient projection theorem (@thm-gradient-proj) and the one-dimensional projection formula (@thm-1d-proj), 
@@ -1062,7 +1064,7 @@ $$
 
 The theorem seems complicated but it actually follows immediately from the definitions. When the estimand $\Upsilon$ is fixed, the only directions that distributions in the restricted model $\model$ are allowed to vary in are precisely those in which $\Upsilon$ doesn't change, i.e., $s$ where $\dot\Upsilon(s) = 0$. Therefore that is the tangent set of the model. By the central identity, the scores that satisfy $0 = \dot\Upsilon_\p (s) = \p s \grad\Upsilon$ are those orthogonal to the gradient. The rest is the one-dimensional projection formula.
 
-::: {#exm-estimand-restricted-model}
+::: {.Exm #exm-estimand-restricted-model}
 Let's say you know for a fact that the median of a random variable $Z$ is $\upsilon$, but are interested in estimating the mean from a sample of data. This isn't a scenario you're likely to encounter, but to make things concrete you might imagine that the median age in a population is reported as a summary of a population census, but the mean age isn't. You don't have access to the original census dataset, but you do have access to a much smaller sample. You want to estimate the mean age from that smaller sample, but want to know if incorporating prior knowledge of the median can yield any gain in certainty. 
 
 Let $\Psi$ map a one-dimensional continuous distribution to its mean and let $\Upsilon$ map to its median. In @exm-gradient-nonparam and @exm-quantile-gradient we established that the nonparametric gradients of these estimands are

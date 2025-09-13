@@ -1,14 +1,15 @@
 filters:
   - diagram
   - mathbb-to-mathds
+  - exm-end
 
 diagram:
   cache: true
   engine:
     tikz:
       header-includes:
-        - '\usepackage{tikz, tikz-3dplot, amsmath, amsfonts, pgfplots, accents, adjustbox, dsfont}'
-        - '\usetikzlibrary{arrows, angles, quotes, arrows.meta, shapes, calc}'
+        - '\usepackage{tikz, tikz-3dplot, amsmath, amsfonts, amssymb, pgfplots, accents, adjustbox, dsfont, array, booktabs}'
+        - '\usetikzlibrary{arrows, angles, quotes, arrows.meta, shapes, calc, backgrounds}'
 
 project:
   type: book
@@ -21,13 +22,14 @@ book:
   author: "Alejandro Schuler, Mark van der Laan"
   chapters:
     - index.qmd
+    - part: 1-0-intro.qmd
+      chapters:
+      - 1-1-estimation-problems.qmd
     - part: 3-0-intro.qmd
       chapters:
       - 3-2-regularity.qmd
       - 3-3-efficiency.qmd
       - 3-4-deriving-eifs.qmd
-    - part: 4-0-intro.qmd
-      chapters:
       - 4-1-plugin-expansion.qmd
     - 6-references.qmd
   appendices:
@@ -46,6 +48,7 @@ bibliography: references.bib
 # must generate html and pdf SEPARATELY for tikz to work!!
 format:
   html:
+    css: styles.css
     code-fold: true
     warning: false
     theme:
@@ -54,9 +57,9 @@ format:
     grid:
       body-width: 1200px
   pdf:
-    keep-tex: true
     echo: false
-    format:
+    latex-output-dir: pdf
+    # keep-tex: true
     include-in-header:
       - text: |
           \usepackage{dsfont}

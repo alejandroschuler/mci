@@ -360,7 +360,7 @@ Looking at @fig-tangent-set, it's clear why we call this the the "tangent" set: 
 
 Since it's useful to think of scores as directions we can move away from $\p$ in the model, the tangent set is simply the set of all such directions. If a model is "large" in a neighborhood of $\p$ in the sense that there are many directions you can go in and stay in the model, then the tangent set will be large. If a model is "small" around $\p$ then the tangent set will be small. The tangent set clearly depends on $\p$, as we will see in some examples, which is why we use the notation $\tset_\p$. However, we will often write $\tset$ without the subscript when $\p$ is clear from context or is arbitrary in order to clear up some clutter.
 
-:::: {#exm-tangent-set-normal}
+:::: {.Exm #exm-tangent-set-normal}
 Consider the model $\model = \{\norm(\mu,\sigma^2): \mu \in \reals, \sigma^2 > 0\}$ with densities $p_{\mu,\sigma^2}(z)$ and the point $\p = \norm(0,1)$ with density $p(z) = (2\pi)^{-1/2} e^{-{z^2}/{2}}$ of the standard normal. Since this is a two-dimensional parametric model, the tangent set at $p$ is all linear combinations of
 
 $$
@@ -433,7 +433,7 @@ This example demonstrates why the tangent set is specific to a particular point 
 
 In @def-tangent-set we noted that $\tset_{\p} \subseteq \eltwopz$ (recall we defined this as the set of $\eltwop$ functions with $\p$-mean zero). Some models are so "large", however, that the inclusion is actually an equality. If the model is big enough (locally), you can move in any direction.
 
-::: {#exm-tangent-set-nonparam}
+::: {.Exm #exm-tangent-set-nonparam}
 Let $\mathcal p$ be the set of all distributions of continuous random variables (i.e. distributions with standard densities) and pick some point $\p \in \model$. For any bounded function $s \in \eltwopz$ we can construct the convex path $p_\eps = (1+ \eps s) p_0$ (bounding $s$ is required so that $p_\eps$ remains a density and the mean-square and pointwise scores coincide). As we saw in @exm-convex-path-score, $s$ is the score for such a path at $\p$ and thus the tangent set at that point includes at least all bounded functions $s \in \eltwopz$.
 
 This is good enough for intuition, but to remove the boundedness condition on the scores and formally extend to all $\eltwopz$ we can instead use the paths $p_\eps = \frac{e^{\lambda(\eps s)}}{\int e^{\lambda(\eps s(z))} p_0(z) \dd z} p_0$ with $\lambda(t) = 2(1+e^{-2t})^{-1}$. These paths also have scores $s$ and generate valid densities for any $s \in \eltwopz$. For details see Example 1 in Chapter 3 of @bkrw.
@@ -710,7 +710,7 @@ that is, every score in $\tspace_\p$ can be uniquely written as the sum of a mar
 :::
 ::::
 
-:::: {#exm-rct-tspace}
+:::: {.Exm #exm-rct-tspace}
 # Tangent space for a randomized trial 
 Let's return to our simple randomized trial example. The variables are $(Y,A,X)$ (outcome, treatment, covariates) and we know nothing about the outcome mechanism $\p(Y|A,X)$ or the distribution of the covariates $\p(X)$, but since the study is randomized we know that $\p(A=1|X) = \p(A=1) = \frac{1}{2}$. Let's call the model of all such distributions $\model$ and let's use $\mathcal Q$ to describe the totally nonparametric model where nothing is known about the treatment distribution so that $\mathring{\mathcal Q}_\p = \eltwopz$
 
@@ -836,6 +836,9 @@ The tangent space for a randomized trial shown with the tangent space for a gene
 
 ::::
 
+### Other Models
+
+There are many other interesting examples of models that we might want to derive the tangent set for. For example, one might consider a model over variables $(Y,X)$ where nothing is known except for the fact that $E[Y|X]$ is linear in $X$. However, in my experience these models are of less general utility since they assume more prior knowledge than one generally has. For that reason, and to save your attention and "get to the point" faster, I will not cover them in this book. These models may certainly be useful in specific scenarios, however, so if you are interested in seeing how tangent sets are derived for them I recommend looking at @tsiatis and @bkrw. 
 
 ## Pathwise Differentiability
 
@@ -1034,7 +1037,7 @@ Your drawing represents the sense in which $\dot\Psi$ is a local, linear approxi
 :::
 ::::
 
-A pathwise-differentiable estimand "varies smoothly" over the model the same way that a ordinary function with a continuous derivative has no kinks. At any point of a kink or discontinuity in the estimand, no estimator can be regular.
+A pathwise-differentiable estimand "varies smoothly" over the model the same way that a ordinary function with a continuous derivative has no kinks. At any point of a kink or discontinuity in the estimand, no estimator can be regular. 
 
 :::: {.callout-important appearance="minimal"}
 ::: {#exr-discontinuous-estimand}
@@ -1053,7 +1056,7 @@ The examples in @exr-discontinuous-estimand are contrived. More often the types 
 
 The kinks are sometimes only visible "rotationally". I like to imagine standing at a point $\p$ on the "surface" $\Psi(\p)$ and looking in some direction: I imagine seeing how steep the ascent or descent is in whatever direction I look. The problem with most practically interesting estimands that are not differentiable isn't that there is a discontinuity or kink in any given direction, it's that no matter what direction you look at, there is always another direction where the slope is steeper. But an estimand is pathwise differentiable at a point in a model only if there is a "direction of maximum slope" away from that point. In infinite dimensions, kinks occur in this "rotational" sense more often than they occur in the more familiar one-dimension sense.
 
-::: {#exm-unbounded-estimand}
+::: {.Exm #exm-unbounded-estimand}
 Let $\mathcal P$ be all distributions of a continuous variable $Z$. Let's say that our goal is to estimate the value of the density function of $z$ at the point $z=0$. There generally isn't a good motivation for wanting to know this, it's just a simple example that illustrates ideas that apply identically to more complicated estimands.
 
 We'll show that there is no RAL estimator of the density at a point by establishing that the pathwise derivative is not bounded over the tangent set $\tset_\p$ (at any $\p$). The intuition is that we can find a path that comes very, very close to modifying the density *only* at the point $z=0$. In other words, we can modify the estimand by arbitrary amounts essentially without changing the overall density.
@@ -1095,10 +1098,15 @@ a.  What is the tangent set $\tset_\p$ at any point $\p$ in this model? What is 
 b.  For any score $s \in \tset_\p$, construct the convex path $p_\eps = (1+\eps s)p$ and use it to compute the pathwise derivative $\dot\Psi(s)$.
 c.  What is $\dot\Psi(s)/ \|s\|$? According to @def-bounded-functional and @def-pathwise-differentiability what does this imply about the pathwise differentiability of the estimand in this model?
 d.  Can you guess what a RAL estimator of $p(0)$ might be?
+
+This exercise demonstrates a parametric model where the density at a point is differentiable. Incredibly, there are actually are some infinite dimensional models for which this holds (see @rootn-density)! Not all infinite-dimensional models are locally nonparametric.
 :::
 ::::
 
 Pathwise differentiability does not necessarily imply that there *is* a RAL estimator. It only allows one to exist. In the next part of this book we will study how to actually build efficient estimators and we will see that we need certain assumptions even to guarantee asymptotic linearity. Whether or not that can be done and in what context depends on estimand in question.
+
+There are also examples of interesting estimands and distributions for which pathwise differentiability fails, but for which asymptotically linear estimators can still be constructed at the failure points. In light of @thm-RAL-IFs, such estimators cannot be regular at those distributions, but there is nothing to be done about it. More importantly, all of the recipes to construct estimators that follow from pathwise differentiability cannot be applied. Therefore such estimators and their asymptotic distributions must be painstakingly derived by ad-hoc means. See @luedtke2016statistical for an example relevant to causal inference.
+
 
 ## Gradients {#sec-gradients}
 
@@ -1335,7 +1343,7 @@ Use the identity above to prove the claim in @def-gradient that $\| \grad \Psi \
 :::
 ::::
 
-::: {#exm-gradient-nonparam}
+::: {.Exm #exm-gradient-nonparam}
 Let $\model$ be the set of all possible distributions of continuous random variables and presume the estimand of interest is the mean $\Psi(\p) = \E_\p[Z] = \int z p(z) \dd z$. Let $\psi_\p$ abbreviate the mean of $Z$ for a distribution $\p$. We'll see that the gradient for this estimand is easy to find in this model moreover that we can even construct an estimator that has the gradient as its influence function.
 
 We have already shown that this model is locally nonparametric (see @exm-tangent-set-nonparam) so at any $\p$ the tangent set is $\tset_\p = \eltwopz$. For any bounded score $s \in \eltwopz$ we can construct the usual convex path $p_\eps = (1+ \eps s)p$ which has score $s$. For unbounded scores we could construct the more complicated paths described in @exm-tangent-set-nonparam but this adds complexity without adding understanding so we'll explain using the simpler convex paths.
@@ -1377,7 +1385,7 @@ We saw in @exm-AL-sample-mean that $\phi(z) = z-\psi_\p$ is exactly the influenc
 
 :::: {.callout-important appearance="minimal"}
 ::: {#exr-gradient}
-The gradient generally depends on the model, even though we hide this dependence in the notation. Fix the estimand $\Psi$ and a distribution $\p \in \mathcal Q \subset \model$. Let $\grad_{\p \in \mathcal Q}\Psi$ be the gradient in the smaller model and let $\grad_{\p \in \mathcal P}\Psi$ be the gradient in the larger model. Argue for why $\|\grad_{\p \in \mathcal Q}\Psi\| \le \|\grad_{\p \in \mathcal P}\Psi\|$. *Hint*: what is the relationship between the tangent spaces?
+The gradient generally depends on the (tangent space of the) model, even though we hide this dependence in the notation. Fix the estimand $\Psi$ and a distribution $\p \in \mathcal Q \subset \model$. Let $\grad_\p^{\mathring{\mathcal Q}}\Psi$ be the gradient in the smaller model and let $\grad_\p^{\tspace}\Psi$ be the gradient in the larger model. Argue for why $\|\grad_\p^{\mathring{\mathcal Q}}\Psi\| \le \|\grad_\p^{\tspace}\Psi\|$. *Hint*: what is the relationship between the tangent spaces $\mathring{\mathcal Q}$ and $\tspace$?
 :::
 ::::
 
@@ -1560,7 +1568,9 @@ In other words, the canonical gradient is the influence function with the smalle
 
 <div>
 
-For a pathwise differentiable estimand $\Psi$ in a given model $\model$, the influence function of the most efficient RAL estimator is equal to the canonical gradient $\grad_\p \Psi$. We call this the efficient influence function and write it $\phi_\p^*$.
+For a pathwise differentiable estimand $\Psi$ in a given model $\model$, the influence function of the most efficient RAL estimator is equal to the canonical gradient $\grad^\tspace_\p \Psi$. We call this the efficient influence function and write it $\phi_{\p \in \model}^*$.
+
+The squared norm of the efficient influence function is the best-possible asymptotic variance for estimating $\Psi$ under an unknown distribution $\p \in \model$. This is known as the (semi- or non-parametric) *efficiency bound* for $\Psi$ in the model $\model$.
 
 </div>
 ::::
@@ -1571,7 +1581,7 @@ Because the canonical gradient depends on the estimand $\Psi$, the distribution 
 
 The third dependence is also natural. The "size" of the model corresponds to our existing knowledge of the world or the assumptions we're willing to make. The more we know, the fewer distributions remain in the model. The smaller the model, the smaller the tangent space at any given point within it (it won't be bigger, at a minimum). The smaller the tangent space, the larger the orthogonal complement, meaning we have more influence functions to choose from in order to find one with the smallest norm. The smaller the norm of the influence function, the smaller the asymptotic variance and the more certain our estimates are. This is the mechanism by which more a-priori knowledge about the world translates to more confident estimates, as one would expect.
 
-::: {#exm-EIF-mean-restricted}
+::: {.Exm #exm-EIF-mean-restricted}
 In @exm-gradient-nonparam we showed that the canonical gradient of the mean estimand in the nonparametric model is $\grad_\p \Psi(z)  = z - \E_\p[Z]$ which has squared norm equal to $\V_\p[Z]$. If $Z \sim \norm(0,1)$, for example, the squared norm of the gradient is 1.
 
 In this example we'll describe how the canonical gradient changes and its norm shrinks when the model is further restricted. We'll pick a somewhat contrived model to illustrate the point.

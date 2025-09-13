@@ -118,6 +118,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -162,8 +163,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./3-0-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Efficiency Theory</span></a>
+            <a href="./1-0-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Models and Estimands</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -171,28 +172,16 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3-2-regularity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./3-3-efficiency.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./3-4-deriving-eifs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
+  <a href="./1-1-estimation-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Estimation Problems</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./4-0-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Building Efficient Estimators</span></a>
+            <a href="./3-0-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Efficiency Theory</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -200,8 +189,26 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./3-2-regularity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-3-efficiency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-4-deriving-eifs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
   </div>
 </li>
       </ul>
@@ -383,8 +390,9 @@ f = [\dots f_{-1}, \dots f_{0}, \dots f_{1.1}, \dots f_\pi, \dots ].
 \]</span></p>
 <p>You should again think of this as the continuously-summed version of the finite-dimensional dot product. Hopefully the intuition from thinking of functions as long, dense “vectors” is helpful to you here. If you replace the integral with a sum and the function call notation with an index, you will see how this norm and inner product are analogous to the finite-dimensional versions you’re more familiar with.</p>
 <p>There are some functions which have infinite or undefined <span class="math inline">\(\mathcal L_2\)</span> norm. For example, <span class="math inline">\(f(x) = x^2\)</span> would have infinite norm since (for now) we’re integrating over the entire number line, and the area under the curve of <span class="math inline">\((x^2)^2\)</span> goes off to infinity. To preserve the geometric intuition of our vector space, we cannot include these functions (the same way there is no finite-dimensional vector that has infinite norm). The vector space <span class="math inline">\(\mathcal L_2\)</span> (read: “el-two”) is therefore defined as the set of all functions with finite <span class="math inline">\(\mathcal L_2\)</span> norm (not quite, but see below). Sometimes, this is also called the space of “square-integrable” functions. You can check that this is indeed a vector space, i.e., that two functions with finite square integrals sum to a function with a finite square integral and that a function with a finite square integral scales to another function with finite square integral.</p>
-<div id="exm-orth-fns" class="theorem example">
+<div id="exm-orth-fns" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example B.1</strong></span> Consider the functions <span class="math inline">\(f = 1_{[0,1]}\)</span> and <span class="math inline">\(g = 1_{[2,3]}\)</span>. According to our inner product, these two functions are orthogonal (compute the integral and see). If this is not obvious to you at first, consider the finite-dimensional vectors <span class="math inline">\([0,1]\)</span> and <span class="math inline">\([1,0]\)</span>: hopefully these are “obviously” orthogonal to you: you can visualize them as unit vectors along the two axes of <span class="math inline">\(\mathbb R^2\)</span>. Our two functions are no different: <span class="math inline">\(f\)</span> is nonzero along the “axes” corresponding to the indices in <span class="math inline">\([0,1]\)</span> while <span class="math inline">\(g\)</span> is nonzero only along “axes” <span class="math inline">\([2,3]\)</span>. If you imagine them as long dense “vectors” you’ll see that <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> have ones in different places, the same way that <span class="math inline">\([0,1]\)</span> and <span class="math inline">\([1,0]\)</span> do.</p>
+<br>
 </div>
 <p>A further wrinkle is that, until now, I’ve been using the standard Riemann integral (with the familiar differential notation <span class="math inline">\(\text{d}x\)</span>) to define <span class="math inline">\(\mathcal L_2\)</span>, but that’s not entirely accurate. The full picture is slightly more complicated. Formally, we define <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span> as the space of <span class="math inline">\(\mathbb P\)</span>-measureable, square-Lebesgue-integrable functions. Measurability is a technical condition that rules out some extremely esoteric corner cases — you can safely ignore it here, or read up on measure theory if you’re curious. The <span class="math inline">\(\mathcal L\)</span> in <span class="math inline">\(\mathcal L_2\)</span> stands for “Lebesgue,” referring to the Lebesgue integral. While the Lebesgue integral can integrate strictly more functions than the Riemann integral, any function that is Riemann integrable will also be Lebesgue integrable (with the same value), so the difference is mostly irrelevant in terms of intuition.</p>
 <p>The important part is the <span class="math inline">\(\mathbb P\)</span>: one of the strengths of the Lebesgue integral is that it can be defined with respect to any “measure” (probability distributions are formally mathematical objects called measures). When you integrate “with respect to a distribution <span class="math inline">\(\mathbb P\)</span>” you write <span class="math inline">\(\int f \mathop{}\!\mathrm{d}\mathbb P\)</span> or <span class="math inline">\(\int f(z) \mathop{}\!\mathrm{d}\mathbb P(z)\)</span> to indicate more explicitly that <span class="math inline">\(\mathbb P\)</span> is a distribution over <span class="math inline">\(Z\)</span> and that <span class="math inline">\(f\)</span> takes arguments in the range of <span class="math inline">\(Z\)</span>. If you’re not familiar with measure theory (I don’t expect you to be), when you see an integral with respect to a continuous distribution <span class="math inline">\(\mathbb P(Z)\)</span> with density function <span class="math inline">\(p(z)\)</span> you should read it as</p>
@@ -394,8 +402,9 @@ f = [\dots f_{-1}, \dots f_{0}, \dots f_{1.1}, \dots f_\pi, \dots ].
 <p>In other words, you can think of the differential <span class="math inline">\(\text{d}\mathbb P\)</span> as weighting different parts of the domain of <span class="math inline">\(z\)</span> in the integral by the probability of <span class="math inline">\(z\)</span> falling into them. Integrating a function with respect to a distribution over <span class="math inline">\(Z\)</span> is the same as taking its expectation over the distribution of <span class="math inline">\(Z\)</span>.</p>
 <p>However, <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span> spaces can also be defined when <span class="math inline">\(\mathbb P(Z)\)</span> is a discrete distribution (with probability mass function <span class="math inline">\(p(z)\)</span>). In that case, <span class="math inline">\(\int f(z) \mathop{}\!\mathrm{d}\mathbb P(z) = \sum f(z) \ p(z) = \mathbb E_{\mathbb{P}}[f(Z)]\)</span>. The integral is also defined for distributions that are neither strictly continuous or discrete (e.g.&nbsp;<span class="math inline">\(Z\)</span> is 0 half the time and a standard normal the other half; think of a normal density with an infinite “spike” of mass 1/2 at 0). You don’t have to worry about this to get all the intuition you need for this book.</p>
 <p>You’ll notice that some functions will be square-integrable under some distributions but not under others. There isn’t really one single <span class="math inline">\(\mathcal L_2\)</span> space when we’re working with probability distributions. In the wild, if you see “<span class="math inline">\(\mathcal L_2\)</span>,” that’s short for the <span class="math inline">\(\mathcal L_2\)</span> space based on the Lebesgue measure: roughly speaking, the integrals used to define the norm and inner product don’t use any weights on the real number line. Nonetheless, I may sometimes refer to “<span class="math inline">\(\mathcal L_2\)</span>” as a shorthand for <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span> for a specific distribution that is clear from context or for any generic distribution. Similarly, if we write a norm or inner product, we should technically always specify the relevant space, i.e.&nbsp;<span class="math inline">\(\| f  \|_{\mathcal L_2(\mathbb P)}\)</span> or <span class="math inline">\(\langle f,g \rangle_{\mathcal L_2(\mathbb P)}\)</span>. However, to minimize notational burden, we often leave off the details of the space and/or base measure when they are clear from context.</p>
-<div id="exm-sq-integrability" class="theorem example">
+<div id="exm-sq-integrability" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example B.2</strong></span> <span class="math inline">\(f(z) = z^{-1/2}\)</span> is square-integrable if <span class="math inline">\(Z \sim \text{Unif}[2,3]\)</span>, but not if <span class="math inline">\(Z \sim \text{Unif}[0,1]\)</span>.</p>
+<br>
 </div>
 <p>The very last detail we need to attend to is that we need to define what it means for two different (pointwise) functions to be considered “equivalent” in <span class="math inline">\(\mathcal L_2\)</span>. This is a very minor detail that you can quickly forget about for most purposes, but I’ll go over it here for completeness.</p>
 <p>In finite-dimensional vector spaces, if you have two vectors <span class="math inline">\(v\)</span> and <span class="math inline">\(u\)</span> and <span class="math inline">\(\|v-u\|=0\)</span>, then <span class="math inline">\(v=u\)</span>. We’d like this to work in <span class="math inline">\(\mathcal L_2\)</span>, but it doesn’t without a little extra massaging.</p>
@@ -549,13 +558,14 @@ Proof of <a href="#thm-pythagorean" class="quarto-xref">Theorem&nbsp;<span>B.1</
 <h3 data-number="B.3.2" class="anchored" data-anchor-id="sec-projection"><span class="header-section-number">B.3.2</span> Projection</h3>
 <p>The Pythagorean theorem often comes up in the context of projection. Recall that in finite-dimensional vector spaces, a <em>subspace</em> is a smaller vector space that is contained in the original vector space. For example, in 3-dimensional space, the <span class="math inline">\(x\)</span>-<span class="math inline">\(y\)</span> plane is a 2-dimensional subspace because any linear combination of vectors in that plane remain in the plane; thus, it is a vector space in its own right. Subspaces are often constructed as a span (linear combination) of some set of vectors, e.g., the span of <span class="math inline">\(\{[-2,0,0], [0,5,0]\}\)</span> gives the <span class="math inline">\(x\)</span>-<span class="math inline">\(y\)</span> plane in 3D space. In infinite dimensions, subspaces are defined in exactly the same way.</p>
 <p>Although they sound similar, you should not confuse a sub<em>space</em> with a sub<em>set</em>. Any set of vectors can be a subset of the original vector space. A subspace, however, has to still itself be a vector space in its own right.</p>
-<div id="exm-subspace" class="theorem example">
+<div id="exm-subspace" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example B.3</strong></span> Consider the subset of <span class="math inline">\(\mathcal L_2({\mathbb{P}})\)</span> comprised of all functions that have zero mean under <span class="math inline">\(\mathbb P\)</span>, i.e.&nbsp;functions <span class="math inline">\(f\)</span> where <span class="math inline">\(\mathbb E[f(Z)] = 0\)</span>. This subset <span class="math inline">\(\mathcal V\)</span> is actually a sub<em>space</em> because it is a vector space. To verify that, we just need to check that <span class="math inline">\(\mathcal V\)</span> is a vector space: if we add and scale elements with it, the results are still in <span class="math inline">\(\mathcal V\)</span>.</p>
 <p>To that end, let <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> be any functions in <span class="math inline">\(\mathcal V\)</span> and let <span class="math inline">\(c\)</span> be a scalar constant. Since</p>
 <p><span class="math display">\[
 \mathbb E[cf(Z) + g(Z)] = c\mathbb E[f(Z)] + \mathbb E[g(Z)] = 0,
 \]</span></p>
 <p><span class="math inline">\(cf + g\)</span> satisfies the condition required for membership in <span class="math inline">\(\mathcal V\)</span>, proving it is a vector space.</p>
+<br>
 </div>
 <div class="callout callout-style-simple callout-important no-icon">
 <div class="callout-body d-flex">
@@ -676,7 +686,7 @@ Figure&nbsp;B.2: Visual representation of the inner product giving the length of
 </figure>
 </div>
 <p>From this picture, you can see that the angle between any <span class="math inline">\(t \in \mathcal T\)</span> (not necessarily norm 1) and <span class="math inline">\(v\)</span> can be extracted by taking the inverse cosine of the lengths of the “adjacent” over the “hypotenuse” (the classical definition of cosine). Those lengths are <span class="math inline">\(\langle v, t/\|t\| \rangle\)</span> and <span class="math inline">\(\|v\|\)</span>. Dividing and pulling out the norm gives the law of cosines <span class="math inline">\(\cos(\theta) = \frac{\langle v, t \rangle}{\|v\| \|t\|}\)</span>.</p>
-<div id="exm-orth-proj" class="theorem example">
+<div id="exm-orth-proj" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example B.4</strong></span> Let’s presume that <span class="math inline">\(\mathbb P(Z)\)</span> is the uniform distribution over <span class="math inline">\([0,1]\)</span> and let <span class="math inline">\(\mathcal T\)</span> be the subspace of <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span> comprising of all linear functions with no intercept, i.e., functions that can be written as <span class="math inline">\(f(z) = cz\)</span> for some slope <span class="math inline">\(c\)</span>. You can verify that this is a subspace.</p>
 <p>Let’s let <span class="math inline">\(v(z) = z^2\)</span> and figure out what the projection of this function is onto <span class="math inline">\(\mathcal T\)</span>. In other words, what is the linear function that best approximates <span class="math inline">\(z^2\)</span> in a mean-squared sense over the domain <span class="math inline">\([0,1]\)</span>? To do this, we’ll use our formula: <span class="math inline">\(\mathcal T v = \frac{\langle t,v \rangle}{\|t\|^2}t.\)</span></p>
 <p>Pick <span class="math inline">\(t(z) = z\)</span> as the representative from <span class="math inline">\(\mathcal T\)</span>. Then <span class="math inline">\(\langle t,v \rangle = \int_0^1 z z^2 dz = 1/4\)</span> and <span class="math inline">\(\|t\|^2 = \int_0^1 z^2 dz = 1/3\)</span>. Thus <span class="math inline">\(\mathcal T v = \frac{3}{4}x\)</span>. Visually your eye might agree that this is the best (no-intercept) linear approximation:</p>
@@ -689,6 +699,7 @@ Figure&nbsp;B.2: Visual representation of the inner product giving the length of
 </div>
 </div>
 </div>
+<br>
 </div>
 <p>We call what’s left over when you subtract the projection from the original vector the <em>residual</em>. An important geometric property of projections that you may recall from linear algebra (and which I have already been showing in the figures) is that residuals are always orthogonal to the entire subspace that gets projected on (see <a href="#fig-orth-proj" class="quarto-xref">Figure&nbsp;<span>B.1</span></a>).</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
@@ -829,7 +840,7 @@ Orthogonal Sum and Complement
 </div>
 </div>
 </div>
-<div id="exm-orth-sum" class="theorem example">
+<div id="exm-orth-sum" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example B.5</strong></span> Let <span class="math inline">\(\mathbb P\)</span> be the standard uniform distribution and let <span class="math inline">\(\mathcal V = \{f: f(z) = mz+b\}\)</span> be the subspace of linear functions in <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span>. Let’s find a way to decompose this subspace into an orthogonal sum.</p>
 <p>Pick <span class="math inline">\(f(z) = 1\)</span>. The span of <span class="math inline">\(f\)</span> is clearly <span class="math inline">\(\mathcal T = \{z \mapsto c: c \in \mathbb R\}\)</span>. Using our 1D projection formula and taking the representative <span class="math inline">\(f(z) =1\)</span> (which has norm 1), the residual of any function <span class="math inline">\(g(z) = mz+b\)</span> projected onto <span class="math inline">\(\mathcal T\)</span> is given by <span class="math display">\[
 \begin{aligned}
@@ -852,6 +863,7 @@ Figure&nbsp;B.3: A visual representation of the orthogonal sum. Each “point”
 </figcaption>
 </figure>
 </div>
+<br>
 </div>
 </section>
 <section id="cauchy-schwarz" class="level3" data-number="B.3.3">
@@ -901,19 +913,21 @@ Proof of <a href="#thm-cauchy-schwarz" class="quarto-xref">Theorem&nbsp;<span>B.
 \frac{\mathbb C[f(Z), g(Z)]}{\sqrt{\mathbb V[f] \mathbb V[g]}},
 \]</span></p>
 <p>which is the correlation between the random variables <span class="math inline">\(f(Z)\)</span> and <span class="math inline">\(g(Z)\)</span>. This must also be between -1 and 1. This also gives a geometric interpretation to the correlation coefficient: it’s a measure of the “angle” between two random variables viewed as vectors in <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span>.</p>
-<div id="exm-bounding-integral" class="theorem example">
+<div id="exm-bounding-integral" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example B.6 (Bounding an Integral)</strong></span> Suppose I know <span class="math inline">\(f \in \mathcal L_2(\mathbb P)\)</span>. In many problems, we might end up with an expression like <span class="math inline">\(\mathbb E[f(Z)]\)</span>, which we might not know how to compute without knowing exactly what <span class="math inline">\(f\)</span> is. However, Cauchy-Schwarz gives us one useful way to approximate such a term in the sense that we can at least say it’s no bigger than a certain number. To wit,</p>
 <p><span class="math display">\[
 |\mathbb E[f(Z)]| = \left|\int f(Z) \cdot 1 \mathop{}\!\mathrm{d}\mathbb P\right| = |\langle f, 1 \rangle| \le \|f\|.
 \]</span></p>
 <p>We even know that the bound is <em>sharp</em> (we can’t do any better without knowing more). That’s because if <span class="math inline">\(f = c\)</span> (a constant), then <span class="math inline">\(\mathbb E[c] = \|c\|\)</span>.</p>
+<br>
 </div>
-<div id="exm-cont-inner-prod" class="theorem example">
+<div id="exm-cont-inner-prod" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example B.7 (Continuity of Inner Product)</strong></span> Let’s say we want to show that the inner product is continuous in either argument. <a href="5-1-rv-convergence.html#def-continuity" class="quarto-xref">Definition&nbsp;<span>A.5</span></a> says that, for the inner product to be continuous, it must be that <span class="math inline">\(\langle v_n, u \rangle \to \langle v, u \rangle\)</span> for any sequence <span class="math inline">\(v_n \overset{\mathcal V}\to v\)</span>, where we use the <span class="math inline">\(\mathcal V\)</span>-norm to define the required distance metric <span class="math inline">\(d_{\mathcal V}(v,u) = \|v-u\|_{\mathcal V}\)</span>. The inner products converge if <span class="math inline">\(|\langle v_n, u \rangle - \langle v, u \rangle| = |\langle v_n - v, u \rangle| \to 0\)</span> for all sequences such that <span class="math inline">\(\|v_n - v\| \to 0\)</span>. By Cauchy-Schwarz,</p>
 <p><span class="math display">\[
 |\langle v_n - v, u \rangle| \le \|v_n - v\| \|u\|.
 \]</span></p>
 <p>Since the right-hand side converges to zero for any convergent sequence <span class="math inline">\(v_n\)</span>, the left hand side does too, and thus the inner product is continuous in the first argument. Symmetry of the inner product means this is also true of the second argument.</p>
+<br>
 </div>
 </section>
 <section id="triangle-inequality" class="level3" data-number="B.3.4">
@@ -975,7 +989,7 @@ Figure&nbsp;B.4: Illustration of the triangle inequality.
 </div>
 <p>All norms that are induced by inner products satisfy the triangle inequality by design, as we have proven. However, the triangle inequality is actually part of the definition of a norm: any function that someone wants to call a norm must satisfy the triangle inequality in order for them to call it that.</p>
 <p>Sometimes, we are interested in proving that one side of a triangle is small, but we only have information about the other two sides. That’s when the triangle inequality comes in handy.</p>
-<div id="exm-triangle-ineq" class="theorem example">
+<div id="exm-triangle-ineq" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example B.8</strong></span> If I have a sequence of real numbers <span class="math inline">\(x_n \to x\)</span> and another <span class="math inline">\(y_n \to y\)</span>, is it true that <span class="math inline">\(x_n y_n \to xy\)</span>?</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1004,6 +1018,7 @@ Warning
 |x_n y_n - xy| \le |x||y_n - y| + |x_n-x | |y_n - y| + |y| |x_n  - x|.
 \]</span></p>
 <p>Now everything is in terms of constants and the two distances which we know go to zero. Therefore, we have the desired convergence.</p>
+<br>
 </div>
 <p>When you first see proofs like the one in the example above it can feel overwhelming. How did I know where to use the triangle inequality? How did I know when to use Cauchy-Schwarz? It all seems like black magic and cheap tricks that you can understand in retrospect, but that you could never have constructed yourself. But there actually are certain “tells” that you can use to build your intuition.</p>
 <p>For example, when you see a norm of a sequence, you should immediately want to approximate it by the norm of the limit <span class="math inline">\(|x_n| \approx |x|\)</span> for convenience, since the latter is just a constant that you can deal with easily. The triangle inequality then comes to mind as a way to do this since we can “detour” <span class="math inline">\(x_n\)</span> to <span class="math inline">\(x\)</span> and then get the approximation <span class="math inline">\(|x_n| \le |x_n -x| + |x|\)</span>. Cauchy-Schwarz should come to mind any time you see pretty much any inner product. <span class="math inline">\(|yx_n - yx|\)</span> is a mess but <span class="math inline">\(|y||x_n -x|\)</span> is something we can understand. With continued practice, you will get very good at just “seeing” what to do. If you’re interested in that, I recommend picking up a real analysis textbook and working through the problems.</p>
@@ -1091,11 +1106,12 @@ f(u)
 <section id="infinite-dimensional-riesz-representation" class="level3" data-number="B.4.2">
 <h3 data-number="B.4.2" class="anchored" data-anchor-id="infinite-dimensional-riesz-representation"><span class="header-section-number">B.4.2</span> Infinite-Dimensional Riesz Representation</h3>
 <p>Now, we’ll talk about the more general case when the Hilbert space of interest could be infinite-dimensional. For the most part, we’ll be interested in <span class="math inline">\(\mathcal L_2\)</span>, or subspaces thereof. If we talk about functions defined <em>on</em> <span class="math inline">\(\mathcal L_2\)</span>, we’re talking about functions <em>of functions</em>. In functional analysis, people sometimes call these <em>operators</em>, but there’s really nothing special about them — they are still functions. When an operator has real-valued output (i.e., maps functions to numbers), it’s often called a <em>functional</em>.</p>
-<div id="exm-expectation-functional" class="theorem example">
+<div id="exm-expectation-functional" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example B.9 (Expectation Functional)</strong></span> The function <span class="math inline">\(f \mapsto \mathbb E_{\mathbb P}[f(Z)]\)</span> is a functional (a linear functional, in fact). The expectation functional is defined on all of <span class="math inline">\(\mathcal L_2(\mathbb P)\)</span> since every square-integrable function is integrable (see <a href="#exm-bounding-integral" class="quarto-xref">Example&nbsp;<span>B.6</span></a>).</p>
+<br>
 </div>
 <p>In general Hilbert spaces, the story of Riesz representation is essentially the same, except there is one little wrinkle: not all linear functions actually have a direction of steepest ascent. The problem is that there are too many “directions” to go in within infinite-dimensional space. No matter what direction you “look” (e.g., imagine standing at the origin), there may be some other direction you could look in where the slope (the unit rise in the function over a unit change in the input) is steeper! In contrast, in 3D (or <span class="math inline">\(d\)</span>-dimensional) space, the fact that there are only 3 (<span class="math inline">\(d\)</span>) dimensions means that there is <em>always</em> some direction of steepest ascent — you quickly run out of directions to look for steeper slopes.</p>
-<div id="exm-eval-at-point" class="theorem example">
+<div id="exm-eval-at-point" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example B.10 (Evaluation at a Point)</strong></span> Let <span class="math inline">\(Z \sim \text{Unif}(-1,1)\)</span> and let <span class="math inline">\(T: f \mapsto f(0)\)</span> be the functional that takes <span class="math inline">\(f \in \mathcal L_2(\mathbb P)\)</span>, evaluates it at the point <span class="math inline">\(z=0\)</span>, and returns the result. Clearly <span class="math inline">\(T\)</span> is linear under the definition of function addition and scaling in <span class="math inline">\(\mathcal L_2\)</span> because</p>
 <p><span class="math display">\[
 T(cf+g) = (cf + g)(0) = cf(0) + g(0) = cTf + Tg.
@@ -1117,6 +1133,7 @@ h_n(z) = 2\sqrt{n} 1\left(-\frac{1}{n} \le z \le \frac{1}{n}\right).
 Th_n = h_n(0) = 2\sqrt{n} \to \infty.
 \]</span></p>
 <p>By increasing <span class="math inline">\(n \to \infty\)</span>, I can find a direction <span class="math inline">\(h=h_n\)</span> where the slope <span class="math inline">\(Th/\|h\| = 2\sqrt{n}\)</span> is bigger than any given number. It is therefore not possible to find a direction of steepest ascent: there is always a steeper slope in another direction!</p>
+<br>
 </div>
 <p>In the field of functional analysis, functionals that don’t have a direction of steepest ascent are called <em>unbounded</em>.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">

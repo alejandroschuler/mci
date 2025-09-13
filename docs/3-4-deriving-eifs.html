@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Deriving Canonical Gradients – Foundations of Modern Causal Inference</title>
+<title>4&nbsp; Deriving Canonical Gradients – Foundations of Modern Causal Inference</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -50,7 +50,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./4-0-intro.html" rel="next">
+<link href="./4-1-plugin-expansion.html" rel="next">
 <link href="./3-3-efficiency.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -119,6 +119,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -130,7 +131,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li><li class="breadcrumb-item"><a href="./3-4-deriving-eifs.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li><li class="breadcrumb-item"><a href="./3-4-deriving-eifs.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -163,8 +164,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./3-0-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Efficiency Theory</span></a>
+            <a href="./1-0-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Models and Estimands</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -172,28 +173,16 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3-2-regularity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./3-3-efficiency.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./3-4-deriving-eifs.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
+  <a href="./1-1-estimation-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Estimation Problems</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./4-0-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Building Efficient Estimators</span></a>
+            <a href="./3-0-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Efficiency Theory</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -201,8 +190,26 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./3-2-regularity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-3-efficiency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-4-deriving-eifs.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
   </div>
 </li>
       </ul>
@@ -246,22 +253,22 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#point-mass-contamination" id="toc-point-mass-contamination" class="nav-link active" data-scroll-target="#point-mass-contamination"><span class="header-section-number">3.1</span> Point Mass Contamination</a>
+  <li><a href="#point-mass-contamination" id="toc-point-mass-contamination" class="nav-link active" data-scroll-target="#point-mass-contamination"><span class="header-section-number">4.1</span> Point Mass Contamination</a>
   <ul class="collapse">
-  <li><a href="#discrete-distributions" id="toc-discrete-distributions" class="nav-link" data-scroll-target="#discrete-distributions"><span class="header-section-number">3.1.1</span> Discrete Distributions</a></li>
-  <li><a href="#general-distributions" id="toc-general-distributions" class="nav-link" data-scroll-target="#general-distributions"><span class="header-section-number">3.1.2</span> General Distributions</a></li>
+  <li><a href="#discrete-distributions" id="toc-discrete-distributions" class="nav-link" data-scroll-target="#discrete-distributions"><span class="header-section-number">4.1.1</span> Discrete Distributions</a></li>
+  <li><a href="#general-distributions" id="toc-general-distributions" class="nav-link" data-scroll-target="#general-distributions"><span class="header-section-number">4.1.2</span> General Distributions</a></li>
   </ul></li>
-  <li><a href="#gradient-rules" id="toc-gradient-rules" class="nav-link" data-scroll-target="#gradient-rules"><span class="header-section-number">3.2</span> Gradient Rules</a></li>
-  <li><a href="#projection" id="toc-projection" class="nav-link" data-scroll-target="#projection"><span class="header-section-number">3.3</span> Projection</a></li>
+  <li><a href="#gradient-rules" id="toc-gradient-rules" class="nav-link" data-scroll-target="#gradient-rules"><span class="header-section-number">4.2</span> Gradient Rules</a></li>
+  <li><a href="#projection" id="toc-projection" class="nav-link" data-scroll-target="#projection"><span class="header-section-number">4.3</span> Projection</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li><li class="breadcrumb-item"><a href="./3-4-deriving-eifs.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li><li class="breadcrumb-item"><a href="./3-4-deriving-eifs.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></h1>
 </div>
 
 
@@ -280,12 +287,12 @@ window.Quarto = {
 
 <p>In the previous chapter we discovered that every pathwise-differentiable estimand has at least one RAL estimator and that any asymptotically optimal RAL estimator has an influence function equal to the canonical gradient (the <em>efficient</em> influence function; EIF). In the next part of the book we’ll tackle the problem of constructing estimators that have this property, but, in order to do that we need to know what the canonical gradient is for any estimand and model of interest. In this chapter we’ll therefore learn techniques to derive the canonical gradient.</p>
 <p>There are many methods to derive canonical gradients that are more or less natural to depending on the kind of model and estimand. In this book we’ll first focus on point mass contamination: a simple technique that works well in locally nonparametric models. In the process of illustrating this technique we’ll cover some handy rules that make it easier to build canonical gradients up out of simpler blocks. Then we will discuss projection methods which are often useful when the model is restricted in some way and in particular for models where some factors of the joint distribution are known.</p>
-<section id="point-mass-contamination" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="point-mass-contamination"><span class="header-section-number">3.1</span> Point Mass Contamination</h2>
+<section id="point-mass-contamination" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="point-mass-contamination"><span class="header-section-number">4.1</span> Point Mass Contamination</h2>
 <p>Point mass contamination (also referred to as the “Gateaux derivative” or “Hampel influence function” approach) is a easy-to-use strategy for deriving the gradient in nonparametric models (recall there is only one gradient in a nonparametric model). Nonparametric models are a good starting point because often we don’t know anything useful about the data-generating distribution. Even if we do, nonparametric models are a reasonable fallback because we can still produce a good RAL estimator using the nonparametric EIF - it will just be less efficient than the efficient estimator under the restricted model that exploits our prior knowledge. We will also see in a few sections that knowing the nonparametric canonical gradient is useful when deriving the canonical gradient in restricted models.</p>
 <p>The idea of point mass contamination is to find paths in directions that make it easy to compute the value of the gradient at a given point <span class="math inline">\(z\)</span>. We’ll see that it suffices to take convex paths in the direction of distribution that is a point mass at a point <span class="math inline">\(z\)</span>.</p>
-<section id="discrete-distributions" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="discrete-distributions"><span class="header-section-number">3.1.1</span> Discrete Distributions</h3>
+<section id="discrete-distributions" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="discrete-distributions"><span class="header-section-number">4.1.1</span> Discrete Distributions</h3>
 <p>Presume for a moment that we’re working in a model where every variable is discrete but otherwise unspecified. When this is the case, the model is actually parametric because any joint distribution is a categorical distribution over a finite number of support points. Another way of putting this is that in a dataset drawn from such a distribution, there are only a finite number of possible “rows” that can appear. The probability distribution assigns a probability <span class="math inline">\({\mathbb{P}}\{Z=z_j\} = {\mathbb{P}}_j\)</span> to each unique row <span class="math inline">\(z_j\)</span> in a discrete set <span class="math inline">\(\mathcal Z\)</span>: the probabilities <span class="math inline">\(p_j\)</span> for <span class="math inline">\(j \in \{1\dots J\}\)</span> are the only parameters.</p>
 <p>Let’s say we’re at a point <span class="math inline">\(p\)</span> (representing either the mass function or the vector of probabilities, they are essentially the same). We can construct a convex path in the parameter space with <span class="math inline">\(p\)</span> as the starting point and as the endpoint the mass function <span class="math inline">\(1^* = 1(z=z^*)\)</span> (with distribution <span class="math inline">\(\mathbb 1^*\)</span>) that puts all the probability mass at some point <span class="math inline">\(z^* \in \{z_1 \dots z_J\}\)</span>. For small values of <span class="math inline">\(\epsilon\)</span>, the convex path</p>
 <p><span class="math display">\[
@@ -295,7 +302,7 @@ p_\epsilon
 &amp;= p + \epsilon(1^*- p)
 \end{aligned}
 \]</span></p>
-<p>represents the distribution <span class="math inline">\(p\)</span> “contaminated” with a little bit of extra mass at the point <span class="math inline">\(z^*\)</span>. Clearly all elements of the path are within the model. Moreover, this path is differentiable. Assuming none of the components of <span class="math inline">\(p\)</span> (as a vector) are zero, the score for such a path (see <a href="3-2-regularity.html#exm-convex-path-score" class="quarto-xref">Example&nbsp;<span>1.8</span></a>) is</p>
+<p>represents the distribution <span class="math inline">\(p\)</span> “contaminated” with a little bit of extra mass at the point <span class="math inline">\(z^*\)</span>. Clearly all elements of the path are within the model. Moreover, this path is differentiable. Assuming none of the components of <span class="math inline">\(p\)</span> (as a vector) are zero, the score for such a path (see <a href="3-2-regularity.html#exm-convex-path-score" class="quarto-xref">Example&nbsp;<span>2.8</span></a>) is</p>
 <p><span class="math display">\[
 s^* = \left(\frac{1^*}{p} - 1 \right)
 .
@@ -307,8 +314,8 @@ s^* = \left(\frac{1^*}{p} - 1 \right)
 </div>
 <div class="callout-body-container">
 <div id="exr-discrete-model-local-nonparam" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.1</strong></span> When <span class="math inline">\({\mathbb{P}}\)</span> is a discrete distribution over a set of <span class="math inline">\(J\)</span> points <span class="math inline">\(\mathcal Z = \{z_1 \dots z_J\}\)</span> with mass function <span class="math inline">\(p\)</span>, the space <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> is all functions <span class="math inline">\(f\)</span> such that <span class="math inline">\(\mathbb{E}_{\mathbb{P}}[f(Z)^2] = \sum_j^J f(z_j)^2\ p(z_j)\)</span> is finite (and two functions are considered “equivalent” if they agree on the points <span class="math inline">\(\mathcal Z\)</span>).</p>
-<p>Prove that the discrete model <span class="math inline">\({\mathcal{P}}\)</span> consisting of all distributions <span class="math inline">\({\mathbb{P}}\)</span> supported on the same set <span class="math inline">\(\mathcal Z\)</span> is locally nonparametric (<a href="3-3-efficiency.html#def-nonparam-model" class="quarto-xref">Definition&nbsp;<span>2.2</span></a>) at any point, despite being a parametric model with <span class="math inline">\(J\)</span> parameters!</p>
+<p><span class="theorem-title"><strong>Exercise 4.1</strong></span> When <span class="math inline">\({\mathbb{P}}\)</span> is a discrete distribution over a set of <span class="math inline">\(J\)</span> points <span class="math inline">\(\mathcal Z = \{z_1 \dots z_J\}\)</span> with mass function <span class="math inline">\(p\)</span>, the space <span class="math inline">\(\mathcal{L}_2\left(\mathbb{P}\right)\)</span> is all functions <span class="math inline">\(f\)</span> such that <span class="math inline">\(\mathbb{E}_{\mathbb{P}}[f(Z)^2] = \sum_j^J f(z_j)^2\ p(z_j)\)</span> is finite (and two functions are considered “equivalent” if they agree on the points <span class="math inline">\(\mathcal Z\)</span>).</p>
+<p>Prove that the discrete model <span class="math inline">\({\mathcal{P}}\)</span> consisting of all distributions <span class="math inline">\({\mathbb{P}}\)</span> supported on the same set <span class="math inline">\(\mathcal Z\)</span> is locally nonparametric (<a href="3-3-efficiency.html#def-nonparam-model" class="quarto-xref">Definition&nbsp;<span>3.2</span></a>) at any point, despite being a parametric model with <span class="math inline">\(J\)</span> parameters!</p>
 </div>
 </div>
 </div>
@@ -330,8 +337,8 @@ s^* = \left(\frac{1^*}{p} - 1 \right)
 = {\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}\Psi\bigg({\mathbb{P}}+ \epsilon(\mathbb 1^* - {\mathbb{P}}) \bigg)
 .
 \]</span></p>
-<div id="exm-point-mass-mean-EIF" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.1 (Gradient of mean)</strong></span> Let <span class="math inline">\(Z\)</span> be a one-dimensional discrete random variable with no other restrictions and let <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[Z]\)</span>, the population mean. By the above,</p>
+<div id="exm-point-mass-mean-EIF" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 4.1 (Gradient of mean)</strong></span> Let <span class="math inline">\(Z\)</span> be a one-dimensional discrete random variable with no other restrictions and let <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[Z]\)</span>, the population mean. By the above,</p>
 <p><span class="math display">\[
 \begin{aligned}
 \nabla\!\Psi(z^*)
@@ -341,14 +348,15 @@ s^* = \left(\frac{1^*}{p} - 1 \right)
 &amp;= z^* - \mathbb{E}_{{\mathbb{P}}}[Z]
 \end{aligned}
 \]</span></p>
-<p>Therefore <span class="math inline">\(\nabla\!\Psi(z) =  z - \mathbb{E}_{\mathbb{P}}[Z]\)</span>, which is the influence function for the sample mean and aligns with the equivalent result we proved in <a href="3-3-efficiency.html#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>2.5</span></a>.</p>
+<p>Therefore <span class="math inline">\(\nabla\!\Psi(z) =  z - \mathbb{E}_{\mathbb{P}}[Z]\)</span>, which is the influence function for the sample mean and aligns with the equivalent result we proved in <a href="3-3-efficiency.html#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>3.5</span></a>.</p>
+<br>
 </div>
-<p>Keep in mind that the gradient <span class="math inline">\(\nabla\!\Psi\)</span> depends on the data-generating distribution (and the model but here we have a fixed discrete model in mind), so really we should be writing <span class="math inline">\(\nabla\!_{\mathbb{P}}\Psi\)</span>. In <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>3.1</span></a> this is evident because the result depends on <span class="math inline">\(\mathbb{E}_{\mathbb{P}}[Z]\)</span>.</p>
-<p>The manipulations in <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>3.1</span></a> are characteristic of gradient derivations with point mass contamination. The only challenge is keeping careful track of the point mass <span class="math inline">\(z^*\)</span> vs generic values <span class="math inline">\(z\)</span> and the action of the indicator functions. This is a purely mechanical exercise, no special intuition is requred. Just keep in mind that <span class="math inline">\(\sum_z f(z)\  1^*(z) = f(z^*)\)</span> because the indicator “picks out” the indicated term in the sum. Once you’ve done it once or twice it becomes straightforward.</p>
+<p>Keep in mind that the gradient <span class="math inline">\(\nabla\!\Psi\)</span> depends on the data-generating distribution (and the model but here we have a fixed discrete model in mind), so really we should be writing <span class="math inline">\(\nabla\!_{\mathbb{P}}\Psi\)</span>. In <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>4.1</span></a> this is evident because the result depends on <span class="math inline">\(\mathbb{E}_{\mathbb{P}}[Z]\)</span>.</p>
+<p>The manipulations in <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>4.1</span></a> are characteristic of gradient derivations with point mass contamination. The only challenge is keeping careful track of the point mass <span class="math inline">\(z^*\)</span> vs generic values <span class="math inline">\(z\)</span> and the action of the indicator functions. This is a purely mechanical exercise, no special intuition is requred. Just keep in mind that <span class="math inline">\(\sum_z f(z)\  1^*(z) = f(z^*)\)</span> because the indicator “picks out” the indicated term in the sum. Once you’ve done it once or twice it becomes straightforward.</p>
 <p>Sometimes you also need to keep track of some other fixed point, as the next example shows.</p>
-<div id="exm-point-mass-density" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.2 (Gradient of a density at a point)</strong></span> Let <span class="math inline">\(Z\)</span> be a one-dimensional discrete random variable with no other restrictions and let <span class="math inline">\(\Psi({\mathbb{P}}) = {\mathbb{P}}\{ Z= \tilde z \}\)</span> for a particular value <span class="math inline">\(\tilde z\)</span>.</p>
-<p>An easy way to derive the canonical gradient is to let <span class="math inline">\(W = 1(Z= \tilde z)\)</span> and use the result from <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>3.1</span></a> since <span class="math inline">\({\mathbb{P}}\{Z= \tilde z\} = \mathbb{E}_{\mathbb{P}}[W]\)</span>. This immediately gives <span class="math inline">\(\nabla\!\Psi(z) =  1_{\tilde z}(z) - p(\tilde z)\)</span>.</p>
+<div id="exm-point-mass-density" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 4.2 (Gradient of a density at a point)</strong></span> Let <span class="math inline">\(Z\)</span> be a one-dimensional discrete random variable with no other restrictions and let <span class="math inline">\(\Psi({\mathbb{P}}) = {\mathbb{P}}\{ Z= \tilde z \}\)</span> for a particular value <span class="math inline">\(\tilde z\)</span>.</p>
+<p>An easy way to derive the canonical gradient is to let <span class="math inline">\(W = 1(Z= \tilde z)\)</span> and use the result from <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>4.1</span></a> since <span class="math inline">\({\mathbb{P}}\{Z= \tilde z\} = \mathbb{E}_{\mathbb{P}}[W]\)</span>. This immediately gives <span class="math inline">\(\nabla\!\Psi(z) =  1_{\tilde z}(z) - p(\tilde z)\)</span>.</p>
 <p>We arrive at the same result if we consider that <span class="math inline">\(\Psi({\mathbb{P}}) =  p(\tilde z)\)</span>. For any <span class="math inline">\(\tilde z\)</span>,</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -359,10 +367,11 @@ s^* = \left(\frac{1^*}{p} - 1 \right)
 \end{aligned}
 \]</span></p>
 <p>This is the same as above because <span class="math inline">\(1^*(\tilde z) = 1(z^* = \tilde z) = 1_{\tilde z}(z^*)\)</span>.</p>
+<br>
 </div>
 <p>When <span class="math inline">\(Z\)</span> is multidimensional the same process works but the notation can be more verbose. For example, if <span class="math inline">\(Z = (Y,X)\)</span>, then the <span class="math inline">\(Z\)</span>-domain <span class="math inline">\(\mathcal Z = \{z_1, \dots z_J\}\)</span> is some subset of the cartesian product <span class="math inline">\(\mathcal Y \times \mathcal X\)</span> where these are the (discrete) domains of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. We’ll let <span class="math inline">\(z^* = (y^*, x^*)\)</span> be the point at which mass is concentrated in the mass function <span class="math inline">\(1^*\)</span> with corresponding distribution <span class="math inline">\(\mathbb 1^*\)</span>. In an abuse of notation we’ll also write, e.g., <span class="math inline">\(1^*(x) = 1(x=x^*)\)</span>. This single-variable indicator also picks out terms in a sum, i.e., <span class="math inline">\(\sum_{x,y} f(x,y) 1^*(x) = \sum_y f(x^*, y)\)</span>. We’ll see patterns like this a lot in gradient derivations using point mass contamination.</p>
-<div id="exm-point-mass-cond-mean-EIF" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.3 (Gradient of a conditional mean)</strong></span> Let <span class="math inline">\((Y,X)\)</span> be discrete random variables with no other restrictions and let <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[Y|X=\tilde x]\)</span>, the conditional mean of <span class="math inline">\(Y\)</span> at a value <span class="math inline">\(X=\tilde x\)</span>. Computing the pathwise derivative on a path from a distribution <span class="math inline">\(p\)</span> towards a point mass at <span class="math inline">\((y^*, x^*)\)</span> gives</p>
+<div id="exm-point-mass-cond-mean-EIF" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 4.3 (Gradient of a conditional mean)</strong></span> Let <span class="math inline">\((Y,X)\)</span> be discrete random variables with no other restrictions and let <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[Y|X=\tilde x]\)</span>, the conditional mean of <span class="math inline">\(Y\)</span> at a value <span class="math inline">\(X=\tilde x\)</span>. Computing the pathwise derivative on a path from a distribution <span class="math inline">\(p\)</span> towards a point mass at <span class="math inline">\((y^*, x^*)\)</span> gives</p>
 <p><span class="math display">\[
 \begin{aligned}
 \nabla\!\Psi(y^*,x^*)
@@ -405,7 +414,8 @@ s^* = \left(\frac{1^*}{p} - 1 \right)
 &amp;= \frac{1^*(\tilde x)}{p(\tilde x)}\left(y^* - \mathbb{E}[Y|X=\tilde x] \right)
 \end{aligned}
 \]</span></p>
-<p>Therefore <span class="math inline">\(\nabla\!\Psi(y,x) = \frac{1(x=\tilde x)}{p(\tilde x)}\left(y - \mathbb{E}[Y|X=\tilde x] \right)\)</span>. The conditional mean is generally not pathwise differentiable and thus doesn’t have an gradient (see <a href="3-3-efficiency.html#exm-unbounded-estimand" class="quarto-xref">Example&nbsp;<span>2.4</span></a>), but in discrete data models it is!</p>
+<p>Therefore <span class="math inline">\(\nabla\!\Psi(y,x) = \frac{1(x=\tilde x)}{p(\tilde x)}\left(y - \mathbb{E}[Y|X=\tilde x] \right)\)</span>. The conditional mean is generally not pathwise differentiable and thus doesn’t have an gradient (see <a href="3-3-efficiency.html#exm-unbounded-estimand" class="quarto-xref">Example&nbsp;<span>3.4</span></a>), but in discrete data models it is!</p>
+<br>
 </div>
 <p>As in the one-dimensional model, the difficulty in these calculations is keeping track of what is the fixed point <span class="math inline">\(\tilde x\)</span>, what is the location of the point mass <span class="math inline">\((y^* ,x^*)\)</span>, and what is a generic value <span class="math inline">\((y,x)\)</span>. Go slowly and deliberately at first and you will get the hang of it.</p>
 <div class="callout callout-style-simple callout-important no-icon">
@@ -415,8 +425,8 @@ s^* = \left(\frac{1^*}{p} - 1 \right)
 </div>
 <div class="callout-body-container">
 <div id="exr-point-mass-conditional-density" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.2 (Gradient of a conditional density)</strong></span> Let <span class="math inline">\((Y,X)\)</span> be discrete random variables with no other restrictions and let <span class="math inline">\(\Psi({\mathbb{P}}) = {\mathbb{P}}\{ Y=\tilde y | X = \tilde x \}\)</span> for particular values <span class="math inline">\(\tilde y, \tilde x\)</span>. What is the canonical gradient for this estimand at a point <span class="math inline">\({\mathbb{P}}\)</span> in this model?</p>
-<p><em>Hint: let</em> <span class="math inline">\(W = 1(Y=\tilde y)\)</span> and use the result from <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>3.1</span></a> since <span class="math inline">\({\mathbb{P}}\{Y=\tilde y|X=\tilde x\} = \mathbb{E}_{\mathbb{P}}[W|X=\tilde x]\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 4.2 (Gradient of a conditional density)</strong></span> Let <span class="math inline">\((Y,X)\)</span> be discrete random variables with no other restrictions and let <span class="math inline">\(\Psi({\mathbb{P}}) = {\mathbb{P}}\{ Y=\tilde y | X = \tilde x \}\)</span> for particular values <span class="math inline">\(\tilde y, \tilde x\)</span>. What is the canonical gradient for this estimand at a point <span class="math inline">\({\mathbb{P}}\)</span> in this model?</p>
+<p><em>Hint: let</em> <span class="math inline">\(W = 1(Y=\tilde y)\)</span> and use the result from <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>4.1</span></a> since <span class="math inline">\({\mathbb{P}}\{Y=\tilde y|X=\tilde x\} = \mathbb{E}_{\mathbb{P}}[W|X=\tilde x]\)</span>.</p>
 </div>
 </div>
 </div>
@@ -428,29 +438,30 @@ s^* = \left(\frac{1^*}{p} - 1 \right)
 </div>
 <div class="callout-body-container">
 <div id="exr-gradient-cov" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.3 (Gradient of the covariance)</strong></span> Let <span class="math inline">\((Y,X)\)</span> be discrete random variables with no other restrictions and let <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{C}_{\mathbb{P}}[ Y,X ]\)</span>. What is the canonical gradient for this estimand at a point <span class="math inline">\({\mathbb{P}}\)</span> in this model?</p>
+<p><span class="theorem-title"><strong>Exercise 4.3 (Gradient of the covariance)</strong></span> Let <span class="math inline">\((Y,X)\)</span> be discrete random variables with no other restrictions and let <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{C}_{\mathbb{P}}[ Y,X ]\)</span>. What is the canonical gradient for this estimand at a point <span class="math inline">\({\mathbb{P}}\)</span> in this model?</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="general-distributions" class="level3" data-number="3.1.2">
-<h3 data-number="3.1.2" class="anchored" data-anchor-id="general-distributions"><span class="header-section-number">3.1.2</span> General Distributions</h3>
+<section id="general-distributions" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="general-distributions"><span class="header-section-number">4.1.2</span> General Distributions</h3>
 <p>Point mass contamination is easiest to present for discrete models but it also works for general nonparametric models. However, it’s more difficult to understand in the general setting because “point masses” don’t exist for continuous random variables. Nonetheless, in much of the literature you’ll see point masses in continuous densities represented informally using Dirac delta functions. <span class="citation" data-cites="hines-eif">Hines et al. (<a href="6-references.html#ref-hines-eif" role="doc-biblioref">2022</a>)</span> has many good examples.</p>
 <p>The derivation with Dirac deltas can be made rigorous (see <span class="citation" data-cites="ichimura2022influence">Ichimura and Newey (<a href="6-references.html#ref-ichimura2022influence" role="doc-biblioref">2022</a>)</span>), but, following the advice of <span class="citation" data-cites="kennedy-review">Kennedy (<a href="6-references.html#ref-kennedy-review" role="doc-biblioref">2024</a>)</span>, I find it much easier to simply pretend the model is discrete! Perhaps surprisingly, the form of the gradient in an unrestricted discrete model is generally also the form of the gradient in the nonparametric model. If you are worried, it is easy to check that the result holds by verifying the central identify for influence functions, since in a nonparametric model there is only one function (the gradient) for which it will hold.</p>
-<div id="exm-point-mass-mean-check" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.4</strong></span> In <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>3.1</span></a> we showed that, in discrete data models, the gradient for the mean is <span class="math inline">\(\nabla\!\Psi(z) =  z - \mathbb{E}_{\mathbb{P}}[Z]\)</span>. We now verify that this is also the gradient in the nonparametric model by checking that <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}s \nabla\!\Psi\)</span> for all <span class="math inline">\(s \in \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>.</p>
-<p>In <a href="3-3-efficiency.html#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>2.5</span></a> we already derived that <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s) = \mathbb{E}[Zs(Z)]\)</span> for the mean. On the other hand,</p>
+<div id="exm-point-mass-mean-check" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 4.4</strong></span> In <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>4.1</span></a> we showed that, in discrete data models, the gradient for the mean is <span class="math inline">\(\nabla\!\Psi(z) =  z - \mathbb{E}_{\mathbb{P}}[Z]\)</span>. We now verify that this is also the gradient in the nonparametric model by checking that <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}s \nabla\!\Psi\)</span> for all <span class="math inline">\(s \in \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>.</p>
+<p>In <a href="3-3-efficiency.html#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>3.5</span></a> we already derived that <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s) = \mathbb{E}[Zs(Z)]\)</span> for the mean. On the other hand,</p>
 <p><span class="math display">\[
 {\mathbb{P}}s\nabla\!\Psi = \mathbb{E}[s(Z)(Z - \mathbb{E}[Z])] = \mathbb{E}[s(Z)Z] - \mathbb{E}[Z] \underbrace{\mathbb{E}[s(Z)]}_0
 ,
 \]</span></p>
 <p>which establishes the desired equality.</p>
+<br>
 </div>
-<p>Of course, we already knew the gradient for the mean in the nonparametric model since we derived it in <a href="3-3-efficiency.html#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>2.5</span></a>. But in that proof we had to magically know to add “zero” to the inner product in order to get a zero mean score. In practice, such tricks are not readily apparent. It’s much easier to have a candidate gradient and simply check that it works, as we just did in <a href="#exm-point-mass-mean-check" class="quarto-xref">Example&nbsp;<span>3.4</span></a>.</p>
+<p>Of course, we already knew the gradient for the mean in the nonparametric model since we derived it in <a href="3-3-efficiency.html#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>3.5</span></a>. But in that proof we had to magically know to add “zero” to the inner product in order to get a zero mean score. In practice, such tricks are not readily apparent. It’s much easier to have a candidate gradient and simply check that it works, as we just did in <a href="#exm-point-mass-mean-check" class="quarto-xref">Example&nbsp;<span>4.4</span></a>.</p>
 <p>Some estimands, however, are pathwise differentiable in discrete models but not in nonparametric models. When this happens you will see a specific kind of failure when you check <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}s \nabla\!\Psi\)</span> for all <span class="math inline">\(s \in \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>.</p>
-<div id="exm-point-mass-cond-mean-check" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.5</strong></span> In <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>3.1</span></a> we showed that, in discrete data models, the gradient for the conditional mean of <span class="math inline">\(Y\)</span> at a point <span class="math inline">\(X=\tilde x\)</span> is <span class="math inline">\(\nabla\!\Psi(y,x) = \frac{1(x=\tilde x)}{p(\tilde x)}\left(y - \mathbb{E}[Y|X=\tilde x] \right)\)</span>. We now show that it is <em>not</em> the gradient in a nonparametric model. In fact, there is no gradient in a nonparametric model because this estimand is not pathwise differentiable in such models.</p>
+<div id="exm-point-mass-cond-mean-check" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 4.5</strong></span> In <a href="#exm-point-mass-mean-EIF" class="quarto-xref">Example&nbsp;<span>4.1</span></a> we showed that, in discrete data models, the gradient for the conditional mean of <span class="math inline">\(Y\)</span> at a point <span class="math inline">\(X=\tilde x\)</span> is <span class="math inline">\(\nabla\!\Psi(y,x) = \frac{1(x=\tilde x)}{p(\tilde x)}\left(y - \mathbb{E}[Y|X=\tilde x] \right)\)</span>. We now show that it is <em>not</em> the gradient in a nonparametric model. In fact, there is no gradient in a nonparametric model because this estimand is not pathwise differentiable in such models.</p>
 <p>Assuming we did not know about the lack of pathwise differentiability, we might try to check <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}s \nabla\!\Psi\)</span>. On the right-hand side, for any distribution where <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> are continuously-distributed with density <span class="math inline">\(p(y,x)\)</span></p>
 <p><span class="math display">\[
 {\mathbb{P}}s\nabla\!\Psi = \int s(y,x)\frac{1(x=\tilde x)}{p(\tilde x)}\left(y - \mathbb{E}[Y|X=\tilde x] \right) p(y,x) \mathop{}\!\mathrm{d}(y,x)
@@ -472,8 +483,9 @@ s^* = \left(\frac{1^*}{p} - 1 \right)
 \\
 \end{aligned}
 \]</span></p>
+<br>
 </div>
-<p>The failures shown in <a href="#exm-point-mass-cond-mean-check" class="quarto-xref">Example&nbsp;<span>3.5</span></a> above are typical of what happens when you use point mass contamination to try and derive the gradient for an estimand that is not nonparametrically pathwise differentiable. If you end up with an indicator of a possibly continuous value in the gradient, it’s a good sign that the estimand is not nonparametrically pathwise differentiable.</p>
+<p>The failures shown in <a href="#exm-point-mass-cond-mean-check" class="quarto-xref">Example&nbsp;<span>4.5</span></a> above are typical of what happens when you use point mass contamination to try and derive the gradient for an estimand that is not nonparametrically pathwise differentiable. If you end up with an indicator of a possibly continuous value in the gradient, it’s a good sign that the estimand is not nonparametrically pathwise differentiable.</p>
 <div class="callout callout-style-simple callout-important no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -481,14 +493,14 @@ s^* = \left(\frac{1^*}{p} - 1 \right)
 </div>
 <div class="callout-body-container">
 <div id="exr-point-mass-density-nonparam" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.4</strong></span> Show that the gradient we derived for <span class="math inline">\(\Psi({\mathbb{P}}) = {\mathbb{P}}\{ Z=\tilde z \}\)</span> in <a href="#exm-point-mass-density" class="quarto-xref">Example&nbsp;<span>3.2</span></a> breaks down if it is treated as the gradient in a nonparametric model.</p>
+<p><span class="theorem-title"><strong>Exercise 4.4</strong></span> Show that the gradient we derived for <span class="math inline">\(\Psi({\mathbb{P}}) = {\mathbb{P}}\{ Z=\tilde z \}\)</span> in <a href="#exm-point-mass-density" class="quarto-xref">Example&nbsp;<span>4.2</span></a> breaks down if it is treated as the gradient in a nonparametric model.</p>
 </div>
 </div>
 </div>
 </div>
 <p>Although appealing to a discrete data model usually does the trick, there are times when it doesn’t work. This can happen for estimands that are defined implicitly rather than explicitly in terms of expectations or probabilities. The point-mass contamination strategy is still useful, but we need a different approach to evaluate the pathwise derivative. I give an example here to demonstrate this, but it’s not vitally important to understand in detail.</p>
-<div id="exm-quantile-gradient" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.6 (Gradient of a quantile)</strong></span> Let <span class="math inline">\(\mathcal P\)</span> be all continuous distributions <span class="math inline">\({\mathbb{P}}\)</span> of a single variable <span class="math inline">\(Z\)</span> and let the estimand <span class="math inline">\(\Psi({\mathbb{P}})\)</span> be the <span class="math inline">\(q\)</span>th quantile of <span class="math inline">\(Z\)</span> under <span class="math inline">\({\mathbb{P}}\)</span>. Our aim is to find the canonical gradient of <span class="math inline">\(\Psi\)</span> in this model.</p>
+<div id="exm-quantile-gradient" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 4.6 (Gradient of a quantile)</strong></span> Let <span class="math inline">\(\mathcal P\)</span> be all continuous distributions <span class="math inline">\({\mathbb{P}}\)</span> of a single variable <span class="math inline">\(Z\)</span> and let the estimand <span class="math inline">\(\Psi({\mathbb{P}})\)</span> be the <span class="math inline">\(q\)</span>th quantile of <span class="math inline">\(Z\)</span> under <span class="math inline">\({\mathbb{P}}\)</span>. Our aim is to find the canonical gradient of <span class="math inline">\(\Psi\)</span> in this model.</p>
 <p>Abusing notation a bit, let <span class="math inline">\({\mathbb{P}}(z)\)</span> denote the CDF of <span class="math inline">\(Z\)</span> under <span class="math inline">\({\mathbb{P}}\)</span>. The quantile <span class="math inline">\(\psi\)</span> is defined by <span class="math inline">\({\mathbb{P}}(\psi) = q\)</span> so we can write <span class="math inline">\(\Psi({\mathbb{P}}) = {\mathbb{P}}^{-1}(q)\)</span> since the inverse of the CDF of a continuous random variable is well-defined, or</p>
 <p><span class="math display">\[
 \Psi({\mathbb{P}}) = \inf \{ z: {\mathbb{P}}(z) \ge q\}
@@ -506,16 +518,16 @@ s^* = \left(\frac{1^*}{p} - 1 \right)
 <img src="3-4-deriving-eifs_files/mediabag/0f75947546ac65a4102acb10ea40c19c44988596.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-quantile-gradient-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.1: CDFs along the convex path between some distribution <span class="math inline">\({\mathbb{P}}\)</span> and the point mass <span class="math inline">\(\mathbb 1^*\)</span> at <span class="math inline">\(z^*\)</span>.
+Figure&nbsp;4.1: CDFs along the convex path between some distribution <span class="math inline">\({\mathbb{P}}\)</span> and the point mass <span class="math inline">\(\mathbb 1^*\)</span> at <span class="math inline">\(z^*\)</span>.
 </figcaption>
 </figure>
 </div>
 <p>Let’s find an explicit expression for <span class="math inline">\(\psi_\epsilon= \Psi({\mathbb{P}}_\epsilon)\)</span>. We’ll break it down into two cases: <span class="math inline">\(z^* \le \psi\)</span> and <span class="math inline">\(\psi &lt; z^*\)</span>.</p>
-<p>First, let’s put the point mass <span class="math inline">\(z^*\)</span> to the left of the quantile <span class="math inline">\(\psi = \Psi({\mathbb{P}})\)</span>, as is shown in <a href="#fig-quantile-gradient" class="quarto-xref">Figure&nbsp;<span>3.1</span></a>. For any value <span class="math inline">\(z &lt; z^*\)</span> to the left of the point mass,</p>
+<p>First, let’s put the point mass <span class="math inline">\(z^*\)</span> to the left of the quantile <span class="math inline">\(\psi = \Psi({\mathbb{P}})\)</span>, as is shown in <a href="#fig-quantile-gradient" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>. For any value <span class="math inline">\(z &lt; z^*\)</span> to the left of the point mass,</p>
 <p><span class="math display">\[
 {\mathbb{P}}^{(\epsilon)}(z) = {\mathbb{P}}(z)(1-\epsilon) \le {\mathbb{P}}(z) &lt; {\mathbb{P}}(z^*) \le p(\psi) = q
 \]</span></p>
-<p>Therefore the smallest value <span class="math inline">\(z\)</span> for which <span class="math inline">\({\mathbb{P}}^{(\epsilon)}(z)\)</span> is larger than <span class="math inline">\(q\)</span> must be <em>at or to the right</em> of <span class="math inline">\(z^*\)</span>. In other words, the quantile at the perturbed distribution <span class="math inline">\(\psi_\epsilon\)</span> is larger than or equal to the location of the point mass <span class="math inline">\(z^*\)</span>. This is also visible in <a href="#fig-quantile-gradient" class="quarto-xref">Figure&nbsp;<span>3.1</span></a>. Therefore</p>
+<p>Therefore the smallest value <span class="math inline">\(z\)</span> for which <span class="math inline">\({\mathbb{P}}^{(\epsilon)}(z)\)</span> is larger than <span class="math inline">\(q\)</span> must be <em>at or to the right</em> of <span class="math inline">\(z^*\)</span>. In other words, the quantile at the perturbed distribution <span class="math inline">\(\psi_\epsilon\)</span> is larger than or equal to the location of the point mass <span class="math inline">\(z^*\)</span>. This is also visible in <a href="#fig-quantile-gradient" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>. Therefore</p>
 <p><span class="math display">\[
 \begin{aligned}
 \Psi({\mathbb{P}}_\epsilon) &amp;= \inf \{ z: {\mathbb{P}}^{(\epsilon)}(z) \ge q \} \\
@@ -547,6 +559,7 @@ Figure&nbsp;3.1: CDFs along the convex path between some distribution <span clas
 <p><span class="math display">\[
 \nabla\!\Psi(z) = \frac{q - 1(z \le \psi)}{p(\psi)}
 \]</span></p>
+<br>
 </div>
 <p>Let’s sum up everything we’ve learned about point mass contamination in one place:</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
@@ -560,7 +573,7 @@ Point Mass Contamination
 </div>
 <div class="callout-body-container callout-body">
 <div id="def-point-mass-contamination" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.1</strong></span> To derive the canonical gradient for an estimand <span class="math inline">\(\Psi\)</span> in a nonparametric model via point mass contamination, evaluate <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 4.1</strong></span> To derive the canonical gradient for an estimand <span class="math inline">\(\Psi\)</span> in a nonparametric model via point mass contamination, evaluate <span class="math display">\[
 \nabla\!\Psi(z^*) = {\left. \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \right|_{\epsilon=0}}\Psi\bigg({\mathbb{P}}+ \epsilon(\mathbb 1^*- {\mathbb{P}}) \bigg)
 \]</span></p>
 <p>where <span class="math inline">\(\mathbb 1^*\)</span> is a distribution that places all its probability mass at a point <span class="math inline">\(z^*\)</span>. Usually this is easiest to do by temporarily assuming that the variables are all discrete.</p>
@@ -575,9 +588,9 @@ Point Mass Contamination
 <p>The pathwise derivative on the right-hand side measures the influence that an infinitesimally small point mass at <span class="math inline">\(z^*\)</span> exerts on the estimand (at <span class="math inline">\({\mathbb{P}}\)</span>). Thus the term “influence function”. Another motivation for the term is that an asymptotically linear estimator is more sensitive to data points for which the value of the influence function is large. Because <span class="math inline">\(\hat\Psi ({\mathbb{P}}_n) \approx \Psi({\mathbb{P}}) + \frac{1}{n} \sum \phi^*(Z)\)</span> in large samples, if we add a single data point <span class="math inline">\(Z_{n+1}\)</span> to a large-enough dataset, it will have the largest effect on the estimate if <span class="math inline">\(\phi^*(Z_{n+1})\)</span> is large. An estimator that has an influence function that takes many large values across its domain may be more sensitive to differences in datasets (e.g.&nbsp;outliers).</p>
 </section>
 </section>
-<section id="gradient-rules" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="gradient-rules"><span class="header-section-number">3.2</span> Gradient Rules</h2>
-<p>Point mass contamination is a very useful strategy but the manual calculations required can quickly get out of hand for complex estimands. Even the algebra required to derive the gradient of the conditional mean in <a href="#exm-point-mass-cond-mean-EIF" class="quarto-xref">Example&nbsp;<span>3.3</span></a> was a bit excessive. You can have a look at <span class="citation" data-cites="hines-eif">Hines et al. (<a href="6-references.html#ref-hines-eif" role="doc-biblioref">2022</a>)</span> and <span class="citation" data-cites="kennedy-review">Kennedy (<a href="6-references.html#ref-kennedy-review" role="doc-biblioref">2024</a>)</span> to review examples that are even more involved. Thankfully, the algebra can usually be simplified with the application of a few easy derivative rules.</p>
+<section id="gradient-rules" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="gradient-rules"><span class="header-section-number">4.2</span> Gradient Rules</h2>
+<p>Point mass contamination is a very useful strategy but the manual calculations required can quickly get out of hand for complex estimands. Even the algebra required to derive the gradient of the conditional mean in <a href="#exm-point-mass-cond-mean-EIF" class="quarto-xref">Example&nbsp;<span>4.3</span></a> was a bit excessive. You can have a look at <span class="citation" data-cites="hines-eif">Hines et al. (<a href="6-references.html#ref-hines-eif" role="doc-biblioref">2022</a>)</span> and <span class="citation" data-cites="kennedy-review">Kennedy (<a href="6-references.html#ref-kennedy-review" role="doc-biblioref">2024</a>)</span> to review examples that are even more involved. Thankfully, the algebra can usually be simplified with the application of a few easy derivative rules.</p>
 <p>To make an analogy to calculus, you probably don’t remember how to derive the fact that the derivative of the log is the inverse function or that the derivative of sine is cosine, etc. Derivatives are tricky to compute from scratch! Nonetheless, you’re probably pretty comfortable computing the derivative of <span class="math inline">\(\sin(\log(x) + x^2)\)</span> because you’ve memorized a few key primitive derivatives and you know how to use the chain, product, and sum rules. Deriving gradients is the same way: coming up with the primitives can be tricky, but once you have them it’s usually just a matter of combining them in the right way to get gradients for more complex estimands.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -590,7 +603,7 @@ Gradient Rules
 </div>
 <div class="callout-body-container callout-body">
 <div id="thm-gradient-rules" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 3.1</strong></span> Let <span class="math inline">\(\Psi\)</span> and <span class="math inline">\(\Upsilon\)</span> be two pathwise differentiable, scalar estimands defined on the same model and let <span class="math inline">\(g: \mathbb{R}\to \mathbb{R}\)</span> be a differentiable function and <span class="math inline">\(c \in \mathbb{R}\)</span> some constant. Then</p>
+<p><span class="theorem-title"><strong>Theorem 4.1</strong></span> Let <span class="math inline">\(\Psi\)</span> and <span class="math inline">\(\Upsilon\)</span> be two pathwise differentiable, scalar estimands defined on the same model and let <span class="math inline">\(g: \mathbb{R}\to \mathbb{R}\)</span> be a differentiable function and <span class="math inline">\(c \in \mathbb{R}\)</span> some constant. Then</p>
 <p><span class="math display">\[
 \begin{aligned}
 \nabla\!(c \Psi + \Upsilon) &amp;= c\nabla\!\Psi + \nabla\!\Upsilon \quad \text{(sum rule)} \\
@@ -648,15 +661,15 @@ Proof of Chain Rule
 </div>
 <div class="callout-body-container">
 <div id="exr-gradient-rules" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.5</strong></span> Using insights from the proof of the chain rule, prove the sum and product rules from <a href="#thm-gradient-rules" class="quarto-xref">Theorem&nbsp;<span>3.1</span></a>.</p>
+<p><span class="theorem-title"><strong>Exercise 4.5</strong></span> Using insights from the proof of the chain rule, prove the sum and product rules from <a href="#thm-gradient-rules" class="quarto-xref">Theorem&nbsp;<span>4.1</span></a>.</p>
 </div>
 </div>
 </div>
 </div>
 <p>These rules look exactly the same as the usual rules for derivatives because they follow from them. A gradient is simply a way of encoding the “slope” of a function in multiple dimensions.</p>
 <p>The gradient rules make it easy to derive gradients for complicated estimands, including those relevant in causal inference.</p>
-<div id="exm-ATE-gradient" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.7 (Gradient of the ATE in a nonparametric model)</strong></span> Let <span class="math inline">\(\Psi\)</span> be the observable average treatment effect <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[\mathbb{E}_{\mathbb{P}}[Y|A=1,X] - \mathbb{E}_{\mathbb{P}}[Y|A=0,X]]\)</span>. To derive the nonparametric gradient we’ll use a combination of gradient rules and point mass contamination. Abbreviate</p>
+<div id="exm-ATE-gradient" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 4.7 (Gradient of the ATE in a nonparametric model)</strong></span> Let <span class="math inline">\(\Psi\)</span> be the observable average treatment effect <span class="math inline">\(\Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}[\mathbb{E}_{\mathbb{P}}[Y|A=1,X] - \mathbb{E}_{\mathbb{P}}[Y|A=0,X]]\)</span>. To derive the nonparametric gradient we’ll use a combination of gradient rules and point mass contamination. Abbreviate</p>
 <p><span class="math display">\[
 \mu(a,x) = \mathbb{E}_{\mathbb{P}}[Y|A=a,X=x]
 \]</span></p>
@@ -664,12 +677,12 @@ Proof of Chain Rule
 <p><span class="math display">\[
 \Psi = \underbrace{\sum_x \mu(1,x) \ p(x)}_{\Psi_1} - \underbrace{\sum_x \mu(0,x)\ p(x)}_{\Psi_0}  .
 \]</span></p>
-<p>We can treat the values <span class="math inline">\(\mu(a,x)\)</span> and <span class="math inline">\(p(x)\)</span> for all <span class="math inline">\(a,x\)</span> as their own estimands, and in fact we already know their gradients. Using the result from <a href="#exm-point-mass-cond-mean-EIF" class="quarto-xref">Example&nbsp;<span>3.3</span></a> giving the gradient for a conditional mean at a point,</p>
+<p>We can treat the values <span class="math inline">\(\mu(a,x)\)</span> and <span class="math inline">\(p(x)\)</span> for all <span class="math inline">\(a,x\)</span> as their own estimands, and in fact we already know their gradients. Using the result from <a href="#exm-point-mass-cond-mean-EIF" class="quarto-xref">Example&nbsp;<span>4.3</span></a> giving the gradient for a conditional mean at a point,</p>
 <p><span class="math display">\[
 \nabla\![\mu(\tilde a, \tilde x)] (y,a,x) = \frac{1_{(\tilde a, \tilde x)}(a,x)}{p(\tilde a, \tilde x)}
 \big( y - \mu(\tilde a, \tilde x) \big).
 \]</span></p>
-<p>And, using the result from <a href="#exm-point-mass-density" class="quarto-xref">Example&nbsp;<span>3.2</span></a>,</p>
+<p>And, using the result from <a href="#exm-point-mass-density" class="quarto-xref">Example&nbsp;<span>4.2</span></a>,</p>
 <p><span class="math display">\[
 \nabla\![ p(\tilde x)](x) = 1_{\tilde{x}}(x) - p(\tilde x).
 \]</span></p>
@@ -719,6 +732,7 @@ Proof of Chain Rule
 \]</span></p>
 <p>which you may recognize if you’ve read any literature about doubly robust or efficient estimation of the average treatment effect.</p>
 <p>In this example we used gradients of primitives like densities and conditional expectations at points that are not pathwise differentiable in general models. However, the ATE estimand <em>is</em> pathwise differentiable in general models. This is fairly typical: you can often use gradients from non-differentiable estimands and combine them to derive gradients for differentiable estimands.</p>
+<br>
 </div>
 <div class="callout callout-style-simple callout-important no-icon">
 <div class="callout-body d-flex">
@@ -727,19 +741,19 @@ Proof of Chain Rule
 </div>
 <div class="callout-body-container">
 <div id="exr-att-gradient" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.6 (Gradient of the ATT)</strong></span> There are some cases in which the ATE cannot be identified, but the average effect on the <em>treated</em> (ATT) can. The ATT estimand is often identified by</p>
+<p><span class="theorem-title"><strong>Exercise 4.6 (Gradient of the ATT)</strong></span> There are some cases in which the ATE cannot be identified, but the average effect on the <em>treated</em> (ATT) can. The ATT estimand is often identified by</p>
 <p><span class="math display">\[
 \Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}\left[\left(\mathbb{E}_{\mathbb{P}}[Y|A=1,X] - \mathbb{E}_{\mathbb{P}}[Y|A=0,X] \right) \big| A=1 \right].
 \]</span></p>
 <p>What is the canonical gradient for this estimand in a nonparametric model?</p>
-<p><em>Hint: assume a discrete model and decompose the estimand similarly to the ATE, then use your result from <a href="#exr-point-mass-conditional-density" class="quarto-xref">Exercise&nbsp;<span>3.2</span></a> on the term</em> <span class="math inline">\(p(x|A=1)\)</span>.</p>
+<p><em>Hint: assume a discrete model and decompose the estimand similarly to the ATE, then use your result from <a href="#exr-point-mass-conditional-density" class="quarto-xref">Exercise&nbsp;<span>4.2</span></a> on the term</em> <span class="math inline">\(p(x|A=1)\)</span>.</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="projection" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="projection"><span class="header-section-number">3.3</span> Projection</h2>
+<section id="projection" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="projection"><span class="header-section-number">4.3</span> Projection</h2>
 <p>Point mass contamination works for nonparametric models, but there are many interesting models that are restricted in some way for which we’d also like to derive the canonical gradient. In general, shrinking the model either reduces the tangent space or leaves it unchanged at each distribution, meaning that a function that was the canonical gradient in a larger model may not even be in the tangent space anymore.</p>
 <p>However, we already showed that the nonparametric gradient is still <em>a</em> gradient of any restricted model. Let <span class="math inline">\({\mathcal{P}}\subset \mathcal Q\)</span> be the restricted model inside of a larger (possibly locally nonparametric) model. The set of directions one can move in from any point <span class="math inline">\({\mathbb{P}}\in {\mathcal{P}}\)</span> to stay within the model is a subset of the directions one can move in to stay within the larger model <span class="math inline">\(\mathcal Q\)</span>. In other words, the tangent set in the smaller model is a subset of the tangent set in the larger model. A gradient of an estimand <span class="math inline">\(\Psi\)</span> in <span class="math inline">\({\mathcal{P}}\)</span> is any function <span class="math inline">\(\phi\)</span> that satisfies <span class="math inline">\(\dot\Psi_{\mathbb{P}}(s) = {\mathbb{P}}s\phi\)</span> for all <span class="math inline">\(s \in {\mathring{{\mathcal{P}}}}\)</span>. The canonical gradient in the larger model, which we will notate <span class="math inline">\(\nabla^{\mathring{\mathcal Q}}_{\mathbb{P}}\Psi\)</span>, satisfies this for all the scores in the larger tangent space <span class="math inline">\(\dot{\mathring Q}\)</span>, which includes the smaller tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}\)</span>.</p>
 <p>Recall that any gradient relative to a tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}\)</span> orthogonally decomposes into the sum of the canonical gradient relative to that tangent space and an element of its orthogonal complement. Therefore <span class="math inline">\(\nabla\!^{\mathring{{\mathcal{P}}}}_{\mathbb{P}}\Psi = \nabla^{\mathring{\mathcal Q}}_{\mathbb{P}}\Psi + v\)</span> where <span class="math inline">\(v \in {\mathring{{\mathcal{P}}}}^\perp\)</span>. This is rephrased in the following theorem, which, in principle, gives us a way to derive an influence function for a smaller model if we know it in a larger model.</p>
@@ -754,7 +768,7 @@ Gradient Projection
 </div>
 <div class="callout-body-container callout-body">
 <div id="thm-gradient-proj" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 3.2</strong></span> <span class="math inline">\({\mathcal{P}}\subseteq \mathcal Q\)</span> be models and let <span class="math inline">\(\Psi\)</span> be a parameter that is pathwise differentiable at <span class="math inline">\({\mathbb{P}}\)</span> in the larger model <span class="math inline">\(\mathcal Q\)</span> with canonical gradient <span class="math inline">\(\nabla^{\mathring{\mathcal Q}}_{\mathbb{P}}\Psi\)</span>. The canonical gradient of <span class="math inline">\(\Psi\)</span> at <span class="math inline">\({\mathbb{P}}\)</span> in the smaller model <span class="math inline">\({\mathcal{P}}\)</span> is the orthogonal projection of the canonical gradient in the larger model onto the tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}\)</span> of the smaller model:</p>
+<p><span class="theorem-title"><strong>Theorem 4.2</strong></span> <span class="math inline">\({\mathcal{P}}\subseteq \mathcal Q\)</span> be models and let <span class="math inline">\(\Psi\)</span> be an estimand that is pathwise differentiable at <span class="math inline">\({\mathbb{P}}\)</span> in the larger model <span class="math inline">\(\mathcal Q\)</span> with canonical gradient <span class="math inline">\(\nabla^{\mathring{\mathcal Q}}_{\mathbb{P}}\Psi\)</span>. The canonical gradient of <span class="math inline">\(\Psi\)</span> at <span class="math inline">\({\mathbb{P}}\)</span> in the smaller model <span class="math inline">\({\mathcal{P}}\)</span> is the orthogonal projection of the canonical gradient in the larger model onto the tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}\)</span> of the smaller model:</p>
 <p><span class="math display">\[
 \nabla\!^{{\mathring{{\mathcal{P}}}}}_{\mathbb{P}}\Psi = {\mathring{{\mathcal{P}}}}\left[ \nabla^{\mathring{\mathcal Q}}_{\mathbb{P}}\Psi\right].
 \]</span></p>
@@ -767,12 +781,12 @@ Gradient Projection
 <img src="3-4-deriving-eifs_files/mediabag/242e278e306f665faa231dc989e880d8de8aa45b.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-RAL-IF-set-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.2: A visual representation of <a href="#thm-gradient-proj" class="quarto-xref">Theorem&nbsp;<span>3.2</span></a>. The entirety of the depicted space is the tangent space <span class="math inline">\(\mathring{\mathcal Q}\)</span>, with the tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}\)</span> of the smaller model inside of it.
+Figure&nbsp;4.2: A visual representation of <a href="#thm-gradient-proj" class="quarto-xref">Theorem&nbsp;<span>4.2</span></a>. The entirety of the depicted space is the tangent space <span class="math inline">\(\mathring{\mathcal Q}\)</span>, with the tangent space <span class="math inline">\({\mathring{{\mathcal{P}}}}\)</span> of the smaller model inside of it.
 </figcaption>
 </figure>
 </div>
-<p><a href="#thm-gradient-proj" class="quarto-xref">Theorem&nbsp;<span>3.2</span></a> illustrates why starting this chapter by discussing nonparametric models was a good idea: we often need the nonparametric gradient to derive the equivalent gradient in a restricted model. Admittedly, it’s also possible to start with <em>any</em> gradient - the result of the theorem holds if <span class="math inline">\(\nabla^{\mathring{\mathcal Q}}_{\mathbb{P}}\Psi\)</span> is replaced with an arbitrary gradient of <span class="math inline">\(\Psi\)</span> in <span class="math inline">\({\mathcal{P}}\)</span>. But, in general, it’s hard to know what is a gradient and what isn’t: deriving the nonparametric canonical gradient is a surefire way to get a valid starting point.</p>
-<p>To use theorem, assuming we have a nonparametric gradient already, we need to figure out the tangent space for the model of interest and derive a method for projecting onto it. Given our results from <a href="3-3-efficiency.html#thm-conditional-scores" class="quarto-xref">Theorem&nbsp;<span>2.3</span></a> and <a href="3-3-efficiency.html#thm-factored-tset" class="quarto-xref">Theorem&nbsp;<span>2.4</span></a>, both steps are easy for models where one or more factors of the distribution is restricted but others are left nonparametrically unspecified.</p>
+<p><a href="#thm-gradient-proj" class="quarto-xref">Theorem&nbsp;<span>4.2</span></a> illustrates why starting this chapter by discussing nonparametric models was a good idea: we often need the nonparametric gradient to derive the equivalent gradient in a restricted model. Admittedly, it’s also possible to start with <em>any</em> gradient - the result of the theorem holds if <span class="math inline">\(\nabla^{\mathring{\mathcal Q}}_{\mathbb{P}}\Psi\)</span> is replaced with an arbitrary gradient of <span class="math inline">\(\Psi\)</span> in <span class="math inline">\({\mathcal{P}}\)</span>. But, in general, it’s hard to know what is a gradient and what isn’t: deriving the nonparametric canonical gradient is a surefire way to get a valid starting point.</p>
+<p>To use theorem, assuming we have a nonparametric gradient already, we need to figure out the tangent space for the model of interest and derive a method for projecting onto it. Given our results from <a href="3-3-efficiency.html#thm-conditional-scores" class="quarto-xref">Theorem&nbsp;<span>3.3</span></a> and <a href="3-3-efficiency.html#thm-factored-tset" class="quarto-xref">Theorem&nbsp;<span>3.4</span></a>, both steps are easy for models where one or more factors of the distribution is restricted but others are left nonparametrically unspecified.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -783,16 +797,16 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You may want to go back and re-read <a href="3-3-efficiency.html#sec-factoring" class="quarto-xref"><span>Section 2.2.1</span></a> before proceeding.</p>
+<p>You may want to go back and re-read <a href="3-3-efficiency.html#sec-factoring" class="quarto-xref"><span>Section 3.2.1</span></a> before proceeding.</p>
 </div>
 </div>
-<div id="exm-ate-rct-gradient" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.8</strong></span> Let <span class="math inline">\((Y,A,X) \sim {\mathbb{P}}\)</span> according to our standard outcome-treatment-covariate setup. Presume that we are working in a randomized trial so that our model <span class="math inline">\({\mathcal{P}}\)</span> is distributions where we know <span class="math inline">\({\mathbb{P}}\{A=1|X\} = \frac{1}{2}\)</span>, but <span class="math inline">\({\mathbb{P}}\{Y|A,X\}\)</span> and <span class="math inline">\({\mathbb{P}}\{X\}\)</span> are allowed to be anything. Let’s derive the canonical gradient of the average treatment effect within this randomized trial model by projecting the nonparametric canonical gradient onto the randomized trial tangent space.</p>
-<p>The first step is to find the tangent space. Let <span class="math inline">\(\mathcal Q\)</span> be the fully nonparametric model where none of the factors are known so <span class="math inline">\(\mathring{\mathcal Q} = \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>. As worked out in <a href="3-3-efficiency.html#exm-rct-tspace" class="quarto-xref">Example&nbsp;<span>2.3</span></a>, the tangent space of this model is</p>
+<div id="exm-ate-rct-gradient" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 4.8</strong></span> Let <span class="math inline">\((Y,A,X) \sim {\mathbb{P}}\)</span> according to our standard outcome-treatment-covariate setup. Presume that we are working in a randomized trial so that our model <span class="math inline">\({\mathcal{P}}\)</span> is distributions where we know <span class="math inline">\({\mathbb{P}}\{A=1|X\} = \frac{1}{2}\)</span>, but <span class="math inline">\({\mathbb{P}}\{Y|A,X\}\)</span> and <span class="math inline">\({\mathbb{P}}\{X\}\)</span> are allowed to be anything. Let’s derive the canonical gradient of the average treatment effect within this randomized trial model by projecting the nonparametric canonical gradient onto the randomized trial tangent space.</p>
+<p>The first step is to find the tangent space. Let <span class="math inline">\(\mathcal Q\)</span> be the fully nonparametric model where none of the factors are known so <span class="math inline">\(\mathring{\mathcal Q} = \mathcal{L}_2^0\left(\mathbb{P}\right)\)</span>. As worked out in <a href="3-3-efficiency.html#exm-rct-tspace" class="quarto-xref">Example&nbsp;<span>3.3</span></a>, the tangent space of this model is</p>
 <p><span class="math display">\[
 {\mathring{{\mathcal{P}}}}= \mathring{\mathcal Q}^{(X)} \oplus \mathring{\mathcal Q}^{(Y|A,X)},
 \]</span></p>
-<p>where, according to <a href="3-3-efficiency.html#thm-factored-tset" class="quarto-xref">Theorem&nbsp;<span>2.4</span></a>,</p>
+<p>where, according to <a href="3-3-efficiency.html#thm-factored-tset" class="quarto-xref">Theorem&nbsp;<span>3.4</span></a>,</p>
 <p><span class="math display">\[
 \begin{aligned}
 \mathring{\mathcal Q}^{(X)} &amp;= \{s \in \mathcal{L}_2^0\left(\mathbb{P}\right): s(y,a,x) = s(x) \} \\
@@ -804,26 +818,26 @@ Warning
 <p><span class="math display">\[
 {\mathring{{\mathcal{P}}}}s = \mathring{\mathcal Q}^{(X)}s + \mathring{\mathcal Q}^{(Y|A,X)} s,
 \]</span></p>
-<p>as is illustrated in <a href="#fig-rct-gradient" class="quarto-xref">Figure&nbsp;<span>3.3</span></a>.</p>
+<p>as is illustrated in <a href="#fig-rct-gradient" class="quarto-xref">Figure&nbsp;<span>4.3</span></a>.</p>
 <div id="fig-rct-gradient" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-rct-gradient-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="3-4-deriving-eifs_files/mediabag/9cbab45c98b9f2b9cf7a1631ad94061164aa8e0d.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rct-gradient-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.3: Visual illustration of the projection of the nonparametric gradient of the average treatment effect onto the tangent space for a randomized trial model. The projection is found by first projecting onto the two orthogonal subspaces of the tangent space and summing the results.
+Figure&nbsp;4.3: Visual illustration of the projection of the nonparametric gradient of the average treatment effect onto the tangent space for a randomized trial model. The projection is found by first projecting onto the two orthogonal subspaces of the tangent space and summing the results.
 </figcaption>
 </figure>
 </div>
-<p>The formulae from <a href="3-3-efficiency.html#thm-conditional-scores" class="quarto-xref">Theorem&nbsp;<span>2.3</span></a> give us a way to do the projections:</p>
+<p>The formulae from <a href="3-3-efficiency.html#thm-conditional-scores" class="quarto-xref">Theorem&nbsp;<span>3.3</span></a> give us a way to do the projections:</p>
 <p><span id="eq-rct-projections"><span class="math display">\[
 \begin{aligned}
 \left[\mathring{\mathcal Q}^{(X)} s\right] (x) &amp;= \mathbb{E}[s(Y,A,X)|X=x] \\
 \left[ \mathring{\mathcal Q}^{(Y|A,X)} s \right] (y,a,x) &amp;= s(y,a,x) - \mathbb{E}[s(Y,A,X)|A=a,X=x]
 .
 \end{aligned}
-\tag{3.1}\]</span></span></p>
-<p>In <a href="#exm-ATE-gradient" class="quarto-xref">Example&nbsp;<span>3.7</span></a>, we derived that the canonical gradient of the ATE in the nonparametric model is the difference of the gradients of the treatment-specific means</p>
+\tag{4.1}\]</span></span></p>
+<p>In <a href="#exm-ATE-gradient" class="quarto-xref">Example&nbsp;<span>4.7</span></a>, we derived that the canonical gradient of the ATE in the nonparametric model is the difference of the gradients of the treatment-specific means</p>
 <p><span class="math display">\[
 \nabla^{\mathring{\mathcal Q}} \Psi = \nabla^{\mathring{\mathcal Q}} \Psi_1 - \nabla^{\mathring{\mathcal Q}} \Psi_0,
 \]</span></p>
@@ -839,7 +853,7 @@ Figure&nbsp;3.3: Visual illustration of the projection of the nonparametric grad
 {\mathring{{\mathcal{P}}}}\left[ \nabla^{\mathring{\mathcal Q}} \Psi_1 \right] -
 {\mathring{{\mathcal{P}}}}\left[ \nabla^{\mathring{\mathcal Q}} \Psi_0 \right].
 \]</span></p>
-<p>Now we substitute <span class="math inline">\(\nabla^{\mathring{\mathcal Q}} \Phi_a\)</span> for <span class="math inline">\(s\)</span> in <a href="#eq-rct-projections" class="quarto-xref">Equation&nbsp;<span>3.1</span></a> and compute the projections. We’ll need the conditional expectation</p>
+<p>Now we substitute <span class="math inline">\(\nabla^{\mathring{\mathcal Q}} \Phi_a\)</span> for <span class="math inline">\(s\)</span> in <a href="#eq-rct-projections" class="quarto-xref">Equation&nbsp;<span>4.1</span></a> and compute the projections. We’ll need the conditional expectation</p>
 <p><span id="eq-a-x-proj-ate"><span class="math display">\[
 \begin{aligned}
 \mathbb{E}\left[\nabla^{\mathring{\mathcal Q}} \Psi_a(Y,A,X) \middle| A, X \right]
@@ -852,7 +866,7 @@ Figure&nbsp;3.3: Visual illustration of the projection of the nonparametric grad
 \mu(a,X) - \Psi_a
 .
 \end{aligned}
-\tag{3.2}\]</span></span></p>
+\tag{4.2}\]</span></span></p>
 <p>We’ll also need the equivalent conditional expectation conditioned just on <span class="math inline">\(X\)</span>. But since <span class="math inline">\(\mathbb{E}[f(Y,A,X)|X] = \mathbb{E}\big[\mathbb{E}[f(Y,A,X) |A,X] \big| X\big]\)</span> by total expectation we can use the result above and save some work: <span class="math display">\[
 \begin{aligned}
 \mathbb{E}\left[\nabla^{\mathring{\mathcal Q}} \Psi_a(Y,A,X) \middle| X \right]
@@ -866,7 +880,7 @@ Figure&nbsp;3.3: Visual illustration of the projection of the nonparametric grad
 .
 \end{aligned}
 \]</span></p>
-<p>Therefore, plugging into <a href="#eq-rct-projections" class="quarto-xref">Equation&nbsp;<span>3.1</span></a>,</p>
+<p>Therefore, plugging into <a href="#eq-rct-projections" class="quarto-xref">Equation&nbsp;<span>4.1</span></a>,</p>
 <p><span class="math display">\[
 \begin{aligned}
 \left[\mathring{\mathcal Q}^{(X)} \left(\nabla^{\mathring{\mathcal Q}} \Psi_a \right) \right] (x) &amp;=  \mu(a,X) - \Psi_a \\
@@ -879,7 +893,9 @@ Figure&nbsp;3.3: Visual illustration of the projection of the nonparametric grad
 \nabla^{\mathring{\mathcal P}} \Psi_a = {\mathring{{\mathcal{P}}}}\left(\nabla^{\mathring{\mathcal Q}} \Psi_a \right) = \nabla^{\mathring{\mathcal Q}} \Psi_a.
 \]</span></p>
 <p>Which of course implies the same for the gradient of the ATE, i.e.&nbsp;<span class="math inline">\(\nabla^{\mathring{\mathcal P}} \Psi = \nabla^{\mathring{\mathcal Q}} \Psi\)</span>. This happens because the nonparametric gradient is already in the randomized trial tangent space: the projection does nothing to it.</p>
-<p>The implication is that the canonical gradient for the average treatment effect is the <em>same</em> in a randomized trial model as it is in a nonparametric model. In turn, this means that the norm of the gradient is the same regardless and thus there is no gain in asymptotic efficiency in estimating the ATE in a randomized trial vs.&nbsp;in an observational study. This is a remarkable fact that runs counter to our intuition: we typically expect that knowing more about the data-generating process should reduce our uncertainty. However, the example illustrates that there are some aspects of any data-generating process that are simply not relevant to particular estimands. To reduce uncertainty, the knowledge or assumptions must restrict the model in a way that is germane to the estimand.</p>
+<p>The implication is that the canonical gradient for the average treatment effect is the <em>same</em> in a randomized trial model as it is in a nonparametric model. In turn, this means that the norm of the gradient is the same regardless and thus there is no gain in asymptotic efficiency in estimating the ATE in a randomized trial vs.&nbsp;in an observational study. If you are curious, <span class="citation" data-cites="li2024efficient">Li (<a href="6-references.html#ref-li2024efficient" role="doc-biblioref">2024</a>)</span> shows that even some strong restrictions on the outcome mechansim don’t improve the efficiency bound! This is a remarkable fact that runs counter to our intuition: we typically expect that knowing more about the data-generating process should reduce our uncertainty. However, the example illustrates that there are some aspects of any data-generating process that are simply not relevant to particular estimands. To reduce uncertainty, the knowledge or assumptions must restrict the model in a way that is germane to the estimand.</p>
+<p>This example is the subject of <span class="citation" data-cites="hahn1998role">Hahn (<a href="6-references.html#ref-hahn1998role" role="doc-biblioref">1998</a>)</span>, a heavily-cited paper in the causal inference literature. The paper should not be interpreted to mean that there is no estimation benefit to having the true propensity score. Using the true propensity score when it is available is useful, as we will see in the next chapters. In a randomized trial, using an estimated rather than the known, true propensity score can increase the finite-sample variance of efficient estimates. There can be benefits to estimating the propensity score in a randomized trial if an <em>inefficient</em> estimator like IPW is used (see <a href="#exr-rct-ipw" class="quarto-xref">Exercise&nbsp;<span>4.8</span></a>), but generally there is no point in doing that.</p>
+<br>
 </div>
 <div class="callout callout-style-simple callout-important no-icon">
 <div class="callout-body d-flex">
@@ -888,7 +904,7 @@ Figure&nbsp;3.3: Visual illustration of the projection of the nonparametric grad
 </div>
 <div class="callout-body-container">
 <div id="exr-rct-gradient-expectations" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.7</strong></span> Prove the equality in the second line of <a href="#eq-rct-projections" class="quarto-xref">Equation&nbsp;<span>3.1</span></a> using the definitions of <span class="math inline">\(\mu(a,x)\)</span> and <span class="math inline">\(\pi(a,x)\)</span>. This is purely a refresher exercise in conditional expectation, no knowledge of efficiency theory is required.</p>
+<p><span class="theorem-title"><strong>Exercise 4.7</strong></span> Prove the equality in the second line of <a href="#eq-rct-projections" class="quarto-xref">Equation&nbsp;<span>4.1</span></a> using the definitions of <span class="math inline">\(\mu(a,x)\)</span> and <span class="math inline">\(\pi(a,x)\)</span>. This is purely a refresher exercise in conditional expectation, no knowledge of efficiency theory is required.</p>
 </div>
 </div>
 </div>
@@ -900,10 +916,10 @@ Figure&nbsp;3.3: Visual illustration of the projection of the nonparametric grad
 </div>
 <div class="callout-body-container">
 <div id="exr-rct-ipw" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.8</strong></span> Althought the <em>canonical</em> gradient is the same whether or not the treatment mechanism is known, there is another difference between the randomized and observational settings that pertains to estimation. In <a href="3-3-efficiency.html#exr-ipw-irregular" class="quarto-xref">Exercise&nbsp;<span>2.7</span></a>, you showed that the IPW estimator for the treatment-specific mean with fixed propensity model <span class="math inline">\(\hat\pi(a,x)\)</span> has influence function</p>
+<p><span class="theorem-title"><strong>Exercise 4.8</strong></span> Althought the <em>canonical</em> gradient is the same whether or not the treatment mechanism is known, there is another difference between the randomized and observational settings that pertains to estimation. In <a href="3-3-efficiency.html#exr-ipw-irregular" class="quarto-xref">Exercise&nbsp;<span>3.7</span></a>, you showed that the IPW estimator for the treatment-specific mean with fixed propensity model <span class="math inline">\(\hat\pi(a,x)\)</span> has influence function</p>
 <p><span id="eq-ipw-if"><span class="math display">\[
 \phi(Y,A,X) = \frac{1_a(A)}{\hat\pi(a,X)}Y,
-\tag{3.3}\]</span></span></p>
+\tag{4.3}\]</span></span></p>
 <p>which is not equal to the canonical gradient of the treatment-specific mean in a observational study. Because the model is nonparametric in that setting, the only influence function of a RAL estimator is the canonical gradient, which implies that the IPW estimator is not regular!</p>
 <p>Is this the case in a randomized trial? When</p>
 <p><span class="math display">\[
@@ -929,11 +945,11 @@ Figure&nbsp;3.3: Visual illustration of the projection of the nonparametric grad
 </div>
 <div class="callout-body-container">
 <div id="exr-att-rct-gradient" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.9</strong></span> In our usual <span class="math inline">\((Y,A,X)\)</span> data structure with <span class="math inline">\(A\)</span> binary, let</p>
+<p><span class="theorem-title"><strong>Exercise 4.9</strong></span> In our usual <span class="math inline">\((Y,A,X)\)</span> data structure with <span class="math inline">\(A\)</span> binary, let</p>
 <p><span class="math display">\[
 \Psi({\mathbb{P}}) = \mathbb{E}_{\mathbb{P}}\left[\left(\mathbb{E}_{\mathbb{P}}[Y|A=1,X] - \mathbb{E}_{\mathbb{P}}[Y|A=0,X] \right) \big| A=1 \right]
 \]</span></p>
-<p>be the average treatment effect on the treated (ATT). In <a href="#exr-att-gradient" class="quarto-xref">Exercise&nbsp;<span>3.6</span></a> you should have derived that the nonparametric gradient of this estimand is</p>
+<p>be the average treatment effect on the treated (ATT). In <a href="#exr-att-gradient" class="quarto-xref">Exercise&nbsp;<span>4.6</span></a> you should have derived that the nonparametric gradient of this estimand is</p>
 <p><span class="math display">\[
 \begin{split}
 \nabla\!\Psi(y,a,x)
@@ -945,12 +961,12 @@ Figure&nbsp;3.3: Visual illustration of the projection of the nonparametric grad
 \end{split}
 \]</span></p>
 <p>leaving off the <span class="math inline">\({\mathbb{P}}\)</span> subscripts and letting <span class="math inline">\(\psi = \Psi({\mathbb{P}})\)</span>, <span class="math inline">\(\pi(a,x) = {\mathbb{P}}\{A=a|X=x\}\)</span>, and <span class="math inline">\(\mu(a,x) = \mathbb{E}[Y|A=a,X=x]\)</span> as usual.</p>
-<p>Let <span class="math inline">\(\mathcal P\)</span> be the randomized trial model we considered in <a href="3-3-efficiency.html#exm-rct-tspace" class="quarto-xref">Example&nbsp;<span>2.3</span></a> and <a href="#exm-ate-rct-gradient" class="quarto-xref">Example&nbsp;<span>3.8</span></a>. What is the canonical gradient of the ATT in the randomized trial model? Given your conclusion, does treatment randomization result in a gain of estimation efficiency for the ATT or not?</p>
+<p>Let <span class="math inline">\(\mathcal P\)</span> be the randomized trial model we considered in <a href="3-3-efficiency.html#exm-rct-tspace" class="quarto-xref">Example&nbsp;<span>3.3</span></a> and <a href="#exm-ate-rct-gradient" class="quarto-xref">Example&nbsp;<span>4.8</span></a>. What is the canonical gradient of the ATT in the randomized trial model? Given your conclusion, does treatment randomization result in a gain of estimation efficiency for the ATT or not? This question was also originally addressed by <span class="citation" data-cites="hahn1998role">Hahn (<a href="6-references.html#ref-hahn1998role" role="doc-biblioref">1998</a>)</span>.</p>
 </div>
 </div>
 </div>
 </div>
-<p>The concept of having aspects of a data-generating distribution that are not relevant to a given estimand can be formalized. In <a href="3-3-efficiency.html#sec-classical-efficiency" class="quarto-xref"><span>Section 2.6</span></a> we introduced the idea of the nuisance tangent set. The idea is that this set contains all the directions through the model in which the distribution can be changed <em>without</em> affecting the value of the estimand. We can generalize the definition to nonparametric models: the <em>nuisance</em> tangent space of a pathwise differentiable parameter <span class="math inline">\(\Psi\)</span> at <span class="math inline">\({\mathbb{P}}\)</span> is the smallest closed subspace of the tangent space contianing all scores for which <span class="math inline">\(\dot\Psi_{\mathbb{P}}= 0\)</span>. If you remember linear algebra, you know this is the definition of the <em>null space</em> of <span class="math inline">\(\dot\Psi_{\mathbb{P}}\)</span>, so we can also call it that. In a nonparametric model, the null space of the ATE’s pathwise derivative includes <span class="math inline">\(\mathring{\mathcal Q}^{(A|X)}\)</span>, which is why knowledge of the treatment mechanism has no effect on the optimal asymptotic variance when estimating the ATE.</p>
+<p>The concept of having aspects of a data-generating distribution that are not relevant to a given estimand can be formalized. In <a href="3-3-efficiency.html#sec-classical-efficiency" class="quarto-xref"><span>Section 3.6</span></a> we introduced the idea of the nuisance tangent set. The idea is that this set contains all the directions through the model in which the distribution can be changed <em>without</em> affecting the value of the estimand. We can generalize the definition to nonparametric models: the <em>nuisance</em> tangent space of a pathwise differentiable estimand <span class="math inline">\(\Psi\)</span> at <span class="math inline">\({\mathbb{P}}\)</span> is the smallest closed subspace of the tangent space contianing all scores for which <span class="math inline">\(\dot\Psi_{\mathbb{P}}= 0\)</span>. If you remember linear algebra, you know this is the definition of the <em>null space</em> of <span class="math inline">\(\dot\Psi_{\mathbb{P}}\)</span>, so we can also call it that. In a nonparametric model, the null space of the ATE’s pathwise derivative includes <span class="math inline">\(\mathring{\mathcal Q}^{(A|X)}\)</span>, which is why knowledge of the treatment mechanism has no effect on the optimal asymptotic variance when estimating the ATE.</p>
 <div class="callout callout-style-simple callout-important no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -958,13 +974,13 @@ Figure&nbsp;3.3: Visual illustration of the projection of the nonparametric grad
 </div>
 <div class="callout-body-container">
 <div id="exr-rct-gradient-expectations" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.10</strong></span> Use <a href="3-3-efficiency.html#thm-RAL-IFs" class="quarto-xref">Theorem&nbsp;<span>2.2</span></a> to prove that the null space of <span class="math inline">\(\dot\Psi\)</span> is also the orthogonal complement of the span of the canonical gradient, relative to the full tangent space.</p>
+<p><span class="theorem-title"><strong>Exercise 4.10</strong></span> Use <a href="3-3-efficiency.html#thm-RAL-IFs" class="quarto-xref">Theorem&nbsp;<span>3.2</span></a> to prove that the null space of <span class="math inline">\(\dot\Psi\)</span> is also the orthogonal complement of the span of the canonical gradient, relative to the full tangent space.</p>
 </div>
 </div>
 </div>
 </div>
-<p>At any <span class="math inline">\({\mathbb{P}}\)</span>, a model that is restricted only in the nusiance tangent space of a parameter set will not affect the value of the canonical gradient relative to the nonparametric model. The reason is simple: restricting the way a distribution can vary that doesn’t affect the estimand has no effect on how hard it is to estimate that estimand.</p>
-<p>The concept of a nuisance tangent space is also relevant in other restricted models. I give the theorem and example below not they have much practical utility, but because understanding the result is a good summative exercise of all the tools we’ve learned relating to gradients and tangent spaces. And also it’s just plain cool.</p>
+<p>At any <span class="math inline">\({\mathbb{P}}\)</span>, a model that is restricted only in the nusiance tangent space of an estimand will not affect the value of the canonical gradient of that estimand relative to the nonparametric model. The reason is simple: restricting the way a distribution can vary that doesn’t affect the estimand has no effect on how hard it is to estimate that estimand.</p>
+<p>The concept of a nuisance tangent space is also relevant in other restricted models. I give the theorem and example below not because they have much practical utility, but because understanding the result is a good summative exercise of all the tools we’ve learned relating to gradients and tangent spaces. And also it’s just plain cool.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -976,11 +992,11 @@ Estimand-Restricted Models
 </div>
 <div class="callout-body-container callout-body">
 <div id="thm-estimand-restricted-models" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 3.3</strong></span> Let <span class="math inline">\(\Psi\)</span> and <span class="math inline">\(\Upsilon\)</span> be two estimands that are pathwise differentiable at <span class="math inline">\({\mathbb{P}}\)</span> in some model <span class="math inline">\(\mathcal Q\)</span>. Let <span class="math inline">\({\mathcal{P}}= \{{\mathbb{P}}\in \mathcal Q: \Upsilon({\mathbb{P}}) = \upsilon\}\)</span> be all distributions where <span class="math inline">\(\Psi\)</span> is fixed at the value <span class="math inline">\(\upsilon \in \mathbb{R}\)</span> and let <span class="math inline">\(\{\nabla_{\mathbb{P}}^{\mathcal Q} \Upsilon \} = \{c \nabla_{\mathbb{P}}^{\mathcal Q} \Upsilon: c \in \mathbb{R}\}\)</span> be the span of the gradient of <span class="math inline">\(\Psi\)</span> in <span class="math inline">\(\mathcal Q\)</span>. Then</p>
+<p><span class="theorem-title"><strong>Theorem 4.3</strong></span> Let <span class="math inline">\(\Psi\)</span> and <span class="math inline">\(\Upsilon\)</span> be two estimands that are pathwise differentiable at <span class="math inline">\({\mathbb{P}}\)</span> in some model <span class="math inline">\(\mathcal Q\)</span>. Let <span class="math inline">\({\mathcal{P}}= \{{\mathbb{P}}\in \mathcal Q: \Upsilon({\mathbb{P}}) = \upsilon\}\)</span> be all distributions where <span class="math inline">\(\Psi\)</span> is fixed at the value <span class="math inline">\(\upsilon \in \mathbb{R}\)</span> and let <span class="math inline">\(\{\nabla_{\mathbb{P}}^{\mathcal Q} \Upsilon \} = \{c \nabla_{\mathbb{P}}^{\mathcal Q} \Upsilon: c \in \mathbb{R}\}\)</span> be the span of the gradient of <span class="math inline">\(\Psi\)</span> in <span class="math inline">\(\mathcal Q\)</span>. Then</p>
 <p><span class="math display">\[
-{\mathring{{\mathcal{P}}}}_{\mathbb{P}}= \{\nabla_{\mathbb{P}}^{\mathcal Q}\}^\perp
+{\mathring{{\mathcal{P}}}}_{\mathbb{P}}= \{\nabla_{\mathbb{P}}^{\mathcal Q} \Upsilon \}^\perp
 \]</span></p>
-<p>where the orthogonal complement is relative to the tangent space <span class="math inline">\(\mathring{\mathcal Q}\)</span> in the unrestricted model. As a consequence of the gradient projection theorem (<a href="#thm-gradient-proj" class="quarto-xref">Theorem&nbsp;<span>3.2</span></a>) and the one-dimensional projection formula (<a href="5-2-L2.html#thm-1d-proj" class="quarto-xref">Theorem&nbsp;<span>B.2</span></a>),</p>
+<p>where the orthogonal complement is relative to the tangent space <span class="math inline">\(\mathring{\mathcal Q}\)</span> in the unrestricted model. As a consequence of the gradient projection theorem (<a href="#thm-gradient-proj" class="quarto-xref">Theorem&nbsp;<span>4.2</span></a>) and the one-dimensional projection formula (<a href="5-2-L2.html#thm-1d-proj" class="quarto-xref">Theorem&nbsp;<span>B.2</span></a>),</p>
 <p><span class="math display">\[
 \begin{aligned}
 \nabla_{\mathbb{P}}^{\mathcal P} \Psi
@@ -992,9 +1008,9 @@ Estimand-Restricted Models
 </div>
 </div>
 <p>The theorem seems complicated but it actually follows immediately from the definitions. When the estimand <span class="math inline">\(\Upsilon\)</span> is fixed, the only directions that distributions in the restricted model <span class="math inline">\({\mathcal{P}}\)</span> are allowed to vary in are precisely those in which <span class="math inline">\(\Upsilon\)</span> doesn’t change, i.e., <span class="math inline">\(s\)</span> where <span class="math inline">\(\dot\Upsilon(s) = 0\)</span>. Therefore that is the tangent set of the model. By the central identity, the scores that satisfy <span class="math inline">\(0 = \dot\Upsilon_{\mathbb{P}}(s) = {\mathbb{P}}s \nabla\!\Upsilon\)</span> are those orthogonal to the gradient. The rest is the one-dimensional projection formula.</p>
-<div id="exm-estimand-restricted-model" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.9</strong></span> Let’s say you know for a fact that the median of a random variable <span class="math inline">\(Z\)</span> is <span class="math inline">\(\upsilon\)</span>, but are interested in estimating the mean from a sample of data. This isn’t a scenario you’re likely to encounter, but to make things concrete you might imagine that the median age in a population is reported as a summary of a population census, but the mean age isn’t. You don’t have access to the original census dataset, but you do have access to a much smaller sample. You want to estimate the mean age from that smaller sample, but want to know if incorporating prior knowledge of the median can yield any gain in certainty.</p>
-<p>Let <span class="math inline">\(\Psi\)</span> map a one-dimensional continuous distribution to its mean and let <span class="math inline">\(\Upsilon\)</span> map to its median. In <a href="3-3-efficiency.html#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>2.5</span></a> and <a href="#exm-quantile-gradient" class="quarto-xref">Example&nbsp;<span>3.6</span></a> we established that the nonparametric gradients of these estimands are</p>
+<div id="exm-estimand-restricted-model" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 4.9</strong></span> Let’s say you know for a fact that the median of a random variable <span class="math inline">\(Z\)</span> is <span class="math inline">\(\upsilon\)</span>, but are interested in estimating the mean from a sample of data. This isn’t a scenario you’re likely to encounter, but to make things concrete you might imagine that the median age in a population is reported as a summary of a population census, but the mean age isn’t. You don’t have access to the original census dataset, but you do have access to a much smaller sample. You want to estimate the mean age from that smaller sample, but want to know if incorporating prior knowledge of the median can yield any gain in certainty.</p>
+<p>Let <span class="math inline">\(\Psi\)</span> map a one-dimensional continuous distribution to its mean and let <span class="math inline">\(\Upsilon\)</span> map to its median. In <a href="3-3-efficiency.html#exm-gradient-nonparam" class="quarto-xref">Example&nbsp;<span>3.5</span></a> and <a href="#exm-quantile-gradient" class="quarto-xref">Example&nbsp;<span>4.6</span></a> we established that the nonparametric gradients of these estimands are</p>
 <p><span class="math display">\[
 \begin{aligned}
 \nabla\!\Psi(z) &amp;= z - \psi \\
@@ -1002,7 +1018,7 @@ Estimand-Restricted Models
 \end{aligned}
 \]</span></p>
 <p>where I’ve omitted the <span class="math inline">\({\mathbb{P}}\)</span> subscripts and abbreviated <span class="math inline">\(\psi = \Psi({\mathbb{P}})\)</span>, <span class="math inline">\(\upsilon = \Upsilon({\mathbb{P}})\)</span>, and <span class="math inline">\(q=1/2\)</span>. As usual, <span class="math inline">\(p\)</span> is the density of <span class="math inline">\({\mathbb{P}}\)</span>.</p>
-<p>By <a href="#thm-estimand-restricted-models" class="quarto-xref">Theorem&nbsp;<span>3.3</span></a>, the canonical gradient of the mean in the model where the median is known must be</p>
+<p>By <a href="#thm-estimand-restricted-models" class="quarto-xref">Theorem&nbsp;<span>4.3</span></a>, the canonical gradient of the mean in the model where the median is known must be</p>
 <p><span class="math display">\[
 \begin{aligned}
 \nabla^{\mathcal P} \Psi
@@ -1029,10 +1045,14 @@ Estimand-Restricted Models
 \end{aligned}
 \]</span></p>
 <p>Since this is generally different than the nonparametric gradient <span class="math inline">\(\nabla\!\Psi\)</span>, the projection must have reduced the norm of the gradient and therefore improved the asymptotic efficiency. Knowing the median therefore theoretically improves our ability to estimate the mean, which is intuitively plausible.</p>
+<br>
 </div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-hahn1998role" class="csl-entry" role="listitem">
+Hahn, Jinyong. 1998. <span>“On the Role of the Propensity Score in Efficient Semiparametric Estimation of Average Treatment Effects.”</span> <em>Econometrica</em>, 315–31.
+</div>
 <div id="ref-hines-eif" class="csl-entry" role="listitem">
 Hines, Oliver, Oliver Dukes, Karla Diaz-Ordaz, and Stijn Vansteelandt. 2022. <span>“Demystifying Statistical Learning Based on Efficient Influence Functions.”</span> <em>The American Statistician</em> 76 (3): 292–304.
 </div>
@@ -1041,6 +1061,9 @@ Ichimura, Hidehiko, and Whitney K Newey. 2022. <span>“The Influence Function o
 </div>
 <div id="ref-kennedy-review" class="csl-entry" role="listitem">
 Kennedy, Edward H. 2024. <span>“Semiparametric Doubly Robust Targeted Double Machine Learning: A Review.”</span> <em>Handbook of Statistical Methods for Precision Medicine</em>, 207–36.
+</div>
+<div id="ref-li2024efficient" class="csl-entry" role="listitem">
+Li, Harrison H. 2024. <span>“Efficient Estimation and Data Fusion Under General Semiparametric Restrictions on Outcome Mean Functions.”</span> <em>arXiv Preprint arXiv:2406.06941</em>.
 </div>
 </div>
 </section>
@@ -1466,12 +1489,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./3-3-efficiency.html" class="pagination-link" aria-label="Efficiency for RAL Estimators">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./4-0-intro.html" class="pagination-link" aria-label="Building Efficient Estimators">
-        <span class="nav-page-text">Building Efficient Estimators</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./4-1-plugin-expansion.html" class="pagination-link" aria-label="Plug-In Estimators">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

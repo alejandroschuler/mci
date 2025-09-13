@@ -1,0 +1,18 @@
+/* Fully justify running text */
+main.content p,
+main.content li,
+main.content blockquote,
+main.content figcaption {
+  text-align: justify;
+  text-justify: inter-word;   /* some browsers ignore this, harmless */
+  hyphens: auto;
+  -webkit-hyphens: auto;      /* for Safari */
+  -ms-hyphens: auto;
+}
+
+/* Don't justify things that shouldn't be */
+main.content h1, main.content h2, main.content h3,
+main.content h4, main.content h5, main.content h6,
+pre, code, .sourceCode, .math, .katex {
+  text-align: initial;
+}
