@@ -16,3 +16,15 @@ main.content h4, main.content h5, main.content h6,
 pre, code, .sourceCode, .math, .katex {
   text-align: initial;
 }
+
+/* Authors on two lines under the book title */
+.quarto-sidebar .sidebar-title a::after,
+#quarto-sidebar .sidebar-title a::after{
+  content: "Alejandro Schuler\A Mark van der Laan"; /* \A = newline */
+  white-space: pre-line;   /* or pre-wrap */
+  display: block;
+  font-size: .9rem;
+  line-height: 1.2;
+  margin-top: .2rem;
+  color: var(--bs-secondary-color);
+}

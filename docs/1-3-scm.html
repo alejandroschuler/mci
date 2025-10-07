@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>7&nbsp; Plug-In Estimators – Foundations of Modern Causal Inference</title>
+<title>3&nbsp; Nonparametric Structural Equations – Foundations of Modern Causal Inference</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,8 +50,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./6-references.html" rel="next">
-<link href="./3-4-deriving-eifs.html" rel="prev">
+<link href="./3-0-intro.html" rel="next">
+<link href="./1-2-causality.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -111,7 +131,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li><li class="breadcrumb-item"><a href="./4-1-plugin-expansion.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1-0-intro.html">Models and Estimands</a></li><li class="breadcrumb-item"><a href="./1-3-scm.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Nonparametric Structural Equations</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -165,7 +185,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1-3-scm.html" class="sidebar-item-text sidebar-link">
+  <a href="./1-3-scm.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Nonparametric Structural Equations</span></span></a>
   </div>
 </li>
@@ -200,7 +220,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link active">
+  <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
   </div>
 </li>
@@ -240,24 +260,15 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#what-is-a-plug-in" id="toc-what-is-a-plug-in" class="nav-link active" data-scroll-target="#what-is-a-plug-in"><span class="header-section-number">7.1</span> What is a Plug-In?</a></li>
-  <li><a href="#plug-in-bias" id="toc-plug-in-bias" class="nav-link" data-scroll-target="#plug-in-bias"><span class="header-section-number">7.2</span> Plug-In Bias</a></li>
-  <li><a href="#von-mises-expansion-formalizing-above" id="toc-von-mises-expansion-formalizing-above" class="nav-link" data-scroll-target="#von-mises-expansion-formalizing-above"><span class="header-section-number">7.3</span> Von Mises Expansion (formalizing above)</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">7.4</span> </a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li><li class="breadcrumb-item"><a href="./4-1-plugin-expansion.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1-0-intro.html">Models and Estimands</a></li><li class="breadcrumb-item"><a href="./1-3-scm.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Nonparametric Structural Equations</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Nonparametric Structural Equations</span></h1>
 </div>
 
 
@@ -274,33 +285,97 @@ window.Quarto = {
 </header>
 
 
-<section id="what-is-a-plug-in" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="what-is-a-plug-in"><span class="header-section-number">7.1</span> What is a Plug-In?</h2>
-<p>…</p>
-</section>
-<section id="plug-in-bias" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="plug-in-bias"><span class="header-section-number">7.2</span> Plug-In Bias</h2>
-<p>What’s wrong with a plugin <span class="math inline">\(\Psi(\hat{{\mathbb{P}}}_n)\)</span>?</p>
-<p>If <span class="math inline">\(\hat{{\mathbb{P}}}_n\)</span> is fit with ML we always get bias.</p>
-<p>Model selection: bigger and smaller models.</p>
-<p>Validation error is bias^2 + variance. When we minimize it some bias (eg in <span class="math inline">\(\mu\)</span>) remains and it translates to bias in <span class="math inline">\(\hat\phi\)</span></p>
-<p>Bias is a problem if you want to construct CIs</p>
-<p>The plug-in bias does not disappear quickly enough in the asymptotic expansion to be CLT-negligible</p>
-<p>Thus CIs etc will be wrong, even though estimate may be ok. — ppl need practice for this (or example)</p>
-</section>
-<section id="von-mises-expansion-formalizing-above" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="von-mises-expansion-formalizing-above"><span class="header-section-number">7.3</span> Von Mises Expansion (formalizing above)</h2>
-</section>
-<section id="section" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="section"><span class="header-section-number">7.4</span> </h2>
-<!-- What does DML do? 
-For PD estimands, DML estimators are exactly the EEE/GMM estimators. Emphasizes ML and sample splitting, which is not new but needed more timely attention (cv-TMLE [2010] perhaps too soon relative to "big data" and DL). under some regularity conditions (eg continuity of phi), better describes when estimands have a "double robustness" property that can be exploited and when nusiance rates can be favorably slow. insights about rates extend to non-PD estimands. Original papers only discuss use with nonparam EIF but I think should hold as well with EIF in restricted models with appropriate and easily-satisfied regularity conditons.
-
-@dml @dml-gmm @orth-stat-lrn
-
+<p>In the previous section we introduced potential outcomes, addressed some general questions about how to interpret them, and got a preview of how assumptions or prior knoweldge can be used to overcome the fundamental problem of causal inference. We did this mainly in the context of a hypothetical study comparing two drugs. In this section we’ll formalize a few of the ideas we touched on in the last section by placing them into the broader framework of structural causal models.</p>
+<p>Along the way, we’ll show how to generalize potential outcomes beyond the single-timepoint binary treatment setting (like the drug study we discussed). Even if you are only interested in that setting, understanding how potential outcomes are used more broadly to define causal effects for continuous treatments, multiple treatments, mediation, and treatments that vary over time can be very helpful to shore up your understanding of how potential outcomes work at a fundamental level. We’ll also discuss censored data problems and domain transfer as alternative applications of similar ideas.</p>
+<p>Let’s start with the following definition:</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Causal Model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-causal-model" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3.1</strong></span> A <em>causal</em> or <em>full-data</em> <span class="math inline">\({\mathcal{P}}^*\)</span> is any statistical model (in the sense of <a href="1-1-estimation-problems.html#def-model" class="quarto-xref">Definition&nbsp;<span>1.1</span></a>) where some of the random variables in each of the constituent distributions <span class="math inline">\({\mathbb{P}}^*\)</span> are considered to be intervention variables and some are considered potential outcomes. These two sets need not be exclusive. Potential outcomes may have potential values for some or all of the intervention variables. Whatever set of interventions</p>
+</div>
+</div>
+</div>
+<p>multiple values multiple interventions POs that are intervenable</p>
+<p>Let’s start by formalizing what we mean by “single-timepoint treatment”. This is how we’ll generalize the structure of the new vs.&nbsp;old drug example discussed above. The framework we’ll use to do that is that of a statistical model (<a href="1-1-estimation-problems.html#def-model" class="quarto-xref">Definition&nbsp;<span>1.1</span></a>).</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observational study with a single-timepoint, binary treatment
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div id="def-obs-study" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3.2</strong></span> What we’ll call the <em>standard observational study</em> model is the set of all distributions over variables <span class="math inline">\((Y,A,X)\)</span> where:</p>
+<ul>
+<li><span class="math inline">\(Y \in \mathcal Y \subseteq \mathbb{R}\)</span> (the <em>outcome</em>)</li>
+<li><span class="math inline">\(A \in \{0,1\}\)</span> (the <em>treatment</em>, <em>exposure</em>, or <em>intervention</em>)</li>
+<li><span class="math inline">\(X \in \mathcal X \subseteq \mathbb{R}^d\)</span> (the <em>covariates</em>)</li>
+</ul>
+</div>
+</div>
+</div>
+<p>This model imposes no prior knowledge of the true data-generating distribution other than the domains of each of the variables. More often than not, this is all we know confidently when data are collected <em>observationally</em>. By <em>observational</em> study, we mean a study where the analyst did not have control over the way the treatments were allocated for the observations in the dataset.</p>
+<p>Other authors use different conventions for the variables in an observational study. <span class="math inline">\(Y\)</span> is fairly standard for outcomes, but in econometrics <span class="math inline">\(W\)</span> is more often used for the exposure, whereas in the targeted maximum likelihood literature, <span class="math inline">\(W\)</span> is used for the covariates. I like <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> as outcome and covariates because it mirrors the usual notation for machine learning and regression where <span class="math inline">\(X\)</span> would be the predictors of <span class="math inline">\(Y\)</span>. I like <span class="math inline">\(A\)</span> for treatment because, as a letter near the beginning of the alphabet rather than at the end, it more clearly stands out from the variables that are not hypothetically intervened on. You can also imagine <span class="math inline">\(A\)</span> standing for <span class="math inline">\(A\text{ction}\)</span>.</p>
+<p>There are many examples of the standard observational study setup. For instance, if the drug data we described above in <a href="1-2-causality.html#tbl-obs" class="quarto-xref">Table&nbsp;<span>2.1</span></a> were not from a randomized study but instead were extracted from electronic health records, then we would have an observational study.</p>
+<div id="exm-obs-highschool" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 3.1 (Effect of high school on college enrollment)</strong></span> As another example, consider a study where school records are compared to see if children who go to a particular private high school have higher rates of immediate college enrollment than those in another school. Unless the analyst had control over who enrolled in what school, this would be an observational study where <span class="math inline">\(A\)</span> represents which school each student enrolled in and <span class="math inline">\(Y\)</span> represents whether or not they went to college after graduation (also as a binary indicator). In data such as these we may also have access to covariates <span class="math inline">\(X\)</span> such as the identified sex of the student, their middle school grades, some markers of parental socioeconomic status, etc.</p>
+<p>While we might suspect certain co-occurence relationships between the variables (e.g.&nbsp;studets with Catholic parents may be over-represented at a Catholic school), it’s unlikely that we know enough to quantify those suspiscions as modeling assumptions.</p>
+<br>
+</div>
+<div id="exm-obs-fertilizer" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 3.2 (Effect of fertilizer on fall crop yield)</strong></span> Suppose we’re interested in the effect of fertilizer on crop yield. If we were to survey a number of farmers and ask about their crop yields (<span class="math inline">\(Y\)</span>) and whether or not they used a specific fertilizer earlier in the year (<span class="math inline">\(A\)</span>), this would constitute an observational study because we did not directly control who was using what fertilizer; the farmers each decided for themselves. In this example, we may also include survey questions about covariates <span class="math inline">\(X\)</span> like where the farms are located, previous history of fertilizer use, the type of crops grown, etc.</p>
+<br>
+</div>
+<p>observational model</p>
+<p>causal model = define intervention(s) with relevant domains. for a given set of “downstream” variables, create potential outcomes indexed by values in cartesian product of domains of parent interventions</p>
+<!-- 
+POs 
+- no causation without intervention!
+- causal/unobservable models, causal/unobservable estimands
+- multiple interventions, interventions on POs (mediation), longitudinal stuff, also survival, domain transfer problems
+np-SEMs 
+- no joint counterfactuals is nice
+Identification concepts
+- parametrization and link to parametric ID, 
+- all insane assumptions, but decision must be made and much less insane than linear reg and prayer. Take the problem seriously and respect it 
+identification zoo 
+- ATE / backdoor criterion, IV, RD, DiD, Mediation, RCT: https://link.springer.com/article/10.1007/s10654-025-01298-7
+practical stuff like defining the question, index times, immortal time, intercurrent events, ITT vs per protocol?
 -->
+<section id="history-and-notes" class="level2 unnumbered unlisted">
+<h2 class="unnumbered unlisted anchored" data-anchor-id="history-and-notes">History and Notes</h2>
+<p>In the Western tradition, causality has been a topic of philosophical debate at least as far back as Aristotle <span class="citation" data-cites="aristotle-physics-ROT aristotle-metaphysics-ROT">(<a href="6-references.html#ref-aristotle-physics-ROT" role="doc-biblioref">Aristotle 1984b</a>, <a href="6-references.html#ref-aristotle-metaphysics-ROT" role="doc-biblioref">1984a</a>)</span>. Counterfactual theories of causality have more immediate roots in <span class="citation" data-cites="hume">Hume (<a href="6-references.html#ref-hume" role="doc-biblioref">1748</a>)</span> and <span class="citation" data-cites="mills">Mills (<a href="6-references.html#ref-mills" role="doc-biblioref">1843</a>)</span> – <span class="citation" data-cites="holland">Holland (<a href="6-references.html#ref-holland" role="doc-biblioref">1986</a>)</span> gives a concise review of these texts.</p>
+<p>brad hill criteria path analysis -&gt; SEM -&gt; npSEM (pearl) neyman ——&gt; Rubin potential outcomes all the ID stuff through the 90s to modern day (vanderweele, eric TT)</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-aristotle-metaphysics-ROT" class="csl-entry" role="listitem">
+Aristotle. 1984a. <span>“Metaphysics.”</span> In <em>The Complete Works of Aristotle: The Revised Oxford Translation</em>, edited by Jonathan Barnes, translated by W. D. Ross, 2:1552–1728. Bollingen Series, LXXI-2. Princeton, NJ: Princeton University Press.
+</div>
+<div id="ref-aristotle-physics-ROT" class="csl-entry" role="listitem">
+———. 1984b. <span>“Physics.”</span> In <em>The Complete Works of Aristotle: The Revised Oxford Translation</em>, edited by Jonathan Barnes, translated by R. P. Hardie and R. K. Gaye, 1:315–446. Bollingen Series, LXXI-1. Princeton, NJ: Princeton University Press.
+</div>
+<div id="ref-holland" class="csl-entry" role="listitem">
+Holland, Paul W. 1986. <span>“Statistics and Causal Inference.”</span> <em>Journal of the American Statistical Association</em> 81 (396): 945–60.
+</div>
+<div id="ref-hume" class="csl-entry" role="listitem">
+Hume, David. 1748. <em>An Enquiry Concerning Human Understanding</em>.
+</div>
+<div id="ref-mills" class="csl-entry" role="listitem">
+Mills, John Stuart. 1843. <em>A System of Logic</em>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -723,13 +798,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./3-4-deriving-eifs.html" class="pagination-link" aria-label="Deriving Canonical Gradients">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span>
+      <a href="./1-2-causality.html" class="pagination-link" aria-label="Counterfactual Causality">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Counterfactual Causality</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./6-references.html" class="pagination-link" aria-label="References">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./3-0-intro.html" class="pagination-link" aria-label="Efficiency Theory">
+        <span class="nav-page-text">Efficiency Theory</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,0 +1,107 @@
+::: content-hidden
+{{< include _macros.qmd >}}
+
+```{r}
+set.seed(0)
+#| warnings: false
+library(tidyverse)
+library(magrittr)
+```
+:::
+
+# Structural Causal Models
+
+* need for SCM: what gets a potential outcome?
+* define SCM
+    * exogeneity/endogeneity, role of variables that are not shown in the model
+    * contrast with purely statistical model, much more intuitive, can be drawn as a causal DAG
+        * bidirectional arrow b/t exogenous vars is a shorthand for common causes
+    * demonstrate independence claim A \perp Y(a) that we used "intuitively" in POs
+    * terminology: npSEM
+* Causal Model: 
+    * technically, set of joint distribution of exogenous variables + some set of functions in the SCM => set of "joint" distribution of all POs, but can very well think just in terms of joint dist of all POs
+    * assumptions about noise are key in defining the model
+* Causal Estimands: 
+    * estimand w/ domain of causal model
+    * Pearl rungs of causal estimands
+
+## Nonparametric Structural Equations
+
+In the previous section we introduced potential outcomes, addressed some general questions about how to interpret them, and got a preview of how assumptions or prior knoweldge can be used to overcome the fundamental problem of causal inference. We did this mainly in the context of a hypothetical study comparing two drugs. In this section we'll formalize a few of the ideas we touched on in the last section by placing them into the broader framework of structural causal models.
+
+Along the way, we'll show how to generalize potential outcomes beyond the single-timepoint binary treatment setting (like the drug study we discussed). Even if you are only interested in that setting, understanding how potential outcomes are used more broadly to define causal effects for continuous treatments, multiple treatments, mediation, and treatments that vary over time can be very helpful to shore up your understanding of how potential outcomes work at a fundamental level. We'll also discuss censored data problems and domain transfer as alternative applications of similar ideas.
+
+Let's start with the following definition:
+
+:::: callout-note
+##### Causal Model
+::: {#def-causal-model}
+A *causal* or *full-data* $\model^*$ is any statistical model (in the sense of @def-model) where some of the random variables in each of the constituent distributions $\p^*$ are considered to be intervention variables and some are considered potential outcomes. These two sets need not be exclusive. Potential outcomes may have potential values for some or all of the intervention variables. Whatever set of interventions 
+:::
+::::
+
+multiple values
+multiple interventions
+POs that are intervenable
+
+
+Let's start by formalizing what we mean by "single-timepoint treatment". This is how we'll generalize the structure of the new vs. old drug example discussed above. The framework we'll use to do that is that of a statistical model (@def-model).
+
+:::: callout-note
+##### Observational study with a single-timepoint, binary treatment
+::: {#def-obs-study}
+What we'll call the *standard observational study* model is the set of all distributions over variables $(Y,A,X)$ where:
+
+* $Y \in \mathcal Y \subseteq \reals$ (the *outcome*)
+* $A \in \{0,1\}$ (the *treatment*, *exposure*, or *intervention*)
+* $X \in \mathcal X \subseteq \reals^d$ (the *covariates*)
+:::
+::::
+
+This model imposes no prior knowledge of the true data-generating distribution other than the domains of each of the variables. More often than not, this is all we know confidently when data are collected *observationally*. By *observational* study, we mean a study where the analyst did not have control over the way the treatments were allocated for the observations in the dataset. 
+
+Other authors use different conventions for the variables in an observational study. $Y$ is fairly standard for outcomes, but in econometrics $W$ is more often used for the exposure, whereas in the targeted maximum likelihood literature, $W$ is used for the covariates. I like $Y$ and $X$ as outcome and covariates because it mirrors the usual notation for machine learning and regression where $X$ would be the predictors of $Y$. I like $A$ for treatment because, as a letter near the beginning of the alphabet rather than at the end, it more clearly stands out from the variables that are not hypothetically intervened on. You can also imagine $A$ standing for $A\text{ction}$.
+
+There are many examples of the standard observational study setup. For instance, if the drug data we described above in @tbl-obs were not from a randomized study but instead were extracted from electronic health records, then we would have an observational study. 
+
+::: {.Exm #exm-obs-highschool}
+##### Effect of high school on college enrollment
+As another example, consider a study where school records are compared to see if children who go to a particular private high school have higher rates of immediate college enrollment than those in another school. Unless the analyst had control over who enrolled in what school, this would be an observational study where $A$ represents which school each student enrolled in and $Y$ represents whether or not they went to college after graduation (also as a binary indicator). In data such as these we may also have access to covariates $X$ such as the identified sex of the student, their middle school grades, some markers of parental socioeconomic status, etc. 
+
+While we might suspect certain co-occurence relationships between the variables (e.g. studets with Catholic parents may be over-represented at a Catholic school), it's unlikely that we know enough to quantify those suspiscions as modeling assumptions.
+:::
+
+::: {.Exm #exm-obs-fertilizer}
+##### Effect of fertilizer on fall crop yield
+Suppose we're interested in the effect of fertilizer on crop yield. If we were to survey a number of farmers and ask about their crop yields ($Y$) and whether or not they used a specific fertilizer earlier in the year ($A$), this would constitute an observational study because we did not directly control who was using what fertilizer; the farmers each decided for themselves. In this example, we may also include survey questions about covariates $X$ like where the farms are located, previous history of fertilizer use, the type of crops grown, etc.
+:::
+
+
+observational model
+
+causal model = define intervention(s) with relevant domains. for a given set of "downstream" variables, create potential outcomes indexed by values in cartesian product of domains of parent interventions
+
+<!-- 
+POs 
+- no causation without intervention!
+- causal/unobservable models, causal/unobservable estimands
+- multiple interventions, interventions on POs (mediation), longitudinal stuff, also survival, domain transfer problems
+np-SEMs 
+- no joint counterfactuals is nice
+Identification concepts
+- parametrization and link to parametric ID, 
+- all insane assumptions, but decision must be made and much less insane than linear reg and prayer. Take the problem seriously and respect it 
+identification zoo 
+- ATE / backdoor criterion, IV, RD, DiD, Mediation, RCT: https://link.springer.com/article/10.1007/s10654-025-01298-7
+practical stuff like defining the question, index times, immortal time, intercurrent events, ITT vs per protocol?
+-->
+
+
+## History and Notes {.unnumbered .unlisted}
+
+In the Western tradition, causality has been a topic of philosophical debate at least as far back as Aristotle [@aristotle-physics-ROT; @aristotle-metaphysics-ROT]. Counterfactual theories of causality have more immediate roots in @hume and @mills -- @holland gives a concise review of these texts.
+
+brad hill criteria
+path analysis -> SEM -> npSEM (pearl)
+neyman ------> Rubin potential outcomes
+all the ID stuff through the 90s to modern day (vanderweele, eric TT)

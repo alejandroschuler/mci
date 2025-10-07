@@ -464,7 +464,7 @@ Our goal at our moment is to generalize our definition of regularity by establis
 
 For the remainder of this section we'll work within models where every distribution $\p$ has a density function $p$. Formally, we will assume that all our distributions are absolutely continuous with respect to Lebesgue measure (don't worry if you don't know what that means). The results we will discuss actually do not depend on that assumption: the theory works exactly the same way for general models. However, the intuition is harder to get across in the general case, especially for readers who are new to measure-theoretic probability. I'll abuse notation where convenient and use $\model$ to refer to the set of densities $p$ as well as the set of distributions (measures) $\p$. If you know some measure theory, you can for now imagine that all distributions in the model have a density with respect to an arbitrary dominating measure $\bar{\p}$ and replace references to $\eltwo$ below with $\eltwo(\bar{\p})$. Throughout the rest of the book I will also write integrals like $\int f(z)\ p(z) \dd z$ with the standard differential $\dd z$ so that they are comprehensible without measure theory. If you know measure theory, you can replace these with Lebesgue integrals with respect to the relevant dominating measure.
 
-The first step to imposing a structure that will be useful to us is to think in terms of density functions rather than distributions (measures). If all the elements of the model have densities, we can think of the model as a collection of densities. Since densities are functions, we might be tempted to say they are elements of $\eltwo$ because then everything is great: we have lengths, we have angles, we have all sorts of useful identities and relationships. But unfortunately that's not immediately possible. Recall @def-L2 that $\eltwo$ only includes functions that are square-integrable (have finite norm). However, there are some density functions for which $\int p(z) \dd z$ may blow up.
+The first step to imposing a structure that will be useful to us is to think in terms of density functions rather than distributions (measures). If all the elements of the model have densities, we can think of the model as a collection of densities. Since densities are functions, we might be tempted to say they are elements of $\eltwo$ because then everything is great: we have lengths, we have angles, we have all sorts of useful identities and relationships. But unfortunately that's not immediately possible. Recall @def-L2 that $\eltwo$ only includes functions that are square-integrable (have finite norm). However, there are some density functions for which $\int p(z)^2 \dd z$ blows up.
 
 ::: {.Exm #exm-non-L2-density}
 The function $p(z) = \frac{1(0 < z <1)}{2\sqrt z}$ is a valid density because it is positive and integrates to one: 
@@ -1009,6 +1009,12 @@ A little algebra shows that this path can also be written as $p_\eps = \left(1+ 
 While it's most helpful to think of scores as encoding "direction" within a model, scores also encode the "speed" at which a path goes.
 
 Presume that the score for a path $\epsilon \mapsto p_\eps$ is $s$. In terms of $s$, what is the score for the reparametrized path $\epsilon \mapsto p_{c\eps}$ for some $c \in \reals$? To solve this problem you can use the pointwise derivative version of the score for convenience. For intuition, note that for $c > 1$, the reparametrized path is the same as the original, just traversed "faster", whereas for $c \in (0,1)$ it is the same path traversed more "slowly" (and for $c<0$, in reverse).
+:::
+::::
+
+:::: {.callout-important appearance="minimal"}
+::: {#exr-unit-score}
+Presume a path has a score such that $\dot{\sqrt{p}} = \frac{1}{2} \sqrt{p} s$ has unit norm in $\eltwo$. If we advance a very small amount $\epsilon$ along this path, approximately what is the $\eltwo$ distance between $\sqrt{p_\eps}$ and $\sqrt p$? *Hint: according to @def-score,* $\frac{\sqrt{p_\eps} - \sqrt p}{\eps}$ *is approximately what?*
 :::
 ::::
 

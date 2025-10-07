@@ -84,7 +84,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./3-0-intro.html" rel="next">
+<link href="./1-2-causality.html" rel="next">
 <link href="./1-0-intro.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -211,6 +211,18 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Estimation Problems</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1-2-causality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Counterfactual Causality</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1-3-scm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Nonparametric Structural Equations</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -225,25 +237,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3-2-regularity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3-3-efficiency.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3-4-deriving-eifs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
   </div>
 </li>
       </ul>
@@ -421,9 +433,13 @@ Warning
 <section id="the-fiction-of-probability" class="level3" data-number="1.1.1">
 <h3 data-number="1.1.1" class="anchored" data-anchor-id="the-fiction-of-probability"><span class="header-section-number">1.1.1</span> The Fiction of Probability</h3>
 <p>Before going any further, I want to underscore what I said above about <em>imagining</em> that data are drawn from a distribution. In the frequentist view, a dataset is a single instantiation of what could have happened under repetitions of a given experiment or physical process. Repeat the experiment, get a different dataset. The probability distribution of the data represents the accumulated patterns of the data over infinite repetitions of the experiment. A probability statement like <span class="math inline">\({\mathbb{P}}\{Z &gt; 0\} = 1/2\)</span> means that <span class="math inline">\(Z\)</span> (whatever that is) comes out to be positive in exactly half of the repetitions of the experiment.</p>
-<p>Obviously this is a fiction. Very rarely, if ever, can experiments be exactly replicated. If they cannot be replicated, in what sense can we give meaning to the “distribution” of the data? Indeed, a random number generator fundamentally has nothing to do with the physical, biological, or social processes by which numbers end up appearing in a spreadsheet. A probability distribution is a simulacrum of what is actually happening in the real world: a convenient way to smooth over things which we do not really understand while maintaining a transparent, shared vocabulary. Frequentist probability is a shared lie, it is not real in any meaningful way.</p>
-<p>Nonetheless, the frequentist probability framework is extremely useful. As humans, we are entirely in the business of fabricating social fictions and operating by them. We have no problem making good use of invented abstractions. <em>Numbers themselves</em> are mythical. Certainly you can have two apples or two pencils, but “two” is not real (and neither is an apple - you cannot cleanly define such a thing without social context). Like apples, the number two, and the “laws” of physics, frequentist probability is extremely useful despite not being real. This is roughly the instrumentalist-fictionalist stance in the sense of <span class="citation" data-cites="fictionalism">Vaihinger and Rosenthal (<a href="6-references.html#ref-fictionalism" role="doc-biblioref">2021</a>)</span>: mathematical models should be treated as useful “as-if” fictions chosen for empirical adequacy and transparent communication, not as literal features of the world.</p>
-<p>For completeness I should note that subjectivist Bayesian probability gives an account of probability that to me is much more plausible. In that framework, probability reflects a personal degree of belief <span class="citation" data-cites="subj-bayes">(<a href="6-references.html#ref-subj-bayes" role="doc-biblioref">Joyce 2011</a>)</span>. I don’t want to spend too much time on the details here but roughly speaking my perspective is that Bayesian probability, while philosophically a bit more satisfying, is practically more challenging and socially less valuable than the frequentist framework because priors are difficult to agree on and because Bayesian nonparametrics are very unwieldy. Many people would vehemently disagree with me on that, but empirically it appears to be true: frequentist probability is far more popular in the wild. And, ultimately, subjective Bayesian probability is also a myth in the same sense as any other mathematics: it just buries its lies a bit deeper than the frequentist framework. The fact that there are entire textbooks devoted to the philosophy of probability (e.g., <span class="citation" data-cites="philosophy">Weatherford (<a href="6-references.html#ref-philosophy" role="doc-biblioref">2022</a>)</span>) should be enough to convince you that no approach is entirely salvageable or coherent.</p>
+<p>Obviously this is a fiction. Very rarely, if ever, can experiments be exactly replicated. If they cannot be replicated, in what sense can we give meaning to the “distribution” of the data? Indeed, a random number generator fundamentally has nothing to do with the physical, biological, or social processes by which numbers end up appearing in a spreadsheet.</p>
+<p>There are many other ways in which probability models are commonly abused that go beyond frequentist interpretation. For example, it’s ubiquitous to model the age of people in some population as having a continuous distribution. But, in fact, in any given population of humans there are only a finite number of people, meaning that the true distribution (or anyone’s prior belief about it) must in fact be discrete. At best the population would be countably infinite if one imagines that humanity will last forever (and this begs the question of at what point in the past you consider various hominids to be “human”).</p>
+<p>To that point, the definition of any variable in a probability distribution is always contingent on social constructions: if we say <span class="math inline">\(Z_i=1\)</span> when individual <span class="math inline">\(i\)</span> has brown eyes, what do we mean by that? At what shade do we establish a boundary? How do we label people who have no eyes? What about heterochromia? None of these questions have unambiguous, objective answers. While we can often come common-sense consensus definitions, we need to acknoweldge that they are exactly that: implicit social agreements that are deemed useful in a given time and place and which can always be renegotiated. The same caveats apply to any mathematical model – we need to stay aware of this to avoid becoming deluded by our own imaginary worlds.</p>
+<p>I hope I have convinced you that a probability distribution is a simulacrum of what is actually happening in the real world: a convenient way to smooth over things which we do not really understand while maintaining a transparent, shared vocabulary. Probability writ large and frequentist probability in particular are shared lies. They are not “real” in any meaningful way, and the seams become all-too apparent if you look closely.</p>
+<p>Nonetheless, the frequentist probability framework is extremely useful! As humans, we are entirely in the business of fabricating social fictions and operating by them. We have no problem making good use of invented abstractions. <em>Numbers themselves</em> are mythical. Certainly you can have two apples or two pencils, but “two” is not real (and neither is an apple - you cannot cleanly define such a thing without social context). Like apples, the number two, and the “laws” of physics, frequentist probability is extremely useful despite not being real.</p>
+<p>This is roughly the fictionalist stance in the sense of <span class="citation" data-cites="fictionalism">Vaihinger and Rosenthal (<a href="6-references.html#ref-fictionalism" role="doc-biblioref">2021</a>)</span> or <span class="citation" data-cites="balaguer2008fictionalism">Balaguer (<a href="6-references.html#ref-balaguer2008fictionalism" role="doc-biblioref">2008</a>)</span>: mathematical models should be treated as useful “as-if” fictions chosen for empirical adequacy and transparent communication, not as literal features of the world. If we didn’t have mathematical models, and frequentist probability models in particular, there is no way humans could have gone to the moon, erradicated polio, or created large language models. We can choose to behave as if our models are real because they are often (though not always) good enough for creating things that satisfy us in the real world.</p>
+<p>For completeness I should note that subjectivist Bayesian probability gives an account of probability that to me is much more plausible. In that framework, probability reflects a personal degree of belief <span class="citation" data-cites="subj-bayes">(<a href="6-references.html#ref-subj-bayes" role="doc-biblioref">Joyce 2011</a>)</span>. I don’t want to spend too much time on the details here but roughly speaking my perspective is that Bayesian probability, while philosophically a bit more satisfying, is practically more challenging and socially less valuable than the frequentist framework because priors are difficult to agree on and because Bayesian nonparametrics are very unwieldy. Many people would vehemently disagree with me on that, but empirically it appears to be true: frequentist probability is far more popular in the wild. And, ultimately, subjective Bayesian probability is also a myth in the same sense as any other mathematics: it just buries its lies a bit deeper than the frequentist framework. The fact that there are entire textbooks devoted to the philosophy of probability (e.g., <span class="citation" data-cites="philosophy">Weatherford (<a href="6-references.html#ref-philosophy" role="doc-biblioref">2022</a>)</span>) should be enough to convince you that no approach is entirely salvageable or coherent. This is no way an impediment to scientific progress.</p>
 </section>
 <section id="independent-observations" class="level3" data-number="1.1.2">
 <h3 data-number="1.1.2" class="anchored" data-anchor-id="independent-observations"><span class="header-section-number">1.1.2</span> Independent Observations</h3>
@@ -489,11 +505,11 @@ Model
 </div>
 <div class="callout-body-container callout-body">
 <div id="def-model" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1.1</strong></span> A <em>statistical model</em> (or just <em>model</em>) is any set <span class="math inline">\({\mathcal{P}}\)</span> whose elements are probability distributions.</p>
+<p><span class="theorem-title"><strong>Definition 1.1</strong></span> A <em>statistical model</em> (or just <em>model</em>) is any set <span class="math inline">\({\mathcal{P}}\)</span> whose elements are probability distributions over a shared domain.</p>
 </div>
 </div>
 </div>
-<p>The definition of a model is extremely simple. The utility comes when we define models that align with our knowledge or suppositions so that the model formalizes what we believe about the world. If the model reflects reality in this way, then the true data-generating distribution <span class="math inline">\({\mathbb{P}}\)</span> is an element of the model, i.e., <span class="math inline">\({\mathbb{P}}\in {\mathcal{P}}\)</span>. The problem of statistics, in its most ambitious form, is to try and deduce which element of <span class="math inline">\({\mathcal{P}}\)</span> is the data-generating distribution based on an observed dataset sampled from that distribution.</p>
+<p>The definition of a model is extremely simple, but leads to incredibly rich ideas (see, e.g., <span class="citation" data-cites="mccullagh2002statistical">McCullagh (<a href="6-references.html#ref-mccullagh2002statistical" role="doc-biblioref">2002</a>)</span>). The utility comes when we define models that align with our knowledge or suppositions so that the model formalizes what we believe about the world. If the model reflects reality in this way, then the true data-generating distribution <span class="math inline">\({\mathbb{P}}\)</span> is an element of the model, i.e., <span class="math inline">\({\mathbb{P}}\in {\mathcal{P}}\)</span>. The problem of statistics, in its most ambitious form, is to try and deduce which element of <span class="math inline">\({\mathcal{P}}\)</span> is the data-generating distribution based on an observed dataset sampled from that distribution.</p>
 <p>Since we’ll assume IID data throughout this book, we won’t write that as a restriction on the model. That is, instead of specifying the set of data distributions <span class="math inline">\({\mathbb{P}}^n\)</span>, we’ll just specify the set of distributions <span class="math inline">\({\mathbb{P}}\)</span> possible for a generic, individual observation. The latter model on individual observations induces the former model on datasets, i.e., <span class="math inline">\({\mathcal{P}}^n = \{{\mathbb{P}}^n : {\mathbb{P}}\in {\mathcal{P}}\}\)</span>.</p>
 <div id="fig-roadmap-3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -666,7 +682,7 @@ Figure&nbsp;1.6: The estimand is shown here as a box that maps a distribution <s
 <p>In traditional (parametric) statistics, the same problem is addressed by making one or more parameters <span class="math inline">\(\theta\)</span> the object(s) of interest. Certainly in any parametrized model we might think to define an estimand <span class="math inline">\(\Psi({\mathbb{P}}_\theta) = \theta\)</span>, but when the data-generating distribution is no longer in the parametric model, this definition has no meaning. Thinking of estimands first and foremost as mappings that extract generic properties of a distribution solves the problem. In this way we can formalize the scientific question of interest before we even pin down a model, parametric or otherwise.</p>
 <p>The other, more subtle problem with defining <span class="math inline">\(\Psi({\mathbb{P}}_\theta) = \theta\)</span> is that this is not a well-defined function unless the parametrization is identifiable (<a href="#def-identifiability" class="quarto-xref">Definition&nbsp;<span>1.3</span></a>)! By writing <span class="math inline">\(\Psi({\mathbb{P}}_\theta) = \theta\)</span> we necessarily imply that <span class="math inline">\(\Psi\)</span> is the inverse mapping of <span class="math inline">\(\theta \mapsto {\mathbb{P}}_\theta\)</span>, a mapping that only exists if the model is identifiable. In general, there may be two or more parameter values that yield the same distribution.</p>
 <p>Thinking of an estimand as a function <span class="math inline">\(\Psi({\mathbb{P}})\)</span> with no reference to a parametrization makes the <em>technical</em> question of identification irrelevant but at the same time brings the <em>scientific</em> question of the utility of the data to the forefront. If we can’t clearly express the answer to our scientific question as a function of the data-generating distribution, we immediately know that we’re collecting the wrong data or conducting the wrong experiment. On the other hand, it’s easy to hide such a deficiency in a parametrized model because sometimes it’s tricky to see that the parametrization is not identifiable without further assumptions!</p>
-<p>What I call an estimand is often called a parameter throughout the statistics literature, or more specifically a <em>target parameter</em>. That term makes sense since finite-dimensional parameters are one extractable aspect of a distribution in a parametric model and the definition of an estimand generalizes this idea. I prefer the term estimand, however, because it clearly communicates that it is what we are going to <em>estimate</em>. To me, it sounds less abstract and more approachable than “target parameter”. It also makes a clean break with the “parameters” of parametric models and therefore avoids confusion. Lastly, the term “estimand” is gaining popularity in regulatory agencies and in clinical trials, perhaps also because it clearly evokes what it means <span class="citation" data-cites="estimands">(<a href="6-references.html#ref-estimands" role="doc-biblioref">Kahan et al. 2024</a>)</span>.</p>
+<p>What I call an estimand is often called a parameter throughout the statistics literature, or more specifically a <em>target parameter</em>. That term makes sense since finite-dimensional parameters are one extractable aspect of a distribution in a parametric model and the definition of an estimand generalizes this idea. <em>Statistical functional</em> is another term that is sometimes used. I prefer the term estimand, however, because it clearly communicates that it is what we are going to <em>estimate</em>. To me, it sounds less abstract and more approachable than “target parameter” or “statistical functional”. It also makes a clean break with the “parameters” of parametric models and therefore avoids confusion. Lastly, the term “estimand” is gaining popularity in regulatory agencies and in clinical trials, perhaps also because it clearly evokes what it means <span class="citation" data-cites="estimands">(<a href="6-references.html#ref-estimands" role="doc-biblioref">Kahan et al. 2024</a>)</span>.</p>
 <div id="exm-estimand-mean" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example 1.8 (Mean)</strong></span> Presume we have a continuous random variable <span class="math inline">\(Z\)</span> (i.e., with a density function) with an unknown distribution <span class="math inline">\({\mathbb{P}}\)</span>. The mean of <span class="math inline">\(Z\)</span> is a common estimand defined by</p>
 <p><span class="math display">\[
@@ -967,14 +983,14 @@ Figure&nbsp;1.8: The estimator translates a dataset into an estimate. The estima
 <p><span class="math display">\[
 \begin{aligned}
 \hat\mu &amp;= \mathtt{RF}({\mathbb{P}_n}) \\
-\Psi_{\text{RF}}({\mathbb{P}_n}) &amp;= \frac{1}{n}\sum (\hat\mu(X+1) - \hat\mu(X))
+\hat\Psi_{\text{RF}}({\mathbb{P}_n}) &amp;= \frac{1}{n}\sum (\hat\mu(X+1) - \hat\mu(X))
 \end{aligned}
 \]</span></p>
 <p>In fact, the OLS estimator above can be written a similar way:</p>
 <p><span class="math display">\[
 \begin{aligned}
 \hat\mu &amp;= \mathtt{OLS}({\mathbb{P}_n}) \\
-\Psi_{\text{OLS}}({\mathbb{P}_n}) &amp;= \frac{1}{n}\sum (\hat\mu(X+1) - \hat\mu(X))
+\hat\Psi_{\text{OLS}}({\mathbb{P}_n}) &amp;= \frac{1}{n}\sum (\hat\mu(X+1) - \hat\mu(X))
 \end{aligned}
 \]</span></p>
 <p>where <span class="math inline">\(\mathtt{OLS}({\mathbb{P}_n})\)</span> returns the linear prediction function <span class="math inline">\(\hat\mu(x) = \hat\beta_0 + x \hat\beta\)</span> using the coefficients described above.</p>
@@ -1007,20 +1023,49 @@ Y &amp;= X^2 +\mathsf{N}(0, 1)
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(mu_x1 <span class="sc">-</span> mu_x)</span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="fu">c</span>(<span class="st">"Random forest"</span>, <span class="st">"OLS"</span>),</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">psi_hat =</span> <span class="fu">c</span>(</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>results <span class="ot">=</span> <span class="fu">tibble</span>(</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimator =</span> <span class="fu">c</span>(<span class="st">"Random forest"</span>, <span class="st">"OLS"</span>),</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="fu">c</span>(</span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plugin_psi</span>(rf_fit, data), </span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plugin_psi</span>(lm_fit, data)</span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 2
-  model         psi_hat
-  &lt;chr&gt;           &lt;dbl&gt;
-1 Random forest    5.86
-2 OLS              1.16</code></pre>
 </div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-rf-vs-ols-results" class="w-60 mx-auto quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rf-vs-ols-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1.1: Estimates of the generalized regression coefficient using a random forest vs.&nbsp;linear regression (OLS).
+</figcaption>
+<div aria-describedby="tbl-rf-vs-ols-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell">
+<div class="cell-output-display">
+<table class="w-60 mx-auto caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">estimator</th>
+<th style="text-align: right;">estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Random forest</td>
+<td style="text-align: right;">5.855412</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OLS</td>
+<td style="text-align: right;">1.164872</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</figure>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
@@ -1050,7 +1095,7 @@ Y &amp;= X^2 +\mathsf{N}(0, 1)
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="1-1-estimation-problems_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="1-1-estimation-problems_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1079,7 +1124,7 @@ Figure&nbsp;1.9: The random forest does a much better job estimating the true co
 <pre><code>[1] 5.797699</code></pre>
 </div>
 </div>
-<p>You can see that the estimate based on the random forest model is much closer to the truth than the one based on linear regression. This shows the danger of using parametric models: imposing modeling assumptions unnecessarily cripples our ability to answer the scientific question of interest accurately. If the estimand represented, for example, how much on average someone would benefit from increasing their dose of a drug by one unit, we would have massively underestimated the beneficial effect with the linear regression estimator.</p>
+<p>In <a href="#tbl-rf-vs-ols-results" class="quarto-xref">Table&nbsp;<span>1.1</span></a> you can see that the estimate based on the random forest model is much closer to the truth than the one based on linear regression. The random forest estimator is better in this case because linear regression cannot capture the nonlinear trend in the data (see <a href="#fig-ols-v-rf" class="quarto-xref">Figure&nbsp;<span>1.9</span></a>). This shows the danger of using parametric models to build estimators: imposing modeling assumptions unnecessarily cripples our ability to answer the scientific question of interest accurately. If the estimand represented, for example, how much on average someone would benefit from increasing their dose of a drug by one unit, we would have massively underestimated the beneficial effect with the linear regression estimator.</p>
 <p>The result here is specific to the distribution I chose to simulate data from and of course even to the specific dataset that we drew. The moral of the story, however, does not change much in general. Strong modeling assumptions must be justified and it’s often just as easy to generate an estimate without them anyways.</p>
 <br>
 </div>
@@ -1118,23 +1163,54 @@ Figure&nbsp;1.10: Finally, we add repetitions of the dataset and the sampling di
 <p>Unfortunately we don’t have access to the true asymptotic standard error because we don’t know the true distribution <span class="math inline">\({\mathbb{P}}\)</span> of which it is a function. However, you may notice that, by our definition, the asymptotic standard error is nothing other than an estimand. We may therefore construct an estimator <span class="math inline">\(\hat\sigma({\mathbb{P}}_n)\)</span>, which, under certain assumptions (i.e., in certain models) gives good estimates of the true asymptotic standard error. Calculations to build confidence intervals and p-values can then be performed with this estimate of the asymptotic standard error rather than the unknown truth.</p>
 <p>The assumptions required for an estimator of a standard error to be accurate may be different than those required for the estimate of the original estimand to be accurate! In other words, it’s possible to have a good estimate but a wildly incorrect confidence interval, or a poor estimate, but a confidence interval that has the theoretically correct width.</p>
 <p>Unfortunately, this story does not apply directly to the random forest estimator we studied in <a href="#exm-ols-v-rf" class="quarto-xref">Example&nbsp;<span>1.13</span></a> without some effort. Although the estimator that leveraged the random forest proved substantially more accurate than the estimator based on linear regression, it is very difficult to prove the asymptotic normality of estimates when complicated “machine learning” estimators are used for regression. In the last chapters of this book we will investigate and solve this problem. Specifically, we will develop recipes to construct powerful estimators that can leverage machine learning while retaining asymptotic normality under general conditions.</p>
+</section>
+</section>
+<section id="history-and-notes" class="level2 unnumbered unlisted">
+<h2 class="unnumbered unlisted anchored" data-anchor-id="history-and-notes">History and Notes</h2>
+<p>The framework presented in this chapter is a modern perspective on statistics that has been accumulated, consolidated, and refined extensively in the past century and beyond. The idea of imagining real-world observations as “draws” from a probability distribution was already becoming popular in some contexts in the 1700s and 1800s, especially in studies of gambling, and drew attention from Bernoulli, Bayes, Gauss, Laplace, and others. Francis Galton and Karl Pearson are usually credited with accelerating the formalization of this idea and understanding its broader applicability around the turn of the 20th century. Ronald Fisher, Jerzy Neyman, and others certainly had the concept of a (parametric) statistical model in the early 20th century and Fisher and Neyman of course deserve credit for many fundamental ideas in estimation and inference <span class="citation" data-cites="fisher1922mathematical neyman1937outline">(<a href="6-references.html#ref-fisher1922mathematical" role="doc-biblioref">Fisher 1922</a>; <a href="6-references.html#ref-neyman1937outline" role="doc-biblioref">Neyman 1937</a>)</span>. The foundations of probability were made rigorous by <span class="citation" data-cites="kolmogrov">Kolmogorov (<a href="6-references.html#ref-kolmogrov" role="doc-biblioref">1933</a>)</span> which enabled further theoretical development moving into the 1930s and 1940s. The more general concept of a statistical model (sometimes called an <em>experiment</em> in early papers) became popular with the work of Lucien Le Cam and others in the 1950s, although it was used already by Blackwell and Wald in the 1940s. <span class="citation" data-cites="lecam-review">van der Vaart (<a href="6-references.html#ref-lecam-review" role="doc-biblioref">2002</a>)</span> gives a wonderful review of Le Cam’s work with many more historical notes. This way of thinking also influenced the development of the abstract concept of an estimand (or <em>statistical functional</em>), attributable formally to <span class="citation" data-cites="mises1947asymptotic">von Mises (<a href="6-references.html#ref-mises1947asymptotic" role="doc-biblioref">1947</a>)</span>, but certainly with some prior whispers. <span class="citation" data-cites="mises1947asymptotic">von Mises (<a href="6-references.html#ref-mises1947asymptotic" role="doc-biblioref">1947</a>)</span> also presents the innovation of treating some estimates as functions of empirical distributions, a convention which was generalized by <span class="citation" data-cites="huber1964robust">Huber (<a href="6-references.html#ref-huber1964robust" role="doc-biblioref">1964</a>)</span> and <span class="citation" data-cites="hampel1968contributions">Hampel (<a href="6-references.html#ref-hampel1968contributions" role="doc-biblioref">1968</a>)</span>.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-balaguer2008fictionalism" class="csl-entry" role="listitem">
+Balaguer, Mark. 2008. <span>“Fictionalism in the Philosophy of Mathematics.”</span>
+</div>
+<div id="ref-fisher1922mathematical" class="csl-entry" role="listitem">
+Fisher, Ronald A. 1922. <span>“On the Mathematical Foundations of Theoretical Statistics.”</span> <em>Philosophical Transactions of the Royal Society of London. Series A, Containing Papers of a Mathematical or Physical Character</em> 222 (594-604): 309–68.
+</div>
+<div id="ref-hampel1968contributions" class="csl-entry" role="listitem">
+Hampel, Frank Rudolf. 1968. <em>Contributions to the Theory of Robust Estimation</em>. University of California, Berkeley.
+</div>
+<div id="ref-huber1964robust" class="csl-entry" role="listitem">
+Huber, Peter J. 1964. <span>“Robust Estimation of a Location Parameter.”</span> <em>The Annals of Mathematical Statistics</em> 35 (1): 73–101.
+</div>
 <div id="ref-subj-bayes" class="csl-entry" role="listitem">
 Joyce, James M. 2011. <span>“The Development of Subjective Bayesianism.”</span> In <em>Handbook of the History of Logic</em>, 10:415–75. Elsevier.
 </div>
 <div id="ref-estimands" class="csl-entry" role="listitem">
 Kahan, Brennan C, Joanna Hindley, Mark Edwards, Suzie Cro, and Tim P Morris. 2024. <span>“The Estimands Framework: A Primer on the ICH E9 (R1) Addendum.”</span> <em>Bmj</em> 384.
 </div>
+<div id="ref-kolmogrov" class="csl-entry" role="listitem">
+Kolmogorov, Andrey. 1933. <span>“Grundbegriffe Der Wahrscheinlichkeitsrechnung.”</span>
+</div>
+<div id="ref-mccullagh2002statistical" class="csl-entry" role="listitem">
+McCullagh, Peter. 2002. <span>“What Is a Statistical Model?”</span> <em>The Annals of Statistics</em> 30 (5): 1225–1310.
+</div>
+<div id="ref-neyman1937outline" class="csl-entry" role="listitem">
+Neyman, Jerzy. 1937. <span>“Outline of a Theory of Statistical Estimation Based on the Classical Theory of Probability.”</span> <em>Philosophical Transactions of the Royal Society of London. Series A, Mathematical and Physical Sciences</em> 236 (767): 333–80.
+</div>
 <div id="ref-fictionalism" class="csl-entry" role="listitem">
 Vaihinger, Hans, and Michael A Rosenthal. 2021. <em>The Philosophy of’as If’</em>. Routledge.
+</div>
+<div id="ref-lecam-review" class="csl-entry" role="listitem">
+van der Vaart, Aad. 2002. <span>“The Statistical Work of Lucien Le Cam.”</span> <em>The Annals of Statistics</em> 30 (3): 631–82.
+</div>
+<div id="ref-mises1947asymptotic" class="csl-entry" role="listitem">
+von Mises, Richard. 1947. <span>“On the Asymptotic Distribution of Differentiable Statistical Functions.”</span> <em>The Annals of Mathematical Statistics</em> 18 (3): 309–48.
 </div>
 <div id="ref-philosophy" class="csl-entry" role="listitem">
 Weatherford, Roy. 2022. <em>Philosophical Foundations of Probability Theory</em>. Routledge.
 </div>
 </div>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1562,8 +1638,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./3-0-intro.html" class="pagination-link" aria-label="Efficiency Theory">
-        <span class="nav-page-text">Efficiency Theory</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./1-2-causality.html" class="pagination-link" aria-label="Counterfactual Causality">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Counterfactual Causality</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -30,7 +30,8 @@ Nonetheless, if this book doesn't fit your needs, I recommend the following text
 
 | Text | Description |
 |------------------------------------|------------------------------------|
-| Causality, @causality-pearl | An excellent book on the rigorous foundations of causal models with much more detail than is given in this book. Does not require much math. No discussion of estimation. |
+| Causality, @causality-pearl | An excellent book on the rigorous foundations of causal models with more detail than is given in this book. Does not require much math. No discussion of estimation. |
+| Counterfactuals and Causal Inference: Methods and Principles for Social Research, @Morgan2014-ek | A thorough discussion of counterfactuals and some practical methdods of causal inference with a thoughtful historical and philosophical perspective. |
 | Asymptotic Statistics, @vdv | A rigorous and thorough coverage of theoretical asymptotic statistics, overlapping this book in its coverage of efficiency theory. A great book to work through after doing analysis and measure-theoretic probability if you are interested in theory. Demands maturity but doesn't shy away from providing informal insights as well. |
 | Efficient and Adaptive Estimation for Semiparametric Models, @bkrw | A rigorous treatment of efficiency theory, covering more ground than this book in that area. Relatively dense and requires background in measure theory and analysis, but not entirely unforgiving. No discussion of causality or more modern estimators like double machine learning and targeted learning. |
 | Semiparametric Theory and Missing Data, @tsiatis | A detailed look at semi-parametric theory with many examples in causal inference and censored data problems. Less focus on the theoretical fundamentals than this book, and a bit more traditional in perspective. |

@@ -25,6 +25,8 @@ book:
     - part: 1-0-intro.qmd
       chapters:
       - 1-1-estimation-problems.qmd
+      - 1-2-causality.qmd
+      - 1-3-scm.qmd
     - part: 3-0-intro.qmd
       chapters:
       - 3-2-regularity.qmd
@@ -63,3 +65,10 @@ format:
     include-in-header:
       - text: |
           \usepackage{dsfont}
+
+# finish counterfactual causality history
+# some soft exercises in counterfactual causality ch
+# add history sections to efficiency theory chapters
+# explain \dot f notation (at earliest use) as any linear function tangent to f shifted to orign (directional derivative; recall it w/ subsequent uses)
+# fix all the intro chapters / sections
+# add correlation vs causation pic from what it

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Regularity and Asymptotic Linearity – Foundations of Modern Causal Inference</title>
+<title>4&nbsp; Regularity and Asymptotic Linearity – Foundations of Modern Causal Inference</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -165,7 +165,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li><li class="breadcrumb-item"><a href="./3-2-regularity.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li><li class="breadcrumb-item"><a href="./3-2-regularity.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -211,6 +211,18 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Estimation Problems</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1-2-causality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Counterfactual Causality</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1-3-scm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Nonparametric Structural Equations</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -225,25 +237,25 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3-2-regularity.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3-3-efficiency.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3-4-deriving-eifs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
   </div>
 </li>
       </ul>
@@ -287,28 +299,28 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-asymptotic-linearity" id="toc-sec-asymptotic-linearity" class="nav-link active" data-scroll-target="#sec-asymptotic-linearity"><span class="header-section-number">2.1</span> Asymptotic Linearity</a>
+  <li><a href="#sec-asymptotic-linearity" id="toc-sec-asymptotic-linearity" class="nav-link active" data-scroll-target="#sec-asymptotic-linearity"><span class="header-section-number">4.1</span> Asymptotic Linearity</a>
   <ul class="collapse">
-  <li><a href="#sec-AL-benefits" id="toc-sec-AL-benefits" class="nav-link" data-scroll-target="#sec-AL-benefits"><span class="header-section-number">2.1.1</span> Benefits of AL Estimators</a></li>
+  <li><a href="#sec-AL-benefits" id="toc-sec-AL-benefits" class="nav-link" data-scroll-target="#sec-AL-benefits"><span class="header-section-number">4.1.1</span> Benefits of AL Estimators</a></li>
   </ul></li>
-  <li><a href="#asymptotic-linearity-is-not-enough" id="toc-asymptotic-linearity-is-not-enough" class="nav-link" data-scroll-target="#asymptotic-linearity-is-not-enough"><span class="header-section-number">2.2</span> Asymptotic Linearity Is Not Enough</a></li>
-  <li><a href="#regularity-in-a-parametric-model" id="toc-regularity-in-a-parametric-model" class="nav-link" data-scroll-target="#regularity-in-a-parametric-model"><span class="header-section-number">2.3</span> Regularity in a Parametric Model</a></li>
-  <li><a href="#structuring-statistical-models" id="toc-structuring-statistical-models" class="nav-link" data-scroll-target="#structuring-statistical-models"><span class="header-section-number">2.4</span> Structuring Statistical Models</a>
+  <li><a href="#asymptotic-linearity-is-not-enough" id="toc-asymptotic-linearity-is-not-enough" class="nav-link" data-scroll-target="#asymptotic-linearity-is-not-enough"><span class="header-section-number">4.2</span> Asymptotic Linearity Is Not Enough</a></li>
+  <li><a href="#regularity-in-a-parametric-model" id="toc-regularity-in-a-parametric-model" class="nav-link" data-scroll-target="#regularity-in-a-parametric-model"><span class="header-section-number">4.3</span> Regularity in a Parametric Model</a></li>
+  <li><a href="#structuring-statistical-models" id="toc-structuring-statistical-models" class="nav-link" data-scroll-target="#structuring-statistical-models"><span class="header-section-number">4.4</span> Structuring Statistical Models</a>
   <ul class="collapse">
-  <li><a href="#paths" id="toc-paths" class="nav-link" data-scroll-target="#paths"><span class="header-section-number">2.4.1</span> Paths</a></li>
-  <li><a href="#scores" id="toc-scores" class="nav-link" data-scroll-target="#scores"><span class="header-section-number">2.4.2</span> Scores</a></li>
+  <li><a href="#paths" id="toc-paths" class="nav-link" data-scroll-target="#paths"><span class="header-section-number">4.4.1</span> Paths</a></li>
+  <li><a href="#scores" id="toc-scores" class="nav-link" data-scroll-target="#scores"><span class="header-section-number">4.4.2</span> Scores</a></li>
   </ul></li>
-  <li><a href="#regularity" id="toc-regularity" class="nav-link" data-scroll-target="#regularity"><span class="header-section-number">2.5</span> Regularity</a></li>
-  <li><a href="#is-regularity-too-strict" id="toc-is-regularity-too-strict" class="nav-link" data-scroll-target="#is-regularity-too-strict"><span class="header-section-number">2.6</span> Is Regularity Too Strict?</a></li>
+  <li><a href="#regularity" id="toc-regularity" class="nav-link" data-scroll-target="#regularity"><span class="header-section-number">4.5</span> Regularity</a></li>
+  <li><a href="#is-regularity-too-strict" id="toc-is-regularity-too-strict" class="nav-link" data-scroll-target="#is-regularity-too-strict"><span class="header-section-number">4.6</span> Is Regularity Too Strict?</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li><li class="breadcrumb-item"><a href="./3-2-regularity.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3-0-intro.html">Efficiency Theory</a></li><li class="breadcrumb-item"><a href="./3-2-regularity.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-3-regularity" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></h1>
+<h1 class="title"><span id="sec-3-regularity" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></h1>
 </div>
 
 
@@ -340,7 +352,7 @@ Consistency
 </div>
 <div class="callout-body-container callout-body">
 <div id="def-consistency" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.1</strong></span> An estimator <span class="math inline">\(\hat\Psi\)</span> is <em>consistent</em> for an estimand <span class="math inline">\(\Psi\)</span> at a distribution <span class="math inline">\({\mathbb{P}}\)</span> if <span class="math inline">\(\hat\Psi({\mathbb{P}}_n) \rightsquigarrow\Psi({\mathbb{P}})\)</span>.</p>
+<p><span class="theorem-title"><strong>Definition 4.1</strong></span> An estimator <span class="math inline">\(\hat\Psi\)</span> is <em>consistent</em> for an estimand <span class="math inline">\(\Psi\)</span> at a distribution <span class="math inline">\({\mathbb{P}}\)</span> if <span class="math inline">\(\hat\Psi({\mathbb{P}}_n) \rightsquigarrow\Psi({\mathbb{P}})\)</span>.</p>
 </div>
 </div>
 </div>
@@ -357,8 +369,8 @@ Consistency
 <li>small asymptotic sampling variance</li>
 <li>well-understood sampling distribution</li>
 </ol>
-<section id="sec-asymptotic-linearity" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="sec-asymptotic-linearity"><span class="header-section-number">2.1</span> Asymptotic Linearity</h2>
+<section id="sec-asymptotic-linearity" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="sec-asymptotic-linearity"><span class="header-section-number">4.1</span> Asymptotic Linearity</h2>
 <p>In light of these criteria, we will simplify the problem of finding an optimal estimator to finding an optimal estimator among those that are <em>asymptotically linear</em>. I’ll lay out what that means, argue for why it’s a reasonable restriction given our criteria above, and then explain why this restriction is helpful in characterizing optimality.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -371,7 +383,7 @@ Asymptotic Linearity
 </div>
 <div class="callout-body-container callout-body">
 <div id="def-AL" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.2</strong></span> As before, assume that <span class="math inline">\(Z_i\)</span> are drawn IID from some distribution <span class="math inline">\(\mathbb P\)</span>. An <em>asymptotically linear</em> estimator <span class="math inline">\(\hat\psi\)</span> is one that can be written like</p>
+<p><span class="theorem-title"><strong>Definition 4.2</strong></span> As before, assume that <span class="math inline">\(Z_i\)</span> are drawn IID from some distribution <span class="math inline">\(\mathbb P\)</span>. An <em>asymptotically linear</em> estimator <span class="math inline">\(\hat\psi\)</span> is one that can be written like</p>
 <p><span class="math display">\[
 \hat\psi = \psi + \frac{1}{n} \sum_i \phi(Z_i) + o_{\mathbb P}(n^{-1/2})
 \]</span></p>
@@ -394,7 +406,7 @@ Warning
 </div>
 <p>The function <span class="math inline">\(\phi\)</span> is called the <em>influence function</em> of the estimator <span class="math inline">\(\hat\psi\)</span>. A better name for it could be the “averaging transformation” of the data for a given estimator because once the data have been transformed by <span class="math inline">\(\phi\)</span>, the estimator can be closely approximated by the truth plus a sample average of those transformed variables (which have mean zero). In large samples, sample averages of mean-zero variables behave like Gaussian random noise. It’s somewhat remarkable that a huge number of very complicated estimators actually behave this way, as we will see shortly. By definition, every asymptotically linear estimator has an influence function that satisfies the above criteria: having one is what makes the estimator asymptotically linear.</p>
 <div id="exm-AL-sample-mean" class="Exm theorem example">
-<p><span class="theorem-title"><strong>Example 2.1 (Sample Mean)</strong></span> The sample mean estimator is one example of an asymptotically linear estimator. To see that, write <span class="math inline">\(\hat\psi = \frac{1}{n} \sum Z_i\)</span> as</p>
+<p><span class="theorem-title"><strong>Example 4.1 (Sample Mean)</strong></span> The sample mean estimator is one example of an asymptotically linear estimator. To see that, write <span class="math inline">\(\hat\psi = \frac{1}{n} \sum Z_i\)</span> as</p>
 <p><span class="math display">\[
 \hat\psi - \psi = \frac{1}{n} \sum \underbrace{(Z_i - \psi)}_{\phi(Z_i)} + 0.
 \]</span></p>
@@ -410,7 +422,7 @@ Warning
 </div>
 <div class="callout-body-container">
 <div id="exr-not-AL-sample-mean" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.1</strong></span> Let’s presume that <span class="math inline">\(Z\)</span> are drawn from a distribution <span class="math inline">\(\mathbb P\)</span> such that <span class="math inline">\(\sqrt n \left(\frac{1}{n}\sum Z_i\right)\)</span> diverges as a random variable (see <a href="5-1-rv-convergence.html#sec-app-conv-bigO" class="quarto-xref"><span>Section A.3.2</span></a> for a definition of divergence of random variables). A “textbook example” of such a distribution is <span class="math inline">\(\text{Pareto}(1,1.5)\)</span>, but this happens for many “fat-tailed” distributions. You can ask your favorite large language model if you want to see a proof.</p>
+<p><span class="theorem-title"><strong>Exercise 4.1</strong></span> Let’s presume that <span class="math inline">\(Z\)</span> are drawn from a distribution <span class="math inline">\(\mathbb P\)</span> such that <span class="math inline">\(\sqrt n \left(\frac{1}{n}\sum Z_i\right)\)</span> diverges as a random variable (see <a href="5-1-rv-convergence.html#sec-app-conv-bigO" class="quarto-xref"><span>Section A.3.2</span></a> for a definition of divergence of random variables). A “textbook example” of such a distribution is <span class="math inline">\(\text{Pareto}(1,1.5)\)</span>, but this happens for many “fat-tailed” distributions. You can ask your favorite large language model if you want to see a proof.</p>
 <p>Why does this tell you that the sample mean cannot be asymptotically linear at <span class="math inline">\(\mathbb P\)</span>?</p>
 <p>The point of this example isn’t to convince you that the sample mean isn’t asymptotically linear (it is for essentially all distributions we care about), it’s just to cement the idea that asymptotic linearity of an estimator technically depends on what distributions you’re talking about and to better understand the definition by considering a counterexample.</p>
 </div>
@@ -419,8 +431,8 @@ Warning
 </div>
 <p>It’s totally possible for two different estimators to have the same influence function (at each distribution). This is because two different algorithms can turn out to behave very similarly as the sample size increases. For example, we could construct a very silly alternative estimator for the mean by adding <span class="math inline">\(1/n\)</span> to our sample mean estimate. This extra term is certainly converging to zero at better than a <span class="math inline">\(\sqrt{n}\)</span> rate so it is negligible and the influence function for our alternative estimator is the same as for the sample mean. We’ll also see the idea of two different estimators sharing an influence function come up later when we discuss different strategies for building optimal estimators: the estimators we get from using each strategy may be different, but they all have the same influence function and therefore all behave similarly in large-enough samples.</p>
 <p>At this point you may be worried about how you can take your favorite estimator and derive its influence function. It’s often possible to prove an estimator is aymptotically linear, but in this book we actually won’t need to do that. We’re going to go the other direction: starting from the estimand, we’re going to come up with a way to determine the “best” possible influence function and then <em>construct</em> an estimator around it.</p>
-<section id="sec-AL-benefits" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="sec-AL-benefits"><span class="header-section-number">2.1.1</span> Benefits of AL Estimators</h3>
+<section id="sec-AL-benefits" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="sec-AL-benefits"><span class="header-section-number">4.1.1</span> Benefits of AL Estimators</h3>
 <p>Given our desiderata, asymptotically linear (AL) estimators are a very sensible class of estimators to restrict ourselves to. For one, AL estimators are guaranteed to be consistent. This is guaranteed by the fact that any influence function <span class="math inline">\(\phi\)</span> is mean-zero so the associated sample mean converges to 0 by the law of large numbers.</p>
 <div class="callout callout-style-simple callout-important no-icon">
 <div class="callout-body d-flex">
@@ -429,7 +441,7 @@ Warning
 </div>
 <div class="callout-body-container">
 <div id="exr-AL-zero-estimator" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.2</strong></span> Consider the silly estimator <span class="math inline">\(\hat\psi = 0\)</span> when attempting to estimate the population mean <span class="math inline">\(\mathbb E[Z]\)</span> in a model containing all possible finite-mean distributions of <span class="math inline">\(Z\)</span>. Is this estimator asymptotically linear across the entire model? Why or why not?</p>
+<p><span class="theorem-title"><strong>Exercise 4.2</strong></span> Consider the silly estimator <span class="math inline">\(\hat\psi = 0\)</span> when attempting to estimate the population mean <span class="math inline">\(\mathbb E[Z]\)</span> in a model containing all possible finite-mean distributions of <span class="math inline">\(Z\)</span>. Is this estimator asymptotically linear across the entire model? Why or why not?</p>
 </div>
 </div>
 </div>
@@ -448,7 +460,7 @@ Warning
 </div>
 <div class="callout-body-container">
 <div id="exr-wald-interval" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.3 (Wald Interval)</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>Exercise 4.3 (Wald Interval)</strong></span> &nbsp;</p>
 <ol type="a">
 <li>Assuming that <span class="math inline">\(\sqrt{n} (\hat\psi - \psi) \sim \mathsf{N}(0, \sigma^2)\)</span>, prove that <span class="math inline">\(\hat{\mathbf C} = [\hat\psi \pm 2\sigma/\sqrt{n}]\)</span> is a 95% confidence interval, i.e.&nbsp;<span class="math inline">\(\mathbb P \{\psi \in \hat{\mathbf C}\} &gt; 0.95\)</span>.</li>
 <li>Assuming asymptotic linearity, how does our actual knowledge of the sampling distribution of <span class="math inline">\(\hat\psi\)</span> compare to what we assumed in part (a)?</li>
@@ -460,11 +472,11 @@ Warning
 </div>
 </div>
 <div id="exm-sample-mean-var-IF" class="Exm theorem example">
-<p><span class="theorem-title"><strong>Example 2.2 (Variance of the sample mean)</strong></span> In the case of the sample mean estimator <span class="math inline">\(\hat\psi = \frac{1}{n} \sum Z_i\)</span> we previously saw the influence function was <span class="math inline">\(\phi(z) = z - \psi\)</span>. A plug-in estiamate of <span class="math inline">\(\mathbb P\phi^2\)</span> is therefore given by <span class="math inline">\(\frac{1}{n} \sum \hat\phi(Z_i)^2 = \frac{1}{n} \sum (Z_i - \hat\phi)^2\)</span></p>
+<p><span class="theorem-title"><strong>Example 4.2 (Variance of the sample mean)</strong></span> In the case of the sample mean estimator <span class="math inline">\(\hat\psi = \frac{1}{n} \sum Z_i\)</span> we previously saw the influence function was <span class="math inline">\(\phi(z) = z - \psi\)</span>. A plug-in estiamate of <span class="math inline">\(\mathbb P\phi^2\)</span> is therefore given by <span class="math inline">\(\frac{1}{n} \sum \hat\phi(Z_i)^2 = \frac{1}{n} \sum (Z_i - \hat\phi)^2\)</span></p>
 <br>
 </div>
 <div id="exm-ols-var-IF" class="Exm theorem example">
-<p><span class="theorem-title"><strong>Example 2.3 (Variance of ordinary least squares coefficients)</strong></span> Let’s say we’re trying to estimate the regression coefficients in a linear model. Let <span class="math inline">\((Y,X) \sim \mathbb P\)</span> with <span class="math inline">\(X \in \mathbb R^d\)</span>. Let <span class="math inline">\(\beta_0 = \text{argmin}_\beta \mathbb E\left[(Y - X\beta)^2\right]\)</span> be the coefficients that minimize the population mean squared error. This will be our estimand. We haven’t assumed the <span class="math inline">\(Y\)</span> vs.&nbsp;<span class="math inline">\(X\)</span> relationship is truly linear, we’re just estimating the best linear approximation. As an estimator we will use the ordinary least squares (OLS) estimate <span class="math inline">\(\hat\beta = \text{argmin}_\beta \frac{1}{n} \sum \left[(Y_i - X_i\beta)^2\right]\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 4.3 (Variance of ordinary least squares coefficients)</strong></span> Let’s say we’re trying to estimate the regression coefficients in a linear model. Let <span class="math inline">\((Y,X) \sim \mathbb P\)</span> with <span class="math inline">\(X \in \mathbb R^d\)</span>. Let <span class="math inline">\(\beta_0 = \text{argmin}_\beta \mathbb E\left[(Y - X\beta)^2\right]\)</span> be the coefficients that minimize the population mean squared error. This will be our estimand. We haven’t assumed the <span class="math inline">\(Y\)</span> vs.&nbsp;<span class="math inline">\(X\)</span> relationship is truly linear, we’re just estimating the best linear approximation. As an estimator we will use the ordinary least squares (OLS) estimate <span class="math inline">\(\hat\beta = \text{argmin}_\beta \frac{1}{n} \sum \left[(Y_i - X_i\beta)^2\right]\)</span>.</p>
 <p>It is a well-known result that the OLS estimator is asymptotically linear under mild regularity conditions. For one proof of this see chapter 5 of Asymptotic Statistics (but it’s not important at the moment). The influence function is</p>
 <p><span class="math display">\[
 \phi(x,y) = \mathbb E[XX^\top]^{-1} x(y - x^\top \beta)
@@ -492,8 +504,8 @@ Warning
 </div>
 </section>
 </section>
-<section id="asymptotic-linearity-is-not-enough" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="asymptotic-linearity-is-not-enough"><span class="header-section-number">2.2</span> Asymptotic Linearity Is Not Enough</h2>
+<section id="asymptotic-linearity-is-not-enough" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="asymptotic-linearity-is-not-enough"><span class="header-section-number">4.2</span> Asymptotic Linearity Is Not Enough</h2>
 <p>While restricting ourselves to asymptotically linear estimators is a good start, unfortunately it is not quite enough to develop a sensible theory of optimality. In this section we’ll first argue for why a further restriction is not only sensible but useful. Then we will come up with and refine a definition that suits our needs.</p>
 <p>Let’s presume we’re interested in estimating the mean <span class="math inline">\(\psi = \Psi(\mathbb P) = \mathbb E_{\mathbb P}[Z]\)</span> from <span class="math inline">\(n\)</span> IID draws of a scalar random variable <span class="math inline">\(Z\)</span> that we know is normally distributed with standard deviation <span class="math inline">\(\sigma=1\)</span>. Our statistical model is therefore <span class="math inline">\(\mathcal P = \{\mathsf{N}(\psi, 1): \psi \in \mathbb R\}\)</span>, a one-dimensional parametric model. Obviously this is a contrived example where we know a lot about <span class="math inline">\(Z\)</span>, but the point is to show that even in this extremely favorable setting we can be led astray by mathematical arguments that put our attention in the wrong place.</p>
 <p>We’ll consider two estimators:</p>
@@ -583,7 +595,7 @@ z - \mathbb E[Z] &amp; \mathbb E[Z] \ne 0 \\
 </div>
 <div class="callout-body-container">
 <div id="exr-hodges-comparison" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.4</strong></span> Judging by the asymptotic distributions, do you think the sample mean or Hodges’ estimator is better?</p>
+<p><span class="theorem-title"><strong>Exercise 4.4</strong></span> Judging by the asymptotic distributions, do you think the sample mean or Hodges’ estimator is better?</p>
 </div>
 </div>
 </div>
@@ -651,11 +663,11 @@ z - \mathbb E[Z] &amp; \mathbb E[Z] \ne 0 \\
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hodges-efficiency-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.1: Relative efficiency of Hodges’ estimator relative to the sample mean across <span class="math inline">\(\psi\)</span> for a few values of <span class="math inline">\(n\)</span>.
+Figure&nbsp;4.1: Relative efficiency of Hodges’ estimator relative to the sample mean across <span class="math inline">\(\psi\)</span> for a few values of <span class="math inline">\(n\)</span>.
 </figcaption>
 </figure>
 </div>
-<p>The <span class="math inline">\(y\)</span>-axis of <a href="#fig-hodges-efficiency" class="quarto-xref">Figure&nbsp;<span>2.1</span></a> shows the relative efficiency of Hodges’ estimator, defined as the ratio of MSEs between Hodges’ estimator and the sample mean: <span class="math inline">\(\mathbb E[(\tilde\psi - \psi)^2]/\mathbb E[(\hat\psi - \psi)^2]\)</span>. If this is greater than one, then Hodges’ estimator is better than the sample mean, if less than one, it is worse.</p>
+<p>The <span class="math inline">\(y\)</span>-axis of <a href="#fig-hodges-efficiency" class="quarto-xref">Figure&nbsp;<span>4.1</span></a> shows the relative efficiency of Hodges’ estimator, defined as the ratio of MSEs between Hodges’ estimator and the sample mean: <span class="math inline">\(\mathbb E[(\tilde\psi - \psi)^2]/\mathbb E[(\hat\psi - \psi)^2]\)</span>. If this is greater than one, then Hodges’ estimator is better than the sample mean, if less than one, it is worse.</p>
 <p>As you can see, regardless of what <span class="math inline">\(n\)</span> is, Hodges’ estimator is worse (and sometimes <em>much</em> worse) than the sample mean for the majority of the plotted values of <span class="math inline">\(\psi\)</span>. So then why do the asymptotic arguments suggest that Hodges’ estimator is actually better than the sample mean?</p>
 <p>The problem is that the asymptotics are only concerned with the behavior of each estimator at any particular distribution of <span class="math inline">\(Z\)</span>. In our contrived model, the distributions of <span class="math inline">\(Z\)</span> are all normal with unit variance so a single distribution corresponds to a value of <span class="math inline">\(\psi\)</span>. If you look at a single nonzero point on the <span class="math inline">\(x\)</span>-axis (say, <span class="math inline">\(\psi = 1/2\)</span>) and compare the relative efficiency as <span class="math inline">\(n\)</span> increases you’ll see that it does converge to 1: both estimators are asymptotically equivalent. At the point <span class="math inline">\(\psi=0\)</span>, however, the relative efficiency converges to 0 meaning that Hodge’s estimator is infinitely more efficient at that point asymptotically. We can repeat our simulations but plot them a little differently in order to see this. Instead of plotting efficiency against <span class="math inline">\(\psi\)</span> and slicing by <span class="math inline">\(n\)</span>, we’ll instead plot efficiency against <span class="math inline">\(n\)</span> and slice by <span class="math inline">\(\psi\)</span> (you could imagine a 3D plot with efficiency on the z-axis and <span class="math inline">\(n\)</span> and <span class="math inline">\(\psi\)</span> on the x and y).</p>
 <details class="code-fold">
@@ -705,11 +717,11 @@ Figure&nbsp;2.1: Relative efficiency of Hodges’ estimator relative to the samp
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hodges-efficiency-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.2: Relative efficiency of Hodges’ estimator relative to the sample mean across <span class="math inline">\(n\)</span> for a few values of <span class="math inline">\(\psi\)</span>.
+Figure&nbsp;4.2: Relative efficiency of Hodges’ estimator relative to the sample mean across <span class="math inline">\(n\)</span> for a few values of <span class="math inline">\(\psi\)</span>.
 </figcaption>
 </figure>
 </div>
-<p>In <a href="#fig-hodges-efficiency-2" class="quarto-xref">Figure&nbsp;<span>2.2</span></a> you’ll see that the bad behavior of Hodges’ estimator is temporary for each value of <span class="math inline">\(\psi \ne 0\)</span>. As <span class="math inline">\(n\)</span> increases, the estimator eventually behaves like the sample mean. Since the asymptotics don’t care about any initial behavior of the sequence, they completely ignore the fact that Hodges’ estimator is usually much worse than the sample mean because those problems are “temporary” as far as the behavior at any fixed distribution is concerned.</p>
+<p>In <a href="#fig-hodges-efficiency-2" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> you’ll see that the bad behavior of Hodges’ estimator is temporary for each value of <span class="math inline">\(\psi \ne 0\)</span>. As <span class="math inline">\(n\)</span> increases, the estimator eventually behaves like the sample mean. Since the asymptotics don’t care about any initial behavior of the sequence, they completely ignore the fact that Hodges’ estimator is usually much worse than the sample mean because those problems are “temporary” as far as the behavior at any fixed distribution is concerned.</p>
 <p>The issue with that is that is that the problem doesn’t actually disappear, it just goes to another distribution! As you can see in our first plot, the region of bad behavior simply moves as we increase <span class="math inline">\(n\)</span>. If you’re standing still at a given <span class="math inline">\(\psi \ne 0\)</span> you’d think everything is fine, but if you look across all values of <span class="math inline">\(\psi\)</span> you notice that we’re just moving the problem around. That is precisely what the asymptotic arguments ignore: they are incapable of looking at the behavior of each estimator <em>at multiple distributions simultaneously</em>. They only consider a single distribution at a time. We call this <em>pointwise</em> asymptotic behavior because we’re looking at each “point” (distribution) <span class="math inline">\(\mathbb P\)</span> in the model <span class="math inline">\(\mathcal P\)</span> one-at-a-time. Once we look across all values of <span class="math inline">\(\psi\)</span> at the same time, it’s clear that Hodges’ estimator is much worse than the sample mean.</p>
 <p>Asymptotic linearity is only concerned with pointwise convergence, but to prevent the bad behavior of Hodges’ estimator we need some kind of <em>uniform</em> convergence: we’d like the sampling distributions of the estimates at each <span class="math inline">\(\mathbb P\)</span> to “arrive” or “approach” their limits at the same time. Physically you can imagine flattening a marshmallow: if you push down at a point on the marshmallow (e.g.&nbsp;by squeezing it between your thumb and index finger), the mass will can just go elsewhere. But if you sandwich it between your palms, you ensure that it gets squeezed down everywhere at the same time. That’s “uniform” convergence.</p>
 <div class="callout callout-style-default callout-warning no-icon callout-titled">
@@ -727,8 +739,8 @@ Warning
 </div>
 <p>Estimators like Hodges’ estimator are called <em>superefficient</em> for reasons that will be explained in a few sections’ time. In general, superefficient estimators perform better than other estimators on some very small set of distributions at the cost of arbitrarily bad performance that moves around over the other distributions as <span class="math inline">\(n\)</span> increases. We want to rule out that sort of behavior so that we can compare estimators asymptotically without getting burned by their finite-sample behavior.</p>
 </section>
-<section id="regularity-in-a-parametric-model" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="regularity-in-a-parametric-model"><span class="header-section-number">2.3</span> Regularity in a Parametric Model</h2>
+<section id="regularity-in-a-parametric-model" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="regularity-in-a-parametric-model"><span class="header-section-number">4.3</span> Regularity in a Parametric Model</h2>
 <p>We’ve identified a problem with looking only at AL estimators: there are always AL estimators that look good in terms of their pointwise asymptotics but are actually bad because they just move the problem around in a way that makes it invisible to the asymptotics.</p>
 <p>To rule this out, we’ll impose an addition condition called <em>regularity</em>. Informally, regularity means that the estimator approaches its limit distribution in a (locally) uniform way across the model so that asymptotics can’t hide bad performance that moves around the model.</p>
 <p>We will start with a toy definition of regularity that we will build up to the formal definition in the next few sections. That will require us to introduce and explain a few abstractions but these will also come in handy later so it’s worth doing. For now, though, here’s a first draft:</p>
@@ -743,7 +755,7 @@ Regularity in the Normal Location Model
 </div>
 <div class="callout-body-container callout-body">
 <div id="def-regularity-1" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.3</strong></span> An estimator <span class="math inline">\(\hat\Psi\)</span> is <em>regular</em> at the point <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span> in the model <span class="math inline">\({\mathcal{P}}= \{\mathsf{N}(\psi, 1):\psi \in \mathbb{R}\}\)</span> if there is a single, fixed distribution <span class="math inline">\(\mathbb D\)</span> such that</p>
+<p><span class="theorem-title"><strong>Definition 4.3</strong></span> An estimator <span class="math inline">\(\hat\Psi\)</span> is <em>regular</em> at the point <span class="math inline">\({\mathbb{P}}= \mathsf{N}(0,1)\)</span> in the model <span class="math inline">\({\mathcal{P}}= \{\mathsf{N}(\psi, 1):\psi \in \mathbb{R}\}\)</span> if there is a single, fixed distribution <span class="math inline">\(\mathbb D\)</span> such that</p>
 <p><span class="math display">\[
 \sqrt{n}\left( \hat\Psi({\mathbb{P}}^{(n)}_n) - \Psi({\mathbb{P}}^{(n)}) \right) \rightsquigarrow \mathbb D
 \]</span></p>
@@ -765,7 +777,7 @@ Regularity in the Normal Location Model
 <img src="assets/regularity-1.jpg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-regularity-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.3: The asymptotics in the definition of regularity.
+Figure&nbsp;4.3: The asymptotics in the definition of regularity.
 </figcaption>
 </figure>
 </div>
@@ -775,11 +787,11 @@ Figure&nbsp;2.3: The asymptotics in the definition of regularity.
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Draw a figure based on <a href="#fig-regularity-1" class="quarto-xref">Figure&nbsp;<span>2.3</span></a> the depicts the standard asymptotic statement</p>
+<p>Draw a figure based on <a href="#fig-regularity-1" class="quarto-xref">Figure&nbsp;<span>4.3</span></a> the depicts the standard asymptotic statement</p>
 <p><span class="math display">\[
 \sqrt{n}\left( \hat\Psi({\mathbb{P}}_n) - \Psi({\mathbb{P}}) \right) \rightsquigarrow \mathsf{N}(0, 1).
 \]</span></p>
-<p>What parts of <a href="#fig-regularity-1" class="quarto-xref">Figure&nbsp;<span>2.3</span></a> do you have to modify to accomplish this?</p>
+<p>What parts of <a href="#fig-regularity-1" class="quarto-xref">Figure&nbsp;<span>4.3</span></a> do you have to modify to accomplish this?</p>
 </div>
 </div>
 </div>
@@ -792,7 +804,7 @@ Figure&nbsp;2.3: The asymptotics in the definition of regularity.
 </div>
 <div class="callout-body-container">
 <div id="exr-regularity-sample-mean" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.5</strong></span> Prove that the sample mean is a regular estimator at any distribution <span class="math inline">\(\mathsf{N}(\mu,1)\)</span> according to <a href="#def-regularity-1" class="quarto-xref">Definition&nbsp;<span>2.3</span></a>:</p>
+<p><span class="theorem-title"><strong>Exercise 4.5</strong></span> Prove that the sample mean is a regular estimator at any distribution <span class="math inline">\(\mathsf{N}(\mu,1)\)</span> according to <a href="#def-regularity-1" class="quarto-xref">Definition&nbsp;<span>4.3</span></a>:</p>
 <ol type="a">
 <li>If <span class="math inline">\({\mathbb{P}}\)</span> is such that <span class="math inline">\(Z_i \overset{\text{IID}}\sim \mathsf{N}(\mu, \sigma^2)\)</span> for any <span class="math inline">\(\mu \in \mathbb{R}, \sigma &gt; 0\)</span>, what is the exact distribution of <span class="math inline">\(\hat\Psi({\mathbb{P}}_n) = \frac{1}{n} \sum Z_i\)</span>?</li>
 <li>Using your answer from part (a), what is the exact distribution of <span class="math inline">\(\sqrt{n}\left( \hat\Psi({\mathbb{P}}_n^{(n)}) - \Psi({\mathbb{P}}^{(n)}) \right)\)</span> at any given <span class="math inline">\(n\)</span>, assuming <span class="math inline">\({\mathbb{P}}^{(n)} = \mathsf{N}(\psi_n, 1)\)</span>? What is the CDF <span class="math inline">\(F_n(z)\)</span> of this distribution at each <span class="math inline">\(n\)</span>?</li>
@@ -809,7 +821,7 @@ Figure&nbsp;2.3: The asymptotics in the definition of regularity.
 </div>
 <div class="callout-body-container">
 <div id="exr-regularity-hodges" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.6</strong></span> In a derivation above we proved that Hodges’ estimator has excellent asymptotic properties if we stand still at <span class="math inline">\({\mathbb{P}}^{(n)} = \mathsf{N}(0,1)\)</span>:</p>
+<p><span class="theorem-title"><strong>Exercise 4.6</strong></span> In a derivation above we proved that Hodges’ estimator has excellent asymptotic properties if we stand still at <span class="math inline">\({\mathbb{P}}^{(n)} = \mathsf{N}(0,1)\)</span>:</p>
 <p><span class="math display">\[
 \sqrt{n}\left( \tilde\Psi({\mathbb{P}}_n^{(n)}) - \Psi({\mathbb{P}}^{(n)}) \right) \rightsquigarrow \mathsf{N}(0,0).
 \]</span></p>
@@ -830,13 +842,13 @@ Figure&nbsp;2.3: The asymptotics in the definition of regularity.
 </div>
 <p>The definition we’re working with at the moment is specific to the normal model <span class="math inline">\({\mathcal{P}}= \{\mathsf{N}(\psi, 1):\psi \in \mathbb{R}\}\)</span>. We built a very specific sequence of distributions <span class="math inline">\({\mathbb{P}}^{(n)} = \mathsf{N}(\psi_n, 1)\)</span> that get closer and closer to the true distribution. Moreover we required the “distance” to the true distribution to close at the <span class="math inline">\(n^{-1/2}\)</span> rate or faster. Our challenge in the proceeding sections will be figuring out a sensible way to generalize our definition to nonparametric models. But to do that we’ll first have to establish some notions of “geometry” in that setting.</p>
 </section>
-<section id="structuring-statistical-models" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="structuring-statistical-models"><span class="header-section-number">2.4</span> Structuring Statistical Models</h2>
+<section id="structuring-statistical-models" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="structuring-statistical-models"><span class="header-section-number">4.4</span> Structuring Statistical Models</h2>
 <p>Our goal at our moment is to generalize our definition of regularity by establishing some “geometry” in our model so we can talk about a sequence of distributions converging in some required sense. In our current definition, a model <span class="math inline">\({\mathcal{P}}\)</span> is just a set of distributions: there is no sense of direction or distance that is inherent to it. I think of a naked model like that as a big soup of distributions: everything is free to jumble around. We need a little more structure to make sense of regularity in a nonparametric model.</p>
 <p>For the remainder of this section we’ll work within models where every distribution <span class="math inline">\({\mathbb{P}}\)</span> has a density function <span class="math inline">\(p\)</span>. Formally, we will assume that all our distributions are absolutely continuous with respect to Lebesgue measure (don’t worry if you don’t know what that means). The results we will discuss actually do not depend on that assumption: the theory works exactly the same way for general models. However, the intuition is harder to get across in the general case, especially for readers who are new to measure-theoretic probability. I’ll abuse notation where convenient and use <span class="math inline">\({\mathcal{P}}\)</span> to refer to the set of densities <span class="math inline">\(p\)</span> as well as the set of distributions (measures) <span class="math inline">\({\mathbb{P}}\)</span>. If you know some measure theory, you can for now imagine that all distributions in the model have a density with respect to an arbitrary dominating measure <span class="math inline">\(\bar{{\mathbb{P}}}\)</span> and replace references to <span class="math inline">\(\mathcal{L}_2\)</span> below with <span class="math inline">\(\mathcal{L}_2(\bar{{\mathbb{P}}})\)</span>. Throughout the rest of the book I will also write integrals like <span class="math inline">\(\int f(z)\ p(z) \mathop{}\!\mathrm{d}z\)</span> with the standard differential <span class="math inline">\(\mathop{}\!\mathrm{d}z\)</span> so that they are comprehensible without measure theory. If you know measure theory, you can replace these with Lebesgue integrals with respect to the relevant dominating measure.</p>
 <p>The first step to imposing a structure that will be useful to us is to think in terms of density functions rather than distributions (measures). If all the elements of the model have densities, we can think of the model as a collection of densities. Since densities are functions, we might be tempted to say they are elements of <span class="math inline">\(\mathcal{L}_2\)</span> because then everything is great: we have lengths, we have angles, we have all sorts of useful identities and relationships. But unfortunately that’s not immediately possible. Recall <a href="5-2-L2.html#def-L2" class="quarto-xref">Definition&nbsp;<span>B.2</span></a> that <span class="math inline">\(\mathcal{L}_2\)</span> only includes functions that are square-integrable (have finite norm). However, there are some density functions for which <span class="math inline">\(\int p(z) \mathop{}\!\mathrm{d}z\)</span> may blow up.</p>
 <div id="exm-non-L2-density" class="Exm theorem example">
-<p><span class="theorem-title"><strong>Example 2.4</strong></span> The function <span class="math inline">\(p(z) = \frac{1(0 &lt; z &lt;1)}{2\sqrt z}\)</span> is a valid density because it is positive and integrates to one:</p>
+<p><span class="theorem-title"><strong>Example 4.4</strong></span> The function <span class="math inline">\(p(z) = \frac{1(0 &lt; z &lt;1)}{2\sqrt z}\)</span> is a valid density because it is positive and integrates to one:</p>
 <p><span class="math display">\[
 \frac{1}{2}\int_0^1 \frac{\mathop{}\!\mathrm{d}z}{\sqrt z} = 1.
 \]</span></p>
@@ -866,13 +878,13 @@ Warning
 <img src="3-2-regularity_files/mediabag/7b3bd0f56f1ebe6a85bd023bab29ef1cc568ea32.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sqrt-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.4: The model <span class="math inline">\(\sqrt{{\mathcal{P}}}\)</span> embedded in <span class="math inline">\(\mathcal{L}_2\)</span>. In the drawing <span class="math inline">\(\mathcal{L}_2\)</span> is represented as 3D space but this is not meant to be literal- this is a 3D cartoon representing infinite-dimensional space. The model is represented as the visible quarter section of the unit sphere. That part of the unit sphere represents all densities. If the model were restricted in some way (e.g.&nbsp;all zero-mean distributions), the model could be visualized as some subset of the shown surface.
+Figure&nbsp;4.4: The model <span class="math inline">\(\sqrt{{\mathcal{P}}}\)</span> embedded in <span class="math inline">\(\mathcal{L}_2\)</span>. In the drawing <span class="math inline">\(\mathcal{L}_2\)</span> is represented as 3D space but this is not meant to be literal- this is a 3D cartoon representing infinite-dimensional space. The model is represented as the visible quarter section of the unit sphere. That part of the unit sphere represents all densities. If the model were restricted in some way (e.g.&nbsp;all zero-mean distributions), the model could be visualized as some subset of the shown surface.
 </figcaption>
 </figure>
 </div>
-<section id="paths" class="level3" data-number="2.4.1">
-<h3 data-number="2.4.1" class="anchored" data-anchor-id="paths"><span class="header-section-number">2.4.1</span> Paths</h3>
-<p>In addition to the model, in <a href="#fig-sqrt-model" class="quarto-xref">Figure&nbsp;<span>2.4</span></a> you can also see what we’re going to call a <em>differentiable path</em> through the model. A path (also called a one-dimensional submodel) is intuitively what it sounds like: if you were standing at a point <span class="math inline">\(p\)</span> (or <span class="math inline">\({\mathbb{P}}\)</span>) in the model and you started walking in some direction, you’d be tracing out an example of a path. Formally, a path is a one-dimensional set of distributions in the model, parameterized by some <span class="math inline">\(\epsilon \in \mathbb{R}\)</span>. By “parameterized” I mean that every distribution in this set can be assigned a unique number <span class="math inline">\(\epsilon\)</span>. If you consider <span class="math inline">\(p_0\)</span> (or <span class="math inline">\({\mathbb{P}}_0\)</span>) to be the “start” of the path, you can think of the parameter <span class="math inline">\(\epsilon\)</span> as encoding “how far” you are along the path (and perhaps in which direction). The density (or distribution) indexed by the particular number <span class="math inline">\(\epsilon\)</span> is often written <span class="math inline">\(p_\epsilon\)</span> (or <span class="math inline">\({\mathbb{P}}_\epsilon\)</span>). Paths are going to be very useful tools for us to define what we mean by distributions getting close to each other in a sense that is required for a general definition of regularity. Paths will also come up in many other places so it is worth taking some time to understand them here.</p>
+<section id="paths" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="paths"><span class="header-section-number">4.4.1</span> Paths</h3>
+<p>In addition to the model, in <a href="#fig-sqrt-model" class="quarto-xref">Figure&nbsp;<span>4.4</span></a> you can also see what we’re going to call a <em>differentiable path</em> through the model. A path (also called a one-dimensional submodel) is intuitively what it sounds like: if you were standing at a point <span class="math inline">\(p\)</span> (or <span class="math inline">\({\mathbb{P}}\)</span>) in the model and you started walking in some direction, you’d be tracing out an example of a path. Formally, a path is a one-dimensional set of distributions in the model, parameterized by some <span class="math inline">\(\epsilon \in \mathbb{R}\)</span>. By “parameterized” I mean that every distribution in this set can be assigned a unique number <span class="math inline">\(\epsilon\)</span>. If you consider <span class="math inline">\(p_0\)</span> (or <span class="math inline">\({\mathbb{P}}_0\)</span>) to be the “start” of the path, you can think of the parameter <span class="math inline">\(\epsilon\)</span> as encoding “how far” you are along the path (and perhaps in which direction). The density (or distribution) indexed by the particular number <span class="math inline">\(\epsilon\)</span> is often written <span class="math inline">\(p_\epsilon\)</span> (or <span class="math inline">\({\mathbb{P}}_\epsilon\)</span>). Paths are going to be very useful tools for us to define what we mean by distributions getting close to each other in a sense that is required for a general definition of regularity. Paths will also come up in many other places so it is worth taking some time to understand them here.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -884,16 +896,16 @@ Path (1D Submodel)
 </div>
 <div class="callout-body-container callout-body">
 <div id="def-path" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.4</strong></span> A <em>path</em> is any set of distributions <span class="math inline">\({\mathcal{P}}_\epsilon \subseteq {\mathcal{P}}\)</span> that can be put into 1-to-1 correspondence with any interval of the reals containing <span class="math inline">\(0\)</span>.</p>
+<p><span class="theorem-title"><strong>Definition 4.4</strong></span> A <em>path</em> is any set of distributions <span class="math inline">\({\mathcal{P}}_\epsilon \subseteq {\mathcal{P}}\)</span> that can be put into 1-to-1 correspondence with any interval of the reals containing <span class="math inline">\(0\)</span>.</p>
 </div>
 </div>
 </div>
 <div id="exm-path-convex" class="Exm theorem example">
-<p><span class="theorem-title"><strong>Example 2.5</strong></span> Presume the model is the set of all continuous distributions. Pick any two points <span class="math inline">\(p_0, p_1 \in {\mathcal{P}}\)</span>. Then the set of densities <span class="math inline">\(\left\{\left(\frac{1}{2} - \epsilon\right) p_0 + \left(\frac{1}{2}+\epsilon\right) p_1 : \epsilon\in [0,1]\right\}\)</span>. This is an example of a <em>convex</em> path. You can think of this as the straight-line path starting at <span class="math inline">\(p_0\)</span> and ending at <span class="math inline">\(p_1\)</span> (at <span class="math inline">\(\epsilon=1/2\)</span>). Some algebra shows that another way to write the elements of this path is <span class="math inline">\(p_\epsilon= p_0 + \epsilon(p_1 - p_0)\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 4.5</strong></span> Presume the model is the set of all continuous distributions. Pick any two points <span class="math inline">\(p_0, p_1 \in {\mathcal{P}}\)</span>. Then the set of densities <span class="math inline">\(\left\{\left(\frac{1}{2} - \epsilon\right) p_0 + \left(\frac{1}{2}+\epsilon\right) p_1 : \epsilon\in [0,1]\right\}\)</span>. This is an example of a <em>convex</em> path. You can think of this as the straight-line path starting at <span class="math inline">\(p_0\)</span> and ending at <span class="math inline">\(p_1\)</span> (at <span class="math inline">\(\epsilon=1/2\)</span>). Some algebra shows that another way to write the elements of this path is <span class="math inline">\(p_\epsilon= p_0 + \epsilon(p_1 - p_0)\)</span>.</p>
 <br>
 </div>
 <div id="exm-norm-path" class="Exm theorem example">
-<p><span class="theorem-title"><strong>Example 2.6</strong></span> Presume the model includes all normal distributions. Then the set of distributions corresponding to <span class="math inline">\(\mathsf{N}(\epsilon, 1)\)</span> is a path parameterized by <span class="math inline">\(\epsilon\in \mathbb{R}\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 4.6</strong></span> Presume the model includes all normal distributions. Then the set of distributions corresponding to <span class="math inline">\(\mathsf{N}(\epsilon, 1)\)</span> is a path parameterized by <span class="math inline">\(\epsilon\in \mathbb{R}\)</span>.</p>
 <br>
 </div>
 <div class="callout callout-style-simple callout-important no-icon">
@@ -903,17 +915,17 @@ Path (1D Submodel)
 </div>
 <div class="callout-body-container">
 <div id="exr-not-path" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.7</strong></span> Presume the model is the set of all mean-zero random variables. Why is <span class="math inline">\(\{\mathsf{N}(\epsilon, 1) : \epsilon\in \mathbb{R}\}\)</span> not a path here?</p>
+<p><span class="theorem-title"><strong>Exercise 4.7</strong></span> Presume the model is the set of all mean-zero random variables. Why is <span class="math inline">\(\{\mathsf{N}(\epsilon, 1) : \epsilon\in \mathbb{R}\}\)</span> not a path here?</p>
 </div>
 </div>
 </div>
 </div>
 <div id="exm-non-diff-path" class="Exm theorem example">
-<p><span class="theorem-title"><strong>Example 2.7</strong></span> Presume the model is the set of all densities. For <span class="math inline">\(\epsilon\le 0\)</span> let <span class="math inline">\(p_\epsilon\)</span> be the density of <span class="math inline">\(\mathsf{N}(\epsilon, 1)\)</span> and for <span class="math inline">\(0 &lt; \epsilon\)</span> let <span class="math inline">\(p_\epsilon\)</span> be the density <span class="math inline">\(\mathsf{Unif}(0,1+\epsilon)\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 4.7</strong></span> Presume the model is the set of all densities. For <span class="math inline">\(\epsilon\le 0\)</span> let <span class="math inline">\(p_\epsilon\)</span> be the density of <span class="math inline">\(\mathsf{N}(\epsilon, 1)\)</span> and for <span class="math inline">\(0 &lt; \epsilon\)</span> let <span class="math inline">\(p_\epsilon\)</span> be the density <span class="math inline">\(\mathsf{Unif}(0,1+\epsilon)\)</span>.</p>
 <br>
 </div>
 <p>It’s important that every element of the path is an element of the model. A path, by definition, stays within the model. Later we will see that when we have a smaller (more restricted) model we can sometimes construct estimators that have smaller asymptotic variance. This should make sense to you: the more you already know and can encode as a modeling assumption, the less you have to rely on the data and the more confident you can be in your result. Mathematically, the way that we show this is by arguing that there are “fewer” paths passing through a given point when the model is more restricted. If paths were allowed to “leave” the model, this wouldn’t be the case.</p>
-<p>Our definition of path is very general. Too general, in fact, to correspond nicely to the mental model we have from <a href="#fig-sqrt-model" class="quarto-xref">Figure&nbsp;<span>2.4</span></a>. As <a href="#exm-non-diff-path" class="quarto-xref">Example&nbsp;<span>2.7</span></a> shows, we can easily construct paths that don’t feel “continuous”. To make a definition that reflects our picture of a continuous, smooth path through the model we need to impose more conditions. <!-- 
+<p>Our definition of path is very general. Too general, in fact, to correspond nicely to the mental model we have from <a href="#fig-sqrt-model" class="quarto-xref">Figure&nbsp;<span>4.4</span></a>. As <a href="#exm-non-diff-path" class="quarto-xref">Example&nbsp;<span>4.7</span></a> shows, we can easily construct paths that don’t feel “continuous”. To make a definition that reflects our picture of a continuous, smooth path through the model we need to impose more conditions. <!-- 
 In order to help us do that, let's first define a useful notion of distance between two distributions.
 
 ::: callout-note
@@ -935,10 +947,10 @@ Calculate the Hellinger distance between the standard normal and standard unifor
 ::: 
 --></p>
 <!-- Now that we have distance, we can impose more restrictions on our paths.  -->
-<p>For example, we might impose that paths be continuous in the sense that we would want the <span class="math inline">\(\mathcal{L}_2\)</span> distance between two (root) distributions <span class="math inline">\(\sqrt{p_{0}}\)</span> and <span class="math inline">\(\sqrt{p_{\epsilon}}\)</span> along the path to go to zero if <span class="math inline">\(\epsilon\to \epsilon_0\)</span>. That would rule out the path in <a href="#exm-non-diff-path" class="quarto-xref">Example&nbsp;<span>2.7</span></a>. But it turns out that what we need in order to generate a useful theory of efficiency is not just continuity, but also differentiability. That is, we are interested in continuous paths, but specifically those that do not have any “kinks”. By that we mean that we’re interested in <em>differentiable</em> paths. Since we’re talking about a path through infinite-dimensional space, let’s spend a little time developing our intuition about derivatives before we define a differentiable path.</p>
+<p>For example, we might impose that paths be continuous in the sense that we would want the <span class="math inline">\(\mathcal{L}_2\)</span> distance between two (root) distributions <span class="math inline">\(\sqrt{p_{0}}\)</span> and <span class="math inline">\(\sqrt{p_{\epsilon}}\)</span> along the path to go to zero if <span class="math inline">\(\epsilon\to \epsilon_0\)</span>. That would rule out the path in <a href="#exm-non-diff-path" class="quarto-xref">Example&nbsp;<span>4.7</span></a>. But it turns out that what we need in order to generate a useful theory of efficiency is not just continuity, but also differentiability. That is, we are interested in continuous paths, but specifically those that do not have any “kinks”. By that we mean that we’re interested in <em>differentiable</em> paths. Since we’re talking about a path through infinite-dimensional space, let’s spend a little time developing our intuition about derivatives before we define a differentiable path.</p>
 </section>
-<section id="scores" class="level3" data-number="2.4.2">
-<h3 data-number="2.4.2" class="anchored" data-anchor-id="scores"><span class="header-section-number">2.4.2</span> Scores</h3>
+<section id="scores" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="scores"><span class="header-section-number">4.4.2</span> Scores</h3>
 <p>Given a function <span class="math inline">\(f: \mathbb{R}\to \mathbb{R}\)</span>, recall that its derivative at the point <span class="math inline">\(x=0\)</span> (if it exists) is defined as <span class="math inline">\(\dot f_0 = \underset{x\to 0}{\lim} \frac{f(0) - f(x)}{x}\)</span> . Another way to write this is that there exists a number <span class="math inline">\(\dot f_0\)</span> such that</p>
 <p><span class="math display">\[
 \left| \frac{f(0) - f(x)}{x} - \dot f_0 \right| \overset{x \to 0}{\to} 0
@@ -951,7 +963,7 @@ Calculate the Hellinger distance between the standard normal and standard unifor
 \left\| \frac{f(0) - f(x)}{x} - \dot f_0 \right\|_{\mathcal{V}}  \overset{x \to 0}\to 0
 .
 \]</span></p>
-<p>Paths, as we have defined them (<a href="#def-path" class="quarto-xref">Definition&nbsp;<span>2.4</span></a>), can be thought of as functions mapping a value <span class="math inline">\(\epsilon\in \mathbb{R}\)</span> to a (root) density <span class="math inline">\(\sqrt{p_\epsilon} \in \mathcal{L}_2\)</span>. We can therefore apply the above reasoning, letting <span class="math inline">\(\epsilon\)</span> play the role of <span class="math inline">\(x\)</span>, letting the mapping <span class="math inline">\(\epsilon\mapsto  \sqrt{p_\epsilon}\)</span> play the role of <span class="math inline">\(f\)</span>, and letting <span class="math inline">\(\mathcal{L}_2\)</span> play the role of the generic vector space <span class="math inline">\(\mathcal V\)</span>. Since in this case <span class="math inline">\(f\)</span> maps numbers to <span class="math inline">\(\mathcal{L}_2\)</span>, the derivative of <span class="math inline">\(f\)</span> will also be an element of <span class="math inline">\(\mathcal{L}_2\)</span>, i.e.&nbsp;a square-integrable function.</p>
+<p>Paths, as we have defined them (<a href="#def-path" class="quarto-xref">Definition&nbsp;<span>4.4</span></a>), can be thought of as functions mapping a value <span class="math inline">\(\epsilon\in \mathbb{R}\)</span> to a (root) density <span class="math inline">\(\sqrt{p_\epsilon} \in \mathcal{L}_2\)</span>. We can therefore apply the above reasoning, letting <span class="math inline">\(\epsilon\)</span> play the role of <span class="math inline">\(x\)</span>, letting the mapping <span class="math inline">\(\epsilon\mapsto  \sqrt{p_\epsilon}\)</span> play the role of <span class="math inline">\(f\)</span>, and letting <span class="math inline">\(\mathcal{L}_2\)</span> play the role of the generic vector space <span class="math inline">\(\mathcal V\)</span>. Since in this case <span class="math inline">\(f\)</span> maps numbers to <span class="math inline">\(\mathcal{L}_2\)</span>, the derivative of <span class="math inline">\(f\)</span> will also be an element of <span class="math inline">\(\mathcal{L}_2\)</span>, i.e.&nbsp;a square-integrable function.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -963,7 +975,7 @@ Differentiable in Quadratic Mean (DQM), Score Function
 </div>
 <div class="callout-body-container callout-body">
 <div id="def-score" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.5</strong></span> A path <span class="math inline">\({\mathcal{P}}_\epsilon\)</span> is <em>differentiable in quadratic mean</em> (or just <em>differentiable</em> for short) at <span class="math inline">\(\epsilon= 0\)</span> if there is a function <span class="math inline">\(\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}} \in \mathcal{L}_2\)</span> such that</p>
+<p><span class="theorem-title"><strong>Definition 4.5</strong></span> A path <span class="math inline">\({\mathcal{P}}_\epsilon\)</span> is <em>differentiable in quadratic mean</em> (or just <em>differentiable</em> for short) at <span class="math inline">\(\epsilon= 0\)</span> if there is a function <span class="math inline">\(\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}} \in \mathcal{L}_2\)</span> such that</p>
 <p><span class="math display">\[
 \left\|
   \frac{\sqrt{p_\epsilon} - \sqrt{p_0}}{\epsilon}  
@@ -1034,53 +1046,53 @@ Proof of Claims about Scores
 </div>
 </div>
 </div>
-<p>Instead of demanding that <span class="math inline">\(\epsilon\mapsto \sqrt{p_\epsilon}\)</span> be differentiable in the mean-squared sense at <span class="math inline">\(\epsilon=0\)</span>, we might instead consider asking for the existence of the derivative <span class="math inline">\(\frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon}\sqrt{p_\epsilon(z)}\)</span> at every single point <span class="math inline">\(z\)</span>. When both the <span class="math inline">\(z\)</span>-pointwise derivative <span class="math inline">\(\frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon}\sqrt{p_\epsilon(z)}\)</span> and the mean-square derivative <span class="math inline">\(\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}}\)</span> exist they certainly agree with each other, but sometimes one exists and not the other. There are paths that are not <span class="math inline">\(z\)</span>-pointwise differentiable but are still DQM: since the square-mean derivative integrates over the squared difference of the finite-<span class="math inline">\(\epsilon\)</span> “slope” term and the limit term in <span class="math inline">\(z\)</span>, it does not care if that slope term blows up for some points <span class="math inline">\(z\)</span>: they simply fall out of the integral. Similarly there are <span class="math inline">\(z\)</span>-pointwise differentiable paths that are not DQM: refer to the results and examples in Section 7.2 of <span class="citation" data-cites="vdv">Van der Vaart (<a href="6-references.html#ref-vdv" role="doc-biblioref">2000</a>)</span> if you are curious to learn more. The reason we care about DQM is because it will turn out later that this is precisely the condition required to establish something called local asymptotic normality which we will use to prove a very important result.</p>
+<p>Instead of demanding that <span class="math inline">\(\epsilon\mapsto \sqrt{p_\epsilon}\)</span> be differentiable in the mean-squared sense at <span class="math inline">\(\epsilon=0\)</span>, we might instead consider asking for the existence of the derivative <span class="math inline">\(\frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon}\sqrt{p_\epsilon(z)}\)</span> at every single point <span class="math inline">\(z\)</span>. When both the <span class="math inline">\(z\)</span>-pointwise derivative <span class="math inline">\(\frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon}\sqrt{p_\epsilon(z)}\)</span> and the mean-square derivative <span class="math inline">\(\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}}\)</span> exist they certainly agree with each other, but sometimes one exists and not the other. There are paths that are not <span class="math inline">\(z\)</span>-pointwise differentiable but are still DQM: since the square-mean derivative integrates over the squared difference of the finite-<span class="math inline">\(\epsilon\)</span> “slope” term and the limit term in <span class="math inline">\(z\)</span>, it does not care if that slope term blows up for some points <span class="math inline">\(z\)</span>: they simply fall out of the integral. Similarly there are <span class="math inline">\(z\)</span>-pointwise differentiable paths that are not DQM: refer to the results and examples in Section 7.2 of <span class="citation" data-cites="vdv">van der Vaart (<a href="6-references.html#ref-vdv" role="doc-biblioref">2000</a>)</span> if you are curious to learn more. The reason we care about DQM is because it will turn out later that this is precisely the condition required to establish something called local asymptotic normality which we will use to prove a very important result.</p>
 <p>Even though DQM is the condition we need, it’s still informative to consider the pointwise derivative because it explains why we write the derivative as <span class="math inline">\(\overset{\scriptscriptstyle\bullet}{\sqrt{p_\epsilon}} = \frac{1}{2} s \sqrt{p_0}\)</span> using the score function <span class="math inline">\(s\)</span>. Starting with the pointwise derivative and using the chain rule,</p>
 <p><span class="math display">\[
 \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon}\sqrt{p_\epsilon(z)}
 = \frac{1}{2}(p_\epsilon(z))^{-1/2} \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon}  p_\epsilon(z)
 = \frac{1}{2} \sqrt{p_\epsilon(z)} \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon}  \log p_\epsilon(z)
 \]</span></p>
-<p>where in the last line we used <span class="math inline">\(\frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon}  \log p_\epsilon(z) = \frac{1}{p_\epsilon(z)} \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} p_\epsilon\)</span>. Therefore, when the pointwise derivative exists, the score function <span class="math inline">\(s\)</span> is equal to the rate of change of the log-likelihood at <span class="math inline">\(\epsilon=0\)</span>. For almost all practical purposes you can take this to be the definition of the score for a path at <span class="math inline">\(p_0\)</span>, i.e.&nbsp;<span class="math inline">\(s(z) = \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \log p_\epsilon(z) |_{\epsilon=0}\)</span>. From a pointwise perspective, the score is telling you how much to increase or decrease the value of the (log) density at each value <span class="math inline">\(z\)</span> in order to move from one density in the path to another. This is shown in <a href="#fig-score-pointwise" class="quarto-xref">Figure&nbsp;<span>2.5</span></a>.</p>
+<p>where in the last line we used <span class="math inline">\(\frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon}  \log p_\epsilon(z) = \frac{1}{p_\epsilon(z)} \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} p_\epsilon\)</span>. Therefore, when the pointwise derivative exists, the score function <span class="math inline">\(s\)</span> is equal to the rate of change of the log-likelihood at <span class="math inline">\(\epsilon=0\)</span>. For almost all practical purposes you can take this to be the definition of the score for a path at <span class="math inline">\(p_0\)</span>, i.e.&nbsp;<span class="math inline">\(s(z) = \frac{\mathop{}\!\mathrm{d}}{\mathop{}\!\mathrm{d}\epsilon} \log p_\epsilon(z) |_{\epsilon=0}\)</span>. From a pointwise perspective, the score is telling you how much to increase or decrease the value of the (log) density at each value <span class="math inline">\(z\)</span> in order to move from one density in the path to another. This is shown in <a href="#fig-score-pointwise" class="quarto-xref">Figure&nbsp;<span>4.5</span></a>.</p>
 <div id="fig-score-pointwise" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-score-pointwise-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="3-2-regularity_files/mediabag/7d50564d63ef47951af8875f391de3bdc89b104b.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-score-pointwise-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.5: The (log-)density at <span class="math inline">\(\epsilon\)</span> for any value <span class="math inline">\(z\)</span> can be approximated by adding the score (times <span class="math inline">\(\epsilon\)</span>) to the starting (log-)density.
+Figure&nbsp;4.5: The (log-)density at <span class="math inline">\(\epsilon\)</span> for any value <span class="math inline">\(z\)</span> can be approximated by adding the score (times <span class="math inline">\(\epsilon\)</span>) to the starting (log-)density.
 </figcaption>
 </figure>
 </div>
-<p>I find it most helpful to think of the score function at a point <span class="math inline">\(p_0\)</span> in the path as the “direction” that the path is moving when it passes through that point. You can see this is the case geometrically in <a href="#fig-score-path" class="quarto-xref">Figure&nbsp;<span>2.6</span></a>. In the figure I’ve drawn <span class="math inline">\(s \sqrt{p_0}\)</span> as the <em>tangent vector</em> to the path at the point <span class="math inline">\(\sqrt{p_0}\)</span>. This is justified by the fact that <span class="math inline">\(\frac{1}{2}s \sqrt{p_0}\)</span> is the derivative of <span class="math inline">\(\epsilon\mapsto \sqrt{p_\epsilon}\)</span> and therefore encodes the “direction” that function (path) is going. Another way of seeing it is that <span class="math inline">\(\frac{1}{2} s \sqrt{p_0}\)</span> is the “slope” of the best linear approximation to <span class="math inline">\(\epsilon\mapsto \sqrt{p_\epsilon}\)</span> at the point <span class="math inline">\(\sqrt{p_0}\)</span>. So, roughly speaking,</p>
+<p>I find it most helpful to think of the score function at a point <span class="math inline">\(p_0\)</span> in the path as the “direction” that the path is moving when it passes through that point. You can see this is the case geometrically in <a href="#fig-score-path" class="quarto-xref">Figure&nbsp;<span>4.6</span></a>. In the figure I’ve drawn <span class="math inline">\(s \sqrt{p_0}\)</span> as the <em>tangent vector</em> to the path at the point <span class="math inline">\(\sqrt{p_0}\)</span>. This is justified by the fact that <span class="math inline">\(\frac{1}{2}s \sqrt{p_0}\)</span> is the derivative of <span class="math inline">\(\epsilon\mapsto \sqrt{p_\epsilon}\)</span> and therefore encodes the “direction” that function (path) is going. Another way of seeing it is that <span class="math inline">\(\frac{1}{2} s \sqrt{p_0}\)</span> is the “slope” of the best linear approximation to <span class="math inline">\(\epsilon\mapsto \sqrt{p_\epsilon}\)</span> at the point <span class="math inline">\(\sqrt{p_0}\)</span>. So, roughly speaking,</p>
 <p><span class="math display">\[
 \sqrt{p_\epsilon} \approx \sqrt{p_0} + \frac{1}{2} \epsilon(s \sqrt{p_0}).
 \]</span></p>
-<p>This is exactly what I’ve drawn in <a href="#fig-score-path" class="quarto-xref">Figure&nbsp;<span>2.6</span></a>: the actual path of densities <span class="math inline">\(\sqrt p_\epsilon\)</span> (the left-hand side of the above display) and what would happen if you followed the current direction <span class="math inline">\(s \sqrt{p}\)</span> starting at <span class="math inline">\(\sqrt p\)</span> (the right-hand side).</p>
+<p>This is exactly what I’ve drawn in <a href="#fig-score-path" class="quarto-xref">Figure&nbsp;<span>4.6</span></a>: the actual path of densities <span class="math inline">\(\sqrt p_\epsilon\)</span> (the left-hand side of the above display) and what would happen if you followed the current direction <span class="math inline">\(s \sqrt{p}\)</span> starting at <span class="math inline">\(\sqrt p\)</span> (the right-hand side).</p>
 <div id="fig-score-path" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-score-path-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="3-2-regularity_files/mediabag/672aede561eaaca554150cf1877437ecc87453e7.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-score-path-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.6: The score <span class="math inline">\(s\)</span> (times <span class="math inline">\(\sqrt p\)</span>) is tangent to the path <span class="math inline">\(\sqrt{{\mathcal{P}}_\epsilon}\)</span> at <span class="math inline">\(\sqrt p_0\)</span>. In the figure I’ve shown two different paths passing through the same point <span class="math inline">\(\sqrt p\)</span> (in two different colors) and their respective scores.
+Figure&nbsp;4.6: The score <span class="math inline">\(s\)</span> (times <span class="math inline">\(\sqrt p\)</span>) is tangent to the path <span class="math inline">\(\sqrt{{\mathcal{P}}_\epsilon}\)</span> at <span class="math inline">\(\sqrt p_0\)</span>. In the figure I’ve shown two different paths passing through the same point <span class="math inline">\(\sqrt p\)</span> (in two different colors) and their respective scores.
 </figcaption>
 </figure>
 </div>
 <p>To make an analogy, let’s say you were following a path from New York to San Francisco. A “path” would be equivalent to a line on the map indicating the route you take. Your “score” at some point along the route would be the direction that the route tells you to go in at that point (e.g.&nbsp;in New York your “score” might be “West”).</p>
-<p>Technically it’s not the scores themselves that are tangent to paths in the model, but the scores times the current root-density that are tangent to the root-path. Nonetheless we often speak informally and talk about the scores themselves being tangent, etc, ignoring the fact that we had to take roots of the densities in our model to get everything embedded into <span class="math inline">\(\mathcal{L}_2\)</span>. In line with that oversimplification, I sometimes find it helpful to think in terms of or refer to cartoons like <a href="#fig-path-score-cartoon" class="quarto-xref">Figure&nbsp;<span>2.7</span></a>.</p>
+<p>Technically it’s not the scores themselves that are tangent to paths in the model, but the scores times the current root-density that are tangent to the root-path. Nonetheless we often speak informally and talk about the scores themselves being tangent, etc, ignoring the fact that we had to take roots of the densities in our model to get everything embedded into <span class="math inline">\(\mathcal{L}_2\)</span>. In line with that oversimplification, I sometimes find it helpful to think in terms of or refer to cartoons like <a href="#fig-path-score-cartoon" class="quarto-xref">Figure&nbsp;<span>4.7</span></a>.</p>
 <div id="fig-path-score-cartoon" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-path-score-cartoon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="3-2-regularity_files/mediabag/0035b4a223d56d6fc7d6255913f6664c2a5ecdb3.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-path-score-cartoon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.7: A cartoon of the model and a distribution <span class="math inline">\({\mathbb{P}}\)</span> within it. Two differentiable paths are depicted with dotted lines (in different colors) and the scores for those two paths at <span class="math inline">\({\mathbb{P}}\)</span> are shown as tangent vectors in the corresponding colors.
+Figure&nbsp;4.7: A cartoon of the model and a distribution <span class="math inline">\({\mathbb{P}}\)</span> within it. Two differentiable paths are depicted with dotted lines (in different colors) and the scores for those two paths at <span class="math inline">\({\mathbb{P}}\)</span> are shown as tangent vectors in the corresponding colors.
 </figcaption>
 </figure>
 </div>
 <div id="exm-convex-path-score" class="Exm theorem example">
-<p><span class="theorem-title"><strong>Example 2.8</strong></span> Fix an initial point <span class="math inline">\(p_-\)</span> and final point <span class="math inline">\(p_+\)</span> in a model and consider the convex path <span class="math inline">\(\{p_0 + \epsilon(p_1 - p_0) : \epsilon\in [0,1]\}\)</span> discussed in <a href="#exm-path-convex" class="quarto-xref">Example&nbsp;<span>2.5</span></a>. For this path, the (pointwise derivative version of the) score at <span class="math inline">\(\epsilon = 0\)</span> is defined and is equal to</p>
+<p><span class="theorem-title"><strong>Example 4.8</strong></span> Fix an initial point <span class="math inline">\(p_-\)</span> and final point <span class="math inline">\(p_+\)</span> in a model and consider the convex path <span class="math inline">\(\{p_0 + \epsilon(p_1 - p_0) : \epsilon\in [0,1]\}\)</span> discussed in <a href="#exm-path-convex" class="quarto-xref">Example&nbsp;<span>4.5</span></a>. For this path, the (pointwise derivative version of the) score at <span class="math inline">\(\epsilon = 0\)</span> is defined and is equal to</p>
 <p><span class="math display">\[
 \begin{aligned}
 s
@@ -1100,7 +1112,7 @@ s
 </div>
 <div class="callout-body-container">
 <div id="exr-scaled-score" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.8</strong></span> While it’s most helpful to think of scores as encoding “direction” within a model, scores also encode the “speed” at which a path goes.</p>
+<p><span class="theorem-title"><strong>Exercise 4.8</strong></span> While it’s most helpful to think of scores as encoding “direction” within a model, scores also encode the “speed” at which a path goes.</p>
 <p>Presume that the score for a path <span class="math inline">\(\epsilon \mapsto p_\epsilon\)</span> is <span class="math inline">\(s\)</span>. In terms of <span class="math inline">\(s\)</span>, what is the score for the reparametrized path <span class="math inline">\(\epsilon \mapsto p_{c\epsilon}\)</span> for some <span class="math inline">\(c \in \mathbb{R}\)</span>? To solve this problem you can use the pointwise derivative version of the score for convenience. For intuition, note that for <span class="math inline">\(c &gt; 1\)</span>, the reparametrized path is the same as the original, just traversed “faster”, whereas for <span class="math inline">\(c \in (0,1)\)</span> it is the same path traversed more “slowly” (and for <span class="math inline">\(c&lt;0\)</span>, in reverse).</p>
 </div>
 </div>
@@ -1109,9 +1121,9 @@ s
 <p>Paths and scores are extremely useful objects in nonparametric asymptotics and we will use them many times in the rest of the book.</p>
 </section>
 </section>
-<section id="regularity" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="regularity"><span class="header-section-number">2.5</span> Regularity</h2>
-<p>Equppied with these tools we can craft a definition of regularity that is more general than <a href="#def-regularity-1" class="quarto-xref">Definition&nbsp;<span>2.3</span></a>. In this section I’ll return using superscripts to denote a sequence of distributions so that the subscript <span class="math inline">\(n\)</span> can indicate the empirical distribution. For example, in the context of a path, I’ll use <span class="math inline">\({\mathbb{P}}^{(\epsilon)}\)</span> rather than <span class="math inline">\({\mathbb{P}}_\epsilon\)</span> (and I’ll use distributions <span class="math inline">\({\mathbb{P}}\)</span> rather than densities <span class="math inline">\(p\)</span> since we can now be more general).</p>
+<section id="regularity" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="regularity"><span class="header-section-number">4.5</span> Regularity</h2>
+<p>Equppied with these tools we can craft a definition of regularity that is more general than <a href="#def-regularity-1" class="quarto-xref">Definition&nbsp;<span>4.3</span></a>. In this section I’ll return using superscripts to denote a sequence of distributions so that the subscript <span class="math inline">\(n\)</span> can indicate the empirical distribution. For example, in the context of a path, I’ll use <span class="math inline">\({\mathbb{P}}^{(\epsilon)}\)</span> rather than <span class="math inline">\({\mathbb{P}}_\epsilon\)</span> (and I’ll use distributions <span class="math inline">\({\mathbb{P}}\)</span> rather than densities <span class="math inline">\(p\)</span> since we can now be more general).</p>
 <p>First let’s generalize the model. In our previous definition we had the normal model <span class="math inline">\({\mathcal{P}}= \{\mathsf{N}(\psi, 1): \psi \in \mathbb{R}\}\)</span>. This is actually one example of a differentiable path within a larger, possibly nonparametric model (e.g.&nbsp;all continuous distributions). So let’s replace the normal model with a generic differentiable path that includes the true distribution (at <span class="math inline">\({\mathbb{P}}_0\)</span> so <span class="math inline">\(\epsilon= 0\)</span> is the true value, for convenience). Next, we can replace the condition that <span class="math inline">\(\sqrt n \psi_n\)</span> stays bounded with an equivalent condition on the parameter in the path. That yields our general pathwise definition of regularity:</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1124,7 +1136,7 @@ Pathwise Regularity
 </div>
 <div class="callout-body-container callout-body">
 <div id="def-regularity-pathwise" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.6</strong></span> An estimator <span class="math inline">\(\hat\Psi\)</span> is <em>regular</em> at <span class="math inline">\({\mathbb{P}}_0\)</span> in the differentiable path <span class="math inline">\({\mathcal{P}}_\epsilon\)</span> if there is a single, fixed distribution <span class="math inline">\(\mathbb D\)</span> such that</p>
+<p><span class="theorem-title"><strong>Definition 4.6</strong></span> An estimator <span class="math inline">\(\hat\Psi\)</span> is <em>regular</em> at <span class="math inline">\({\mathbb{P}}_0\)</span> in the differentiable path <span class="math inline">\({\mathcal{P}}_\epsilon\)</span> if there is a single, fixed distribution <span class="math inline">\(\mathbb D\)</span> such that</p>
 <p><span class="math display">\[
 \sqrt{n}\left( \hat\Psi({\mathbb{P}}^{(n)}_n) - \Psi({\mathbb{P}}^{(n)}) \right) \rightsquigarrow \mathbb D
 \]</span></p>
@@ -1145,21 +1157,21 @@ Regularity
 </div>
 <div class="callout-body-container callout-body">
 <div id="def-regularity" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.7</strong></span> An estimator <span class="math inline">\(\hat\Psi\)</span> is <em>regular</em> at a point <span class="math inline">\({\mathbb{P}}\)</span> in the model <span class="math inline">\({\mathcal{P}}\)</span> if is is regular with the same limiting distribution <span class="math inline">\(\mathbb D\)</span> along all paths <span class="math inline">\({\mathcal{P}}_\epsilon\subseteq {\mathcal{P}}\)</span> that are differentiable at <span class="math inline">\({\mathbb{P}}_0 = {\mathbb{P}}\)</span>. An estimator is regular in a model <span class="math inline">\({\mathbb{P}}\)</span> if it is regular at every point <span class="math inline">\({\mathbb{P}}\in {\mathcal{P}}\)</span>.</p>
+<p><span class="theorem-title"><strong>Definition 4.7</strong></span> An estimator <span class="math inline">\(\hat\Psi\)</span> is <em>regular</em> at a point <span class="math inline">\({\mathbb{P}}\)</span> in the model <span class="math inline">\({\mathcal{P}}\)</span> if is is regular with the same limiting distribution <span class="math inline">\(\mathbb D\)</span> along all paths <span class="math inline">\({\mathcal{P}}_\epsilon\subseteq {\mathcal{P}}\)</span> that are differentiable at <span class="math inline">\({\mathbb{P}}_0 = {\mathbb{P}}\)</span>. An estimator is regular in a model <span class="math inline">\({\mathbb{P}}\)</span> if it is regular at every point <span class="math inline">\({\mathbb{P}}\in {\mathcal{P}}\)</span>.</p>
 </div>
 </div>
 </div>
 <p>We do not care about the behavior of the estimator along non-differentiable paths because these paths don’t go smoothly towards the true distribution. It would not be sensible to assume that any estimator should behave in a predictable or consistent way if we moved along a non-differentiable path. Moreover we do not care about sequences of distributions along paths that do not converge quickly enough (at a <span class="math inline">\(n^{-1/2}\)</span> rate) to zero: we have no need to impose uniformity outside of “neighborhoods” of distributions that are roughly of “radius” <span class="math inline">\(n^{-1/2}\)</span> in order to get a nice, general theory of optimality.</p>
-<p>Proving that an estimator is not regular is only as difficult as finding a single differentiable path for which it is not regular. We already did that for Hodges’ estimator in <a href="#exr-regularity-hodges" class="quarto-xref">Exercise&nbsp;<span>2.6</span></a>. To directly prove an estimator <em>is</em> regular you have to prove regularity for all differentiable paths. There are ways to do this but more often it is easier to prove regularity <em>indirectly</em>. In the next chapter we will prove a powerful result that lets us characterize the set of all regular, asymptotically linear estimators. We can then show an estimator is regular by proving it is asymptotically linear and also meets the conditions required for membership in that set. More importantly, the characterization we develop will let us precisely identify the <em>most efficient</em> regular and asymptotically linear estimator.</p>
+<p>Proving that an estimator is not regular is only as difficult as finding a single differentiable path for which it is not regular. We already did that for Hodges’ estimator in <a href="#exr-regularity-hodges" class="quarto-xref">Exercise&nbsp;<span>4.6</span></a>. To directly prove an estimator <em>is</em> regular you have to prove regularity for all differentiable paths. There are ways to do this but more often it is easier to prove regularity <em>indirectly</em>. In the next chapter we will prove a powerful result that lets us characterize the set of all regular, asymptotically linear estimators. We can then show an estimator is regular by proving it is asymptotically linear and also meets the conditions required for membership in that set. More importantly, the characterization we develop will let us precisely identify the <em>most efficient</em> regular and asymptotically linear estimator.</p>
 </section>
-<section id="is-regularity-too-strict" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="is-regularity-too-strict"><span class="header-section-number">2.6</span> Is Regularity Too Strict?</h2>
+<section id="is-regularity-too-strict" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="is-regularity-too-strict"><span class="header-section-number">4.6</span> Is Regularity Too Strict?</h2>
 <p>By restricting our attention to <em>regular</em> asymptotically linear estimators we are trying rule out the kind of bad performance exhibited by Hodges’ estimator. But Hodges’ estimator is just one example. It’s rational to ask whether there are any <em>good</em> estimators that regularity rules out. In practice, the short answer is no, but in theory the long answer is that it depends on your perspective. I won’t give a detailed account of all the arguments but I will give a brief summary that should at a minimum hold you over until you can dig deeper. Nonetheless, if you are interested in these questions I recommend revisiting them <em>after</em> you have digested the practical implications of efficiency theory that we’ll discuss in the next chapters.</p>
-<p>The first argument that usually gets rolled out in favor of enforcing regularity is that irregular estimators can only perform asymptotically better than regular estimators on an “infinitesimally small” fraction of all possible distributions in any parametric model. We saw this for Hodges’ estimator: it has the same asymptotic performance as the sample mean in the normal model everywhere except for the <em>single distribution</em> where <span class="math inline">\(\psi = 0\)</span>. That’s the only point at which Hodges’ estimator can beat the sample mean in large-enough samples. The theoretical justification for this claim is something called the almost-everywhere (or Hajek-Le Cam) convolution theorem. You can see section 8.6 of <span class="citation" data-cites="vdv">Van der Vaart (<a href="6-references.html#ref-vdv" role="doc-biblioref">2000</a>)</span> for further details. The idea is that if irregular estimators can only beat regular estimators in very rare cases, it’s no big deal to exclude them. <!-- But there are some caveats. The first is that the argument is asymptotic: if the sample size is finite, it may be that an irregular estimator is better than a regular estimator for lots of distributions. The second is that the theorem only applies to parametric models. This is probably a minor point because it still holds for all parametric submodels, but regardless the interpretation of "almost-everywhere" becomes more complicated.  --> As a bonus, the convolution theorem also shows that the most efficient regular estimator is asymptotically linear. This justifies restricting our search to asymptotically linear estimators once we’re already comfortable with regularity since we lose nothing (asymptotically) by the further restriction.</p>
-<p>A second argument for regularity follows from the local asymptotic minimax theorem (Theorem 8.11 and Lemma 8.13 in <span class="citation" data-cites="vdv">Van der Vaart (<a href="6-references.html#ref-vdv" role="doc-biblioref">2000</a>)</span>). Given an estimate <span class="math inline">\(\hat\psi\)</span>, we can imagine calculating a scaled error <span class="math inline">\(E_{n,{\mathbb{P}}, \hat\Psi}=\sqrt n (\hat\psi - \psi)\)</span>. This error is indexed by the sample size <span class="math inline">\(n\)</span>, the distribution <span class="math inline">\({\mathbb{P}}\)</span> we’re drawing data from and calculating the estimand <span class="math inline">\(\psi\)</span> from, and of course the estimator <span class="math inline">\(\hat\Psi\)</span>. Since <span class="math inline">\(\hat\psi\)</span> is random, <span class="math inline">\(E_{n, \mathbb P, \hat\Psi}\)</span> is also a random variable: we get a different error with a different sampled dataset. We can also define a loss function <span class="math inline">\(l: \mathbb{R}\to \mathbb{R}\)</span> which takes the error and returns its “cost”. We’ll require that the loss be “bowl-shaped”: symmetric around <span class="math inline">\(0\)</span> and either increasing or flat moving away from zero. For example, we might use the squared loss function <span class="math inline">\(l(e) = e^2\)</span> if we want to strongly penalize large errors but be relatively more lenient towards small errors, or we could use <span class="math inline">\(l(e) = 1(|e|&gt;c)\)</span> for a constant penalty outside a region and no penalty within it.</p>
+<p>The first argument that usually gets rolled out in favor of enforcing regularity is that irregular estimators can only perform asymptotically better than regular estimators on an “infinitesimally small” fraction of all possible distributions in any parametric model. We saw this for Hodges’ estimator: it has the same asymptotic performance as the sample mean in the normal model everywhere except for the <em>single distribution</em> where <span class="math inline">\(\psi = 0\)</span>. That’s the only point at which Hodges’ estimator can beat the sample mean in large-enough samples. The theoretical justification for this claim is something called the almost-everywhere (or Hajek-Le Cam) convolution theorem. You can see section 8.6 of <span class="citation" data-cites="vdv">van der Vaart (<a href="6-references.html#ref-vdv" role="doc-biblioref">2000</a>)</span> for further details. The idea is that if irregular estimators can only beat regular estimators in very rare cases, it’s no big deal to exclude them. <!-- But there are some caveats. The first is that the argument is asymptotic: if the sample size is finite, it may be that an irregular estimator is better than a regular estimator for lots of distributions. The second is that the theorem only applies to parametric models. This is probably a minor point because it still holds for all parametric submodels, but regardless the interpretation of "almost-everywhere" becomes more complicated.  --> As a bonus, the convolution theorem also shows that the most efficient regular estimator is asymptotically linear. This justifies restricting our search to asymptotically linear estimators once we’re already comfortable with regularity since we lose nothing (asymptotically) by the further restriction.</p>
+<p>A second argument for regularity follows from the local asymptotic minimax theorem (Theorem 8.11 and Lemma 8.13 in <span class="citation" data-cites="vdv">van der Vaart (<a href="6-references.html#ref-vdv" role="doc-biblioref">2000</a>)</span>). Given an estimate <span class="math inline">\(\hat\psi\)</span>, we can imagine calculating a scaled error <span class="math inline">\(E_{n,{\mathbb{P}}, \hat\Psi}=\sqrt n (\hat\psi - \psi)\)</span>. This error is indexed by the sample size <span class="math inline">\(n\)</span>, the distribution <span class="math inline">\({\mathbb{P}}\)</span> we’re drawing data from and calculating the estimand <span class="math inline">\(\psi\)</span> from, and of course the estimator <span class="math inline">\(\hat\Psi\)</span>. Since <span class="math inline">\(\hat\psi\)</span> is random, <span class="math inline">\(E_{n, \mathbb P, \hat\Psi}\)</span> is also a random variable: we get a different error with a different sampled dataset. We can also define a loss function <span class="math inline">\(l: \mathbb{R}\to \mathbb{R}\)</span> which takes the error and returns its “cost”. We’ll require that the loss be “bowl-shaped”: symmetric around <span class="math inline">\(0\)</span> and either increasing or flat moving away from zero. For example, we might use the squared loss function <span class="math inline">\(l(e) = e^2\)</span> if we want to strongly penalize large errors but be relatively more lenient towards small errors, or we could use <span class="math inline">\(l(e) = 1(|e|&gt;c)\)</span> for a constant penalty outside a region and no penalty within it.</p>
 <p>The local asymptotic minimax theorem is concerned with the expected loss <span class="math inline">\(\mathbb{E}_{{\mathbb{P}}}[l(E_{n,{\mathbb{P}}, \hat\Psi})]\)</span>. Clearly we would like to find an estimator that makes the expected loss as small as possible. But the theorem tells us that there is a limit to how low the expected loss can get if we want the loss to be <em>uniformly</em> low in some sense around a distribution <span class="math inline">\({\mathbb{P}}\)</span>. Let <span class="math inline">\({\mathbb{P}}^{(n)}\)</span> denote any sequence <span class="math inline">\({\mathbb{P}}^{(\epsilon_n)}\)</span> in a differentiable path with <span class="math inline">\({\mathbb{P}}_0 = {\mathbb{P}}\)</span> such that <span class="math inline">\(\sqrt{n} \epsilon \to 0\)</span>. Informally, the theorem establishes that in most models, if we consider a large enough set of possible differentiable paths and sequences and take <span class="math inline">\(n\)</span> to be large enough, then there is <em>no</em> estimator for which the worst-case value (over paths) of <span class="math inline">\(\mathbb{E}_{{\mathbb{P}}^{(n)}}[l(E_{n,{\mathbb{P}}^{(n)}, \hat\Psi})]\)</span> can be meaningfully better than <span class="math inline">\(\mathbb{E}_{Z\sim \mathsf{N}(0,\sigma_{{\mathbb{P}}}^2)}[l(Z)]\)</span>. The quantity <span class="math inline">\(\mathbb{E}_{Z\sim \mathsf{N}(0,\sigma_{{\mathbb{P}}}^2)}[l(Z)]\)</span> is a sort of universal “speed limit” for good locally-uniform estimation of the estimand at <span class="math inline">\({\mathbb{P}}\)</span> as measured by the loss <span class="math inline">\(l\)</span>. In the next few chapters we’ll say a lot more about the mysterious quantity <span class="math inline">\(\sigma_{{\mathbb{P}}}^2\)</span> and how to derive it.</p>
 <p>It’s natural to ask whether there are estimators that can meet this bound, i.e.&nbsp;whether there are estimators that are <em>locally asymptotically minimax</em> for a loss <span class="math inline">\(l\)</span>. If such an estimator were available, there would be very good reason to prefer it over alternatives. The second part of the local asymptotic minimax theorem establishes that, roughly speaking, only <em>regular</em> estimators can be locally asymptotically minimax for scalar estimands. One implication of this theorem is that the undesirable behavior exhibited by Hodges’ estimator is characteristic of <em>all</em> superefficient estimators. If there is no <em>irregular</em> locally asymptotically minimax estimator, that means that irregular estimators <em>all</em> have regions of bad performance with in the model that shift towards the point of superefficiency as <span class="math inline">\(n\)</span> increases.</p>
-<p>Together, the convolution and local asymptotic minimax theorem provide strong reasons to prefer regular estimators, but ultimately both are asymptotic statements and say nothing about how irregular estimators might perform in finite samples. Moreover, parts of the local asymptotic minimax theorem don’t hold if the estimand is a vector rather than a scalar. For example, the James-Stein estimator is an <em>irregular</em> estimator of a vector-valued mean that <em>also</em> locally asymptotically minimax (in a sense defined for vector estimands) for the squared error loss (see Section 8.8 of <span class="citation" data-cites="vdv">Van der Vaart (<a href="6-references.html#ref-vdv" role="doc-biblioref">2000</a>)</span> or Chapter 2 of <span class="citation" data-cites="ibragimov">Ibragimov and Has’ Minskii (<a href="6-references.html#ref-ibragimov" role="doc-biblioref">2013</a>)</span>). But even this is a qualified improvement: while James-Stein improves on the sample mean for squared error loss, there are other losses for which it can be much worse.</p>
+<p>Together, the convolution and local asymptotic minimax theorem provide strong reasons to prefer regular estimators, but ultimately both are asymptotic statements and say nothing about how irregular estimators might perform in finite samples. Moreover, parts of the local asymptotic minimax theorem don’t hold if the estimand is a vector rather than a scalar. For example, the James-Stein estimator is an <em>irregular</em> estimator of a vector-valued mean that <em>also</em> locally asymptotically minimax (in a sense defined for vector estimands) for the squared error loss (see Section 8.8 of <span class="citation" data-cites="vdv">van der Vaart (<a href="6-references.html#ref-vdv" role="doc-biblioref">2000</a>)</span> or Chapter 2 of <span class="citation" data-cites="ibragimov">Ibragimov and Has’ Minskii (<a href="6-references.html#ref-ibragimov" role="doc-biblioref">2013</a>)</span>). But even this is a qualified improvement: while James-Stein improves on the sample mean for squared error loss, there are other losses for which it can be much worse.</p>
 <p>Ultimately, the strongest argument in favor of assuming regularity is a practical one: if you assume regularity, you get a very clear theory of optimality that works in immense generality for many statistical models and estimands. It’s possible to cook up small-sample scenarios where irregular estimators can win, but given a general setup and without very specific assumptions it’s not usually clear how to <em>generate</em> a good irregular estimator from scratch. Moreover it can be difficult to characterize the sampling distribution of irregular estimators, making it hard to construct confidence intervals and p-values. In contrast, our efficiency theory for regular estimators will allow us to build great estimators with easy ways to do inference for essentially any situation.</p>
 
 
@@ -1168,7 +1180,7 @@ Regularity
 Ibragimov, Ildar Abdulovich, and Rafail Zalmanovich Has’ Minskii. 2013. <em>Statistical Estimation: Asymptotic Theory</em>. Vol. 16. Springer Science &amp; Business Media.
 </div>
 <div id="ref-vdv" class="csl-entry" role="listitem">
-Van der Vaart, Aad W. 2000. <em>Asymptotic Statistics</em>. Vol. 3. Cambridge university press.
+van der Vaart, Aad W. 2000. <em>Asymptotic Statistics</em>. Vol. 3. Cambridge university press.
 </div>
 </div>
 </section>
@@ -1599,7 +1611,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./3-3-efficiency.html" class="pagination-link" aria-label="Efficiency for RAL Estimators">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

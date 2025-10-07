@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; Counterfactual Causality – Foundations of Modern Causal Inference</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./1-3-scm.html" rel="next">
+<link href="./1-1-estimation-problems.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-cb90a69176a861232a8fe12288a45817.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1-0-intro.html">Models and Estimands</a></li><li class="breadcrumb-item"><a href="./1-2-causality.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Counterfactual Causality</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Foundations of Modern Causal Inference</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./1-0-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Models and Estimands</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1-1-estimation-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Estimation Problems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1-2-causality.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Counterfactual Causality</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1-3-scm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Nonparametric Structural Equations</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./3-0-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Efficiency Theory</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-2-regularity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regularity and Asymptotic Linearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-3-efficiency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Efficiency for RAL Estimators</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3-4-deriving-eifs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Deriving Canonical Gradients</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4-1-plugin-expansion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Plug-In Estimators</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./6-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./5-1-rv-convergence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Convergence</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./5-2-L2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title"><span class="math inline">\(\mathcal L_2\)</span> Space</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#limitations-of-probability" id="toc-limitations-of-probability" class="nav-link active" data-scroll-target="#limitations-of-probability"><span class="header-section-number">2.1</span> Limitations of Probability</a></li>
+  <li><a href="#potential-outcomes" id="toc-potential-outcomes" class="nav-link" data-scroll-target="#potential-outcomes"><span class="header-section-number">2.2</span> Potential Outcomes</a>
+  <ul class="collapse">
+  <li><a href="#the-fundamental-problem" id="toc-the-fundamental-problem" class="nav-link" data-scroll-target="#the-fundamental-problem"><span class="header-section-number">2.2.1</span> The Fundamental Problem</a></li>
+  <li><a href="#what-is-a-cause" id="toc-what-is-a-cause" class="nav-link" data-scroll-target="#what-is-a-cause"><span class="header-section-number">2.2.2</span> What is a Cause?</a></li>
+  <li><a href="#causal-consistency" id="toc-causal-consistency" class="nav-link" data-scroll-target="#causal-consistency"><span class="header-section-number">2.2.3</span> Causal Consistency</a></li>
+  <li><a href="#overcoming-the-fundamental-problem" id="toc-overcoming-the-fundamental-problem" class="nav-link" data-scroll-target="#overcoming-the-fundamental-problem"><span class="header-section-number">2.2.4</span> Overcoming the Fundamental Problem</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1-0-intro.html">Models and Estimands</a></li><li class="breadcrumb-item"><a href="./1-2-causality.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Counterfactual Causality</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Counterfactual Causality</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Besides satisfying curiosity, the purpose of scientific inquiry is to enable us to make better choices. In situations where there are competing alternatives, we want to know which of them will lead to the best outcome. For example, should children get access to screens or does it hurt their mental health? Should we enforce laws more strictly in order to reduce crime? How much exercise should I get each week?</p>
+<p>When we say that an action “causes” an effect in natural language, vaguely we mean that a) the effect occurs when the action is taken and b) the effect does not occur if the action is not taken. In this sense, causality is defined using a counterfactual contrast between two hypothetical worlds in which an action is either taken or it is not.</p>
+<p>A common misconception is that an action causes an effect if the effect is not present prior to the action but is afterwards. For example, if a light is off, and I flip the light switch and the light turns on, that means flipping the switch caused the light to turn on. The conclusion is true in this case, but the reasoning is not correct. It’s easy to understand why the misconception exists because our world is filled with examples (like the light switch) where this reasoning appears to work.</p>
+<div id="fig-correlation" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-correlation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/correlation.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.1: From <a href="xkcd.com/552">xkcd.com/552</a>.
+</figcaption>
+</figure>
+</div>
+<p>Unfortunately, there are many more examples where this reasoning fails. Many people go to the hospital and then die – does that mean that hospitalization causes death? Not quite. This is why we have to think of causality in terms of counterfactual future contrasts rather than pre-and-post contrasts. Flipping the light switch causes the light to turn on not because it is on after flipping the switch, but because it would <em>not</em> have been on <em>had the switch not been flipped</em>. The only reason the pre-post comparison appears to work in this situation is because the “switch off” future counterfactual happens to be accurately represented by the past state of the light.</p>
+<div id="fig-causal-light" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-causal-light-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/causal-light.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-causal-light-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.2: In the light switch example, we need to imagine a parallel universe where the light switch was not flipped. If there is a difference in the light between those two parallel universes, then the switch caused the light to go on. It is not enough that the light went on after flipping the switch in our own universe, since that could have been due to something else happening at the same time.
+</figcaption>
+</figure>
+</div>
+<p>Counterfactual causality also escapes the trap of recursively identifying causes. Instead of asking about the effect of flipping a switch on the light under a specific set of conditions, we could have asked “what causes the light to turn on?”. At first blush, the answer is obvious: the switch. But wasn’t it really the electrons that the switch allowed to flow that caused the light to shine? And didn’t those electrons really only flow because coal was burned in a far-away power plant? And didn’t that coal arise from the death of algae millions of years ago? And didn’t you flip the switch only because you were born? It’s hard to define when or how this web of causation started being truly relevant to the light turning. In natural language, social context does <em>a lot</em> of heavy lifting to define “cause”. Naming the <em>causes of effects</em> is therefore hard without more formalities. On the other hand, it’s easy to describe the <em>effects of causes</em> with counterfactual outcomes alone because we can specify many conditions as given at the time of the cause of interest (the electricity is on, someone was born who can flip the switch, etc.). This distinction was pointed out as early as 1843 by <span class="citation" data-cites="mills">Mills (<a href="6-references.html#ref-mills" role="doc-biblioref">1843</a>)</span>.</p>
+<p>Most of our scientific questions are about what action we should take. By the above reasoning, these questions are inherently causal. To answer them we have to contrast what <em>would</em> happen under each alternative, all other things held constant. We must, in some sense, <em>imagine</em> different worlds in which choices are made differently. As <span class="citation" data-cites="what-if">Hernan and Robins (<a href="6-references.html#ref-what-if" role="doc-biblioref">2020</a>)</span> puts it, we must ask “what if…?”.</p>
+<section id="limitations-of-probability" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="limitations-of-probability"><span class="header-section-number">2.1</span> Limitations of Probability</h2>
+<p>By itself, the probabilistic framework presented in the previous chapter is incapable of describing or measuring causality. For example, if you were to look at the (true) joint probability distribution of hospitalization and mortality in some general population people, you would be guaranteed to find that those who are hospitalized have a higher rate of mortality (because sick people go to the hospital!). If you were to take this as evidence of causation, you would fall into the same trap that we described above. As has been said many times: correlation does not imply causation.</p>
+<p>The fundamental problem is that probability distributions over observed variables only describe patterns of co-occurence between those variables. They do not say anything about what <em>would have</em> happened to one variable <em>had</em> another variable been forced to some value.</p>
+<p>It’s easy to be tricked into thinking otherwise because we often write probability distributions in a way that suggests mechanistic relationships. For example, let’s say that for two variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> we know for a fact that</p>
+<p><span class="math display">\[
+\begin{aligned}
+X &amp;\sim \mathsf{N}(0,1) \\
+Y &amp;= X+ \mathsf{N}(0,1).
+\end{aligned}
+\]</span></p>
+<p>This makes it seem like nature first generates <span class="math inline">\(X\)</span>, and subsequently uses that information to decide on the value of <span class="math inline">\(Y\)</span>. Maybe we’d draw this informally using a diagram like <span class="math inline">\(X \rightarrow Y\)</span>. If we wanted to know the causal effect of <span class="math inline">\(X=0\)</span> vs <span class="math inline">\(X=1\)</span> on <span class="math inline">\(Y\)</span>, it seems natural to simply plug those values into the equation for <span class="math inline">\(Y\)</span>, which would show that changing <span class="math inline">\(X\)</span> by one unit produces a one-unit causal effect on <span class="math inline">\(Y\)</span>.</p>
+<p>But this is an illusion. Using the definition of conditional probability, the <em>exact same</em> probability distribution can also be written as</p>
+<p><span class="math display">\[
+\begin{aligned}
+Y &amp;\sim \mathsf{N}(0,2) \\
+X &amp;= \frac{1}{2}Y+ \mathsf{N}\left( 0, \frac{1}{2} \right),
+\end{aligned}
+\]</span></p>
+<p>which we might think to draw with an arrow in the opposite direction, <span class="math inline">\(Y \leftarrow X\)</span>! Or, finally, we could write</p>
+<p><span id="eq-joint"><span class="math display">\[
+\left[
+\begin{array}{c}
+X \\ Y
+\end{array}
+\right]
+\sim
+\mathsf{N}\left(
+\left[
+\begin{array}{c}
+0 \\ 0
+\end{array}
+\right]
+,
+\left[
+\begin{array}{cc}
+1 &amp; 1 \\ 1 &amp; 2
+\end{array}
+\right]
+\right).
+\tag{2.1}\]</span></span></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>I hope that you remember enough probability that these equivalences make sense to you, but there is no shame in needing a little refresher. If this argument seems unfamiliar to you, though, you should go back and review a calculus-based probability book or lecture series before proceeding. While the algebraic details are not really important, you should intuitively understand the relationship between conditional, joint, and marginal probabilities and how these are often written as above.</p>
+<p>The statement</p>
+<p><span class="math display">\[
+\begin{aligned}
+X &amp;\sim \mathsf{N}(0,1) \\
+Y &amp;= X+ \mathsf{N}(0,1).
+\end{aligned}
+\]</span></p>
+<p>is just shorthand for</p>
+<p><span class="math display">\[
+\begin{aligned}
+p(x) &amp;= \frac{1}{\sqrt{2\pi}} e^{-x^2/2} \\
+p(y|x) &amp;= \frac{1}{\sqrt{2\pi}} e^{-(y-x)^2/2}.
+\end{aligned}
+\]</span></p>
+<p>By the definition of the conditional density, <span class="math inline">\(p(y,x) = p(y|x), p(x)\)</span>, so multiplying gives the joint density</p>
+<p><span class="math display">\[
+p(y,x) = \frac{1}{2\pi} e^{-\tfrac12 (y^2-2xy+2x^2)},
+\]</span></p>
+<p>which is the joint density of the multivariate normal</p>
+<p><span class="math display">\[
+\left[
+\begin{array}{c}
+X \\ Y
+\end{array}
+\right]
+\sim
+\mathsf{N}\left(
+\left[
+\begin{array}{c}
+0 \\ 0
+\end{array}
+\right]
+,
+\left[
+\begin{array}{cc}
+1 &amp; 1 \\ 1 &amp; 2
+\end{array}
+\right]
+\right).
+\]</span></p>
+<p>That proves the equivalence between the <span class="math inline">\(X \rightarrow Y\)</span> representation and the joint <span class="math inline">\((X,Y)\)</span> representation. Now we prove that the <span class="math inline">\(X \leftarrow Y\)</span> representation is also equivalent to the joint.</p>
+<p>Using the definition of conditional probability we now condition in the opposite direction: <span class="math inline">\(p(x|y) = \frac{p(y,x)}{p(y)}\)</span>, which requires us to know the marginal distribution of <span class="math inline">\(y\)</span>. For this we simply integrate <span class="math inline">\(p(y) = \int p(y,x),\mathop{}\!\mathrm{d}x\)</span> , marginalizing out <span class="math inline">\(x\)</span>. Applying this to the joint density above gives</p>
+<p><span class="math display">\[
+p(y) = \frac{1}{\sqrt 2 \sqrt{2\pi}} e^{-\tfrac12\left(\frac{y}{\sqrt 2}\right)^2},
+\]</span></p>
+<p>which is the density of <span class="math inline">\(\mathsf{N}(0, 2)\)</span>. Dividing, we get</p>
+<p><span class="math display">\[
+p(x|y) = \frac{p(y,x)}{p(y)} = \frac{1}{\sqrt{1/2} \sqrt{2\pi}} \exp\left\{-\tfrac12\left(\frac{x-\tfrac{y}{2}}{\sqrt{1/2}}\right)^2\right\},
+\]</span></p>
+<p>which is the density of <span class="math inline">\(\mathsf{N}(y/2, 1/2)\)</span>. Therefore</p>
+<p><span class="math display">\[
+\begin{aligned}
+Y &amp;\sim \mathsf{N}(0,2) \\
+X &amp;= \frac{1}{2}Y+ \mathsf{N}\left( 0, \frac{1}{2} \right).
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) "Forward" X-&gt; Y view</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>gen_xy_forward <span class="ot">=</span> <span class="fu">tibble</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">X   =</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Y   =</span> X <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) "Backward" X &lt;- Y view</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>gen_yx_backward <span class="ot">=</span> <span class="fu">tibble</span>(</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Y   =</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="dv">2</span>)),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">X   =</span> <span class="fl">0.5</span> <span class="sc">*</span> Y <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fu">sqrt</span>(<span class="fl">0.5</span>))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) "Joint" (X, Y)  view</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>gen_xy_joint <span class="ot">=</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    n, </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sigma =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">'X'</span>,<span class="st">'Y'</span>))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Forward: Y = X + ε"</span>       <span class="ot">=</span> gen_xy_forward,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Backward: X = Y/2 + ε"</span>    <span class="ot">=</span> gen_yx_backward,</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Joint: (X,Y) ~ N(0,Σ)"</span>    <span class="ot">=</span> gen_xy_joint</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">.id =</span> <span class="st">"View"</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">View =</span> <span class="fu">factor</span>(View, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Forward: Y = X + ε"</span>,</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"Backward: X = Y/2 + ε"</span>,</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"Joint: (X,Y) ~ N(0,Σ)"</span>)))</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(X, Y)) <span class="sc">+</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> View, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Same joint distribution, three factorizations"</span>,</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"X"</span>, <span class="at">y =</span> <span class="st">"Y"</span>) <span class="sc">+</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-bayes-rule" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bayes-rule-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="1-2-causality_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bayes-rule-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.3: The code that generates the three dataframes above reflects the three different ways of writing the joint distribution in <a href="#eq-joint" class="quarto-xref">Equation&nbsp;<span>2.1</span></a>. Scatterplots of the three dataframes verify that they represent the same distribution despite the superficial dissimilarity of the code.
+</figcaption>
+</figure>
+</div>
+<p>These three representations correspond to the factorizations of the joint distribution that one can always obtain via the definition of a conditional distribution: <span class="math display">\[
+{\mathbb{P}}(Y|X)\times {\mathbb{P}}(X) = {\mathbb{P}}(Y,X) = {\mathbb{P}}(Y) \times {\mathbb{P}}(X|Y).
+\]</span></p>
+<p>None of these is mathematically more correct or incorrect than any of the others. However, for this discussion, the joint representation of <a href="#eq-joint" class="quarto-xref">Equation&nbsp;<span>2.1</span></a> is the most <em>morally</em> correct because it’s harder to misinterpret it as representing a causal relationship in either direction. To avoid being fooled, it helps to think in terms of joint probability distributions even if you see them written in a conditionally factored way.</p>
+<p>While it’s clear that in the <span class="math inline">\(X \rightarrow Y\)</span> representation the “causal” effect on <span class="math inline">\(Y\)</span> can be read off of the equation <span class="math inline">\(Y = X + \dots\)</span>, for the other two representations it’s not so obvious how to extract an effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span> that feels “causal”. In fact, the <span class="math inline">\(X \leftarrow Y\)</span> representation makes it seem like <span class="math inline">\(Y\)</span> is causing <span class="math inline">\(X\)</span> and not the other way around.</p>
+<p>For the <span class="math inline">\((Y,X)\)</span> and <span class="math inline">\(X \leftarrow Y\)</span> representations our only option is to look at values of <span class="math inline">\(Y\)</span> among observations where <span class="math inline">\(X\)</span> takes one value and then among observations where <span class="math inline">\(X\)</span> takes another and compare. That is, we’d compare the distributions <span class="math inline">\({\mathbb{P}}(Y|X=1)\)</span> and <span class="math inline">\({\mathbb{P}}(Y|X=0)\)</span>, which is nothing other than taking some measure of correlation between observed <span class="math inline">\(X\)</span> and observed <span class="math inline">\(Y\)</span>. If you want to think of <span class="math inline">\({\mathbb{P}}\)</span> as a large “population dataset”, we’re simply subsetting to the rows where <span class="math inline">\(X=1\)</span> and then <span class="math inline">\(X=0\)</span> and comparing the histogram of <span class="math inline">\(Y\)</span>. We know that doesn’t always represent a causal effect: we could easily end up saying that hosptialization causes death because more people die in the hospital.</p>
+<p>In fact, we’re doing the exact same thing with the <span class="math inline">\(X \rightarrow Y\)</span> representation, even though it seems like somehow we are mechanistically intervening on <span class="math inline">\(X\)</span> based on the way we’ve written the distribution. This is the illusion of causality that is created by writing a distribution in a way that appears mechanistic.</p>
+<p>The comparison between the <span class="math inline">\(X \rightarrow Y\)</span> and <span class="math inline">\(X \leftarrow Y\)</span> representations is particularly jarring to some people, especially if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are variables that are in fact known to have a temporal relationship. For example, perhaps <span class="math inline">\(X\)</span> is the concentration of a compound in some solvent and <span class="math inline">\(Y\)</span> is a noisy measurement. Clearly the value of the measurement does not change the chemical properties of the solution, but yet we can write our probabilistic model of the observations in a way that makes it seem like it does.</p>
+<p>Again, this is an illusion. Distributions don’t know anything at all about chemistry, measurements, or even time. They do not care about whether <span class="math inline">\(X\)</span> or <span class="math inline">\(Y\)</span> came first in the physical world. They merely represent the rates of co-occurence between different values of the variables across a hypothetically infinite number of observations. Nothing more and nothing less.</p>
+<p>I’ve presented my argument in terms of a distribution with two variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> but absolutely nothing changes if we talk about distributions over more than two variables. Any probability distribution over <span class="math inline">\(Z_1 \dots Z_p\)</span> can be factored like</p>
+<p><span class="math display">\[
+{\mathbb{P}}(Z_1 \dots Z_p) = \prod_j {\mathbb{P}}(Z_j| Z_{j-1} \dots Z_1)
+\]</span></p>
+<p>and the ordering of the variables doesn’t matter. We can reverse the roles of <span class="math inline">\(Z_1\)</span> and <span class="math inline">\(Z_p\)</span> or any other two variables and get a different, but equivalent factorization. In other words, we can always write the distribution in a way that makes it look like some variables are “upstream” and others are “downstream” when in reality the probability distribution is expressing no such temporal or causal concepts.</p>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-joint-factorization" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2.1</strong></span> Let <span class="math display">\[
+\left[
+\begin{array}{c}
+X \\ Y \\ Z
+\end{array}
+\right]
+\sim
+\mathsf{N}\left(
+\left[
+\begin{array}{c}
+0 \\ 0 \\ 0
+\end{array}
+\right]
+,
+\left[
+\begin{array}{ccc}
+1 &amp; 1 &amp; 0\\ 1 &amp; 2 &amp; 1 \\ 0 &amp;1 &amp; 1
+\end{array}
+\right]
+\right).
+\]</span></p>
+<p>Write this distribution like <span class="math display">\[
+\begin{aligned}
+Y &amp;\sim \dots \text{(some marginal distribution)} \\
+Z &amp;= \dots \text{(some function of Y and maybe noise)} \\
+X &amp;= \dots \text{(some function of Y and Z and maybe noise)},
+\end{aligned}
+\]</span></p>
+<p>i.e., in a way that reflects the factorization</p>
+<p><span class="math display">\[
+{\mathbb{P}}(X, Y, Z) = {\mathbb{P}}(X|Z,Y) \times {\mathbb{P}}(Z|Y) \times {\mathbb{P}}(Y).
+\]</span></p>
+<p>This just takes algebra so it’s fine if you use a language model to do it. What’s important is that you understand how it is done and get the idea that you can switch the roles of <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span>, and <span class="math inline">\(Z\)</span> and get a different, equally valid factorization.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="potential-outcomes" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="potential-outcomes"><span class="header-section-number">2.2</span> Potential Outcomes</h2>
+<p>The “problem” with probability isn’t actually a problem with probability itself, but with what we are applying that formalism to. If we only model the variables we can actually observe (that is, values in our own universe) then we have no language with which to describe <em>counterfactual</em> values: the essential ingredient of causality.</p>
+<p>The solution is simple: include the counterfactual values as variables in the probability distribution. The system we describe below to formalize causal questions is called the <em>Rubin</em> causal model, the <em>Neyman-Rubin</em> causal model, or simply the potential outcomes causal model.</p>
+<p>Potential outcomes are easiest to explain in the context of an example. Presume we’re interested in the causal effect of a new drug vis-a-vis an older, standard drug on how long patients survive an aggressive form of cancer. Would patients survive longer on average on the new drug or on the old drug? The answer to this question has an obvious implication on policy: doctors should generally prescribe whichever drug is best for survival, assuming that is the patient’s objective.</p>
+<p>Suppose we have access to a large database of cancer patients, which, for each patient, records:</p>
+<ul>
+<li><strong>Covariates</strong> (<span class="math inline">\(X\)</span>): Information present at the time of diagnosis, such as age, chromosomal sex, disease status, etc.</li>
+<li><strong>Treatment</strong> (<span class="math inline">\(A\)</span>): Which drug was prescribed (new or old) at the time of diagnosis</li>
+<li><strong>Outcome</strong> (<span class="math inline">\(Y\)</span>): Surival time after diagnosis</li>
+</ul>
+<p>We can represent this as a typical dataset with <span class="math inline">\(n\)</span> rows.</p>
+<div id="tbl-obs" class="sm bordered w-50 mx-auto quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-obs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.1: The observable dataset.
+</figcaption>
+<div aria-describedby="tbl-obs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table-sm table-bordered w-50 mx-auto small caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(i\)</span></th>
+<th><span class="math inline">\(X\)</span></th>
+<th><span class="math inline">\(A\)</span></th>
+<th><span class="math inline">\(Y\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>85</td>
+<td>0</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>88</td>
+<td>1</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>72</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>n</td>
+<td>59</td>
+<td>1</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Here I’ve simplified the covariates <span class="math inline">\(X\)</span> to a single variable (age, if you like) for ease of display, but you can just as easily imagine multiple columns <span class="math inline">\(X_1 \dots X_d\)</span>. The treatment <span class="math inline">\(A\)</span> is a binary random variable with value <span class="math inline">\(1\)</span> if the new drug was given and <span class="math inline">\(0\)</span> if the old drug was given. The outcome <span class="math inline">\(Y\)</span> represents post-diagnosis survival time (e.g., in months). In line with our probabilistic setup we imagine that each row in this table is an IID draw from a joint distribution <span class="math inline">\({\mathbb{P}}(Y,A,X)\)</span>.</p>
+<p>The problem we identified with this setup earlier is that the distribution <span class="math inline">\({\mathbb{P}}(Y,A,X)\)</span> contains no information about the outcome that <em>would have</em> been observed for an individual <em>had</em> they been treated with the new or old drug, contrary to fact. To fix this, we simply define those two “what-if” outcomes as separate random variables <span class="math inline">\(Y(0)\)</span> (corresponding to the <span class="math inline">\(A=0\)</span> “what-if”) and <span class="math inline">\(Y(1)\)</span> (corresponding to <span class="math inline">\(A=1\)</span>) respectively. These variables are referred to as the <em>potential outcomes</em> or <em>counterfactuals</em>. If we could see a dataset that contained observations of both potential outcomes for each patient it would look like this:</p>
+<div id="tbl-causal" class="sm bordered w-50 mx-auto quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-causal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.2: The <em>causal</em> dataset.
+</figcaption>
+<div aria-describedby="tbl-causal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table-sm table-bordered w-50 mx-auto small caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(i\)</span></th>
+<th><span class="math inline">\(X\)</span></th>
+<th><span class="math inline">\(A\)</span></th>
+<th><span class="math inline">\(Y(0)\)</span></th>
+<th><span class="math inline">\(Y(1)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>85</td>
+<td>0</td>
+<td><strong>3</strong></td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>88</td>
+<td>1</td>
+<td>2</td>
+<td><strong>6</strong></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>72</td>
+<td>0</td>
+<td><strong>4</strong></td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>n</td>
+<td>59</td>
+<td>1</td>
+<td>3</td>
+<td><strong>4</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>In some literature <a href="#tbl-obs" class="quarto-xref">Table&nbsp;<span>2.1</span></a> is called the “science table”, but I’ll just call it the “causal data” or “counterfactual data”. We imagine that these data would be drawn from a distribution <span class="math inline">\({\mathbb{P}}^*(Y(1), Y(0), A, X)\)</span> that we call the <em>causal</em> distribution (you can also think of this as a causal dataset with infinite rows). I’ll use the asterisk on probability distributions to show when they are defined over unobservable variables like potential outcomes.</p>
+<p>It helps me to think of the potential outcomes as pre-determined. For each person, I imagine that their futures under either drug are already set in stone, or that they have already played out in some other universes. The values of the potential outcomes <span class="math inline">\(Y(1)\)</span> and <span class="math inline">\(Y(0)\)</span> simply record the survival times in those two predestined futures. They both already exist before a treatment has even been prescribed. In other words, they are not temporally or mechanistically linked to the <em>observed</em> value of the treatment <span class="math inline">\(A\)</span>, the decision that is made in <em>our</em> universe. The causal distribution <span class="math inline">\({\mathbb{P}}^*\)</span> describes pure co-occurences between all these variables in the “multiverse”.</p>
+<p>Although we call it “causal”, there is nothing special about a causal distribution: it is a standard probability distribution over the four separate random variables <span class="math inline">\(Y(1)\)</span>, <span class="math inline">\(Y(0)\)</span>, <span class="math inline">\(A\)</span>, and <span class="math inline">\(X\)</span>. Although the notation <span class="math inline">\(Y(1)\)</span> and <span class="math inline">\(Y(0)\)</span> for the potential outcomes makes these variables look a little different, they are just regular random variables. We could just as easily name them as <span class="math inline">\(Z\)</span> and <span class="math inline">\(W\)</span>. The parenthetical notation <span class="math inline">\(Y(a)\)</span> (for <span class="math inline">\(a\)</span> some fixed value that <span class="math inline">\(A\)</span> takes) is meant to evoke the fact that the potential outcome <span class="math inline">\(Y(a)\)</span> is a “version” of the outcome <span class="math inline">\(Y\)</span> indexed by a possible treatment <span class="math inline">\(a\)</span>. Other authors use subscripts or superscripts instead so you’ll also see <span class="math inline">\(Y_a\)</span> and <span class="math inline">\(Y^{(a)}\)</span> throughout the literature. I personally prefer the parentheses so that sub/superscripts can be used for other purposes and so that the treatment value <span class="math inline">\(a\)</span> is more clearly visible.</p>
+<p>Now that we’ve defined the potential outcomes for our problem we can clearly write down our scientific question. Recall that we wanted to know whether patients survive longer on the new drug or on the old drug. Since we’ve now defined the potential outcomes as each individual’s survival time on either the new or old drug, the question comes down to comparing <span class="math inline">\(\mathbb{E}_{{\mathbb{P}}^*}[Y(0)]\)</span>, the average survival time if everyone got the old drug, to <span class="math inline">\(\mathbb{E}_{{\mathbb{P}}^*}[Y(1)]\)</span>, the average survival time if everyone got the new drug. In what follows I’ll usually omit the subscript on <span class="math inline">\(\mathbb{E}_{{\mathbb{P}}^*}\)</span> since when you see potential outcomes being averaged over you should automatically know that the average is with respect to the causal distribution.</p>
+<p>The first problem in calculating either <span class="math inline">\(\mathbb{E}[Y(1)]\)</span> or <span class="math inline">\(\mathbb{E}[Y(0)]\)</span> is the standard problem of statistical inference: we don’t have access to the entire population, only a sample. In other words, we don’t have all the “rows” of data we’d like. But we know how to deal with this. If we had access to a <em>causal</em> dataset like the one shown above, a natural way to way to estimate <span class="math inline">\(\mathbb{E}[Y(a)]\)</span> (for either <span class="math inline">\(a=0\)</span> or <span class="math inline">\(a=1\)</span>) would be to use a sample mean <span class="math inline">\(\frac{1}{n}\sum Y(a)\)</span>. Notice that the values of the <em>observed</em> treatment and covariates are irrelevant if we have access to causal data!</p>
+<section id="the-fundamental-problem" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="the-fundamental-problem"><span class="header-section-number">2.2.1</span> The Fundamental Problem</h3>
+<p>Unfortunately, we can <em>never</em> see causal data like what’s in <a href="#tbl-causal" class="quarto-xref">Table&nbsp;<span>2.2</span></a>. This is the second, and most important problem we encounter when attempting to calculate <span class="math inline">\(\mathbb{E}[Y(a)]\)</span>. To observe <span class="math inline">\(Y(0)\)</span> (for patient <span class="math inline">\(i=1\)</span>, for example) we’d have to have given that individual the old drug <span class="math inline">\(A=0\)</span> at diagnosis, but to observe <span class="math inline">\(Y(1)\)</span> we’d have to have given them the new drug <span class="math inline">\(A=1\)</span>. Without some method of time travel, there is simply no way to see both potential outcomes for a single patient. We can usually deal with the problem of not having as many rows as we’d want, but it’s harder to solve the problem of not having all the <em>columns</em> we’d want. This is called the <em>fundamental problem of causal inference</em>.</p>
+<p>But just because we can never see the full causal data doesn’t mean that the fundamental problem can’t be worked around or that potential outcomes are useless. Quite the opposite! Writing down the potential outcomes allows us to precisely pin down our causal question, figure out what the exact problem we’re facing is, and communicate clearly about assumptions we might need to overcome it. Potential outcomes are completely imaginary, but they are a useful fiction in the same way that the entire edifice of probability theory and mathematics is.</p>
+</section>
+<section id="what-is-a-cause" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="what-is-a-cause"><span class="header-section-number">2.2.2</span> What is a Cause?</h3>
+<blockquote class="blockquote">
+<p>Constantly regard the universe as one living being, having one substance and one soul… and how all things act with one movement; and how all things are the co-operating causes of all things which exist; observe too the continuous spinning of the thread and the contexture of the web. — <em>Meditations</em>, Marcus Aurelius</p>
+</blockquote>
+<p>Philosophers and scientistis have been debating causality for millenia. Most of these debates are academic, but there are a few issues that are relevant for the practice of causal inference. In this section we’ll discuss what can or should be thought of as a “cause” and what the implications are when framing causal questions. The discussion here is brief, so I recommend digging into the references I cite along the way.</p>
+<p>Shortly after the formalization of the potential outcomes framework, <span class="citation" data-cites="holland">Holland (<a href="6-references.html#ref-holland" role="doc-biblioref">1986</a>)</span> argued that in order for a potential outcome to exist there must actually be a (hypothetical) real-world scenario in which that potential outcome could be observed. This position is referred to as the “interventionist” perspective because for something to be a “cause” it must correspond to an intervention that, in principle, could be enacted to observe a desired potential outcome. The position is concisely summarized by the maxim: “<em>no causation without manipulation</em>”, coined by Donald Rubin and Paul Holland <span class="citation" data-cites="holland">(<a href="6-references.html#ref-holland" role="doc-biblioref">Holland 1986</a>)</span>.</p>
+<p>In considering whether to give the new or old drug to our cancer patients, we could very easily have given any patient either drug in a hypothetical experiment. It’s clear what real-world steps could have been taken to make this happen. But in other cases it’s not so obvious. You can certainly say something like “Susan would get paid more if she were a man” or “Justin wouldn’t have been pulled over if he were white”. But what is the theoretical mechanism by which Susan could have possibly been a man or by which Justin could have been white? By this argument, something like “sex” or “race” cannot be a cause of anything because the relevant counterfactuals don’t make sense.</p>
+<p>To some extent, these problems can be solved by using more precise language. Perhaps Susan would have been offered a higher salary if she had put a man’s name on her resume – we can easily imagine an experiment where participants obscure their gender identities from employers. Perhaps Justin would not have been pulled over if he had tinted windows in his car. Perhaps Susan would be paid more if, in utero, we had performed an as-yet undiscovered procedure to exchange X and Y chromosomes. But none of these is the same as “the causal effect of sex” or “the causal effect of race” – those remain undefined because the concepts of “sex” and “race” are actually themselves not well-defined!</p>
+<p>The interventionist position is useful because it forces us to think more carefully about our questions so that they address choices we can actually make in the real world. If we <em>were</em> to say that sex had a causal effect on wages, what is the meaningful action that we could take to acheive pay equality? It’s not obvious. On the other hand, by thinking in terms of policies and actions (e.g., effect of gender-blinded interviews) rather than vague categories (e.g., effect of sex) we can ensure that the implications of research are more clear <span class="citation" data-cites="vanderweele2016commentary">(<a href="6-references.html#ref-vanderweele2016commentary" role="doc-biblioref">VanderWeele 2016</a>)</span>.</p>
+<p>On the other hand, there is always a tradeoff between generality and specificity. As a causal question becomes more specific, it often becomes more “interventionist” (as seen above). However, a more specific causal question is also less general and thus less useful. Maybe we don’t care specifically about the effect of changing a name on a resume or any other feasible intervention because we don’t think any of these things in any easily-enumerable combination would actually move the needle on an socially entrenched problem like structural racism or sexism <span class="citation" data-cites="glymour2014commentary kaufman2019commentary">(<a href="6-references.html#ref-glymour2014commentary" role="doc-biblioref">Glymour and Glymour 2014</a>; <a href="6-references.html#ref-kaufman2019commentary" role="doc-biblioref">Kaufman 2019</a>)</span>.</p>
+<p>Moreover, perhaps we should be able to talk about “attributes” as possible causes because the point may not be to identify a solution but to measure the scale of a problem. The interventionist retort is that racism and sexism (or obesity, poverty, etc.) are already widely understood to be problems. One more quantitative argument to that effect isn’t going to change how things are, but understanding concrete interventions might. As a compromise, <span class="citation" data-cites="pearl2019interpretation">Pearl (<a href="6-references.html#ref-pearl2019interpretation" role="doc-biblioref">2019</a>)</span> suggests that causal effects on vague or nonintervenable factors can still be usefully interpreted as an upper bound on any effect that could be achieved with a practical intervention.</p>
+<p>In most cases there is a spectrum of possible causal questions that range from hyper-specific and interventionist to extremely vague and non-interventionist (see <span class="citation" data-cites="hernan2016does">Hernán (<a href="6-references.html#ref-hernan2016does" role="doc-biblioref">2016</a>)</span> for good examples). There is no point at which the “cause” of interest suddenly becomes objectively intervenable – it is ultimately always a matter of subjective opinion where to draw that line. <span class="citation" data-cites="rubin1986comment">Rubin (<a href="6-references.html#ref-rubin1986comment" role="doc-biblioref">1986</a>)</span> discusses hypothetically removing the sun from the solar system!</p>
+<p>Another argument against interventionism is that it denies physical causality. Taken to its extreme, the interventionist position implies that a statement like “objects fall because of the Earth’s gravity” actually has no causal content since there is no conceivable intervention by which we might remove gravity from the Earth. In fact, the maximal interventionist position necessarily implies that “causation” didn’t even exist before there were humans to make choices (otherwise who is doing the intervening?) <span class="citation" data-cites="bollen2013eight">(<a href="6-references.html#ref-bollen2013eight" role="doc-biblioref">Bollen and Pearl 2013</a>)</span>!</p>
+<p>While much has been made of this debate, the two sides are largely in practical agreement. Even prototypical exponents of interventionism like <span class="citation" data-cites="rubin1986comment">Rubin (<a href="6-references.html#ref-rubin1986comment" role="doc-biblioref">1986</a>)</span> and <span class="citation" data-cites="vanderweele2016commentary">VanderWeele (<a href="6-references.html#ref-vanderweele2016commentary" role="doc-biblioref">2016</a>)</span> clearly acknowledge that there can be some utility in ascribing causality to social attributes or even physical phenomena. On the opposite side, non-interventionist viewpoints like <span class="citation" data-cites="kaufman2019commentary">Kaufman (<a href="6-references.html#ref-kaufman2019commentary" role="doc-biblioref">2019</a>)</span> and <span class="citation" data-cites="pearl2019interpretation">Pearl (<a href="6-references.html#ref-pearl2019interpretation" role="doc-biblioref">2019</a>)</span> easily concede the fact that thinking in terms of possible interventions helps keep research actionable. It’s more helpful to think of these two positions as conceptual poles on a spectrum than as two different camps of people.</p>
+<p>This working consensus also makes sense if you agree that “causality” as we are discussing it is just a social construct that helps facilitate decision-making. It’s a hard thing to wrap your head around, but causality itself need not be physically well-defined outside of language! Even if you believe in some modern physical theory like string theory or quantum loop gravity as “Truth”, the concepts of causality in those systems are so mind-bendingly distant from human experience as to be useless <span class="citation" data-cites="causal-cone quantum-loop">(<a href="6-references.html#ref-causal-cone" role="doc-biblioref">Galloway 2014</a>; <a href="6-references.html#ref-quantum-loop" role="doc-biblioref">Surya 2019</a>)</span>. They have nothing to do with choices or “what-ifs”.</p>
+<p>If counterfactual causality or even causality writ large are just useful fictions, then there is no need to be particularly dogmatic about whether potential outcomes can or cannot represent non-interventional scenarios. This cuts both ways. Those leaning towards interventionalism shouldn’t drink so much of their own kool-aid that they start believing in the physical reality of potential outcomes. Those leaning against interventionalism shoudn’t push back so hard that they insist on harmonizing counterfactual and physical causality. The focus should instead be on how to frame the causal question to best address the social-scientific need – the best we can do is to be aware of the tradeoffs and context and use best judgement.</p>
+</section>
+<section id="causal-consistency" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="causal-consistency"><span class="header-section-number">2.2.3</span> Causal Consistency</h3>
+<p>Let’s return to the math. In our drug example we supposed the existence of potential survival times <span class="math inline">\(Y(0)\)</span> and <span class="math inline">\(Y(1)\)</span> under the old and new drugs for each patient. In that context, the question of which drug would yield the longest survival time on average if given to everyone reduces to comparing <span class="math inline">\(\mathbb{E}[Y(0)]\)</span> and <span class="math inline">\(\mathbb{E}[Y(1)]\)</span>. But, unfortunately, we cannot compute either of these (even with infinite “rows” of data) because we only observe, at best, <em>either</em> <span class="math inline">\(Y(0)\)</span> <em>or</em> <span class="math inline">\(Y(1)\)</span> for each person, depending on which drug they actually received. That’s the fundamental problem of causal inference.</p>
+<p>But things are not entirely hopeless because we generally do have <em>some</em> insight into the potential outcomes. In the causal data table I’ve marked some of the potential outcome values in bold. These are the values of the outcome that are actually observed. You can see this more clearly by concatenating the observed and causal datasets:</p>
+<div id="tbl-concat" class="sm bordered w-50 mx-auto quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-concat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.3: The observable dataset with potential outcomes concatenated.
+</figcaption>
+<div aria-describedby="tbl-concat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table-sm table-bordered w-50 mx-auto small caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(i\)</span></th>
+<th><span class="math inline">\(X\)</span></th>
+<th><span class="math inline">\(A\)</span></th>
+<th><span class="math inline">\(Y\)</span></th>
+<th><span class="math inline">\(Y(0)\)</span></th>
+<th><span class="math inline">\(Y(1)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>85</td>
+<td>0</td>
+<td>3</td>
+<td><strong>3</strong></td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>88</td>
+<td>1</td>
+<td>6</td>
+<td>2</td>
+<td><strong>6</strong></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>72</td>
+<td>0</td>
+<td>4</td>
+<td><strong>4</strong></td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>n</td>
+<td>59</td>
+<td>1</td>
+<td>4</td>
+<td>3</td>
+<td><strong>4</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The observed outcome column <span class="math inline">\(Y\)</span> is an interleaving of the potential outcome columns <span class="math inline">\(Y(1)\)</span> and <span class="math inline">\(Y(0)\)</span> according to the value of the observed treatment <span class="math inline">\(A\)</span>. In a programming language with vector indexing, this might be coded like <code>Y[A==1] = Y1[A==1]</code> and <code>Y[A==0] = Y0[A==0]</code>. Mathematically, we can write <span class="math inline">\(Y = A\times Y(1) + (1-A)\times Y(0)\)</span> or, even more to the point, <span class="math inline">\(Y = Y(A)\)</span>, exploiting the potential outcomes notation. In words: the observed outcome is whichever <em>potential outcome</em> corresponds to the <em>observed treatment</em>.</p>
+<p>The statement <span class="math inline">\(Y = Y(A)\)</span> is referred to as the <em>causal consistency</em> assumption, but whether or not <span class="math inline">\(Y= Y(A)\)</span> is actually an “assumption” is a matter of perspective. Since we are in control of how the potential outcomes are defined we can always make this hold at the cost of redefining our causal question.</p>
+<div id="exm-trt-switching" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 2.1 (Treatment Switching)</strong></span> Let’s say that, in our drug example, what we see as “<span class="math inline">\(A\)</span>” in the patient records is what drug people were first prescribed, but some patients actually switched treatment after some time (e.g.&nbsp;they picked up the old drug for three months and then the new drug for the next three). Treatment switching like this is very common in health records data. If we interpret “<span class="math inline">\(Y(1)\)</span>” to mean the survival we would have observed for a person had they been prescribed the new drug and actually taken it for the entirety of their care and “<span class="math inline">\(Y(0)\)</span>” the same for the old drug, then <span class="math inline">\(Y_i \ne Y_i(A)\)</span> for any individual <span class="math inline">\(i\)</span> who either switches treatment or who doesn’t actually take the drug they were prescribed.</p>
+<p>The problem is that the treatment <span class="math inline">\(A\)</span> recorded in the data is not the same as the “<span class="math inline">\(A\)</span>” we are interested in evaluating the effect of. But this is an unforced error because <em>we</em> are in control of how the potential outcomes are defined. If patients switch treatments or don’t take their drugs, it doesn’t make sense to pose the question we asked without modeling those processes. We should instead let the <span class="math inline">\(A\)</span> in <span class="math inline">\(Y(A)\)</span> reflect the <span class="math inline">\(A\)</span> as it is actually observed. In the drug setting we’d let <span class="math inline">\(Y(1)\)</span> be the survival time for anyone who was first prescribed the new drug, whether or not they took it or switched in the future, which corresponds to the definition of <span class="math inline">\(A\)</span> in the data we have. In that case, there is no “assumption” that <span class="math inline">\(Y = Y(A)\)</span> because we have defined <span class="math inline">\(Y(a)\)</span> so that this holds.</p>
+<p>In the randomized trial literature, effects based on some initial prescription are often called “intent to treat” effects, since we cannot actually ensure that the treatment gets followed. This is in contrast to “per protocol” effects, which ask what the outcome would have been had the intended treatment actually been followed. The latter can actually be estimated under further assumptions but we will discuss this in the next chapter.</p>
+<br>
+</div>
+<p>Defining the potential outcomes from the version of treatment appearing in the data may not correspond to the question we <em>want</em> to ask, but it is the question we can safely attempt to answer with the data provided. If we deviate from that choice then causal consistency may be violated and the research question changes.</p>
+<p>In fact, it doesn’t make sense to use the symbol “<span class="math inline">\(A\)</span>” in <span class="math inline">\(Y(A)\)</span> to refer to something different than the observed <span class="math inline">\(A\)</span>. If the intervention in the causal question of interest is truly different than the observed treatment then it should get its own, possibly unobserved, random variable <span class="math inline">\(\tilde A\)</span>. That clarifies that we can take <span class="math inline">\(Y = Y(A)\)</span> by definition (perhaps even if <span class="math inline">\(A\)</span> is non-intervenable), but it may be that <span class="math inline">\(Y(A) \ne Y(\tilde A)\)</span>. In fact, the notation is somewhat deficient in this setting because setting <span class="math inline">\(A=1\)</span> and <span class="math inline">\(\tilde A=1\)</span> gives the ungrammatical <span class="math inline">\(Y(1) \ne Y(1)\)</span> – what we really mean is that <span class="math inline">\(Y_A(1) \ne Y_{\tilde A}(1)\)</span> or <span class="math inline">\(Y(A=1) \ne Y(\tilde A=1)\)</span>.</p>
+<p>In some cases, the precise meaning of <span class="math inline">\(A=a\)</span> can be implicit.</p>
+<div id="exm-drug-classes" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 2.2</strong></span> Presume that, in our drug example, there are actually many different “old” drugs that could have been prescribed. Suppose that a value of <span class="math inline">\(A=0\)</span> is recorded for any patient who is prescribed any of these old drugs, but we do not observe specifically which drug is given.</p>
+<p>In this case, the potential outcome <span class="math inline">\(Y_i(A=0)\)</span> might be naively interpreted as how long person <span class="math inline">\(i\)</span> would survive on any of the older drugs. This isn’t quite right because someone’s potential survival time on one old drug might be different than on another old drug so they can’t be rolled into one number.</p>
+<p>The correct interpretation of <span class="math inline">\(Y_i(A=0)\)</span> is person <span class="math inline">\(i\)</span>’s survival time if they were prescribed an old drug according to whatever mechanism patients and doctors use to select one of the old drugs when they are prohibited from using the new drug, assuming said prohibition does not change the relative probabilities of getting the other drugs <span class="citation" data-cites="vanderweele2013causal lee2024bridging">(<a href="6-references.html#ref-vanderweele2013causal" role="doc-biblioref">VanderWeele and Hernan 2013</a>; <a href="6-references.html#ref-lee2024bridging" role="doc-biblioref">Lee, Hubbard, and Schuler 2024</a>)</span>.</p>
+<br>
+</div>
+<p>In <a href="#exm-drug-classes" class="quarto-xref">Example&nbsp;<span>2.2</span></a>, we likely do not know the actual treatment mechanism by which doctors and patients are selecting drugs, so the “treatment” <span class="math inline">\(A=0\)</span> is only defined implicitly. However, it is defined, and we do have <span class="math inline">\(Y = Y(A)\)</span>.</p>
+<p>Long story short, the consistency assumption can always be made to hold by correctly defining the potential outcomes with reference to the observed treatment. However, this may make the result difficult to interpret or less scientifically meaningful. When this tension arises it is usually best resolved by more accurately modeling the treatment of interest, e.g.&nbsp;by adding in treatment adherence (or treatment type over time) and/or the specific drug prescribed as variables. Once those variables are defined we can more faithfully describe the interventions of interest. We will see shortly how to do this.</p>
+</section>
+<section id="overcoming-the-fundamental-problem" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="overcoming-the-fundamental-problem"><span class="header-section-number">2.2.4</span> Overcoming the Fundamental Problem</h3>
+<p>Not being able to observe both potential outcomes for each individual seems like a death knell, but the fundamental problem of causal inference can actually be overcome in many different ways. The key in all cases is to have or assume some prior domain knowledge of the hypothetical causal distribution. The process of leveraging these assumptions is called <em>causal identification</em>. We’ll talk a lot more about causal identification in the next chapter but here I’ll give you a brief preview so you have an idea of where we’re going.</p>
+<p>Returning to our running example, let’s say that our observed patient database is actually the result of running a <em>randomized trial</em>. Specifically, suppose we know for a fact that each patient’s treatment (new or old drug) was determined by the result of a fair coin flip. With this additional knowledge, we can recover the average of potential outcomes <span class="math inline">\(\mathbb{E}[Y(a)]\)</span> under either treatment even though we only get to see the observed outcome <span class="math inline">\(Y\)</span>. Letting either <span class="math inline">\(a=1\)</span> or <span class="math inline">\(a=0\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb{E}_{{\mathbb{P}}^*}[Y(a)] &amp;= \mathbb{E}_{{\mathbb{P}}^*}[Y(a)|A=a] \\
+&amp;= \mathbb{E}_{\mathbb{P}}[Y|A=a] \\
+\end{aligned}
+\]</span></p>
+<p>Neither of these equalities is immediately obvious if you’re not familiar with potential outcomes so let’s walk through them.</p>
+<p>The first equality is <span class="math inline">\(\mathbb{E}_{{\mathbb{P}}^*}[Y(a)] = \mathbb{E}_{{\mathbb{P}}^*}[Y(a)|A=a]\)</span>, which is the crucial step where we exploit our knowledge of the data-generating process. This equality holds because the randomization of the treatment <span class="math inline">\(A\)</span> makes it statistically independent of all other variables measured at or before that time. Since the potential outcomes are considered “pre-existing”, we obtain the independence relation <span class="math inline">\(Y(a) \perp A\)</span>, which just means that <span class="math inline">\({\mathbb{P}}^*(Y(a)) = {\mathbb{P}}^*(Y(a)|A)\)</span> which in turn implies <span class="math inline">\(\mathbb{E}_{{\mathbb{P}}^*}[Y(a)] = \mathbb{E}_{{\mathbb{P}}^*}[Y(a)|A=a]\)</span>. Again, the <em>only</em> reason we can verify this equality is because we have existing knowledge about the data-generating process: in this case, the fact that treatment was randomized.</p>
+<p>The second equality is more generic and follows from the relationship between observed and potential outcomes. In the expression <span class="math inline">\(\mathbb{E}_{{\mathbb{P}}^*}[Y(a)|A=a]\)</span> we can replace <span class="math inline">\(Y(a)\)</span> by <span class="math inline">\(Y(A)\)</span> since the conditioning subsets to the observations where <span class="math inline">\(A=a\)</span>. Now, by the definition of the observed outcomes in terms of potential outcomes we know <span class="math inline">\(Y = Y(A)\)</span>, so we can replace <span class="math inline">\(Y(A)\)</span> by <span class="math inline">\(Y\)</span> to obtain <span class="math inline">\(\mathbb{E}_{\mathbb{P}}[Y|A=a]\)</span>.</p>
+<p>It’s easy to get lost in the algebra and lose sight of what we’ve done. We started with the estimand <span class="math inline">\(\mathbb{E}_{{\mathbb{P}}^*}[Y(a)]\)</span>, something defined in terms of potential outcomes, referencing expectation over a causal distribution <span class="math inline">\({\mathbb{P}}^*\)</span> that we can’t directly sample from and therefore cannot directly estimate. But we ended with the estimand <span class="math inline">\(\mathbb{E}_{{\mathbb{P}}}[Y|A=a]\)</span> which is defined <em>purely in terms of observable quantities</em> from the observable distribution <span class="math inline">\({\mathbb{P}}\)</span>. This is something we <em>can</em> estimate! Given a finite sample, we’d simply take the sample average outcome in treatment group <span class="math inline">\(A=a\)</span>. Since that is an unbiased estimate of <span class="math inline">\(\mathbb{E}[Y|A=a]\)</span>, which is equal to our causal estimand <span class="math inline">\(\mathbb{E}[Y(a)]\)</span>, it is also an unbiased estimate of the causal estimand. We have done causal inference!</p>
+<p>It’s useful to understand why, barring randomization, the average outcome among people taking the new drug (<span class="math inline">\(\mathbb{E}[Y|A=1]\)</span>) might <em>not</em> be equal to the average outcome if <em>everyone</em> were to take the new drug (<span class="math inline">\(\mathbb{E}[Y(1)]\)</span>). One scenario could be that the new drug is very expensive and therefore only ends up being taken by people with high income. These people are likelier to have better health in general or be diagnosed at an earlier stage of disease and therefore have longer survival times regardless of what drug they take. Essentially <span class="math inline">\(\mathbb{E}[Y|A=1] \ne \mathbb{E}[Y(1)]\)</span> because the subset of people on the new drug <span class="math inline">\(A=1\)</span> in the population is not representative of the general population.</p>
+<p>Randomization resolves the issue algebraically, as we have seen, but also intuitively because it ensures that the population treated with the new drug <span class="math inline">\(A=1\)</span> is statistically identical to the general population. If everyone has equal chance of getting either drug, there is no reason for either group to look systematically different from the overall population.</p>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-pot-outcomes" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2.2</strong></span> Presume that, in reality, our new drug of interest works exactly the same as the old drug. In such a scenario, the potential outcomes under the new and old drugs would be identical for every person. Suppose further that anyone who is wealthy (<span class="math inline">\(X=1\)</span>) would survive exactly 15 months regardless of treatment choice (<span class="math inline">\(Y(1) = Y(0) = 12\)</span>) whereas anyone who is not wealthy (<span class="math inline">\(X=0\)</span>) would only survive exactly 8 months regardless of treatment. In the population of interest, only 10% of people are wealthy. 70% of wealthy people take the new drug (<span class="math inline">\(A=1\)</span>) and only 10% of the not wealthy take the new drug.</p>
+<ol type="a">
+<li>What are <span class="math inline">\(\mathbb{E}[Y|A=1]\)</span> and <span class="math inline">\(\mathbb{E}[Y(1)]\)</span>? You can find these algebraically using total expectation.</li>
+<li>Write a function in your programming language of choice that lets you sample <span class="math inline">\(n\)</span> rows of data from a causal data-generating process encoding this scenario. The easiest way is to write it such that the covariate <span class="math inline">\(X\)</span> is generated, then the treatment <span class="math inline">\(A\)</span> is generated based on <span class="math inline">\(X\)</span>, and finally the potential outcomes <span class="math inline">\(Y(0), Y(1)\)</span> are generated based on <span class="math inline">\(X\)</span> and <span class="math inline">\(A\)</span>.</li>
+<li>Use your code to verfiy your result in the first part by setting <span class="math inline">\(n\)</span> very large and approximating <span class="math inline">\(\mathbb{E}[Y|A=1]\)</span> and <span class="math inline">\(\mathbb{E}[Y(1)]\)</span> with sample averages from over this “population” dataset.</li>
+<li>Use your code to explore how <span class="math inline">\(\mathbb{E}[Y|A=1]\)</span> and <span class="math inline">\(\mathbb{E}[Y(1)]\)</span> change if you change the proportions of the wealthy and poor who take the new drug.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="exm-identification-light-switch" class="Exm theorem example">
+<p><span class="theorem-title"><strong>Example 2.3 (Light Switch)</strong></span> Before moving on, let’s return to the light switch example and formalize exactly why the intuitive pre-post comparison appears to give the right answer about the switch causing the light to turn on. In that example, let <span class="math inline">\(Y(1)\)</span> be the state that the light would be in (on or off) had the switch been flipped up and let <span class="math inline">\(Y(0)\)</span> be the equivalent were the switch down. As covariates, let <span class="math inline">\(X = [\tilde Y, \tilde A]\)</span> represent the observed state of the light and switch <em>prior</em> to intervention and presume for simplicity that at baseline the switch and light are both off so <span class="math inline">\(\tilde Y, \tilde A] = [0,0]\)</span>.</p>
+<p>After flipping the switch up (<span class="math inline">\(A=1\)</span>), we obeserve the lgiht turn on (<span class="math inline">\(Y=1\)</span>). By causal consistency, we know this is an observation of <span class="math inline">\(Y(1)=1\)</span>. But by the fundamental problem, we have no knowledge of <span class="math inline">\(Y(0)\)</span>, what <em>would</em> have happened if we had left the switch down. However <em>if we assume</em> that <span class="math inline">\(Y(0) = \tilde Y\)</span>, i.e.&nbsp;that the state of the light would have been unchanged had we not flipped the switch up, then we can conclude that <span class="math inline">\(Y(0) = 0\)</span> and that the switch has a causal effect on the light since this is different than <span class="math inline">\(Y(1)=1\)</span>.</p>
+<br>
+</div>
+<p>The light switch example illustrates the same principle as the randomized trial: if we know or assume something about the causal data-generating distribution, we can overcome the fundamental problem of causal inference. In the case of randomization, we know something about the mechanism of treatment assignment, whereas in the light switch example we assumed that lights don’t randomly turn on and off. The takeaway is that we must always have some knowledge or make some assumption deemed sensible in the real world in order to overcome the fundamental problem: there is no purely data-driven approach to causal inference. In the next chapter we’ll discuss many other prior-knowledge scenarios in which the fundamental problem can be overcome.</p>
+</section>
+</section>
+<section id="history-and-notes" class="level2 unnumbered unlisted">
+<h2 class="unnumbered unlisted anchored" data-anchor-id="history-and-notes">History and Notes</h2>
+<p>In the Western tradition, causality has been a topic of philosophical debate at least as far back as Aristotle <span class="citation" data-cites="aristotle-physics-ROT aristotle-metaphysics-ROT">(<a href="6-references.html#ref-aristotle-physics-ROT" role="doc-biblioref">Aristotle 1984b</a>, <a href="6-references.html#ref-aristotle-metaphysics-ROT" role="doc-biblioref">1984a</a>)</span>. Counterfactual theories of causality have more immediate roots in <span class="citation" data-cites="hume">Hume (<a href="6-references.html#ref-hume" role="doc-biblioref">1748</a>)</span> and <span class="citation" data-cites="mills">Mills (<a href="6-references.html#ref-mills" role="doc-biblioref">1843</a>)</span> – <span class="citation" data-cites="holland">Holland (<a href="6-references.html#ref-holland" role="doc-biblioref">1986</a>)</span> gives a concise review of these texts.</p>
+<p>brad hill criteria path analysis -&gt; SEM -&gt; npSEM (pearl) neyman ——&gt; Rubin potential outcomes all the ID stuff through the 90s to modern day (vanderweele, eric TT)</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-aristotle-metaphysics-ROT" class="csl-entry" role="listitem">
+Aristotle. 1984a. <span>“Metaphysics.”</span> In <em>The Complete Works of Aristotle: The Revised Oxford Translation</em>, edited by Jonathan Barnes, translated by W. D. Ross, 2:1552–1728. Bollingen Series, LXXI-2. Princeton, NJ: Princeton University Press.
+</div>
+<div id="ref-aristotle-physics-ROT" class="csl-entry" role="listitem">
+———. 1984b. <span>“Physics.”</span> In <em>The Complete Works of Aristotle: The Revised Oxford Translation</em>, edited by Jonathan Barnes, translated by R. P. Hardie and R. K. Gaye, 1:315–446. Bollingen Series, LXXI-1. Princeton, NJ: Princeton University Press.
+</div>
+<div id="ref-bollen2013eight" class="csl-entry" role="listitem">
+Bollen, Kenneth A, and Judea Pearl. 2013. <span>“Eight Myths about Causality and Structural Equation Models.”</span> In <em>Handbook of Causal Analysis for Social Research</em>, 301–28. Springer.
+</div>
+<div id="ref-causal-cone" class="csl-entry" role="listitem">
+Galloway, Gregory J. 2014. <span>“Notes on Lorentzian Causality.”</span> <em>University of Miami</em>.
+</div>
+<div id="ref-glymour2014commentary" class="csl-entry" role="listitem">
+Glymour, Clark, and Madelyn R Glymour. 2014. <span>“Commentary: Race and Sex Are Causes.”</span> <em>Epidemiology</em> 25 (4): 488–90.
+</div>
+<div id="ref-what-if" class="csl-entry" role="listitem">
+Hernan, Miguel A, and James M Robins. 2020. <span>“Causal Inference: What If.”</span>
+</div>
+<div id="ref-hernan2016does" class="csl-entry" role="listitem">
+Hernán, Miguel A. 2016. <span>“Does Water Kill? A Call for Less Casual Causal Inferences.”</span> <em>Annals of Epidemiology</em> 26 (10): 674–80.
+</div>
+<div id="ref-holland" class="csl-entry" role="listitem">
+Holland, Paul W. 1986. <span>“Statistics and Causal Inference.”</span> <em>Journal of the American Statistical Association</em> 81 (396): 945–60.
+</div>
+<div id="ref-hume" class="csl-entry" role="listitem">
+Hume, David. 1748. <em>An Enquiry Concerning Human Understanding</em>.
+</div>
+<div id="ref-kaufman2019commentary" class="csl-entry" role="listitem">
+Kaufman, Jay S. 2019. <span>“Commentary: Causal Inference for Social Exposures.”</span> <em>Annual Review of Public Health</em> 40 (1): 7–21.
+</div>
+<div id="ref-lee2024bridging" class="csl-entry" role="listitem">
+Lee, Kaitlyn J, Alan Hubbard, and Alejandro Schuler. 2024. <span>“Bridging Binarization: Causal Inference with Dichotomized Continuous Exposures.”</span> <em>arXiv Preprint arXiv:2405.07109</em>.
+</div>
+<div id="ref-mills" class="csl-entry" role="listitem">
+Mills, John Stuart. 1843. <em>A System of Logic</em>.
+</div>
+<div id="ref-pearl2019interpretation" class="csl-entry" role="listitem">
+Pearl, Judea. 2019. <span>“On the Interpretation of Do (x).”</span> <em>Journal of Causal Inference</em> 7 (1): 20192002.
+</div>
+<div id="ref-rubin1986comment" class="csl-entry" role="listitem">
+Rubin, Donald B. 1986. <span>“Comment: Which Ifs Have Causal Answers.”</span> <em>Journal of the American Statistical Association</em> 81 (396): 961–62.
+</div>
+<div id="ref-quantum-loop" class="csl-entry" role="listitem">
+Surya, Sumati. 2019. <span>“The Causal Set Approach to Quantum Gravity.”</span> <em>Living Reviews in Relativity</em> 22 (1): 5.
+</div>
+<div id="ref-vanderweele2016commentary" class="csl-entry" role="listitem">
+VanderWeele, Tyler J. 2016. <span>“Commentary: On Causes, Causal Inference, and Potential Outcomes.”</span> <em>International Journal of Epidemiology</em> 45 (6): 1809–16.
+</div>
+<div id="ref-vanderweele2013causal" class="csl-entry" role="listitem">
+VanderWeele, Tyler J, and Miguel A Hernan. 2013. <span>“Causal Inference Under Multiple Versions of Treatment.”</span> <em>Journal of Causal Inference</em> 1 (1): 1–20.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./1-1-estimation-problems.html" class="pagination-link" aria-label="Estimation Problems">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Estimation Problems</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./1-3-scm.html" class="pagination-link" aria-label="Nonparametric Structural Equations">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Nonparametric Structural Equations</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

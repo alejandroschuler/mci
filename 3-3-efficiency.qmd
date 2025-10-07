@@ -1209,10 +1209,12 @@ For two models $\mathcal Q \subset \model$ where one contains the other, what is
 When the estimand is pathwise differentiable, the pathwise derivative $\dot\Psi$ is a bounded linear functional defined on the full tangent space $\tspace_\p$. Since it is bounded and linear, $\dot\Psi$ has some direction of steepest ascent and moreover the Riesz representation theorem formally guarantees that the application of $\dot\Psi$ to an argument $s$ is equivalent to taking the inner product of $s$ with some unique element of $\tspace_\p$ that points in that direction of steepest ascent. This is completely analogous to the way that the derivative in a direction $v \in \reals^d$ of a multivariable function $f(z)$ at $z_0$ can be computed by taking the dot product of that direction vector with the *gradient* of $f$ at $z_0$:
 
 $$
-\dot f_{z_0}(v) = \lim_{\eps \to 0} \frac{f(z_0 + \eps v) - f(z_0)}{\eps} = v \cdot \grad f.
+\dot f_{z_0}(v) = \lim_{\eps \to 0} \frac{f(z_0 + \eps v) - f(z_0)}{\eps} = v \cdot \grad_{x_0} f.
 $$
 
-In $\reals^d$, the gradient vector $\grad f$ is precisely the Riesz representer of the directional derivative $\dot f$ (at $z_0$, but this is suppressed in the notation). For that reason, we'll use $\grad \Psi$ to denote the Riesz representer of the pathwise derivative $\dot \Psi_\p$ at $\p \in \model$ and call it the "gradient" of the estimand at that point. The direction of the Riesz representer corresponds to the direction of maximum slope for a linear functional. In the case of the pathwise derivative, this corresponds to the direction of maximum instantaneous rate of change of the estimand across paths with unit-norm scores.
+In $\reals^d$, the gradient vector $\grad_{x_0} f$ is precisely the Riesz representer of the directional derivative $\dot f$ at $x_0$. When the  For that reason, we'll use $\grad_\p \Psi$ to denote the Riesz representer of the pathwise derivative $\dot \Psi_\p$ at $\p \in \model$ and call it the "gradient" of the estimand at that point. When $\p$ is clear from context or is generic we'll often drop the subscript and write $\grad \Psi$ the same way $\grad f$ is often intended to mean the function $x_0 \mapsto \grad_{x_0} f$.
+
+The direction of the Riesz representer corresponds to the direction of maximum slope for a linear functional. In the case of the pathwise derivative, this corresponds to the direction of maximum instantaneous rate of change of the estimand across paths with unit-norm scores.
 
 :::: callout-note
 # Gradient of a Pathwise Differentiable Estimand

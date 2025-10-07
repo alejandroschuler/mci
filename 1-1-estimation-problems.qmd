@@ -93,11 +93,19 @@ When necessary, I'll use parentheses to indicate marginal or conditional distrib
 
 Before going any further, I want to underscore what I said above about *imagining* that data are drawn from a distribution. In the frequentist view, a dataset is a single instantiation of what could have happened under repetitions of a given experiment or physical process. Repeat the experiment, get a different dataset. The probability distribution of the data represents the accumulated patterns of the data over infinite repetitions of the experiment. A probability statement like $\p\{Z > 0\} = 1/2$ means that $Z$ (whatever that is) comes out to be positive in exactly half of the repetitions of the experiment.
 
-Obviously this is a fiction. Very rarely, if ever, can experiments be exactly replicated. If they cannot be replicated, in what sense can we give meaning to the "distribution" of the data? Indeed, a random number generator fundamentally has nothing to do with the physical, biological, or social processes by which numbers end up appearing in a spreadsheet. A probability distribution is a simulacrum of what is actually happening in the real world: a convenient way to smooth over things which we do not really understand while maintaining a transparent, shared vocabulary. Frequentist probability is a shared lie, it is not real in any meaningful way.
+Obviously this is a fiction. Very rarely, if ever, can experiments be exactly replicated. If they cannot be replicated, in what sense can we give meaning to the "distribution" of the data? Indeed, a random number generator fundamentally has nothing to do with the physical, biological, or social processes by which numbers end up appearing in a spreadsheet. 
 
-Nonetheless, the frequentist probability framework is extremely useful. As humans, we are entirely in the business of fabricating social fictions and operating by them. We have no problem making good use of invented abstractions. *Numbers themselves* are mythical. Certainly you can have two apples or two pencils, but "two" is not real (and neither is an apple - you cannot cleanly define such a thing without social context). Like apples, the number two, and the "laws" of physics, frequentist probability is extremely useful despite not being real. This is roughly the instrumentalist-fictionalist stance in the sense of @fictionalism: mathematical models should be treated as useful "as-if" fictions chosen for empirical adequacy and transparent communication, not as literal features of the world.
+There are many other ways in which probability models are commonly abused that go beyond frequentist interpretation. For example, it's ubiquitous to model the age of people in some population as having a continuous distribution. But, in fact, in any given population of humans there are only a finite number of people, meaning that the true distribution (or anyone's prior belief about it) must in fact be discrete. At best the population would be countably infinite if one imagines that humanity will last forever (and this begs the question of at what point in the past you consider various hominids to be "human"). 
 
-For completeness I should note that subjectivist Bayesian probability gives an account of probability that to me is much more plausible. In that framework, probability reflects a personal degree of belief [@subj-bayes]. I don't want to spend too much time on the details here but roughly speaking my perspective is that Bayesian probability, while philosophically a bit more satisfying, is practically more challenging and socially less valuable than the frequentist framework because priors are difficult to agree on and because Bayesian nonparametrics are very unwieldy. Many people would vehemently disagree with me on that, but empirically it appears to be true: frequentist probability is far more popular in the wild. And, ultimately, subjective Bayesian probability is also a myth in the same sense as any other mathematics: it just buries its lies a bit deeper than the frequentist framework. The fact that there are entire textbooks devoted to the philosophy of probability (e.g., @philosophy) should be enough to convince you that no approach is entirely salvageable or coherent.
+To that point, the definition of any variable in a probability distribution is always contingent on social constructions: if we say $Z_i=1$ when individual $i$ has brown eyes, what do we mean by that? At what shade do we establish a boundary? How do we label people who have no eyes? What about heterochromia? None of these questions have unambiguous, objective answers. While we can often come common-sense consensus definitions, we need to acknoweldge that they are exactly that: implicit social agreements that are deemed useful in a given time and place and which can always be renegotiated. The same caveats apply to any mathematical model -- we need to stay aware of this to avoid becoming deluded by our own imaginary worlds.
+
+I hope I have convinced you that a probability distribution is a simulacrum of what is actually happening in the real world: a convenient way to smooth over things which we do not really understand while maintaining a transparent, shared vocabulary. Probability writ large and frequentist probability in particular are shared lies. They are not "real" in any meaningful way, and the seams become all-too apparent if you look closely.
+
+Nonetheless, the frequentist probability framework is extremely useful! As humans, we are entirely in the business of fabricating social fictions and operating by them. We have no problem making good use of invented abstractions. *Numbers themselves* are mythical. Certainly you can have two apples or two pencils, but "two" is not real (and neither is an apple - you cannot cleanly define such a thing without social context). Like apples, the number two, and the "laws" of physics, frequentist probability is extremely useful despite not being real. 
+
+This is roughly the fictionalist stance in the sense of @fictionalism or @balaguer2008fictionalism: mathematical models should be treated as useful "as-if" fictions chosen for empirical adequacy and transparent communication, not as literal features of the world. If we didn't have mathematical models, and frequentist probability models in particular, there is no way humans could have gone to the moon, erradicated polio, or created large language models. We can choose to behave as if our models are real because they are often (though not always) good enough for creating things that satisfy us in the real world.
+
+For completeness I should note that subjectivist Bayesian probability gives an account of probability that to me is much more plausible. In that framework, probability reflects a personal degree of belief [@subj-bayes]. I don't want to spend too much time on the details here but roughly speaking my perspective is that Bayesian probability, while philosophically a bit more satisfying, is practically more challenging and socially less valuable than the frequentist framework because priors are difficult to agree on and because Bayesian nonparametrics are very unwieldy. Many people would vehemently disagree with me on that, but empirically it appears to be true: frequentist probability is far more popular in the wild. And, ultimately, subjective Bayesian probability is also a myth in the same sense as any other mathematics: it just buries its lies a bit deeper than the frequentist framework. The fact that there are entire textbooks devoted to the philosophy of probability (e.g., @philosophy) should be enough to convince you that no approach is entirely salvageable or coherent. This is no way an impediment to scientific progress.
 
 ### Independent Observations
 
@@ -193,11 +201,11 @@ As the examples show, there is often some knowledge about the distribution: at a
 ##### Model
 
 ::: {#def-model}
-A *statistical model* (or just *model*) is any set $\model$ whose elements are probability distributions.
+A *statistical model* (or just *model*) is any set $\model$ whose elements are probability distributions over a shared domain.
 :::
 ::::
 
-The definition of a model is extremely simple. The utility comes when we define models that align with our knowledge or suppositions so that the model formalizes what we believe about the world. If the model reflects reality in this way, then the true data-generating distribution $\p$ is an element of the model, i.e., $\p \in \model$. The problem of statistics, in its most ambitious form, is to try and deduce which element of $\model$ is the data-generating distribution based on an observed dataset sampled from that distribution.
+The definition of a model is extremely simple, but leads to incredibly rich ideas (see, e.g., @mccullagh2002statistical). The utility comes when we define models that align with our knowledge or suppositions so that the model formalizes what we believe about the world. If the model reflects reality in this way, then the true data-generating distribution $\p$ is an element of the model, i.e., $\p \in \model$. The problem of statistics, in its most ambitious form, is to try and deduce which element of $\model$ is the data-generating distribution based on an observed dataset sampled from that distribution.
 
 Since we'll assume IID data throughout this book, we won't write that as a restriction on the model. That is, instead of specifying the set of data distributions $\p^n$, we'll just specify the set of distributions $\p$ possible for a generic, individual observation. The latter model on individual observations induces the former model on datasets, i.e., $\model^n = \{\p^n : \p \in \model \}$.
 
@@ -582,7 +590,7 @@ The other, more subtle problem with defining $\Psi(\p_\theta) = \theta$ is that 
 
 Thinking of an estimand as a function $\Psi(\p)$ with no reference to a parametrization makes the *technical* question of identification irrelevant but at the same time brings the *scientific* question of the utility of the data to the forefront. If we can't clearly express the answer to our scientific question as a function of the data-generating distribution, we immediately know that we're collecting the wrong data or conducting the wrong experiment. On the other hand, it's easy to hide such a deficiency in a parametrized model because sometimes it's tricky to see that the parametrization is not identifiable without further assumptions!
 
-What I call an estimand is often called a parameter throughout the statistics literature, or more specifically a *target parameter*. That term makes sense since finite-dimensional parameters are one extractable aspect of a distribution in a parametric model and the definition of an estimand generalizes this idea. I prefer the term estimand, however, because it clearly communicates that it is what we are going to *estimate*. To me, it sounds less abstract and more approachable than "target parameter". It also makes a clean break with the "parameters" of parametric models and therefore avoids confusion. Lastly, the term "estimand" is gaining popularity in regulatory agencies and in clinical trials, perhaps also because it clearly evokes what it means [@estimands].
+What I call an estimand is often called a parameter throughout the statistics literature, or more specifically a *target parameter*. That term makes sense since finite-dimensional parameters are one extractable aspect of a distribution in a parametric model and the definition of an estimand generalizes this idea. *Statistical functional* is another term that is sometimes used. I prefer the term estimand, however, because it clearly communicates that it is what we are going to *estimate*. To me, it sounds less abstract and more approachable than "target parameter" or "statistical functional". It also makes a clean break with the "parameters" of parametric models and therefore avoids confusion. Lastly, the term "estimand" is gaining popularity in regulatory agencies and in clinical trials, perhaps also because it clearly evokes what it means [@estimands].
 
 ::: {#exm-estimand-mean .Exm}
 ##### Mean
@@ -1027,7 +1035,7 @@ An alternative is to use a nonlinear regression method to model the conditional 
 $$
 \begin{aligned}
 \hat\mu &= \mathtt{RF}(\pn) \\
-\Psi_{\text{RF}}(\pn) &= \frac{1}{n}\sum (\hat\mu(X+1) - \hat\mu(X)) 
+\hat\Psi_{\text{RF}}(\pn) &= \frac{1}{n}\sum (\hat\mu(X+1) - \hat\mu(X)) 
 \end{aligned}
 $$
 
@@ -1036,7 +1044,7 @@ In fact, the OLS estimator above can be written a similar way:
 $$
 \begin{aligned}
 \hat\mu &= \mathtt{OLS}(\pn) \\
-\Psi_{\text{OLS}}(\pn) &= \frac{1}{n}\sum (\hat\mu(X+1) - \hat\mu(X)) 
+\hat\Psi_{\text{OLS}}(\pn) &= \frac{1}{n}\sum (\hat\mu(X+1) - \hat\mu(X)) 
 \end{aligned}
 $$
 
@@ -1056,6 +1064,7 @@ where we can consider $D$ to be an unobserved (latent) variable.
 
 ```{r}
 #| code-fold: false
+
 n = 1000
 
 data = tibble(
@@ -1075,14 +1084,23 @@ plugin_psi <- function(fit, df) {
   mean(mu_x1 - mu_x)
 }
 
-tibble(
-  model = c("Random forest", "OLS"),
-  psi_hat = c(
+results = tibble(
+  estimator = c("Random forest", "OLS"),
+  estimate = c(
     plugin_psi(rf_fit, data), 
     plugin_psi(lm_fit, data)
   )
 )
 ```
+
+::: {#tbl-rf-vs-ols-results .w-60 .mx-auto}
+```{r}
+results |> 
+  knitr::kable() 
+```
+
+Estimates of the generalized regression coefficient using a random forest vs. linear regression (OLS).
+:::
 
 ::: {#fig-ols-v-rf}
 ```{r}
@@ -1123,7 +1141,7 @@ population = tibble(
 population %$% mean((X+1)^2 - X^2)
 ```
 
-You can see that the estimate based on the random forest model is much closer to the truth than the one based on linear regression. This shows the danger of using parametric models: imposing modeling assumptions unnecessarily cripples our ability to answer the scientific question of interest accurately. If the estimand represented, for example, how much on average someone would benefit from increasing their dose of a drug by one unit, we would have massively underestimated the beneficial effect with the linear regression estimator.
+In @tbl-rf-vs-ols-results you can see that the estimate based on the random forest model is much closer to the truth than the one based on linear regression. The random forest estimator is better in this case because linear regression cannot capture the nonlinear trend in the data (see @fig-ols-v-rf). This shows the danger of using parametric models to build estimators: imposing modeling assumptions unnecessarily cripples our ability to answer the scientific question of interest accurately. If the estimand represented, for example, how much on average someone would benefit from increasing their dose of a drug by one unit, we would have massively underestimated the beneficial effect with the linear regression estimator.
 
 The result here is specific to the distribution I chose to simulate data from and of course even to the specific dataset that we drew. The moral of the story, however, does not change much in general. Strong modeling assumptions must be justified and it's often just as easy to generate an estimate without them anyways.
 ::::
@@ -1289,3 +1307,7 @@ Unfortunately we don't have access to the true asymptotic standard error because
 The assumptions required for an estimator of a standard error to be accurate may be different than those required for the estimate of the original estimand to be accurate! In other words, it's possible to have a good estimate but a wildly incorrect confidence interval, or a poor estimate, but a confidence interval that has the theoretically correct width.
 
 Unfortunately, this story does not apply directly to the random forest estimator we studied in @exm-ols-v-rf without some effort. Although the estimator that leveraged the random forest proved substantially more accurate than the estimator based on linear regression, it is very difficult to prove the asymptotic normality of estimates when complicated "machine learning" estimators are used for regression. In the last chapters of this book we will investigate and solve this problem. Specifically, we will develop recipes to construct powerful estimators that can leverage machine learning while retaining asymptotic normality under general conditions.
+
+## History and Notes {.unnumbered .unlisted}
+
+The framework presented in this chapter is a modern perspective on statistics that has been accumulated, consolidated, and refined extensively in the past century and beyond. The idea of imagining real-world observations as "draws" from a probability distribution was already becoming popular in some contexts in the 1700s and 1800s, especially in studies of gambling, and drew attention from Bernoulli, Bayes, Gauss, Laplace, and others. Francis Galton and Karl Pearson are usually credited with accelerating the formalization of this idea and understanding its broader applicability around the turn of the 20th century. Ronald Fisher, Jerzy Neyman, and others certainly had the concept of a (parametric) statistical model in the early 20th century and Fisher and Neyman of course deserve credit for many fundamental ideas in estimation and inference [@fisher1922mathematical; @neyman1937outline]. The foundations of probability were made rigorous by @kolmogrov which enabled further theoretical development moving into the 1930s and 1940s. The more general concept of a statistical model (sometimes called an *experiment* in early papers) became popular with the work of Lucien Le Cam and others in the 1950s, although it was used already by Blackwell and Wald in the 1940s.  @lecam-review gives a wonderful review of Le Cam's work with many more historical notes. This way of thinking also influenced the development of the abstract concept of an estimand (or *statistical functional*), attributable formally to @mises1947asymptotic, but certainly with some prior whispers. @mises1947asymptotic also presents the innovation of treating some estimates as functions of empirical distributions, a convention which was generalized by @huber1964robust and @hampel1968contributions.
