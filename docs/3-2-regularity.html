@@ -214,13 +214,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1-2-causality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Counterfactual Causality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Counterfactuals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1-3-scm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Nonparametric Structural Equations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Structural Causal Models</span></span></a>
   </div>
 </li>
       </ul>
@@ -846,7 +846,7 @@ Figure&nbsp;4.3: The asymptotics in the definition of regularity.
 <h2 data-number="4.4" class="anchored" data-anchor-id="structuring-statistical-models"><span class="header-section-number">4.4</span> Structuring Statistical Models</h2>
 <p>Our goal at our moment is to generalize our definition of regularity by establishing some “geometry” in our model so we can talk about a sequence of distributions converging in some required sense. In our current definition, a model <span class="math inline">\({\mathcal{P}}\)</span> is just a set of distributions: there is no sense of direction or distance that is inherent to it. I think of a naked model like that as a big soup of distributions: everything is free to jumble around. We need a little more structure to make sense of regularity in a nonparametric model.</p>
 <p>For the remainder of this section we’ll work within models where every distribution <span class="math inline">\({\mathbb{P}}\)</span> has a density function <span class="math inline">\(p\)</span>. Formally, we will assume that all our distributions are absolutely continuous with respect to Lebesgue measure (don’t worry if you don’t know what that means). The results we will discuss actually do not depend on that assumption: the theory works exactly the same way for general models. However, the intuition is harder to get across in the general case, especially for readers who are new to measure-theoretic probability. I’ll abuse notation where convenient and use <span class="math inline">\({\mathcal{P}}\)</span> to refer to the set of densities <span class="math inline">\(p\)</span> as well as the set of distributions (measures) <span class="math inline">\({\mathbb{P}}\)</span>. If you know some measure theory, you can for now imagine that all distributions in the model have a density with respect to an arbitrary dominating measure <span class="math inline">\(\bar{{\mathbb{P}}}\)</span> and replace references to <span class="math inline">\(\mathcal{L}_2\)</span> below with <span class="math inline">\(\mathcal{L}_2(\bar{{\mathbb{P}}})\)</span>. Throughout the rest of the book I will also write integrals like <span class="math inline">\(\int f(z)\ p(z) \mathop{}\!\mathrm{d}z\)</span> with the standard differential <span class="math inline">\(\mathop{}\!\mathrm{d}z\)</span> so that they are comprehensible without measure theory. If you know measure theory, you can replace these with Lebesgue integrals with respect to the relevant dominating measure.</p>
-<p>The first step to imposing a structure that will be useful to us is to think in terms of density functions rather than distributions (measures). If all the elements of the model have densities, we can think of the model as a collection of densities. Since densities are functions, we might be tempted to say they are elements of <span class="math inline">\(\mathcal{L}_2\)</span> because then everything is great: we have lengths, we have angles, we have all sorts of useful identities and relationships. But unfortunately that’s not immediately possible. Recall <a href="5-2-L2.html#def-L2" class="quarto-xref">Definition&nbsp;<span>B.2</span></a> that <span class="math inline">\(\mathcal{L}_2\)</span> only includes functions that are square-integrable (have finite norm). However, there are some density functions for which <span class="math inline">\(\int p(z) \mathop{}\!\mathrm{d}z\)</span> may blow up.</p>
+<p>The first step to imposing a structure that will be useful to us is to think in terms of density functions rather than distributions (measures). If all the elements of the model have densities, we can think of the model as a collection of densities. Since densities are functions, we might be tempted to say they are elements of <span class="math inline">\(\mathcal{L}_2\)</span> because then everything is great: we have lengths, we have angles, we have all sorts of useful identities and relationships. But unfortunately that’s not immediately possible. Recall <a href="5-2-L2.html#def-L2" class="quarto-xref">Definition&nbsp;<span>B.2</span></a> that <span class="math inline">\(\mathcal{L}_2\)</span> only includes functions that are square-integrable (have finite norm). However, there are some density functions for which <span class="math inline">\(\int p(z)^2 \mathop{}\!\mathrm{d}z\)</span> blows up.</p>
 <div id="exm-non-L2-density" class="Exm theorem example">
 <p><span class="theorem-title"><strong>Example 4.4</strong></span> The function <span class="math inline">\(p(z) = \frac{1(0 &lt; z &lt;1)}{2\sqrt z}\)</span> is a valid density because it is positive and integrates to one:</p>
 <p><span class="math display">\[
@@ -1114,6 +1114,18 @@ s
 <div id="exr-scaled-score" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 4.8</strong></span> While it’s most helpful to think of scores as encoding “direction” within a model, scores also encode the “speed” at which a path goes.</p>
 <p>Presume that the score for a path <span class="math inline">\(\epsilon \mapsto p_\epsilon\)</span> is <span class="math inline">\(s\)</span>. In terms of <span class="math inline">\(s\)</span>, what is the score for the reparametrized path <span class="math inline">\(\epsilon \mapsto p_{c\epsilon}\)</span> for some <span class="math inline">\(c \in \mathbb{R}\)</span>? To solve this problem you can use the pointwise derivative version of the score for convenience. For intuition, note that for <span class="math inline">\(c &gt; 1\)</span>, the reparametrized path is the same as the original, just traversed “faster”, whereas for <span class="math inline">\(c \in (0,1)\)</span> it is the same path traversed more “slowly” (and for <span class="math inline">\(c&lt;0\)</span>, in reverse).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-unit-score" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 4.9</strong></span> Presume a path has a score such that <span class="math inline">\(\dot{\sqrt{p}} = \frac{1}{2} \sqrt{p} s\)</span> has unit norm in <span class="math inline">\(\mathcal{L}_2\)</span>. If we advance a very small amount <span class="math inline">\(\epsilon\)</span> along this path, approximately what is the <span class="math inline">\(\mathcal{L}_2\)</span> distance between <span class="math inline">\(\sqrt{p_\epsilon}\)</span> and <span class="math inline">\(\sqrt p\)</span>? <em>Hint: according to <a href="#def-score" class="quarto-xref">Definition&nbsp;<span>4.5</span></a>,</em> <span class="math inline">\(\frac{\sqrt{p_\epsilon} - \sqrt p}{\epsilon}\)</span> <em>is approximately what?</em></p>
 </div>
 </div>
 </div>

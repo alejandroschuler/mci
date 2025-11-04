@@ -66,9 +66,8 @@ format:
       - text: |
           \usepackage{dsfont}
 
-# finish counterfactual causality history
 # some soft exercises in counterfactual causality ch
+
 # add history sections to efficiency theory chapters
 # explain \dot f notation (at earliest use) as any linear function tangent to f shifted to orign (directional derivative; recall it w/ subsequent uses)
 # fix all the intro chapters / sections
-# add correlation vs causation pic from what it

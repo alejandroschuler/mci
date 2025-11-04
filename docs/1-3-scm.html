@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Nonparametric Structural Equations – Foundations of Modern Causal Inference</title>
+<title>3&nbsp; Structural Causal Models – Foundations of Modern Causal Inference</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -131,7 +131,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1-0-intro.html">Models and Estimands</a></li><li class="breadcrumb-item"><a href="./1-3-scm.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Nonparametric Structural Equations</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1-0-intro.html">Models and Estimands</a></li><li class="breadcrumb-item"><a href="./1-3-scm.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Structural Causal Models</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -180,13 +180,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1-2-causality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Counterfactual Causality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Counterfactuals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1-3-scm.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Nonparametric Structural Equations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Structural Causal Models</span></span></a>
   </div>
 </li>
       </ul>
@@ -260,15 +260,21 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#nonparametric-structural-equations" id="toc-nonparametric-structural-equations" class="nav-link active" data-scroll-target="#nonparametric-structural-equations"><span class="header-section-number">3.1</span> Nonparametric Structural Equations</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1-0-intro.html">Models and Estimands</a></li><li class="breadcrumb-item"><a href="./1-3-scm.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Nonparametric Structural Equations</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1-0-intro.html">Models and Estimands</a></li><li class="breadcrumb-item"><a href="./1-3-scm.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Structural Causal Models</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Nonparametric Structural Equations</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Structural Causal Models</span></h1>
 </div>
 
 
@@ -285,6 +291,43 @@ window.Quarto = {
 </header>
 
 
+<ul>
+<li><p>need for SCM: what gets a potential outcome?</p></li>
+<li><p>define SCM</p>
+<ul>
+<li>exogeneity/endogeneity, role of variables that are not shown in the model
+<ul>
+<li>general: don’t assume independent errors</li>
+</ul></li>
+<li>contrast with purely statistical model, much more intuitive</li>
+<li>demonstrate independence claim A Y(a) that we used “intuitively” in POs</li>
+<li>terminology: npSEM</li>
+<li><span class="citation" data-cites="peters2017elements">Peters, Janzing, and Schölkopf (<a href="6-references.html#ref-peters2017elements" role="doc-biblioref">2017</a>)</span> relating SCMs and physical models, thermodynamic arrow of time</li>
+</ul></li>
+<li><p>Graphical SCMs: can be drawn as a causal DAG and/or SWIG</p>
+<ul>
+<li>DAGs and independence</li>
+<li>bidirectional arrow b/t exogenous vars is a shorthand for common causes</li>
+<li>can’t see POs in DAGs</li>
+<li>&lt;— SCM instance —(equation I/O)—&gt; DAG &lt;—(factorization)— causal dists &lt;—(transformation of RVs)–</li>
+<li>importance of “single world”</li>
+</ul></li>
+<li><p>Causal Model:</p>
+<ul>
+<li>what is a model? A parametrized SCM or the set of SCMs over parametrizations of noise vars and structural functions… stuctural causal dist / dgp / causal generating process vs.&nbsp;structural causal model?</li>
+<li>technically, set of joint distribution of exogenous variables + some set of functions in the SCM =&gt; set of “joint” distribution of all POs, but can very well think just in terms of joint dist of all POs</li>
+<li>assumptions about noise are key in defining the models</li>
+<li>an “intervention” changes any given “point” in the SCM in a particular way</li>
+<li>do POs exist jointly?</li>
+</ul></li>
+<li><p>Causal Estimands: [should this go with identification? or models?]</p>
+<ul>
+<li>function of estimand(s) w/ domain = (possibly different) causal models (w/ same [exogenous] vars? can change fns… [malinksly])</li>
+<li>Pearl rungs of causal estimands</li>
+</ul></li>
+</ul>
+<section id="nonparametric-structural-equations" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="nonparametric-structural-equations"><span class="header-section-number">3.1</span> Nonparametric Structural Equations</h2>
 <p>In the previous section we introduced potential outcomes, addressed some general questions about how to interpret them, and got a preview of how assumptions or prior knoweldge can be used to overcome the fundamental problem of causal inference. We did this mainly in the context of a hypothetical study comparing two drugs. In this section we’ll formalize a few of the ideas we touched on in the last section by placing them into the broader framework of structural causal models.</p>
 <p>Along the way, we’ll show how to generalize potential outcomes beyond the single-timepoint binary treatment setting (like the drug study we discussed). Even if you are only interested in that setting, understanding how potential outcomes are used more broadly to define causal effects for continuous treatments, multiple treatments, mediation, and treatments that vary over time can be very helpful to shore up your understanding of how potential outcomes work at a fundamental level. We’ll also discuss censored data problems and domain transfer as alternative applications of similar ideas.</p>
 <p>Let’s start with the following definition:</p>
@@ -353,27 +396,15 @@ identification zoo
 - ATE / backdoor criterion, IV, RD, DiD, Mediation, RCT: https://link.springer.com/article/10.1007/s10654-025-01298-7
 practical stuff like defining the question, index times, immortal time, intercurrent events, ITT vs per protocol?
 -->
+</section>
 <section id="history-and-notes" class="level2 unnumbered unlisted">
 <h2 class="unnumbered unlisted anchored" data-anchor-id="history-and-notes">History and Notes</h2>
-<p>In the Western tradition, causality has been a topic of philosophical debate at least as far back as Aristotle <span class="citation" data-cites="aristotle-physics-ROT aristotle-metaphysics-ROT">(<a href="6-references.html#ref-aristotle-physics-ROT" role="doc-biblioref">Aristotle 1984b</a>, <a href="6-references.html#ref-aristotle-metaphysics-ROT" role="doc-biblioref">1984a</a>)</span>. Counterfactual theories of causality have more immediate roots in <span class="citation" data-cites="hume">Hume (<a href="6-references.html#ref-hume" role="doc-biblioref">1748</a>)</span> and <span class="citation" data-cites="mills">Mills (<a href="6-references.html#ref-mills" role="doc-biblioref">1843</a>)</span> – <span class="citation" data-cites="holland">Holland (<a href="6-references.html#ref-holland" role="doc-biblioref">1986</a>)</span> gives a concise review of these texts.</p>
-<p>brad hill criteria path analysis -&gt; SEM -&gt; npSEM (pearl) neyman ——&gt; Rubin potential outcomes all the ID stuff through the 90s to modern day (vanderweele, eric TT)</p>
+<p>path analysis -&gt; SEM -&gt; npSEM (pearl) FFRCISTG and SWIGs</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-aristotle-metaphysics-ROT" class="csl-entry" role="listitem">
-Aristotle. 1984a. <span>“Metaphysics.”</span> In <em>The Complete Works of Aristotle: The Revised Oxford Translation</em>, edited by Jonathan Barnes, translated by W. D. Ross, 2:1552–1728. Bollingen Series, LXXI-2. Princeton, NJ: Princeton University Press.
-</div>
-<div id="ref-aristotle-physics-ROT" class="csl-entry" role="listitem">
-———. 1984b. <span>“Physics.”</span> In <em>The Complete Works of Aristotle: The Revised Oxford Translation</em>, edited by Jonathan Barnes, translated by R. P. Hardie and R. K. Gaye, 1:315–446. Bollingen Series, LXXI-1. Princeton, NJ: Princeton University Press.
-</div>
-<div id="ref-holland" class="csl-entry" role="listitem">
-Holland, Paul W. 1986. <span>“Statistics and Causal Inference.”</span> <em>Journal of the American Statistical Association</em> 81 (396): 945–60.
-</div>
-<div id="ref-hume" class="csl-entry" role="listitem">
-Hume, David. 1748. <em>An Enquiry Concerning Human Understanding</em>.
-</div>
-<div id="ref-mills" class="csl-entry" role="listitem">
-Mills, John Stuart. 1843. <em>A System of Logic</em>.
+<div id="ref-peters2017elements" class="csl-entry" role="listitem">
+Peters, Jonas, Dominik Janzing, and Bernhard Schölkopf. 2017. <em>Elements of Causal Inference: Foundations and Learning Algorithms</em>. The MIT press.
 </div>
 </div>
 </section>
@@ -798,8 +829,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./1-2-causality.html" class="pagination-link" aria-label="Counterfactual Causality">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Counterfactual Causality</span></span>
+      <a href="./1-2-causality.html" class="pagination-link" aria-label="Counterfactuals">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Counterfactuals</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

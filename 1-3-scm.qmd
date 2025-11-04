@@ -12,18 +12,39 @@ library(magrittr)
 # Structural Causal Models
 
 * need for SCM: what gets a potential outcome?
+
 * define SCM
     * exogeneity/endogeneity, role of variables that are not shown in the model
-    * contrast with purely statistical model, much more intuitive, can be drawn as a causal DAG
-        * bidirectional arrow b/t exogenous vars is a shorthand for common causes
+        * general: don't assume independent errors
+    * contrast with purely statistical model, much more intuitive
     * demonstrate independence claim A \perp Y(a) that we used "intuitively" in POs
     * terminology: npSEM
+    * @peters2017elements relating SCMs and physical models, thermodynamic arrow of time
+
+* Graphical SCMs: can be drawn as a causal DAG and/or SWIG
+    * DAGs and independence
+    * bidirectional arrow b/t exogenous vars is a shorthand for common causes
+    * <--- SCM instance ---(equation I/O)---> DAG <---(factorization)--- a single-world dist <---(transformation of RVs)--
+    * can't see POs in observational DAGs
+    * PO dists defined by particular modifications of SCM instances
+    * SWIGs and importance of "single world" 
+    - exercise: draw Ivan's paper as SWIG
+
 * Causal Model: 
+    * what is a model? A parametrized SCM or the set of SCMs over parametrizations of noise vars and structural functions... stuctural causal dist / dgp / causal generating process vs. structural causal model?
     * technically, set of joint distribution of exogenous variables + some set of functions in the SCM => set of "joint" distribution of all POs, but can very well think just in terms of joint dist of all POs
-    * assumptions about noise are key in defining the model
-* Causal Estimands: 
-    * estimand w/ domain of causal model
+        * ex: observational model
+    * assumptions about noise are key in defining the models
+    * an "intervention" changes any given "point" in the SCM in a particular way
+    * do POs exist jointly?
+
+* Causal Estimands: [should this go with identification? or models?]
+    * function of estimand(s) w/ domain = (possibly different) causal models (w/ same [exogenous] vars? can change fns... [malinksly])
     * Pearl rungs of causal estimands
+
+* Missing data problems: censoring, pop shift/ transport
+
+GUINEA PIG DAG
 
 ## Nonparametric Structural Equations
 
@@ -99,9 +120,5 @@ practical stuff like defining the question, index times, immortal time, intercur
 
 ## History and Notes {.unnumbered .unlisted}
 
-In the Western tradition, causality has been a topic of philosophical debate at least as far back as Aristotle [@aristotle-physics-ROT; @aristotle-metaphysics-ROT]. Counterfactual theories of causality have more immediate roots in @hume and @mills -- @holland gives a concise review of these texts.
-
-brad hill criteria
 path analysis -> SEM -> npSEM (pearl)
-neyman ------> Rubin potential outcomes
-all the ID stuff through the 90s to modern day (vanderweele, eric TT)
+FFRCISTG and SWIGs

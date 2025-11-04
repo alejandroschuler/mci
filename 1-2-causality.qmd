@@ -231,7 +231,7 @@ The comparison between the $X \rightarrow Y$ and $X \leftarrow Y$ representation
 
 Again, this is an illusion. Distributions don't know anything at all about chemistry, measurements, or even time. They do not care about whether $X$ or $Y$ came first in the physical world. They merely represent the rates of co-occurence between different values of the variables across a hypothetically infinite number of observations. Nothing more and nothing less.
 
-I've presented my argument in terms of a distribution with two variables $X$ and $Y$ but absolutely nothing changes if we talk about distributions over more than two variables. Any probability distribution over $Z_1 \dots Z_p$ can be factored like
+Nothing changes for distributions of more than two variables. Any distribution of $Z_1 \dots Z_p$ factors like
 
 $$
 \p(Z_1 \dots Z_p) = \prod_j \p(Z_j| Z_{j-1} \dots Z_1)
@@ -330,7 +330,7 @@ The *causal* dataset.
 
 In some literature @tbl-obs is called the "science table", but I'll just call it the "causal data" or "counterfactual data". We imagine that these data would be drawn from a distribution $\p^*(Y(1), Y(0), A, X)$ that we call the *causal* distribution (you can also think of this as a causal dataset with infinite rows). I'll use the asterisk on probability distributions to show when they are defined over unobservable variables like potential outcomes.
 
-It helps me to think of the potential outcomes as pre-determined. For each person, I imagine that their futures under either drug are already set in stone, or that they have already played out in some other universes. The values of the potential outcomes $Y(1)$ and $Y(0)$ simply record the survival times in those two predestined futures. They both already exist before a treatment has even been prescribed. In other words, they are not temporally or mechanistically linked to the *observed* value of the treatment $A$, the decision that is made in *our* universe. The causal distribution $\p^*$ describes pure co-occurences between all these variables in the "multiverse".
+It helps to think of the potential outcomes as "pre-determined" at the time of treatment. You can imagine that each person's futures under either drug are already set in stone, or that they have already played out in some other universes. The values of the potential outcomes $Y(1)$ and $Y(0)$ simply record the survival times in those two predestined futures. They both already exist before a treatment has even been prescribed in our universe. In other words, they are not temporally or mechanistically linked to the *observed* value of the treatment $A$, the decision that is made in *our* universe. The causal distribution $\p^*$ describes pure co-occurences between all these variables in the "multiverse".
 
 Although we call it "causal", there is nothing special about a causal distribution: it is a standard probability distribution over the four separate random variables $Y(1)$, $Y(0)$, $A$, and $X$. Although the notation $Y(1)$ and $Y(0)$ for the potential outcomes makes these variables look a little different, they are just regular random variables. We could just as easily name them as $Z$ and $W$. The parenthetical notation $Y(a)$ (for $a$ some fixed value that $A$ takes) is meant to evoke the fact that the potential outcome $Y(a)$ is a "version" of the outcome $Y$ indexed by a possible treatment $a$. Other authors use subscripts or superscripts instead so you'll also see $Y_a$ and $Y^{(a)}$ throughout the literature. I personally prefer the parentheses so that sub/superscripts can be used for other purposes and so that the treatment value $a$ is more clearly visible.
 
@@ -352,23 +352,25 @@ Philosophers and scientistis have been debating causality for millenia. Most of 
 
 Shortly after the formalization of the potential outcomes framework, @holland argued that in order for a potential outcome to exist there must actually be a (hypothetical) real-world scenario in which that potential outcome could be observed. This position is referred to as the "interventionist" perspective because for something to be a "cause" it must correspond to an intervention that, in principle, could be enacted to observe a desired potential outcome. The position is concisely summarized by the maxim: "*no causation without manipulation*", coined by Donald Rubin and Paul Holland [@holland]. 
 
-In considering whether to give the new or old drug to our cancer patients, we could very easily have given any patient either drug in a hypothetical experiment. It's clear what real-world steps could have been taken to make this happen. But in other cases it's not so obvious. You can certainly say something like "Susan would get paid more if she were a man" or "Justin wouldn't have been pulled over if he were white". But what is the theoretical mechanism by which Susan could have possibly been a man or by which Justin could have been white? By this argument, something like "sex" or "race" cannot be a cause of anything because the relevant counterfactuals don't make sense.
+In considering whether to give the new or old drug to our cancer patients, we could very easily have given any patient either drug in a hypothetical experiment. It's clear what real-world steps could have been taken to make this happen, so, by the interventionist standard, giving the new drug can generate potential outcomes and thus be a "cause".
+
+But in other cases it's not so obvious. You can certainly say something like "Susan would get paid more if she were a man" or "Justin wouldn't have been pulled over if he were white". But what is the theoretical mechanism by which Susan could have possibly been a man or by which Justin could have been white? By this argument, something like "sex" or "race" cannot be a cause of anything because the relevant counterfactuals aren't clear.
 
 To some extent, these problems can be solved by using more precise language. Perhaps Susan would have been offered a higher salary if she had put a man's name on her resume -- we can easily imagine an experiment where participants obscure their gender identities from employers. Perhaps Justin would not have been pulled over if he had tinted windows in his car. Perhaps Susan would be paid more if, in utero, we had performed an as-yet undiscovered procedure to exchange X and Y chromosomes. But none of these is the same as "the causal effect of sex" or "the causal effect of race" -- those remain undefined because the concepts of "sex" and "race" are actually themselves not well-defined! 
 
 The interventionist position is useful because it forces us to think more carefully about our questions so that they address choices we can actually make in the real world. If we *were* to say that sex had a causal effect on wages, what is the meaningful action that we could take to acheive pay equality? It's not obvious. On the other hand, by thinking in terms of policies and actions (e.g., effect of gender-blinded interviews) rather than vague categories (e.g., effect of sex) we can ensure that the implications of research are more clear [@vanderweele2016commentary]. 
 
-On the other hand, there is always a tradeoff between generality and specificity. As a causal question becomes more specific, it often becomes more "interventionist" (as seen above). However, a more specific causal question is also less general and thus less useful. Maybe we don't care specifically about the effect of changing a name on a resume or any other feasible intervention because we don't think any of these things in any easily-enumerable combination would actually move the needle on an socially entrenched problem like structural racism or sexism [@glymour2014commentary; @kaufman2019commentary]. 
+On the other hand, there is always a tradeoff between generality and specificity. As a causal question becomes more specific, it often becomes more "interventionist" (as seen above). However, a more specific causal question is also less general and thus less useful. Maybe we don't care specifically about the effect of changing a name on a resume or any other feasible intervention because we don't think any of these things in any easily-enumerable combination would actually move the needle on a socially entrenched problem like structural racism or sexism [@glymour2014commentary; @kaufman2019commentary]. 
 
 Moreover, perhaps we should be able to talk about "attributes" as possible causes because the point may not be to identify a solution but to measure the scale of a problem. The interventionist retort is that racism and sexism (or obesity, poverty, etc.) are already widely understood to be problems. One more quantitative argument to that effect isn't going to change how things are, but understanding concrete interventions might. As a compromise, @pearl2019interpretation suggests that causal effects on vague or nonintervenable factors can still be usefully interpreted as an upper bound on any effect that could be achieved with a practical intervention. 
 
-In most cases there is a spectrum of possible causal questions that range from hyper-specific and interventionist to extremely vague and non-interventionist (see @hernan2016does for good examples). There is no point at which the "cause" of interest suddenly becomes objectively intervenable -- it is ultimately always a matter of subjective opinion where to draw that line. @rubin1986comment discusses hypothetically removing the sun from the solar system!
+In any case, there is always a spectrum of possible causal questions that range from hyper-specific and interventionist to extremely vague and non-interventionist (see @hernan2016does for good examples). There is no point at which the "cause" of interest suddenly becomes objectively intervenable -- it is ultimately always a matter of subjective opinion where to draw that line. @rubin1986comment discusses hypothetically removing the sun from the solar system!
 
-Another argument against interventionism is that it denies physical causality. Taken to its extreme, the interventionist position implies that a statement like "objects fall because of the Earth's gravity" actually has no causal content since there is no conceivable intervention by which we might remove gravity from the Earth. In fact, the maximal interventionist position necessarily implies that "causation" didn't even exist before there were humans to make choices (otherwise who is doing the intervening?) [@bollen2013eight]!
+A final argument against interventionism is that it denies physical causality. Taken to its extreme, the interventionist position implies that a statement like "objects fall because of the Earth's gravity" actually has no causal content since there is no conceivable intervention by which we might remove gravity from the Earth. In fact, the maximal interventionist position necessarily implies that "causation" didn't even exist before there were humans to make choices (otherwise who is doing the intervening?) [@bollen2013eight]!
 
 While much has been made of this debate, the two sides are largely in practical agreement. Even prototypical exponents of interventionism like @rubin1986comment and @vanderweele2016commentary clearly acknowledge that there can be some utility in ascribing causality to social attributes or even physical phenomena. On the opposite side, non-interventionist viewpoints like @kaufman2019commentary and @pearl2019interpretation easily concede the fact that thinking in terms of possible interventions helps keep research actionable. It's more helpful to think of these two positions as conceptual poles on a spectrum than as two different camps of people.
 
-This working consensus also makes sense if you agree that "causality" as we are discussing it is just a social construct that helps facilitate decision-making. It's a hard thing to wrap your head around, but causality itself need not be physically well-defined outside of language! Even if you believe in some modern physical theory like string theory or quantum loop gravity as "Truth", the concepts of causality in those systems are so mind-bendingly distant from human experience as to be useless [@causal-cone; @quantum-loop]. They have nothing to do with choices or "what-ifs". 
+This working consensus also makes sense if you agree that "causality" as we are discussing it is just a social construct that helps facilitate decision-making. Causality itself need not be physically well-defined outside of language! Even if you believe in some modern physical theory like string theory or quantum loop gravity as "Truth", the concepts of causality in those systems are so mind-bendingly distant from human experience as to be useless [@causal-cone; @quantum-loop]. They have nothing to do with choices or "what-ifs". 
 
 If counterfactual causality or even causality writ large are just useful fictions, then there is no need to be particularly dogmatic about whether potential outcomes can or cannot represent non-interventional scenarios. This cuts both ways. Those leaning towards interventionalism shouldn't drink so much of their own kool-aid that they start believing in the physical reality of potential outcomes. Those leaning against interventionalism shoudn't push back so hard that they insist on harmonizing counterfactual and physical causality. The focus should instead be on how to frame the causal question to best address the social-scientific need -- the best we can do is to be aware of the tradeoffs and context and use best judgement. 
 
@@ -407,7 +409,7 @@ Defining the potential outcomes from the version of treatment appearing in the d
 
 In fact, it doesn't make sense to use the symbol "$A$" in $Y(A)$ to refer to something different than the observed $A$. If the intervention in the causal question of interest is truly different than the observed treatment then it should get its own, possibly unobserved, random variable $\tilde A$. That clarifies that we can take $Y = Y(A)$ by definition (perhaps even if $A$ is non-intervenable), but it may be that $Y(A) \ne Y(\tilde A)$. In fact, the notation is somewhat deficient in this setting because setting $A=1$ and $\tilde A=1$ gives the ungrammatical $Y(1) \ne Y(1)$ -- what we really mean is that $Y_A(1) \ne Y_{\tilde A}(1)$ or $Y(A=1) \ne Y(\tilde A=1)$.
 
-In some cases, the precise meaning of $A=a$ can be implicit.
+In some cases, the meaning of $A=a$ can be even more obviously implicit.
 
 ::: {.Exm #exm-drug-classes}
 Presume that, in our drug example, there are actually many different "old" drugs that could have been prescribed. Suppose that a value of $A=0$ is recorded for any patient who is prescribed any of these old drugs, but we do not observe specifically which drug is given. 
@@ -421,13 +423,13 @@ In @exm-drug-classes, we likely do not know the actual treatment mechanism by wh
 
 Leaving the treatment defined implicitly isn't any worse of a transgression than letting the population of interest be implicitly defined, as it often is in much empirical work. There is always a tension between generality and specificity. Where the right tradeoff is depends on scientific context and mature judgement.
 
-Long story short, the consistency assumption can always be made to hold by correctly defining the potential outcomes with reference to the observed treatment. However, this may make the result difficult to interpret or less scientifically meaningful. When this tension arises it is usually best resolved by more accurately modeling the treatment of interest, e.g. by adding in treatment adherence (or treatment type over time) and/or the specific drug prescribed as variables. Once those variables are defined we can more faithfully describe the interventions of interest. In the next chapter we'll learn how do this in a principled way.
+Long story short, the consistency assumption can always be made to hold by correctly defining the potential outcomes with reference to the observed treatment. However, this may make the result difficult to interpret or less scientifically meaningful. When this tension arises it is usually best resolved by more accurately modeling the treatment of interest, e.g. by adding in treatment adherence (or treatment type over time) and/or the specific drug prescribed as variables. Once those variables are defined, the interventions of interest can be described more faithfully. In the next chapter we'll learn how do this in a principled way.
 
 ## Overcoming the Fundamental Problem
 
-Not being able to observe both potential outcomes for each individual seems like an insurmountable problem, but the fundamental problem of causal inference can actually be overcome in many different ways. The key in all cases is to have or assume some prior domain knowledge of the hypothetical causal distribution. The process of leveraging these assumptions to pinpoint a causal effect from observable data is called *causal identification*. We'll talk a lot more about causal identification later on but I'll give you a brief preview so you have an idea of where we're going.
+Not being able to observe both potential outcomes for each individual seems like the end of the road, but the fundamental problem of causal inference can actually be overcome in many different ways. The key in all cases is to have or assume some prior domain knowledge of the hypothetical causal distribution. The process of leveraging these assumptions to pinpoint a causal effect from an observable data distribution is called *causal identification*. We'll talk a lot more about causal identification later on but I'll give you a brief preview so you have an idea of where we're going.
 
-Returning to our running example, suppose that the observed patient database was actually the result of running a *randomized trial*. Specifically, suppose we know for a fact that each patient's treatment (new or old drug) was determined by the result of a fair coin flip. With this additional knowledge, we can recover the average of potential outcomes $\E[Y(a)]$ under either treatment even though we only get to see the observed outcome $Y$. 
+Returning to our running example, suppose that the observed patient database was actually the result of running a *randomized trial*. Specifically, suppose we knew for a fact that each patient's treatment (new or old drug) was determined by the result of a fair coin flip. With this additional knowledge, we could recover the average of potential outcomes $\E[Y(a)]$ under either treatment even though we only see the observed outcome $Y$. 
 
 Letting either $a=1$ or $a=0$,
 
@@ -438,15 +440,13 @@ $$
 \end{aligned}
 $$
 
-Neither of these equalities is immediately obvious if you're not familiar with potential outcomes so let's walk through them. 
-
-The first equality is
+Neither of these equalities is immediately obvious if you're not familiar with potential outcomes so let's walk through them. The first equality is
 
 $$
 \E_{\p^*}[Y(a)] = \E_{\p^*}[Y(a)|A=a],
 $$ 
 
-which is the crucial step where we exploit our knowledge of the data-generating process. This equality holds because the randomization of the treatment $A$ makes it statistically independent of all other variables measured at or before that time. Since the potential outcomes are considered "pre-existing", $Y(a) \perp A$. By definition, then, $\p^*(Y(a)) = \p^*(Y(a)|A)$ which in turn implies $\E_{\p^*}[Y(a)] = \E_{\p^*}[Y(a)|A=a]$. 
+which is the crucial step where we exploit our knowledge of the data-generating process. This equality holds because the randomization of the treatment $A$ makes it statistically independent of all other variables measured at or before that time, including the potential outcomes $Y(a)$. Therefore $Y(a) \perp A$ which implies $\p^*(Y(a)) = \p^*(Y(a)|A)$ which in turn implies $\E_{\p^*}[Y(a)] = \E_{\p^*}[Y(a)|A=a]$. 
 
 Again, the *only* reason we can verify this equality is because we have existing knowledge about the data-generating process: in this case, the fact that treatment was randomized.
 
@@ -458,7 +458,118 @@ But we ended with the estimand $\E_{\p}[Y|A=a]$ which is defined *purely in term
 
 It's useful to understand why, barring randomization, the average outcome among people taking the new drug ($\E[Y|A=1]$) might *not* be equal to the average outcome if *everyone* were to take the new drug ($\E[Y(1)]$). One scenario could be that the new drug is very expensive and therefore only ends up being taken by people with high income. These people are likelier to have better health in general or be diagnosed at an earlier stage of disease and therefore have longer survival times regardless of what drug they take. Essentially $\E[Y|A=1] \ne \E[Y(1)]$ because the subset of people on the new drug $A=1$ in the population is not representative of the general population. 
 
-Randomization resolves the issue algebraically, as we have seen, but also intuitively because it ensures that the population treated with the new drug $A=1$ is statistically identical to the general population. If everyone has equal chance of getting either drug, there is no reason for either group to look systematically different from the overall population.
+::: {#fig-correlation-causation}
+``` tikz
+\begin{tikzpicture}[>=Latex, line width=0.9pt]
+
+% ----- split parameter (touch point along TR edge) -----
+\def\alpha{0.38}
+
+% ----- reusable pics (same scale everywhere) -----
+\tikzset{
+  pics/diamond_outline/.style={
+    code={
+      \coordinate (T0) at (0, 1);
+      \coordinate (R0) at (1, 0);
+      \coordinate (B0) at (0,-1);
+      \coordinate (L0) at (-1,0);
+      \draw (T0)--(R0)--(B0)--(L0)--cycle;
+    }
+  },
+  pics/diamond_filled/.style={
+    code={
+      \coordinate (T0) at (0, 1);
+      \coordinate (R0) at (1, 0);
+      \coordinate (B0) at (0,-1);
+      \coordinate (L0) at (-1,0);
+      \fill[gray!30] (T0)--(R0)--(B0)--(L0)--cycle;
+      \draw (T0)--(R0)--(B0)--(L0)--cycle;
+    }
+  },
+  pics/region_white/.style={
+    code={
+      \coordinate (T0) at (0, 1);
+      \coordinate (R0) at (1, 0);
+      \coordinate (B0) at (0,-1);
+      \coordinate (L0) at (-1,0);
+      \coordinate (U0) at ($ (T0)!\alpha!(R0) $);
+      \draw (T0)--(U0)--(B0)--(L0)--cycle;
+    }
+  },
+  pics/region_gray/.style={
+    code={
+      \coordinate (T0) at (0, 1);
+      \coordinate (R0) at (1, 0);
+      \coordinate (B0) at (0,-1);
+      \coordinate (L0) at (-1,0);
+      \coordinate (U0) at ($ (T0)!\alpha!(R0) $);
+      \fill[gray!30] (U0)--(R0)--(B0)--cycle;
+      \draw (U0)--(R0)--(B0)--cycle;
+    }
+  }
+}
+
+% ----- title -----
+\node[font=\bfseries\Large] at (0,6.6) {Population};
+
+% ----- TOP: population diamond (with clipped wedge) -----
+\begin{scope}[shift={(0,5.0)}]
+  \coordinate (T0) at (0, 1);
+  \coordinate (R0) at (1, 0);
+  \coordinate (B0) at (0,-1);
+  \coordinate (L0) at (-1,0);
+  \coordinate (U0) at ($ (T0)!\alpha!(R0) $);
+
+  \begin{scope}
+    \clip (T0)--(R0)--(B0)--(L0)--cycle;
+    \fill[gray!30] (U0)--(R0)--(B0)--cycle;
+  \end{scope}
+  \draw (T0)--(R0)--(B0)--(L0)--cycle;
+\end{scope}
+
+% branch labels (moved up/out from arrows and diamond)
+\node at (-2,5.5) {old drug};
+\node at ( 2,5.5) {new drug};
+
+% arrows down
+\draw[-{Latex[length=3mm]}] (-0.5,4.5) -- (-4.2,2.3);
+\draw[-{Latex[length=3mm]}] ( 0.5,4.5) -- ( 4.2,2.3);
+
+% ----- Association -----
+\node[font=\bfseries\Large] at (-4,3.7) {Correlation};
+
+\begin{scope}[shift={(-5.0,1.4)}]
+  \pic {region_white}; % old drug
+\end{scope}
+\begin{scope}[shift={(-3.0,1.4)}]
+  \pic {region_gray};  % new drug
+\end{scope}
+
+% moved slightly lower so they don't touch the shapes
+\node at (-5.0,0.15) {old drug};
+\node at (-3.0,0.15) {new drug};
+
+% ----- Causation -----
+\node[font=\bfseries\Large] at (4,3.7) {Causation};
+
+\begin{scope}[shift={(2.8,1.4)}]
+  \pic {diamond_outline}; % old drug
+\end{scope}
+\begin{scope}[shift={(5.2,1.4)}]
+  \pic {diamond_filled};  % new drug
+\end{scope}
+
+% moved slightly lower
+\node at ( 2.8,0.15) {old drug};
+\node at ( 5.2,0.15) {new drug};
+
+\end{tikzpicture}
+```
+
+A cartoon of the difference between conditioned averages of the observable outcome and the averages of potential outcomes. Adapted from @what-if.
+:::
+
+Randomization resolves the issue algebraically, as we have seen, but also intuitively because it ensures that the population treated with the new drug $A=1$ is statistically identical to the general population. If everyone has equal chance of getting either drug, there is no reason for either group to look systematically different from the overall population and the two contrasts in @fig-correlation-causation are equivalent.
 
 :::: {.callout-important appearance='minimal'}
 ::: {#exr-pot-outcomes}
@@ -485,4 +596,4 @@ In the coming chapters we'll discuss many other prior-knowledge scenarios beside
 
 ## History and Notes {.unnumbered .unlisted}
 
-In the Western tradition, causality has been a topic of philosophical debate at least as far back as Aristotle [@aristotle-physics-ROT; @aristotle-metaphysics-ROT]. Counterfactual theories of causality have more immediate roots in @hume and @mills -- @holland gives a concise review of these texts. @neyman1923 gave the first account of counterfactuals in the language of statistics, although his presentation was limited to randomized experiments. Donald Rubin consolidated and extended this theory in a series of papers in the 70s starting with @rubin1974estimating. 
+In the Western tradition, causality has been a topic of philosophical debate at least as far back as Aristotle [@aristotle-physics-ROT; @aristotle-metaphysics-ROT]. Counterfactual theories of causality have more immediate roots in @hume and @mills -- @holland gives a concise review of these texts. @neyman1923 gave the first account of potential outcomes in the language of statistics, although his presentation was limited to randomized experiments. Donald Rubin consolidated and extended this theory in a series of papers in the 70s starting with @rubin1974estimating. 

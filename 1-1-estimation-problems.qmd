@@ -40,7 +40,7 @@ To make progress on this front we have to formalize some ideas. We'll start with
 
 The variables $X$, $W$, $Y$, or whatever other symbols we choose to use, represent the different kinds of measurements we take in the study, and the indices $i$ represent the different units of observation. Therefore $X_i$ represents the value of variable $X$ for observation $i$. For example, if we were interested in the effect of a drug, the different observations might correspond to different patients, $W$ their ages, $X$ whether or not they took the drug, and $Y$ some measure of their health afterwards. We presume that all of these values are numbers and I'll usually use calligraphic letters to denote their domains, e.g., $\mathcal X$ is the domain of $X$. These domains are always subsets of the reals $\reals$ - categorical and binary variables are represented with sets of integers and $\{0,1\}$, respectively. Generally I'll let $Z_i$ denote the tuple of all the different measurements for a particular observation $i$ (e.g., $Z_i = (X_i,W_i,Y_i)$) and if I write $Z$ without the subscript I'm referring to a generic or arbitrary observation.
 
-In statistics we imagine that the data are a draw from an unknown *distribution* $\p^n$ over all $n$ variables $Z_1 \dots Z_n$ that generates the dataset. We'll use blackboard boldface notation $\p$ to denote distributions. A distribution of a random variable $Z$ assigns a probability value in $[0,1]$ to subsets of the $\mathcal Z$, the domain of $Z$. As is usual, I'll use capital letters like $Z$ to refer to random variables and small letters like $z$ to refer to particular fixed values. I'll use the curly-brace notation $\p\{\mathcal S\}$ or $\p\{Z \in \mathcal S\}$ to indicate the probability of a set $\mathcal S \subset \mathcal Z$. In a mild and ubiquitous abuse of notation I'll also write $\p\{Z \le z\}$, etc. to denote what should formally and tediously be written as $\p\{ \{ z' \in \mathcal Z: z' \le z \} \}$.
+In statistics we imagine that the data are a draw from an unknown *distribution* $\p^n$ over all $n$ variables $Z_1 \dots Z_n$ that generates the dataset. We'll use blackboard boldface notation $\p$ to denote distributions. A distribution of a random variable $Z$ assigns a probability value in $[0,1]$ to subsets of $\mathcal Z$, the domain of $Z$. As is usual, I'll use capital letters like $Z$ to refer to random variables and small letters like $z$ to refer to particular fixed values. I'll use the curly-brace notation $\p\{\mathcal S\}$ or $\p\{Z \in \mathcal S\}$ to indicate the probability of a set $\mathcal S \subset \mathcal Z$. In a mild and ubiquitous abuse of notation I'll also write $\p\{Z \le z\}$, etc. to denote what should formally and tediously be written as $\p\{ \{ z' \in \mathcal Z: z' \le z \} \}$.
 
 ::: {#fig-roadmap-1}
 ``` tikz
@@ -1013,7 +1013,7 @@ There are always multiple estimators for any given estimand. If $\hat\Psi_1$ and
 :::: {#exm-ols-v-rf .Exm}
 ##### OLS vs. Random Forest
 
-Presume we observe $(Y,X) \in \reals \times \reals$ data and we're interested in generalized regression coefficient that we discussed in @exm-estimand-reg-coef:
+Presume we observe $(Y,X) \in \reals \times \reals$ data and we're interested in the generalized regression coefficient that we discussed in @exm-estimand-reg-coef:
 
 $$
 \Psi(\p) = \E_\p[\mu_\p(X+1)- \mu_\p(X)]
