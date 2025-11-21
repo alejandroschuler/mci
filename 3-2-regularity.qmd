@@ -99,7 +99,7 @@ At this point, you may be worried about how you can take your favorite estimator
 
 ### Benefits of AL Estimators {#sec-AL-benefits}
 
-Given our desiderata, asymptotically linear (AL) estimators are a very sensible class of estimators to restrict ourselves to. For one, AL estimators are guaranteed to be consistent. This is due to the fact that any influence function $\phi$ is mean-zero, so the associated sample mean $\mathbb{P}_n\phi$ converges to 0 by the law of large numbers.
+Given our desiderata, asymptotically linear (AL) estimators are a very sensible class of estimators to restrict ourselves to. For one, AL estimators are guaranteed to be consistent. This is guaranteed by the fact that any influence function $\phi$ is mean-zero, so the associated sample mean $\mathbb{P}_n\phi$ converges to 0 by the law of large numbers.
 
 :::: {.callout-important appearance="minimal"}
 ::: {#exr-AL-zero-estimator}
